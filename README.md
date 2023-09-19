@@ -164,11 +164,11 @@ Subsequently you can access the lab node on the external port for your given ins
 
 | Group ID | hostname instance |
 | --- | --- |
-| **X** | **X**.srexperts.net |
+| **X** | **X**.dcfpartnerws.net |
 
 In the example above, accessing PE1 would be possible by: 
 ```
-ssh admin@X.srexperts.net -p 50085
+ssh admin@1.dcfpartnerws.net -p 50085
 ```
 
 In the example above, accessing grafana would be possible browsing towards **http://X.srexperts.net:50082** (where X is the group ID you've been allocated)
@@ -181,15 +181,15 @@ If you would like to work locally on your personal device you should clone this 
 
 > HTTPS
 ```
-git clone https://github.com/nokia/SReXperts.git
+git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
 ```
 > SSH
 ```
-git clone git@github.com:nokia/SReXperts.git
+git clone git@github.com:srlinuxeurope/DCFPartnerHackathon.git
 ```
 > GH CLI
 ```
-gh repo clone nokia/SReXperts
+gh repo clone srlinuxeurope/DCFPartnerHackathon
 ```
 ## Useful links
 

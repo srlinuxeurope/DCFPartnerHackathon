@@ -82,7 +82,7 @@ For explanatory purposes, suppose we want to deploy the sros-generic-lab:
 
 Change directories
 ```
-cd $HOME/SReXperts/Hackathon/sros-generic-lab
+cd $HOME/DCFPartnerHackathon/srl-generic-lab
 ```
 Execute the `containerlab deploy` command
 ```
@@ -101,31 +101,27 @@ To access the lab nodes from within the VM, users should identify the names of t
 ```
 sudo containerlab inspect
 INFO[0000] Parsing & checking topology file: sros-generic-lab.clab.yml
-+----+--------------------------------+--------------+------------------------------------+---------+---------+-----------------+-----------------------+
-| #  |              Name              | Container ID |               Image                |  Kind   |  State  |  IPv4 Address   |     IPv6 Address      |
-+----+--------------------------------+--------------+------------------------------------+---------+---------+-----------------+-----------------------+
-|  1 | clab-sros-srx2023-ce1          | 6897dc97fcd4 | vr-sros:23.7.R1                    | vr-sros | running | 172.20.20.5/24  | 2001:172:20:20::5/64  |
-|  2 | clab-sros-srx2023-ce2          | 413d88e63176 | vr-sros:23.7.R1                    | vr-sros | running | 172.20.20.16/24 | 2001:172:20:20::10/64 |
-|  3 | clab-sros-srx2023-ce3          | c21eb08d85dc | vr-sros:23.7.R1                    | vr-sros | running | 172.20.20.4/24  | 2001:172:20:20::4/64  |
-|  4 | clab-sros-srx2023-ce4          | 7e9e6c61403f | vr-sros:23.7.R1                    | vr-sros | running | 172.20.20.9/24  | 2001:172:20:20::9/64  |
-|  5 | clab-sros-srx2023-consul-agent | 75e5ac0d733a | consul:1.15                        | linux   | running | 172.20.20.8/24  | 2001:172:20:20::8/64  |
-|  6 | clab-sros-srx2023-gnmic        | 1bee5f2032e6 | ghcr.io/openconfig/gnmic           | linux   | running | 172.20.20.12/24 | 2001:172:20:20::c/64  |
-|  7 | clab-sros-srx2023-grafana      | 51e63ca2aad7 | grafana/grafana:latest             | linux   | running | 172.20.20.14/24 | 2001:172:20:20::e/64  |
-|  8 | clab-sros-srx2023-pe1          | 69903c0afb93 | vr-sros:23.7.R1                    | vr-sros | running | 172.20.20.6/24  | 2001:172:20:20::6/64  |
-|  9 | clab-sros-srx2023-pe2          | 6a9878a43e6b | vr-sros:23.7.R1                    | vr-sros | running | 172.20.20.15/24 | 2001:172:20:20::f/64  |
-| 10 | clab-sros-srx2023-pe3          | 46b0b66e2267 | vr-sros:23.7.R1                    | vr-sros | running | 172.20.20.10/24 | 2001:172:20:20::a/64  |
-| 11 | clab-sros-srx2023-pe4          | 576306a09a26 | vr-sros:23.7.R1                    | vr-sros | running | 172.20.20.7/24  | 2001:172:20:20::7/64  |
-| 12 | clab-sros-srx2023-prometheus   | f3d43e60670b | prom/prometheus:latest             | linux   | running | 172.20.20.11/24 | 2001:172:20:20::b/64  |
-| 13 | clab-sros-srx2023-rs1          | c411b6a25593 | ghcr.io/srl-labs/network-multitool | linux   | running | 172.20.20.3/24  | 2001:172:20:20::3/64  |
-| 14 | clab-sros-srx2023-tg1          | e91466614108 | ghcr.io/srl-labs/network-multitool | linux   | running | 172.20.20.2/24  | 2001:172:20:20::2/64  |
-| 15 | clab-sros-srx2023-tg2          | c73b6adbada9 | ghcr.io/srl-labs/network-multitool | linux   | running | 172.20.20.13/24 | 2001:172:20:20::d/64  |
-+----+--------------------------------+--------------+------------------------------------+---------+---------+-----------------+-----------------------+
+INFO[0000] Parsing & checking topology file: srl-generic.clab.yml 
++----+-------------------------+--------------+------------------------------+---------------+---------+----------------+--------------+
+| #  |          Name           | Container ID |            Image             |     Kind      |  State  |  IPv4 Address  | IPv6 Address |
++----+-------------------------+--------------+------------------------------+---------------+---------+----------------+--------------+
+|  1 | clab-srl-generic-h1     | 2be75127cd0f | ghcr.io/srl-labs/alpine      | linux         | running | 172.20.0.31/24 | N/A          |
+|  2 | clab-srl-generic-h2     | 8d96d3078599 | ghcr.io/srl-labs/alpine      | linux         | running | 172.20.0.32/24 | N/A          |
+|  3 | clab-srl-generic-h3     | 7d8c71ad7434 | ghcr.io/srl-labs/alpine      | linux         | running | 172.20.0.33/24 | N/A          |
+|  4 | clab-srl-generic-h4     | 180a2abb7958 | ghcr.io/srl-labs/alpine      | linux         | running | 172.20.0.34/24 | N/A          |
+|  5 | clab-srl-generic-leaf1  | 085498a8fba0 | ghcr.io/nokia/srlinux:23.7.1 | nokia_srlinux | running | 172.20.0.11/24 | N/A          |
+|  6 | clab-srl-generic-leaf2  | 0d6afcf5cd72 | ghcr.io/nokia/srlinux:23.7.1 | nokia_srlinux | running | 172.20.0.12/24 | N/A          |
+|  7 | clab-srl-generic-leaf3  | d5794eb6b404 | ghcr.io/nokia/srlinux:23.7.1 | nokia_srlinux | running | 172.20.0.13/24 | N/A          |
+|  8 | clab-srl-generic-leaf4  | 6b3bf9ba8949 | ghcr.io/nokia/srlinux:23.7.1 | nokia_srlinux | running | 172.20.0.14/24 | N/A          |
+|  9 | clab-srl-generic-spine1 | c92c00cb95f0 | ghcr.io/nokia/srlinux:23.7.1 | nokia_srlinux | running | 172.20.0.21/24 | N/A          |
+| 10 | clab-srl-generic-spine2 | bfcdb9f31e22 | ghcr.io/nokia/srlinux:23.7.1 | nokia_srlinux | running | 172.20.0.22/24 | N/A          |
++----+-------------------------+--------------+------------------------------+---------------+---------+----------------+--------------+
 ```
 Using the names from the above output, we can login to the a node using the following command:
 
-For example to access node `clab-sros-srx2023-pe1` via ssh simply type:
+For example to access node `clab-srl-generic-leaf1` via ssh simply type:
 ```
-ssh admin@clab-sros-srx2023-pe1
+ssh admin@clab-srl-generic-leaf1
 ```
 
 #### Accessing the lab via Internet

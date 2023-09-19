@@ -1,32 +1,33 @@
-# Welcome at the hackathon @ SReXperts!
+# Welcome at the hackathon @ DC Fabric Partner Workshop!
 
 This README is your starting point into the hackathon, it should get you familiar with the lab environment provided by Nokia, and provide an overview of the suggested sample labs.
 
-During the afternoon you will work in groups (or alone if you prefer) on any project that you are inspired to tackle or on one of the pre-provided projects of varying difficulty.
+During the morning you will work in groups (or alone if you prefer) on any project that you are inspired to tackle or on one of the pre-provided projects of varying difficulty.
 
 As long as you have a laptop with the ability to SSH we have example projects and lab topologies to help you progress if you don’t have something specific already in mind.   
 
-Need help, not a problem, pop your hand in the air and an eager expert will be there to guide you. 
+Need help, not a problem, pop your hand in the air and an eager expert will be there to guide you!
 
 ## Lab Environment
 If everything went according to plan, you should have received a physical piece of paper which contains:
 - a group ID allocated to your group (or to yourself if you're working alone)
-- SSH credentials to a public cloud instance dedicated to your group. 
-- HTTP URL's towards this repo and access to a web based IDE in case you don't have one installed on your operating system.
+- SSH credentials to a VM instance (hosted in Nokia Local Lab.) dedicated to your group. 
+- HTTP URL's towards this repo and access to a web based IDE (vs-code) in case you don't have one installed on your operating system.
 
 > <p style="color:red">!!! Make sure to backup any code, config, ... <u> offline (e.g your laptop)</u>. 
-> The public cloud instances will be destroyed once the hackathon is concluded.</p>
+> The VM instances might be destroyed once the hackathon is concluded.</p>
 
 ### Group ID
 
 Please refer to the paper provided by the hackathon session leader. If nothing has been provided, not a problem, pop your hand in the air and an eager expert will be there to allocate one for you. 
 
-| Group ID | hostname instance |
-| --- | --- |
-| 1 | 1.srexperts.net |
-| 2 | 2.srexperts.net |
-| ... | ... |
-| **X** | **X**.srexperts.net |
+There will be 6 VM instances available and the allocation is the following:
+| Group ID | hostname instance | ip address |
+| --- | --- | ---|
+| 1 | 1.dcfpartnerws.net | 10.11.0.2***1*** |
+| 2 | 2.dcfpartnerws.net | 10.11.0.2***2*** |
+| ... | ... | ...|
+| **6** | **6**.dcfpartnerws.net | 10.11.0.2***6*** |
 
 ### SSH
 
@@ -52,50 +53,29 @@ Each pre-provided project comes with a README of it's own, please click the pre-
 
 | Link to pre-provided project | Difficulty |
 | --- | --- |
-| [Standard SR OS](./sros-generic-lab/) | # |
 | [Standard SR Linux](./srl-generic-lab/) | # |
-| [Secure BGP Peering in IXPs](./ix-rpki-lab/) | #### |
 | [SR Linux Streaming Telemetry](./srl-telemetry-lab/) | ## |
 | [SR Linux JSON-RPC with Ansible](./srl-ansible-lab/) | ## |
 | [Config Management with gNMI](./srl-sros-gnmi-config-lab/) | ### |
-| [Certificate Management](./sros-gnoi-cert-mgmt-lab/) | ###  |
-| [SR OS command customization](./sros-command-customization/) | # |
-| [SR OS pySROS device correlation](./sros-pysros-device-correlation/) | ## |
-| [SR OS pySROS enhanced login](./sros-pysros-enhanced-login-banner/) | # |
-| [SR OS Python scripts for BNG customization](./sros-bng/) | ### |
-| [SR OS pySROS stateful show commands](./sros-stateful-show/) | # |
-| [SR OS event handling](./sros-event-handling/) | #### |
+| [SRLinux and k8s Metal LB integration](./srl-k8s-anycast-lab/) | ### |
 
 ### Deploying a project
 When accessing your hackathon VM instance you'll see the following bootstrapped environment.
-the SReXperts directory is a git clone of this repository.
+the DCFPartnerHackathon directory is a git clone of this repository.
 
 ``` 
 ~$ ls
-SReXperts  go
+DCFPartnerHackathon
 
-~$ cd SReXperts/
+~$ cd DCFPartnerHackathon/
 
-~/SReXperts$ cd Hackathon/
-
-~/SReXperts/Hackathon$ ls -1
+~/DCFPartnerHackathon$ ls -1
 README.md
-ix-rpki-lab
-pysros_primer
 srl-ansible-lab
 srl-generic-lab
 srl-sros-gnmi-config-lab
 srl-telemetry-lab
-sros-bng
-sros-command-customization
-sros-event-handling
-sros-generic-lab
-sros-gnoi-cert-mgmt-lab
-sros-pysros-device-correlation
-sros-pysros-enhanced-login-banner
-sros-stateful-show
-
-~/SReXperts/Hackathon$
+~/DCFPartnerHackathon$
 ```
 
 For explanatory purposes, suppose we want to deploy the sros-generic-lab:

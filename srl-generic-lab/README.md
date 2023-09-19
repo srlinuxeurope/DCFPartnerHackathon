@@ -33,6 +33,7 @@ Hosts are connected to the respective overlay services as per the diagram below:
 Deploy the topology with containerlab.
 
 ```bash
+cd $HOME/DCFPartnerHackathon/srl-generic-lab
 sudo containerlab deploy -c -t srl-generic.clab.yml
 ```
 

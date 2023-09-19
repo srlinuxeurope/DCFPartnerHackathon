@@ -133,22 +133,25 @@ With the `show-ports` command executed on a VM you get a list of mappings betwee
 
 ```
 ~$ show-ports
-Name                            Forwarded Ports
-clab-sros-srx2023-ce1           50095 -> 22, 50094 -> 830, 50093 -> 57400
-clab-sros-srx2023-ce2           50088 -> 22, 50087 -> 830, 50086 -> 57400
-clab-sros-srx2023-ce3           50098 -> 22, 50097 -> 830, 50096 -> 57400
-clab-sros-srx2023-ce4           50091 -> 22, 50090 -> 830, 50089 -> 57400
-clab-sros-srx2023-consul-agent  50092 -> 8500, 50003 -> 8600
-clab-sros-srx2023-grafana       50082 -> 3000
-clab-sros-srx2023-pe1           50085 -> 22, 50084 -> 830, 50083 -> 57400
-clab-sros-srx2023-pe2           50107 -> 22, 50106 -> 830, 50105 -> 57400
-clab-sros-srx2023-pe3           50101 -> 22, 50100 -> 830, 50099 -> 57400
-clab-sros-srx2023-pe4           50104 -> 22, 50103 -> 830, 50102 -> 57400
-clab-sros-srx2023-prometheus    50081 -> 9090
+NAMES                PORTS
+clab-st-spine2       50113->22/tcp, 50113->22/tcp, 50112->57400/tcp, 50112->57400/tcp
+clab-st-leaf3        50111->22/tcp, 50111->22/tcp, 50110->57400/tcp, 50110->57400/tcp
+clab-st-gnmic        
+clab-st-client3      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
+clab-st-spine1       50109->22/tcp, 50109->22/tcp, 50108->57400/tcp, 50108->57400/tcp
+clab-st-client1      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
+clab-st-client2      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
+clab-st-grafana      50107->3000/tcp, 50107->3000/tcp
+clab-st-leaf2        50102->22/tcp, 50102->22/tcp, 50101->57400/tcp, 50101->57400/tcp
+clab-st-syslog       6514/tcp, 5514/udp, 6601/tcp
+clab-st-prometheus   50105->9090/tcp, 50105->9090/tcp
+clab-st-loki         50106->3100/tcp, 50106->3100/tcp
+clab-st-leaf1        50104->22/tcp, 50104->22/tcp, 50103->57400/tcp, 50103->57400/tcp
+clab-st-promtail     
 ```
 
 Each service exposed on a lab node gets a unique external port number as per the table above. 
-In the given case, Grafana's web interface is available on port 50082 of the VM which is mapped to Grafana's node internal port of 3000.
+In the given case, Grafana's web interface is available on port 50107 of the VM which is mapped to Grafana's node internal port of 3000.
 
 The following table shows common container internal ports and is meant to help you find the correct exposed port for the services.
 
@@ -166,12 +169,12 @@ Subsequently you can access the lab node on the external port for your given ins
 | --- | --- |
 | **X** | **X**.dcfpartnerws.net |
 
-In the example above, accessing PE1 would be possible by: 
+In the example above, accessing Leaf1 would be possible by: 
 ```
-ssh admin@1.dcfpartnerws.net -p 50085
+ssh admin@1.dcfpartnerws.net -p 50104
 ```
 
-In the example above, accessing grafana would be possible browsing towards **http://X.srexperts.net:50082** (where X is the group ID you've been allocated)
+In the example above, accessing grafana would be possible browsing towards **http://X.srexperts.net:50107** (where X is the group ID you've been allocated)
 
 Optional:
 > You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.

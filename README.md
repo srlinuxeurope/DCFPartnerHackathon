@@ -165,7 +165,7 @@ Subsequently you can access the lab node on the external port for your given ins
 | Group ID | hostname instance |
 | --- | --- |
 | **X** | **X**.dcfpartnerws.net |
-
+ls -
 In the example above, accessing PE1 would be possible by: 
 ```
 ssh admin@1.dcfpartnerws.net -p 50085

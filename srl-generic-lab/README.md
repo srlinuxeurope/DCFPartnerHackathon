@@ -47,20 +47,21 @@ To get the list of ports allocated by containerlab:
 # example of show-ports output
 # note, that the port numbers can be different in your case
 $ show-ports
-Name                            Forwarded Ports
-clab-srl-generic-h1             50126 -> 22
-clab-srl-generic-h2             50117 -> 22
-clab-srl-generic-h3             50125 -> 22
-clab-srl-generic-h4             50118 -> 22
-clab-srl-generic-leaf1          50116 -> 22, 50115 -> 80, 50114 -> 57400
-clab-srl-generic-leaf2          50110 -> 22, 50109 -> 80, 50108 -> 57400
-clab-srl-generic-leaf3          50124 -> 22, 50122 -> 80, 50120 -> 57400
-clab-srl-generic-leaf4          50129 -> 22, 50128 -> 80, 50127 -> 57400
-clab-srl-generic-spine1         50123 -> 22, 50121 -> 80, 50119 -> 57400
-clab-srl-generic-spine2         50113 -> 22, 50112 -> 80, 50111 -> 57400
+NAMES                     PORTS
+clab-srl-generic-leaf3    50021->22/tcp, 50021->22/tcp, 50020->80/tcp, 50020->80/tcp, 50018->57400/tcp, 50018->57400/tcp
+clab-srl-generic-leaf4    50019->22/tcp, 50019->22/tcp, 50017->80/tcp, 50017->80/tcp, 50016->57400/tcp, 50016->57400/tcp
+clab-srl-generic-h3       80/tcp, 443/tcp, 50008->22/tcp, 50008->22/tcp
+clab-srl-generic-leaf1    50009->22/tcp, 50009->22/tcp, 50004->80/tcp, 50004->80/tcp, 50001->57400/tcp, 50001->57400/tcp
+clab-srl-generic-spine1   50007->22/tcp, 50007->22/tcp, 50003->80/tcp, 50003->80/tcp, 50000->57400/tcp, 50000->57400/tcp
+clab-srl-generic-h2       80/tcp, 443/tcp, 50013->22/tcp, 50013->22/tcp
+clab-srl-generic-h4       80/tcp, 443/tcp, 50002->22/tcp, 50002->22/tcp
+clab-srl-generic-leaf2    50014->22/tcp, 50014->22/tcp, 50010->80/tcp, 50010->80/tcp, 50005->57400/tcp, 50005->57400/tcp
+clab-srl-generic-spine2   50015->22/tcp, 50015->22/tcp, 50012->80/tcp, 50012->80/tcp, 50006->57400/tcp, 50006->57400/tcp
+clab-srl-generic-h1       80/tcp, 443/tcp, 50011->22/tcp, 50011->22/tcp
+
 ```
 
-Each service exposed on a lab node gets a unique external port number as per the table above. For example, SSH of leaf1 is available on port `50116` of the VM and is mapped to leaf1's internal port of `22`.
+Each service exposed on a lab node gets a unique external port number as per the table above. For example, SSH of leaf1 is available on port `50009` of the VM and is mapped to leaf1's internal port of `22`.
 
 Some well-known port numbers:
 
@@ -70,18 +71,18 @@ Some well-known port numbers:
 | gNMI    | 57400                |
 | HTTP    | 80/443               |
 
-Imagine you are assigned a VM with an address `1.srexperts.net` and the `show-ports` command matches the output above; then you can access `leaf1` SSH via Internet with the following command:
+Imagine you are assigned a VM with an address `1.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` SSH via Internet with the following command:
 
 ```bash
 # password: NokiaSrl1!
-ssh -p 50116 admin@1.srexperts.net
+ssh -p 50009 admin@1.dcfpartnerws.net
 ```
 
-To access the hosts:
+To access host h1:
 
 ```bash
 # password: srllabs@123
-ssh -p 50116 root@1.srexperts.net
+ssh -p 50011 root@1.dcfpartnerws.net
 ```
 
 ## Exploring SR Linux

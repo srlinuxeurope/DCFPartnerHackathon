@@ -129,7 +129,7 @@ ssh admin@clab-srl-generic-leaf1
 Each VM instance has a port-range (50000 - 51000) exposed towards the public network, as lab nodes spin up, a public port is dynamically allocated by the docker daemon on the VM instance.
 You can utilize those to access the lab services straight from your laptop via the public network.
 
-With the `show-ports (*)` command executed on a VM you get a list of mappings between external and internal ports allocated for each node of a lab:
+With the `show-ports`(*) command executed on a VM you get a list of mappings between external and internal ports allocated for each node of a lab:
 
 ```
 ~$ show-ports
@@ -148,6 +148,10 @@ clab-st-prometheus   50105->9090/tcp, 50105->9090/tcp
 clab-st-loki         50106->3100/tcp, 50106->3100/tcp
 clab-st-leaf1        50104->22/tcp, 50104->22/tcp, 50103->57400/tcp, 50103->57400/tcp
 clab-st-promtail     
+```
+(*) `show-ports` is actualy an alias on bash for the following command that provides a more user-friendly output for the docker command line:
+```
+alias show-ports='sudo docker container ls --format "table {{.Names}}\t{{.Ports}}" -a | sed '\''s/0.0.0.0://g'\'' | sed '\''s/::://g'\'''
 ```
 
 Each service exposed on a lab node gets a unique external port number as per the table above. 

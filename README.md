@@ -124,7 +124,7 @@ For example to access node `clab-srl-generic-leaf1` via ssh simply type:
 ssh admin@clab-srl-generic-leaf1
 ```
 
-#### Accessing the nodes via the public network
+#### Accessing the nodes via the WiFi network
 
 Each VM instance has a port-range (50000 - 51000) exposed towards the public network, as lab nodes spin up, a public port is dynamically allocated by the docker daemon on the VM instance.
 You can utilize those to access the lab services straight from your laptop via the public network.
@@ -134,25 +134,22 @@ With the `show-ports`(*) command executed on a VM you get a list of mappings bet
 ```
 ~$ show-ports
 NAMES                PORTS
-clab-st-spine2       50113->22/tcp, 50113->22/tcp, 50112->57400/tcp, 50112->57400/tcp
-clab-st-leaf3        50111->22/tcp, 50111->22/tcp, 50110->57400/tcp, 50110->57400/tcp
-clab-st-gnmic        
-clab-st-client3      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
-clab-st-spine1       50109->22/tcp, 50109->22/tcp, 50108->57400/tcp, 50108->57400/tcp
-clab-st-client1      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
-clab-st-client2      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
-clab-st-grafana      50107->3000/tcp, 50107->3000/tcp
-clab-st-leaf2        50102->22/tcp, 50102->22/tcp, 50101->57400/tcp, 50101->57400/tcp
-clab-st-syslog       6514/tcp, 5514/udp, 6601/tcp
-clab-st-prometheus   50105->9090/tcp, 50105->9090/tcp
-clab-st-loki         50106->3100/tcp, 50106->3100/tcp
-clab-st-leaf1        50104->22/tcp, 50104->22/tcp, 50103->57400/tcp, 50103->57400/tcp
-clab-st-promtail     
+clab-st-spine2       50012->22/tcp 50010->57400/tcp
+clab-st-leaf1        50011->22/tcp 50008->57400/tcp
+clab-st-leaf2        50009->22/tcp 50007->57400/tcp
+clab-st-leaf3        50006->22/tcp 50005->57400/tcp
+clab-st-syslog       6514/tcp 5514/udp 6601/tcp
+clab-st-grafana      50004->3000/tcp
+clab-st-client1      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
+clab-st-loki         50002->3100/tcp
+clab-st-client2      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
+clab-st-prometheus   50003->9090/tcp
+clab-st-promtail
+clab-st-gnmic
+clab-st-client3      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
+clab-st-spine1       50001->22/tcp 50000->57400/tcp
 ```
-(*) `show-ports` is actualy an alias on bash for the following command that provides a more user-friendly output for the docker command line:
-```
-alias show-ports='sudo docker container ls --format "table {{.Names}}\t{{.Ports}}" -a | sed '\''s/0.0.0.0://g'\'' | sed '\''s/::://g'\'''
-```
+(*) `show-ports` is actualy an alias on bash for the following command that provides a more user-friendly output for the docker command line
 
 Each service exposed on a lab node gets a unique external port number as per the table above. 
 In the given case, Grafana's web interface is available on port 50107 of the VM which is mapped to Grafana's node internal port of 3000.

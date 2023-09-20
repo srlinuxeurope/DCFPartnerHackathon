@@ -152,7 +152,7 @@ clab-st-spine1       50001->22/tcp 50000->57400/tcp
 (*) `show-ports` is actualy an alias on bash for the following command that provides a more user-friendly output for the docker command line
 
 Each service exposed on a lab node gets a unique external port number as per the table above. 
-In the given case, Grafana's web interface is available on port 50107 of the VM which is mapped to Grafana's node internal port of 3000.
+In the given case, Grafana's web interface is available on port 50004 of the VM which is mapped to Grafana's node internal port of 3000.
 
 The following table shows common container internal ports and is meant to help you find the correct exposed port for the services.
 
@@ -175,7 +175,7 @@ In the example above, accessing Leaf1 on group 1 would be possible by:
 ssh admin@1.dcfpartnerws.net -p 50104
 ```
 
-In the example above, accessing grafana would be possible browsing towards **http://X.dcfpartnerws.net:50107** (where X is the group ID you've been allocated)
+In the example above, accessing grafana would be possible browsing towards **http://X.dcfpartnerws.net:50004** (where X is the group ID you've been allocated)
 
 Optional:
 > You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.

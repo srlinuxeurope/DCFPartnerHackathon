@@ -24,8 +24,8 @@ Please refer to the paper provided by the hackathon session leader. If nothing h
 There will be 6 VM instances available and the allocation is the following:
 | Group ID | hostname instance | ip address |
 | --- | --- | ---|
-| 1 | 1.dcfpartnerws.net | 10.11.0.2***1*** |
-| 2 | 2.dcfpartnerws.net | 10.11.0.2***2*** |
+| **1** | **1**.dcfpartnerws.net | 10.11.0.2***1*** |
+| **2** | **2**.dcfpartnerws.net | 10.11.0.2***2*** |
 | ... | ... | ...|
 | **6** | **6**.dcfpartnerws.net | 10.11.0.2***6*** |
 
@@ -47,7 +47,7 @@ Details provided in the session.
 During this hackathon you can work on any problem/project you are inspired to tackle or on one of the pre-provided projects of varying difficulty.
 Below you can find a table with links towards those pre-provided project which you can use as a baseline for the problem/project you might want to tackle or perform the tasks we've set up for you.
 
-If you have your own project in mind then we would suggest to use either the [Standard SR OS lab](./sros-generic-lab/) or the [Standard SR Linux lab](./srl-generic-lab/).
+If you have your own project in mind then we would suggest to use the [Standard SR Linux lab](./srl-generic-lab/).
 
 Each pre-provided project comes with a README of it's own, please click the pre-provided projects for more information.
 
@@ -124,12 +124,12 @@ For example to access node `clab-srl-generic-leaf1` via ssh simply type:
 ssh admin@clab-srl-generic-leaf1
 ```
 
-#### Accessing the lab via Internet
+#### Accessing the nodes via the public network
 
-Each public cloud instance has a port-range (50000 - 51000) exposed towards the Internet, as lab nodes spin up, a public port is dynamically allocated by the docker daemon on the public cloud instance.
-You can utilize those to access the lab services straight from your laptop via the Internet.
+Each VM instance has a port-range (50000 - 51000) exposed towards the public network, as lab nodes spin up, a public port is dynamically allocated by the docker daemon on the VM instance.
+You can utilize those to access the lab services straight from your laptop via the public network.
 
-With the `show-ports` command executed on a VM you get a list of mappings between external and internal ports allocated for each node of a lab:
+With the `show-ports (*)` command executed on a VM you get a list of mappings between external and internal ports allocated for each node of a lab:
 
 ```
 ~$ show-ports
@@ -169,12 +169,12 @@ Subsequently you can access the lab node on the external port for your given ins
 | --- | --- |
 | **X** | **X**.dcfpartnerws.net |
 
-In the example above, accessing Leaf1 would be possible by: 
+In the example above, accessing Leaf1 on group 1 would be possible by: 
 ```
 ssh admin@1.dcfpartnerws.net -p 50104
 ```
 
-In the example above, accessing grafana would be possible browsing towards **http://X.srexperts.net:50107** (where X is the group ID you've been allocated)
+In the example above, accessing grafana would be possible browsing towards **http://X.dcfpartnerws.net:50107** (where X is the group ID you've been allocated)
 
 Optional:
 > You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.

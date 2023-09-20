@@ -78,7 +78,7 @@ For lab nodes that don't have a web management interface or an SSH server, use `
 
 ```bash
 # to access the client nodes
-docker exec -it clab-st-client1 bash
+sudo docker exec -it clab-st-client1 bash
 ```
 
 ## Fabric configuration

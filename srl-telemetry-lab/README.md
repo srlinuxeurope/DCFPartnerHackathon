@@ -155,15 +155,15 @@ When the lab is started, there is no traffic running between the nodes as the cl
 
 To start the traffic:
 
-* `bash traffic.sh start all` - start traffic between all nodes
-* `bash traffic.sh start 1-2` - start traffic between client1 and client2
-* `bash traffic.sh start 1-3` - start traffic between client1 and client3
+* `sudo bash traffic.sh start all` - start traffic between all nodes
+* `sudo bash traffic.sh start 1-2` - start traffic between client1 and client2
+* `sudo bash traffic.sh start 1-3` - start traffic between client1 and client3
 
 To stop the traffic:
 
-* `bash traffic.sh stop` - stop traffic generation between all nodes
-* `bash traffic.sh stop 1-2` - stop traffic generation between client1 and client2
-* `bash traffic.sh stop 1-3` - stop traffic generation between client1 and client3
+* `sudo bash traffic.sh stop` - stop traffic generation between all nodes
+* `sudo bash traffic.sh stop 1-2` - stop traffic generation between client1 and client2
+* `sudo bash traffic.sh stop 1-3` - stop traffic generation between client1 and client3
 
 As a result, the traffic will be generated between the clients and the traffic rate will be reflected on the grafana dashboard.
 

@@ -63,9 +63,13 @@ Then press `:` and type a branch to search, then a keyword inside it, such as `/
 
 Explore...
 
+* **Download SROS gNMI XPATHs**
+
+If you wish to explore SR Linux YANG model, browse at https://yang.srlinux.dev/ and choose your version (23.7.1 in this case)
+
 ## Tasks
 
-<p style="color:red">*Tip: open a 2nd window with the console to the router being configured, so that you can confirm that the configs being sent through gnmic are actually being applied in the router*</p>
+*Tip: open a 2nd window with the console to the router being configured, so that you can confirm that the configs being sent through gnmic are actually being applied in the router*
 
 - [ ] **Make sure the gNMI server of each node is up**
 
@@ -87,7 +91,7 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configu
 
 For certain branches that can't be applied isolated, it's possible to pass more than one command per transaction.
 
-For example, the router won't accept configuring IPv4 address without a prefix-length. So you have to pass both parameters at once.
+For example, the router won't accept configuring IPv4 address without a prefix-length. So you can pass both parameters at once.
 
 SROS XPATH: `/configure/router[router-name=Base]/interface`
 ```
@@ -98,7 +102,11 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure \
   --update-value 32
 ```
 
+For more complex and scaled configurations, gnmic accepts a JSON or YAML file as input:
+
 SRL XPATH:  `/network-instance[name=default]/interface`
+
+
 
 - [ ] **Configure subinterfaces in SRLs**
 

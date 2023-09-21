@@ -42,7 +42,7 @@ To enable passwordless access to an instance, use `ssh-keygen -h` to generate a 
 ### IDE
 
 For your convenience, we've installed VSCode on the VM.
-Just point your browser to <p style="color:red">http://10.11.0.2***X***:8080/</p> and open the folder corresponding to the `DCFPartnerHackathon` cloned repository.
+Just point your browser to http://10.11.0.2***X***:8080/ and open the folder corresponding to the `DCFPartnerHackathon` cloned repository.
 
 ### WiFi
 

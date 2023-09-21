@@ -47,7 +47,6 @@ For lab purposes, we will also need to skip some security verifications. SROS an
 So, the CLI will always start like this for SROS and SR Linux boxes, respectively:
 
 `gnmic -a $node -u $username -p $password --insecure`
-
 `gnmic -a $node -u $username -p $password --skip-verify`
 
 By typing just `gnmic` a help text will be displayed.
@@ -57,6 +56,7 @@ But every command has its specific help by typing `gnmic $command --help` such a
 \- **get** and **set** are the main commands when you're dealing with node configuration.
 
 \- **subscribe** is the command related to subscription to a given context.
+
 
 
 
@@ -72,7 +72,9 @@ gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
 
 XPATH: ***/configure/port[port-id=*]/connector***
 
-`gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/port[port-id=1/1/c1]/connector/breakout --update-value c10-10g`
+```
+gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/port[port-id=1/1/c1]/connector/breakout --update-value c10-10g
+```
 
 * **Configure system IP addresses**
 

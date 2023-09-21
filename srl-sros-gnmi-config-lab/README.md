@@ -31,7 +31,9 @@ gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang
 ```
 
 * **Get familiar to gnmic CLI**
+
 The starting point for most of the commands require passing node, username and pwd of the node being accessed, since we're not using encryption keys. So, the CLI will always start like this:
+
 `gnmic -a $node -u $username -p $password`
 
 For lab purposes, we will also need to skip some security verifications. SROS and SR Linux OS requires different parameters:

@@ -32,7 +32,8 @@ gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang
 
 * **Get familiar to gnmic CLI**
 
-The starting point for most of the commands require passing node, username and pwd of the node being accessed, since we're not using encryption keys. So, the CLI will always start like this:
+The starting point for most of the commands require passing node, username and pwd of the node being accessed, since we're not using encryption keys in this lab.
+So, the CLI will always start like this:
 
 `gnmic -a $node -u $username -p $password`
 
@@ -47,6 +48,11 @@ So, the CLI will always start like this for SROS and SR Linux boxes, respectivel
 gnmic -a $node -u $username -p $password --insecure
 gnmic -a $node -u $username -p $password --skip-verify
 ```
+By typing just `gnmic` a help text will be displayed.
+But every command has its specific help by typing `gnmic $command --help`
+**get** and **set** are the main commands when you're dealing with node configuration.
+**subscribe** is the command related to subscription to a given context.
+
 
 * **Make sure the gNMI server of each node is up**
 
@@ -56,41 +62,42 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure capabilities
 gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
 ```
 
-* **provision ports in SR1 and SR2**
+* **Provision ports in SR1 and SR2**
 
-XPATH: `/configure/port[port-id=*]/connector`
+XPATH: ***/configure/port[port-id=*]/connector***
+`gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/port[port-id=1/1/c1]/connector/breakout --update-value c10-10g`
 
-* **configure system IP addresses**
+* **Configure system IP addresses**
 
 SROS XPATH: `/configure/router[router-name=Base]/interface`
 
 SRL XPATH:  `/network-instance[name=default]/interface`
 
-* **configure subinterfaces in SRLs**
+* **Configure subinterfaces in SRLs**
 
 XPATH: `/interface[name=*]/subinterface[index=*]`
 
-* **add subinterfaces to the default network instance**
+* **Add subinterfaces to the default network instance**
 
 XPATH: `/network-instance[name=default]/interface`
 
-* **configure ports in SROS Base router**
+* **Configure ports in SROS Base router**
 
 XPATH: `/configure/router[router-name=*]/interface[interface-name=*]/port`
 
-* **configure IP addresses in all routers interfaces**
+* **Configure IP addresses in all routers interfaces**
 
 SROS XPATH: `/configure/router[router-name=Base]/interface[interface-name=*]/ipv4`
 
 SRL  XPATH: `/interface[name=*]/subinterface[index=*]/ipv4`
 
-* **configure BGP in all routers**
+* **Configure BGP in all routers**
 
 SROS XPATH: `/configure/router[router-name=Base]/bgp`
 
 SRL  XPATH: `/network-instance[name=default]/protocols/bgp`
 
-* **check that BGP peers are UP**
+* **Check that BGP peers are UP**
 
 SROS XPATH: `/state/router[router-name=Base]/bgp`
 

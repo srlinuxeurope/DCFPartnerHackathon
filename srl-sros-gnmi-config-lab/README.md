@@ -73,7 +73,7 @@ gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
 
 - [ ] **Provision ports in SR1 and SR2 - port connector**
 
-XPATH: */configure/port[port-id=\**X**]/connector*
+XPATH: */configure/port[port-id=**X**]/connector*
 
 ```
 gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/port[port-id=1/1/c1]/connector/breakout --update-value c10-10g

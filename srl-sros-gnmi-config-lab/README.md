@@ -48,6 +48,7 @@ So, the CLI will always start like this for SROS and SR Linux boxes, respectivel
 gnmic -a $node -u $username -p $password --insecure
 gnmic -a $node -u $username -p $password --skip-verify
 ```
+
 By typing just `gnmic` a help text will be displayed.
 But every command has its specific help by typing `gnmic $command --help`
 **get** and **set** are the main commands when you're dealing with node configuration.

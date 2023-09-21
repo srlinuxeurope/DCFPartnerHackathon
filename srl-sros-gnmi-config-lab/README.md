@@ -22,14 +22,6 @@ sudo clab deploy -c -t config.clab.yml
 
 ## Introduction
 
-* **Download SROS gNMI XPATHs**
-
-```shell
-git clone https://github.com/nokia/7x50_YangModels.git
-cd 7x50_YangModels/latest_sros_23.7
-gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang
-```
-
 * **Get familiar to gnmic CLI**
 
 The starting point for most of the commands require passing node, username and pwd of the node being accessed, since we're not using encryption keys in this lab.
@@ -58,6 +50,15 @@ But every command has its specific help by typing `gnmic $command --help` such a
 \- **get** and **set** are the main commands when you're dealing with node configuration.
 
 \- **subscribe** is the command related to subscription to a given context.
+
+
+* **Download SROS gNMI XPATHs**
+
+```shell
+git clone https://github.com/nokia/7x50_YangModels.git
+cd 7x50_YangModels/latest_sros_23.7
+gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang
+```
 
 
 ## Tasks

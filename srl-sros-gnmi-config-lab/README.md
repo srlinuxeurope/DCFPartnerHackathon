@@ -83,7 +83,7 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configu
 
 SROS XPATH: `/configure/router[router-name=Base]/interface`
 ```
-gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/router[router-name=Base]/interface[system] --update-value 1.1.1.1/32
+gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/router[router-name=Base][interface-name][system] --update-value 1.1.1.1/32
 ```
 
 SRL XPATH:  `/network-instance[name=default]/interface`

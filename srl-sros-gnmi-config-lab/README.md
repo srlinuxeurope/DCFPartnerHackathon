@@ -57,7 +57,7 @@ But every command has its specific help by typing `gnmic $command --help` such a
 ```shell
 git clone https://github.com/nokia/7x50_YangModels.git
 cd 7x50_YangModels/latest_sros_23.7
-gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang
+gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang --search
 ```
 
 
@@ -82,6 +82,9 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configu
 - [ ] **Configure system IP addresses**
 
 SROS XPATH: `/configure/router[router-name=Base]/interface`
+```
+gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/router[router-name=Base]/interface[system] --update-value 1.1.1.1/32
+```
 
 SRL XPATH:  `/network-instance[name=default]/interface`
 

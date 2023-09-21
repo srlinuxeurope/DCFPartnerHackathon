@@ -46,9 +46,10 @@ For lab purposes, we will also need to skip some security verifications. SROS an
 
 So, the CLI will always start like this for SROS and SR Linux boxes, respectively:
 
-`gnmic -a $node -u $username -p $password --insecure`
-
-`gnmic -a $node -u $username -p $password --skip-verify`
+```
+gnmic -a $node -u $username -p $password --insecure
+gnmic -a $node -u $username -p $password --skip-verify
+```
 
 By typing just `gnmic` a help text will be displayed.
 
@@ -83,36 +84,36 @@ SROS XPATH: `/configure/router[router-name=Base]/interface`
 
 SRL XPATH:  `/network-instance[name=default]/interface`
 
-* **Configure subinterfaces in SRLs**
+- [ ] **Configure subinterfaces in SRLs**
 
 XPATH: `/interface[name=*]/subinterface[index=*]`
 
-* **Add subinterfaces to the default network instance**
+- [ ] **Add subinterfaces to the default network instance**
 
 XPATH: `/network-instance[name=default]/interface`
 
-* **Configure ports in SROS Base router**
+- [ ] **Configure ports in SROS Base router**
 
 XPATH: `/configure/router[router-name=*]/interface[interface-name=*]/port`
 
-* **Configure IP addresses in all routers interfaces**
+- [ ] **Configure IP addresses in all routers interfaces**
 
 SROS XPATH: `/configure/router[router-name=Base]/interface[interface-name=*]/ipv4`
 
 SRL  XPATH: `/interface[name=*]/subinterface[index=*]/ipv4`
 
-* **Configure BGP in all routers**
+- [ ] **Configure BGP in all routers**
 
 SROS XPATH: `/configure/router[router-name=Base]/bgp`
 
 SRL  XPATH: `/network-instance[name=default]/protocols/bgp`
 
-* **Check that BGP peers are UP**
+- [ ] **Check that BGP peers are UP**
 
 SROS XPATH: `/state/router[router-name=Base]/bgp`
 
 SRL  XPATH: `/network-instance[name=default]/protocols/bgp`
 
-* **Advanced: template all the configurations in a single set request file**
+- [ ] **Advanced: template all the configurations in a single set request file**
 
 [gNMIc's set request template](https://gnmic.openconfig.net/cmd/set/#template-format)

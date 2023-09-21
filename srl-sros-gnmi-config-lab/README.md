@@ -38,6 +38,7 @@ The starting point for most of the commands require passing node, username and p
 
 For lab purposes, we will also need to skip some security verifications. SROS and SR Linux OS requires different parameters:
 | OS | Parameter |
+| --- | --- |
 | SROS | --insecure |
 | SR Linux | --skip-verify |
 

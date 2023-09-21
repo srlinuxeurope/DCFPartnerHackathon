@@ -65,7 +65,7 @@ Explore...
 
 ## Tasks
 
-`rgb(9, 105, 218)`*Tip: open a 2nd window with the console to the router being configured, so that you can confirm that the configs being sent through gnmic are actually being applied in the router*
+<p style="color:red">*Tip: open a 2nd window with the console to the router being configured, so that you can confirm that the configs being sent through gnmic are actually being applied in the router*</p>
 
 - [ ] **Make sure the gNMI server of each node is up**
 

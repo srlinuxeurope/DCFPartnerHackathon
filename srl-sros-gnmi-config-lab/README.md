@@ -47,6 +47,7 @@ For lab purposes, we will also need to skip some security verifications. SROS an
 So, the CLI will always start like this for SROS and SR Linux boxes, respectively:
 
 `gnmic -a $node -u $username -p $password --insecure`
+
 `gnmic -a $node -u $username -p $password --skip-verify`
 
 By typing just `gnmic` a help text will be displayed.
@@ -56,6 +57,7 @@ But every command has its specific help by typing `gnmic $command --help` such a
 \- **get** and **set** are the main commands when you're dealing with node configuration.
 
 \- **subscribe** is the command related to subscription to a given context.
+
 
 
 * **Make sure the gNMI server of each node is up**

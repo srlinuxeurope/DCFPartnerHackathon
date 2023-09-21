@@ -59,7 +59,7 @@ git clone https://github.com/nokia/7x50_YangModels.git
 cd 7x50_YangModels/latest_sros_23.7
 gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang --search
 ```
-
+Then press ":" and type a branch to search, such as "configure/router". Explore...
 
 ## Tasks
 
@@ -83,7 +83,11 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configu
 
 SROS XPATH: `/configure/router[router-name=Base]/interface`
 ```
-gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/router[router-name=Base][interface-name][system] --update-value 1.1.1.1/32
+gnmic -a clab-config-sr1 -u admin -p admin --insecure \
+  set --update-path /configure/router[router-name=Base]/interface[interface-name=system]/ipv4/primary/address \
+  --update-value 1.1.1.1 \
+  set --update-path /configure/router[router-name=Base]/interface[interface-name=system]/ipv4/primary/prefix-length \
+  --update-value 32
 ```
 
 SRL XPATH:  `/network-instance[name=default]/interface`

@@ -20,7 +20,7 @@ sudo clab deploy -c -t config.clab.yml
 | Lab Emulation | [containerlab](https://containerlab.dev/) |
 | Configuration and telemetry tool | [gNMIc](https://gnmic.openconfig.net/) |
 
-## Tasks
+## Introduction
 
 * **Download SROS gNMI XPATHs**
 
@@ -47,6 +47,7 @@ For lab purposes, we will also need to skip some security verifications. SROS an
 So, the CLI will always start like this for SROS and SR Linux boxes, respectively:
 
 `gnmic -a $node -u $username -p $password --insecure`
+
 `gnmic -a $node -u $username -p $password --skip-verify`
 
 By typing just `gnmic` a help text will be displayed.
@@ -58,9 +59,9 @@ But every command has its specific help by typing `gnmic $command --help` such a
 \- **subscribe** is the command related to subscription to a given context.
 
 
+## Tasks
 
-
-* **Make sure the gNMI server of each node is up**
+- [ ] **Make sure the gNMI server of each node is up**
 
 To check if the gNMI server is up on the nodes, use the command **capabilities**:
 ```
@@ -68,7 +69,7 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure capabilities
 gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
 ```
 
-* **Provision ports in SR1 and SR2**
+- [ ] **Provision ports in SR1 and SR2**
 
 XPATH: ***/configure/port[port-id=*]/connector***
 
@@ -76,7 +77,7 @@ XPATH: ***/configure/port[port-id=*]/connector***
 gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/port[port-id=1/1/c1]/connector/breakout --update-value c10-10g
 ```
 
-* **Configure system IP addresses**
+- [ ] **Configure system IP addresses**
 
 SROS XPATH: `/configure/router[router-name=Base]/interface`
 

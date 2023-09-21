@@ -48,6 +48,34 @@ Just point your browser to <p style="color:red">http://10.11.0.2***X***:8080/</p
 
 Details provided in the session.
 
+## The projects
+
+### Clone this repo
+As the first step, you must clone the git repository where all the proposed projects are available. You could also clone it to your personal device for future reference.
+This can be done using one of the following commands.
+
+> HTTPS
+```
+git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
+```
+> SSH
+```
+git clone git@github.com:srlinuxeurope/DCFPartnerHackathon.git
+```
+> GH CLI
+```
+gh repo clone srlinuxeurope/DCFPartnerHackathon
+```
+> VS Code IDE
+```
+-> Source Control
+-> Clone Repository
+-> https://github.com/srlinuxeurope/DCFPartnerHackathon.git
+-> /home/srlinux/
+-> Open
+-> Check flag "Trust the authors of all files" and click on "Yes, I trust the authors"
+```
+
 ### Overview of pre-provided projects
 During this hackathon you can work on any problem/project you are inspired to tackle or on one of the pre-provided projects of varying difficulty.
 Below you can find a table with links towards those pre-provided project which you can use as a baseline for the problem/project you might want to tackle or perform the tasks we've set up for you.
@@ -66,7 +94,7 @@ Each pre-provided project comes with a README of it's own, please click the pre-
 
 ### Deploying a project
 When accessing your hackathon VM instance you'll see the following bootstrapped environment.
-the DCFPartnerHackathon directory is a git clone of this repository.
+The DCFPartnerHackathon directory is a git clone of this repository.
 
 ``` 
 ~$ ls
@@ -185,21 +213,6 @@ In the example above, accessing grafana would be possible browsing towards **htt
 Optional:
 > You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.
 
-## Clone this repo
-If you would like to work locally on your personal device you should clone this repository. This can be done using one of the following commands.
-
-> HTTPS
-```
-git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
-```
-> SSH
-```
-git clone git@github.com:srlinuxeurope/DCFPartnerHackathon.git
-```
-> GH CLI
-```
-gh repo clone srlinuxeurope/DCFPartnerHackathon
-```
 ## Useful links
 
 * [Network Developer Portal](https://network.developer.nokia.com/)

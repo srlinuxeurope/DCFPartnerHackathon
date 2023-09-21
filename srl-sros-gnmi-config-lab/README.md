@@ -22,7 +22,7 @@ sudo clab deploy -c -t config.clab.yml
 
 ## Tasks
 
-* **Explore SROS gNMI XPATHs**
+* **Download SROS gNMI XPATHs**
 
 ```shell
 git clone https://github.com/nokia/7x50_YangModels.git
@@ -38,15 +38,14 @@ So, the CLI will always start like this:
 
 `gnmic -a $node -u $username -p $password`
 
-For lab purposes, we will also need to skip some security verifications.
-
-SROS and SR Linux OS requires different parameters:
+For lab purposes, we will also need to skip some security verifications. SROS and SR Linux OS requires different parameters:
 | OS | Parameter |
 | --- | --- |
 | SROS | --insecure |
 | SR Linux | --skip-verify |
 
 So, the CLI will always start like this for SROS and SR Linux boxes, respectively:
+
 `gnmic -a $node -u $username -p $password --insecure`
 `gnmic -a $node -u $username -p $password --skip-verify`
 
@@ -70,6 +69,7 @@ gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
 * **Provision ports in SR1 and SR2**
 
 XPATH: ***/configure/port[port-id=*]/connector***
+
 `gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configure/port[port-id=1/1/c1]/connector/breakout --update-value c10-10g`
 
 * **Configure system IP addresses**

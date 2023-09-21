@@ -149,7 +149,7 @@ clab-st-gnmic
 clab-st-client3      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
 clab-st-spine1       50001->22/tcp 50000->57400/tcp
 ```
-(*) `show-ports` is actualy an alias on bash for the following command that provides a more user-friendly output for the docker command line
+(*) `show-ports` is actualy an alias on bash that provides a more user-friendly output for the docker command line
 
 Each service exposed on a lab node gets a unique external port number as per the table above. 
 In the given case, Grafana's web interface is available on port 50004 of the VM which is mapped to Grafana's node internal port of 3000.

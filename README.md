@@ -58,14 +58,6 @@ This can be done using one of the following commands.
 ```
 git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
 ```
-> SSH
-```
-git clone git@github.com:srlinuxeurope/DCFPartnerHackathon.git
-```
-> GH CLI
-```
-gh repo clone srlinuxeurope/DCFPartnerHackathon
-```
 > VS Code IDE
 ```
 -> Source Control
@@ -75,6 +67,7 @@ gh repo clone srlinuxeurope/DCFPartnerHackathon
 -> Open
 -> Check flag "Trust the authors of all files" and click on "Yes, I trust the authors"
 ```
+Note: GitHub has other options to clone a repo, such as ssh or the gh cli, but they are not in the scope of this document.
 
 ### Overview of pre-provided projects
 During this hackathon you can work on any problem/project you are inspired to tackle or on one of the pre-provided projects of varying difficulty.

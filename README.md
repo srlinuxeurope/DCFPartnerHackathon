@@ -78,7 +78,7 @@ srl-telemetry-lab
 ~/DCFPartnerHackathon$
 ```
 
-For explanatory purposes, suppose we want to deploy the sros-generic-lab:
+For explanatory purposes, suppose we want to deploy the srl-generic-lab:
 
 Change directories
 ```

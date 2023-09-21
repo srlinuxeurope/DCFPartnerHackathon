@@ -30,17 +30,27 @@ cd 7x50_YangModels/latest_sros_23.7
 gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang
 ```
 
+* **Get familiar to gnmic CLI**
+The starting point for most of the commands require passing node, username and pwd of the node being accessed, since we're not using encryption keys. So, the CLI will always start like this:
+`gnmic -a $node -u $username -p $password`
+
+For lab purposes, we will also need to skip some security verifications. SROS and SR Linux OS requires different parameters:
+| OS | Parameter |
+| SROS | --insecure |
+| SR Linux | --skip-verify |
+
+So, the CLI will always start like this for SROS and SR Linux boxes, respectively:
+```
+gnmic -a $node -u $username -p $password --insecure
+gnmic -a $node -u $username -p $password --skip-verify
+```
+
 * **Make sure the gNMI server of each node is up**
 
-For SROS nodes:
-```shell
-gnmic -a $node -u $username -p $password --insecure capabilities
---> gnmic -a clab-config-sr1 -u admin -p admin --insecure capabilities
+To check if the gNMI server is up on the nodes, use the command **capabilities**:
 ```
-For SR Linux nodes:
-```shell
-gnmic -a $node -u $username -p $password --skip-verify capabilities
---> gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
+gnmic -a clab-config-sr1 -u admin -p admin --insecure capabilities
+gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
 ```
 
 * **provision ports in SR1 and SR2**

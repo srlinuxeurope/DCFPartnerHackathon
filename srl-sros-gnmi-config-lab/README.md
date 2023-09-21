@@ -59,9 +59,13 @@ git clone https://github.com/nokia/7x50_YangModels.git
 cd 7x50_YangModels/latest_sros_23.7
 gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang --search
 ```
-Then press ":" and type a branch to search, such as "configure/router". Explore...
+Then press `:` and type a branch to search, then a keyword inside it, such as `/configure/router[router-name=*]/interface[interface-name=*] primary`.
+
+Explore...
 
 ## Tasks
+
+`rgb(9, 105, 218)`*Tip: open a 2nd window with the console to the router being configured, so that you can confirm that the configs being sent through gnmic are actually being applied in the router*
 
 - [ ] **Make sure the gNMI server of each node is up**
 
@@ -80,6 +84,10 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure set --update-path /configu
 ```
 
 - [ ] **Configure system IP addresses**
+
+For certain branches that can't be applied isolated, it's possible to pass more than one command per transaction.
+
+For example, the router won't accept configuring IPv4 address without a prefix-length. So you have to pass both parameters at once.
 
 SROS XPATH: `/configure/router[router-name=Base]/interface`
 ```

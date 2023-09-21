@@ -1,4 +1,4 @@
-# Welcome at the hackathon @ DC Fabric Partner Workshop!
+# Welcome at the Hackathon @ DC Fabric Partner Workshop!
 
 This README is your starting point into the hackathon, it should get you familiar with the lab environment provided by Nokia, and provide an overview of the suggested sample labs.
 
@@ -38,6 +38,11 @@ username: `refer to the paper provided or the slide presented`
 password: `refer to the paper provided or the slide presented`
 
 To enable passwordless access to an instance, use `ssh-keygen -h` to generate a public/private key pair and then `ssh-copy-id` to copy it over.
+
+### IDE
+
+For your convenience, we've installed VSCode on the VM.
+Just point your browser to <p style="color:red">http://10.11.0.2***X***:8080/</p> and open the folder corresponding to the `DCFPartnerHackathon` cloned repository.
 
 ### WiFi
 
@@ -180,7 +185,7 @@ In the example above, accessing grafana would be possible browsing towards **htt
 Optional:
 > You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.
 
-## clone this repo
+## Clone this repo
 If you would like to work locally on your personal device you should clone this repository. This can be done using one of the following commands.
 
 > HTTPS

@@ -31,13 +31,17 @@ gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang
 ```
 
 * **Make sure the gNMI server of each node is up**
+
 For SROS nodes:
-```
+```shell
 gnmic -a $node -u $username -p $password --insecure capabilities
-gnmic -a clab-config-sr1 -u admin -p admin --insecure capabilities
+--> gnmic -a clab-config-sr1 -u admin -p admin --insecure capabilities
 ```
-´For SR Linux nodes:´
-`gnmic -a $node -u $username -p $password --skip-verify capabilities`
+For SR Linux nodes:
+```shell
+gnmic -a $node -u $username -p $password --skip-verify capabilities
+--> gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
+```
 
 * **provision ports in SR1 and SR2**
 

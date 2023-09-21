@@ -7,6 +7,7 @@ The goal of this lab is to configure a network made of 4 SRL nodes and 2 SROS no
 ## Deploying the lab
 
 ```shell
+cd srl-sros-gnmi-config-lab
 sudo clab deploy -c -t config.clab.yml
 ```
 
@@ -25,14 +26,17 @@ sudo clab deploy -c -t config.clab.yml
 
 ```shell
 git clone https://github.com/nokia/7x50_YangModels.git
-cd 7x50_YangModels/latest_sros_23.3
-gnmic generate path --dir ietf --file nokia-combined/nokia-config.yang
+cd 7x50_YangModels/latest_sros_23.7
+gnmic generate path --dir ietf --file nokia-combined/nokia-conf.yang
 ```
 
 * **Make sure the gNMI server of each node is up**
-
-`gnmic -a $node -u $username -p $password --insecure capabilities`
-
+For SROS nodes:
+```
+gnmic -a <p style="color:red">$node</p> -u $username -p $password --insecure capabilities
+gnmic -a clab-config-sr1 -u admin -p admin --insecure capabilities
+`
+For SR Linux nodes:
 `gnmic -a $node -u $username -p $password --skip-verify capabilities`
 
 * **provision ports in SR1 and SR2**

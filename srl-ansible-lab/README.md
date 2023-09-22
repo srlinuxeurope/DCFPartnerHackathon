@@ -117,7 +117,29 @@ Create a playbook config_ip.yml with the proper structure for each node and run 
 ansible-playbook config_ip.yml -i inventory.yml -v
 ```
 
-Then log into the nodes and confirm that the addresses were configured and they can ping each other.
+Then log into the nodes and confirm that the addresses were configured and they can ping each other:
+```
+A:srl1# show interface ethernet-1/1
+==================================================================================================================================================================
+ethernet-1/1 is up, speed 25G, type None
+  ethernet-1/1.0 is down, reason no-ip-config
+    Network-instances:
+    Encapsulation   : null
+    Type            : routed
+    IPv4 addr    : 1.1.1.1/30 (static, None)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+==================================================================================================================================================================
+--{ + running }--[  ]--
+A:srl1# ping 1.1.1.2
+Using network instance mgmt
+PING 1.1.1.2 (1.1.1.2) 56(84) bytes of data.
+64 bytes from 1.1.1.2: icmp_seq=1 ttl=57 time=8.34 ms
+64 bytes from 1.1.1.2: icmp_seq=2 ttl=57 time=10.1 ms
+^C
+--- 1.1.1.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 8.337/9.241/10.145/0.904 ms
+```
 
 
 ### 4. Collect version information in a CLI format

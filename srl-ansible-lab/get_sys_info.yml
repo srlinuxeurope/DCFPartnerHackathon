@@ -1,0 +1,10 @@
+- name: Get system information
+  hosts: clab
+  gather_facts: false
+  tasks:
+  - name: Get /system/information container
+    nokia.srlinux.get:
+      paths:
+      - path: /system/information
+        datastore: state
+

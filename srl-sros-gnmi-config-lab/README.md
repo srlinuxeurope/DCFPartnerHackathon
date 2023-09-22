@@ -63,7 +63,7 @@ Then press `:` and type a branch to search, then a keyword inside it, such as `/
 
 Explore...
 
-* **Download SROS gNMI XPATHs**
+* **Explore SR Linux gNMI XPATHs**
 
 If you wish to explore SR Linux YANG model, browse at https://yang.srlinux.dev/ and choose your version (23.7.1 in this case)
 
@@ -103,6 +103,11 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure \
 ```
 
 For more complex and scaled configurations, gnmic accepts a JSON or YAML file as input:
+```
+gnmic -a clab-config-sr2 -u admin -p admin --insecure \
+set --update-path /configure/router[router-name=Base]/interface[interface-name=system] \
+--update-file gnmic_input.yml
+```
 
 SRL XPATH:  `/network-instance[name=default]/interface`
 

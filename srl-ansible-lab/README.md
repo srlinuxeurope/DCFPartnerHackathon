@@ -111,6 +111,15 @@ ethernet-1/1 is up, speed 25G, type None
 
 Your task is to configure the `ethernet-1/1` interface on both nodes with IPv4 addresses and ensure that nodes can ping each other via this interface.
 
+Create a playbook config_ip.yml with the proper structure for each node and run it:
+
+```
+ansible-playbook config_ip.yml -i inventory.yml -v
+```
+
+Then log into the nodes and confirm that the addresses were configured and they can ping each other.
+
+
 ### 4. Collect version information in a CLI format
 
 As part of the network documentation process, you need to collect the version information from the nodes in a CLI format, i.e. `show version`. Which module would you use for this task? Can you save the output to a file?

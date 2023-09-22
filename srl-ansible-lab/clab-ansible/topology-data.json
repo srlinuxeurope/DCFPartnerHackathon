@@ -1,0 +1,167 @@
+{
+  "name": "ansible",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-8dd3cb99480a",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "2001:172:20:20::/64",
+        "ipv6-gw": "2001:172:20:20::1",
+        "mtu": "1500",
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "srl1": {
+      "index": "0",
+      "shortname": "srl1",
+      "longname": "clab-ansible-srl1",
+      "fqdn": "srl1.ansible.io",
+      "group": "",
+      "labdir": "/home/srlinux/DCFPartnerHackathon/srl-ansible-lab/clab-ansible/srl1",
+      "kind": "nokia_srlinux",
+      "image": "ghcr.io/nokia/srlinux:23.7.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.11",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::2",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8dd3cb99480a",
+        "clab-node-group": "",
+        "clab-node-kind": "nokia_srlinux",
+        "clab-node-lab-dir": "/home/srlinux/DCFPartnerHackathon/srl-ansible-lab/clab-ansible/srl1",
+        "clab-node-name": "srl1",
+        "clab-node-type": "ixrd2",
+        "clab-topo-file": "/home/srlinux/DCFPartnerHackathon/srl-ansible-lab/ansible.clab.yml",
+        "containerlab": "ansible"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 50086,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 50086,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 50082,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 50082,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 50084,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 50084,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "srl2": {
+      "index": "1",
+      "shortname": "srl2",
+      "longname": "clab-ansible-srl2",
+      "fqdn": "srl2.ansible.io",
+      "group": "",
+      "labdir": "/home/srlinux/DCFPartnerHackathon/srl-ansible-lab/clab-ansible/srl2",
+      "kind": "nokia_srlinux",
+      "image": "ghcr.io/nokia/srlinux:23.7.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.12",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::3",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8dd3cb99480a",
+        "clab-node-group": "",
+        "clab-node-kind": "nokia_srlinux",
+        "clab-node-lab-dir": "/home/srlinux/DCFPartnerHackathon/srl-ansible-lab/clab-ansible/srl2",
+        "clab-node-name": "srl2",
+        "clab-node-type": "ixrd2",
+        "clab-topo-file": "/home/srlinux/DCFPartnerHackathon/srl-ansible-lab/ansible.clab.yml",
+        "containerlab": "ansible"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 50087,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 50087,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 50083,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 50083,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 50085,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 50085,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "srl1",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:6c:25:d7",
+        "peer": "z"
+      },
+      "z": {
+        "node": "srl2",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:a0:77:49",
+        "peer": "a"
+      }
+    }
+  ]
+}

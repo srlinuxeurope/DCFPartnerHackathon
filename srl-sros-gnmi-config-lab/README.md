@@ -79,7 +79,7 @@ gnmic -a clab-config-sr1 -u admin -p admin --insecure capabilities
 gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
 ```
 
-- [ ] **Obtain information about a given context**
+- [ ] **Obtain the hierarchy about a given context**
 
 To obtain the hierarchy of the interfaces under the router "Base", use the command **get**:
 ```
@@ -114,11 +114,14 @@ For more complex and scaled configurations, gnmic accepts a JSON or YAML file as
 ```
 gnmic -a clab-config-sr2 -u admin -p admin --insecure \
 set --update-path /configure/router[router-name=Base]/interface[interface-name=system] \
---update-file gnmic_input.yml
+--update-file sr1-system.yml
 ```
 
 SRL XPATH:  `/network-instance[name=default]/interface`
-
+```
+gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify --encoding json_ietf set \
+         --update-path "/" --update-file leaf1-system.yml
+```
 
 
 - [ ] **Configure subinterfaces in SRLs**

@@ -146,6 +146,36 @@ rtt min/avg/max/mdev = 8.337/9.241/10.145/0.904 ms
 
 As part of the network documentation process, you need to collect the version information from the nodes in a CLI format, i.e. `show version`. Which module would you use for this task? Can you save the output to a file?
 
+Create a playbook show_version_cli.yml with the proper structure for each node and run it:
+
+```
+ansible-playbook show_version_cli.yml -i inventory.yml -v
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Execute "show version" CLI command] ************************************************************************************************************************
+
+TASK [Execute "show version" CLI command] ************************************************************************************************************************
+ok: [clab-ansible-srl1] => changed=false
+  jsonrpc_req_id: 2023-09-22 15:53:25:357090
+  jsonrpc_version: '2.0'
+  result:
+  - basic system info:
+      Architecture: x86_64
+      Build Number: 163-gd408df6a0c
+      Chassis Type: 7220 IXR-D2
+      Free Memory: 27787898 kB
+      Hostname: srl1
+      Last Booted: '2023-09-22T15:35:58.543Z'
+      Part Number: Sim Part No.
+      Serial Number: Sim Serial No.
+      Software Version: v23.7.1
+      System HW MAC Address: 1A:A8:00:FF:00:00
+      Total Memory: 32091839 kB
+ok: [clab-ansible-srl2] => changed=false
+  <-----  snip   ----->
+
+```
+
 ### 5. Clear interface statistics counters
 
 The `ethernet-1/1` interface on both nodes has some traffic flowing through it after you issue the ping. You need to clear the interface statistics counters. Do you know which module to use for this task?

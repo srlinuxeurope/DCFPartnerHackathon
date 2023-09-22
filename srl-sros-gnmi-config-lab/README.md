@@ -101,7 +101,7 @@ For certain branches that can't be applied isolated, it's possible to pass more 
 
 For example, the router won't accept configuring IPv4 address without a prefix-length. So you can pass both parameters at once.
 
-SROS XPATH: `/configure/router[router-name=Base]/interface`
+SROS (using XPATH: `/configure/router[router-name=Base]/interface`):
 ```
 gnmic -a clab-config-sr1 -u admin -p admin --insecure \
   set --update-path /configure/router[router-name=Base]/interface[interface-name=system]/ipv4/primary/address \
@@ -114,15 +114,14 @@ For more complex and scaled configurations, gnmic accepts a JSON or YAML file as
 ```
 gnmic -a clab-config-sr2 -u admin -p admin --insecure \
 set --update-path /configure/router[router-name=Base]/interface[interface-name=system] \
---update-file sr1-system.yml
+--update-file sr1-system.json
 ```
 
-SRL XPATH:  `/network-instance[name=default]/interface`
+SRL (using XPATH:  `/`)
 ```
 gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify --encoding json_ietf set \
          --update-path "/" --update-file leaf1-system.yml
 ```
-
 
 - [ ] **Configure subinterfaces in SRLs**
 

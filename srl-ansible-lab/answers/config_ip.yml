@@ -1,13 +1,21 @@
-- name: Get system information
-  hosts: clab
+- name: Set ethernet-1/1 IPv4 R1
+  hosts: clab-ansible-srl1
   gather_facts: false
   tasks:
-  - name: Get /system/information container
-    nokia.srlinux.get:
-      paths:
-      - path: /system/information
-        datastore: state
-<<<<<<< HEAD
+  - name: Set ethernet-1/1 IPv4 R1
+    nokia.srlinux.config:
+      update:
+      - path: /interface[name=ethernet-1/1]/subinterface[index=0]/ipv4/address[ip-prefix=1.1.1.1/30]
+        value:
+          ip-prefix: 1.1.1.1/32
 
-=======
->>>>>>> 047182086b3dac4c6760141a13ee0e9e1a48e190
+- name: Set ethernet-1/1 IPv4 R2
+  hosts: clab-ansible-srl2
+  gather_facts: false
+  tasks:
+  - name: Set ethernet-1/1 IPv4 R2
+    nokia.srlinux.config:
+      update:
+      - path: /interface[name=ethernet-1/1]/subinterface[index=0]/ipv4/address[ip-prefix=1.1.1.2/30]
+        value:
+          ip-prefix: 1.1.1.2/32

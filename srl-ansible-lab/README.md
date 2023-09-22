@@ -114,7 +114,7 @@ Your task is to configure the `ethernet-1/1` interface on both nodes with IPv4 a
 Create a playbook config_ip.yml with the proper structure for each node and run it:
 
 ```
-ansible-playbook config_ip.yml -i inventory.yml -v
+$ ansible-playbook config_ip.yml -i inventory.yml -v
 ```
 
 Then log into the nodes and confirm that the addresses were configured and they can ping each other:
@@ -149,7 +149,7 @@ As part of the network documentation process, you need to collect the version in
 Create a playbook show_version_cli.yml with the proper structure for each node and run it:
 
 ```
-ansible-playbook show_version_cli.yml -i inventory.yml -v
+$ ansible-playbook show_version_cli.yml -i inventory.yml -v
 Using /etc/ansible/ansible.cfg as config file
 
 PLAY [Execute "show version" CLI command] ************************************************************************************************************************

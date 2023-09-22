@@ -60,7 +60,7 @@ The lab comes with a pre-configured Ansible inventory file that defines the node
 
 Note that Containerlab also auto-generates an Ansible inventory file for each lab; it can be found under clab-ansible/ansible-inventory.yml
 
-If you want to use Ansible from your machine, you will have to copy the inventory file to your machine and adjust the connection parameters to match the ports and addresses of the nodes given the lab VM external DNS name and exposed ports.
+If you want to use Ansible from your machine, you will have to copy the inventory file to your machine and adjust the connection parameters to match the ports and addresses of the nodes given the lab VM DNS name and exposed ports.
 
 ## Tasks
 
@@ -68,11 +68,11 @@ If you want to use Ansible from your machine, you will have to copy the inventor
 
 Start with reading the [collection documentation](https://learn.srlinux.dev/ansible/collection/) to understand the collection's structure and how it is used. The provided examples will help you to get started.
 
-### 2. Get the nodes' version
+### 2. Get the nodes' information
 
 The first task is to get the basic system information of the nodes using `state` datastore of SR Linux. You will have to leverage the `get` module.
 
-To identify which path to use to get the version information you can use [the SR Linux'es YANG Browser](https://yang.srlinux.dev).
+To identify which path to use to get the system information you can use [the SR Linux'es YANG Browser](https://yang.srlinux.dev).
 
 The result should be an Ansible playbook [`get_sys_info.yml`](get_sys_info.yml) that prints out the versions:
 ```
@@ -80,12 +80,13 @@ ansible-playbook ./get_sys_info.yml -i inventory.yml -v
 ```
 
 The default output is not easily human-readable, so you can use one of the options:
-\- prepend the command with ANSIBLE_STDOUT_CALLBACK=yaml:
+
+1- prepend the command with ANSIBLE_STDOUT_CALLBACK=yaml:
 ```
 ANSIBLE_STDOUT_CALLBACK=yaml ansible-playbook ./get_sys_info.yml -i inventory.yml -v
 ```
 
-\- edit the ansible.cfg file and include the following configuration:
+2- edit the ansible.cfg file and include the following configuration:
 ```
 sudo vi /etc/ansible/ansible.cfg
 ------

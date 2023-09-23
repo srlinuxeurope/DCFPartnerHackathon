@@ -45,6 +45,7 @@ topology:
       binds:
         - /opt/srexperts/srl-ndk-git_0.1.0_linux_amd64.rpm:/home/admin/srl-ndk-git_0.1.0_linux_amd64.rpm
         - /opt/srexperts/srl-cli-plugins-1-0.noarch.rpm:/home/admin/srl-cli-plugins-1-0.noarch.rpm
+        - /opt/srexperts/git_token_setup.txt:/home/admin/git_token_setup.txt
         - configs/fabric/agent_config_leaf1.txt:/home/admin/agent_config_leaf1.txt
         - configs/fabric/leaf1_agent_install.sh:/home/admin/leaf1_agent_install.sh
       exec:

@@ -1,0 +1,8 @@
+/ git-client
+/ git-client owner srlinuxeurope
+/ git-client repo srl-lab-config-store
+/ git-client filename leaf1-config.json
+/ git-client token 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 
+/ git-client author "srlinux demo user"
+/ git-client author-email srlinux.europe@gmail.com
+/ git-client branch leaf-1

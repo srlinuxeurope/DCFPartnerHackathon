@@ -1,4 +1,4 @@
-# Welcome at the hackathon @ DC Fabric Partner Workshop!
+# Welcome at the Hackathon @ DC Fabric Partner Workshop!
 
 This README is your starting point into the hackathon, it should get you familiar with the lab environment provided by Nokia, and provide an overview of the suggested sample labs.
 
@@ -39,9 +39,35 @@ password: `refer to the paper provided or the slide presented`
 
 To enable passwordless access to an instance, use `ssh-keygen -h` to generate a public/private key pair and then `ssh-copy-id` to copy it over.
 
+### IDE
+
+For your convenience, we've installed VSCode on the VM.
+Just point your browser to http://10.11.0.2***X***:8080/ and open the folder corresponding to the `DCFPartnerHackathon` cloned repository.
+
 ### WiFi
 
 Details provided in the session.
+
+## The projects
+
+### Clone this repo
+As the first step, you must clone the git repository where all the proposed projects are available. You could also clone it to your personal device for future reference.
+This can be done using one of the following commands.
+
+> HTTPS
+```
+git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
+```
+> VS Code IDE
+```
+-> Source Control
+-> Clone Repository
+-> https://github.com/srlinuxeurope/DCFPartnerHackathon.git
+-> /home/srlinux/
+-> Open
+-> Check flag "Trust the authors of all files" and click on "Yes, I trust the authors"
+```
+Note: GitHub has other options to clone a repo, such as ssh or the gh cli, but they are not in the scope of this document.
 
 ### Overview of pre-provided projects
 During this hackathon you can work on any problem/project you are inspired to tackle or on one of the pre-provided projects of varying difficulty.
@@ -61,7 +87,7 @@ Each pre-provided project comes with a README of it's own, please click the pre-
 
 ### Deploying a project
 When accessing your hackathon VM instance you'll see the following bootstrapped environment.
-the DCFPartnerHackathon directory is a git clone of this repository.
+The DCFPartnerHackathon directory is a git clone of this repository.
 
 ``` 
 ~$ ls
@@ -78,7 +104,7 @@ srl-telemetry-lab
 ~/DCFPartnerHackathon$
 ```
 
-For explanatory purposes, suppose we want to deploy the sros-generic-lab:
+For explanatory purposes, suppose we want to deploy the srl-generic-lab:
 
 Change directories
 ```
@@ -149,7 +175,7 @@ clab-st-gnmic
 clab-st-client3      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
 clab-st-spine1       50001->22/tcp 50000->57400/tcp
 ```
-(*) `show-ports` is actualy an alias on bash for the following command that provides a more user-friendly output for the docker command line
+(*) `show-ports` is actualy an alias on bash that provides a more user-friendly output for the docker command line
 
 Each service exposed on a lab node gets a unique external port number as per the table above. 
 In the given case, Grafana's web interface is available on port 50004 of the VM which is mapped to Grafana's node internal port of 3000.
@@ -180,21 +206,6 @@ In the example above, accessing grafana would be possible browsing towards **htt
 Optional:
 > You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.
 
-## clone this repo
-If you would like to work locally on your personal device you should clone this repository. This can be done using one of the following commands.
-
-> HTTPS
-```
-git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
-```
-> SSH
-```
-git clone git@github.com:srlinuxeurope/DCFPartnerHackathon.git
-```
-> GH CLI
-```
-gh repo clone srlinuxeurope/DCFPartnerHackathon
-```
 ## Useful links
 
 * [Network Developer Portal](https://network.developer.nokia.com/)

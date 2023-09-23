@@ -6,15 +6,16 @@ sleep 5
 sr_cli --candidate-mode < /home/admin/agent_config_leaf1.txt
 sr_cli --candidate-mode < /home/admin/git_token_setup.txt
 sr_cli --candidate-mode --commit-at-end '/ git-client branch '$GROUP'-branch'
+sleep 4
 
-#while [[ ! $(sr_cli 'info from state / git-client') ]];
-#do
-#    sudo pkill ndk-git
-#    sleep 2
-#done
+while [[ ! $(sr_cli 'info from state / git-client') ]];
+do
+    sudo pkill ndk-git
+    sleep 4
+done
 
 
 #Install Neofetch
-sudo ip netns exec srbase-mgmt dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-sudo ip netns exec srbase-mgmt dnf -y install neofetch
+sudo ip netns exec srbase-mgmt sudo curl -s https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch -o /usr/bin/neofetch
+sudo chmod +x /usr/bin/neofetch
 

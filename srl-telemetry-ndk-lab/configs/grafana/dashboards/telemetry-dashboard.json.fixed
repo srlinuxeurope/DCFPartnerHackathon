@@ -24,7 +24,20 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "New link",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -7096,7 +7109,7 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 5,
+        "w": 3,
         "x": 0,
         "y": 25
       },
@@ -7113,7 +7126,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.8",
       "targets": [
         {
           "datasource": {
@@ -7121,7 +7134,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "",
+          "expr": "gnmic_srl_ipv4_routes_active_routes{network_instance_name=\"default\",source=\"$NE\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -7134,7 +7147,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "",
+          "expr": "gnmic_srl_ipv4_routes_total_routes{network_instance_name=\"default\",source=\"$NE\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "IPv4 Total Routes",
@@ -7146,7 +7159,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "",
+          "expr": "gnmic_srl_ipv4_routes_active_routes_with_ecmp{network_instance_name=\"default\",source=\"$NE\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "IPv4 Active ECMP Routes",
@@ -7154,6 +7167,75 @@
         }
       ],
       "title": "Routing Stats",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "displayName": "Success Actions",
+          "mappings": [],
+          "max": 9,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 3,
+        "y": 25
+      },
+      "id": 39,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.8",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "gnmic_srl_ndk_app_success",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Success Actions",
+          "refId": "A"
+        }
+      ],
+      "title": "NDK Git Agent Stats",
       "type": "gauge"
     },
     {
@@ -7229,7 +7311,7 @@
       "gridPos": {
         "h": 5,
         "w": 7,
-        "x": 5,
+        "x": 6,
         "y": 25
       },
       "id": 10,
@@ -7245,7 +7327,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.8",
       "targets": [
         {
           "expr": "gnmic_srl_bgp_stats_up_peers{network_instance_name=\"default\",source=\"$NE\"}",
@@ -7334,8 +7416,8 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 12,
-        "x": 12,
+        "w": 11,
+        "x": 13,
         "y": 25
       },
       "id": 24,
@@ -7387,6 +7469,71 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "fixedColor": "green",
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "displayName": "Failed Actions",
+          "mappings": [],
+          "max": 9,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 3,
+        "y": 30
+      },
+      "id": 40,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.8",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "gnmic_srl_ndk_app_failure",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Success Actions",
+          "refId": "A"
+        }
+      ],
+      "title": "NDK Git Agent Stats",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "thresholds"
           },
           "mappings": [
@@ -7419,7 +7566,7 @@
       "gridPos": {
         "h": 5,
         "w": 7,
-        "x": 5,
+        "x": 6,
         "y": 30
       },
       "id": 11,
@@ -7435,7 +7582,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.8",
       "targets": [
         {
           "expr": "gnmic_srl_bgp_stats_total_received_routes{network_instance_name=\"default\",source=\"$NE\"}",
@@ -7821,7 +7968,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.8",
       "targets": [
         {
           "datasource": {
@@ -8108,8 +8255,8 @@
       {
         "current": {
           "selected": false,
-          "text": "leaf1",
-          "value": "leaf1"
+          "text": "clab-st-leaf1",
+          "value": "clab-st-leaf1"
         },
         "datasource": {
           "type": "prometheus",

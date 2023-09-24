@@ -66,9 +66,30 @@ subscriptions:
     stream-mode: sample
     sample-interval: 5s
 
+  srl_ipv4_routes:
+    paths:
+      - /network-instance[name=*]/route-table/ipv4-unicast/statistics/
+    mode: stream
+    stream-mode: sample
+    sample-interval: 5s
+
+  srl_ipv6_routes:
+    paths:
+      - /network-instance[name=*]/route-table/ipv6-unicast/statistics/
+    mode: stream
+    stream-mode: sample
+    sample-interval: 5s
+
   srl_apps:
     paths:
       - /system/app-management/application[name=*]
+    mode: stream
+    stream-mode: sample
+    sample-interval: 5s
+
+  srl_ndk_app:
+    paths:
+      - /git-client/statistics
     mode: stream
     stream-mode: sample
     sample-interval: 5s

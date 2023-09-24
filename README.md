@@ -24,10 +24,10 @@ Please refer to the paper provided by the hackathon session leader. If nothing h
 There will be 6 VM instances available and the allocation is the following:
 | Group ID | hostname instance | ip address |
 | --- | --- | ---|
-| **1** | **1**.dcfpartnerws.net | 10.11.0.2***1*** |
-| **2** | **2**.dcfpartnerws.net | 10.11.0.2***2*** |
+| **1** | **g1**.dcfpartnerws.net | 10.11.0.2***1*** |
+| **2** | **g2**.dcfpartnerws.net | 10.11.0.2***2*** |
 | ... | ... | ...|
-| **6** | **6**.dcfpartnerws.net | 10.11.0.2***6*** |
+| **6** | **g6**.dcfpartnerws.net | 10.11.0.2***6*** |
 
 ### SSH
 
@@ -42,7 +42,7 @@ To enable passwordless access to an instance, use `ssh-keygen -h` to generate a 
 ### IDE
 
 For your convenience, we've installed VSCode on the VM.
-Just point your browser to http://10.11.0.2***X***:8080/ and open the folder corresponding to the `DCFPartnerHackathon` cloned repository.
+Just point your browser to https://**g1**.dcfpartnerws.net/ and open the folder corresponding to the `DCFPartnerHackathon` cloned repository.
 
 ### WiFi
 
@@ -80,7 +80,7 @@ Each pre-provided project comes with a README of it's own, please click the pre-
 | Link to pre-provided project | Difficulty |
 | --- | --- |
 | [Standard SR Linux](./srl-generic-lab/) | # |
-| [SR Linux Streaming Telemetry](./srl-telemetry-lab/) | ## |
+| [SR Linux Streaming Telemetry & NDK](./srl-telemetry-ndk-lab/) | ## |
 | [SR Linux JSON-RPC with Ansible](./srl-ansible-lab/) | ## |
 | [Config Management with gNMI](./srl-sros-gnmi-config-lab/) | ### |
 | [SRLinux and k8s Metal LB integration](./srl-k8s-anycast-lab/) | ### |
@@ -194,14 +194,14 @@ Subsequently you can access the lab node on the external port for your given ins
 
 | Group ID | hostname instance |
 | --- | --- |
-| **X** | **X**.dcfpartnerws.net |
+| **X** | **gX**.dcfpartnerws.net |
 
 In the example above, accessing Leaf1 on group 1 would be possible by: 
 ```
-ssh admin@1.dcfpartnerws.net -p 50104
+ssh admin@g1.dcfpartnerws.net -p 50104
 ```
 
-In the example above, accessing grafana would be possible browsing towards **http://X.dcfpartnerws.net:50004** (where X is the group ID you've been allocated)
+In the example above, accessing grafana would be possible browsing towards **http://gX.dcfpartnerws.net:50004** (where X is the group ID you've been allocated)
 
 Optional:
 > You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.

@@ -19,3 +19,4 @@ done
 sudo ip netns exec srbase-mgmt sudo curl -s https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch -o /usr/bin/neofetch
 sudo chmod +x /usr/bin/neofetch
 
+/home/admin/check_ndk_agent.sh  >  /home/admin/check_ndk_output.log 2>&1 &

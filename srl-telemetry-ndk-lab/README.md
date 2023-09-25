@@ -1,14 +1,16 @@
-# Nokia SR Linux Streaming Telemetry Lab
+# Nokia SR Linux Streaming Telemetry & NDK Lab
 
 This lab represents a small Clos fabric with [Nokia SR Linux](https://learn.srlinux.dev/) switches running as containers. The lab topology consists of a network fabric, plus a Streaming Telemetry stack comprised of [gnmic](https://gnmic.openconfig.net), prometheus and grafana applications.
 
-![pic1](https://gitlab.com/rdodin/pics/-/wikis/uploads/0784c31d48ec18fd24111ad8d73478b0/image.png)
+As part of this Lab. a custom NDK application is installed on Leaf1. This application is a simple GIT client use to save the device configurion in a git repository. The NDK application has specif configuration and state elements exposed in SR Linux CLI and gNMI interfaces.
+
+![pic1](images/lab_setup.png)
 
 In addition to the telemetry stack, the lab also includes a modern logging stack based on Grafana Labs [Promtail](https://grafana.com/docs/loki/latest/clients/promtail/) and [loki](https://grafana.com/oss/loki/).
 
 The prepared set of [tasks](#tasks) allows users to explore the world of Streaming Telemetry based on the Nokia SR Linux platform and learn how to configure the relevant components.
 
-**Difficulty**: Intermediate
+**Difficulty**: High
 
 ## Deploying the lab
 
@@ -16,7 +18,7 @@ The lab is deployed with the [containerlab](https://containerlab.dev) project, w
 
 ```bash
 # change into the lab directory
-cd $HOME/DCFPartnerHackathon/srl-telemetry-lab
+cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab
 # and execute
 sudo containerlab deploy --reconfigure
 ```
@@ -66,13 +68,13 @@ Some well-known port numbers:
 | HTTP/HTTPS | 80/443               |
 | Grafana    | 3000                 |
 
-So imagine you are assigned a VM with address `1.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` via Internet with the following command:
+So imagine you are assigned a VM with address `g1.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` via Internet with the following command:
 
 ```bash
-ssh -p 50034 admin@1.dcfpartnerws.net
+ssh -p 50034 admin@g1.dcfpartnerws.net
 ```
 
-In a similar way, you can access Grafana's web interface by pasting `1.dcfpartnerws.net:50032` in your browser.
+In a similar way, you can access Grafana's web interface by pasting `g1.dcfpartnerws.net:50032` in your browser.
 
 For lab nodes that don't have a web management interface or an SSH server, use `docker exec` to access the node's shell executed from a VM.
 
@@ -112,6 +114,30 @@ Flags: S static, D dynamic, L discovered by LLDP, B BFD enabled, - disabled, * s
 | default   | 192.168.12.1  | eBGP          | S     | 202      | established | 0d:0h:0m:33s | ipv4-unicast | [3/3/4]       |
 +-----------+---------------+---------------+-------+----------+-------------+--------------+--------------+---------------+
 ```
+
+### Verifying NDK agent status
+
+You can check the state of the NDK agent by executing an ***info from state git-client***
+
+```
+A:leaf1# info from state git-client  
+    git-client {
+        organization ""
+        owner srlinuxeurope
+        repo srl-lab-config-store
+        filename leaf1-config.json
+        author "srlinux demo user"
+        author-email srlinux.europe@gmail.com
+        branch g10-branch
+        oper-state up
+        statistics {
+            success 0
+            failure 0
+        }
+    }
+```
+
+
 
 ## Telemetry stack
 
@@ -221,6 +247,106 @@ A colleague had a screenshot of how the panel looked like before the change:
 
 The panel displayed the number of active, total and active ECMP'ed routes for IPv4 AFI. Currently, the panel is empty, and even the expressions to fetch the data are missing...
 
-### 5. Add a new panel with a metric of your choice
+### 5. Add a new panel with a NDK Git agent stats
 
-If you completed the tasks above, or they weren't your cup of tea, you can add a new panel to the dashboard with a metric of your choice. You can use the Prometheus Web UI to explore the available metrics and their values.
+If you completed the tasks above, or they weren't your cup of tea, you can add a new panel to the dashboard with the custom NDK git-client stats.
+
+<img src="images/ndk_panel.png" width="180" height="300" />
+
+
+### 6. NDK Agent -  Save the config. in the Git Repository
+
+You can commit the leaf1 config. into git
+
+On Leaf1 execute:
+```
+tools git commit "g10 leaf1 group config"
+```
+
+Check in the gitlab repository that the configuration was saved under a dedicated branch for your group:
+
+<https://github.com/srlinuxeurope/srl-lab-config-store/branches>
+
+Verify in the newly added grafana panel that the success actions counter get updated:
+
+<img src="images/ndk_panel_stats.png" width="180" height="300" />
+
+
+### 7. Install a new CLI plugin to provide aditional CLI commands
+
+As a last challange for this lab. we propose the instalation of a CLI plugin to provide aditional CLI reports.
+
+On Leaf1 execute:
+
+```
+A:leaf1# bash
+[admin@leaf1 ~]$ sudo rpm -ivh srl-cli-plugins-1-0.noarch.rpm 
+Verifying...                          ################################# [100%]
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:srl-cli-plugins-1-0              ################################# [100%]
+```
+
+Initiate a new CLI session from the bash:
+```
+[admin@leaf1 ~]$ sr_cli
+Using configuration file(s): []
+Welcome to the srlinux CLI.
+Type 'help' (and press <ENTER>) if you need any help using this.
+--{ + running }--[  ]--
+A:leaf1#  
+```
+
+Verify that there're new CLI root commands show ***Demo*** & show ***health***:
+```
+A:leaf1# show Demo  
+  usage: Demo
+
+  Local commands:
+    hello             Show Demo greeting
+    sysinfo           Show Demo system information
+
+A:leaf1# show health local 
+  usage: health
+
+  Show health of this node
+
+  Local commands:
+    local             shows local device health status
+```
+The show ***health local*** report is collecting the state of the Uplinks, Power Suplies, FANs and TCAM.
+
+```
+A:leaf1# show health local  
+-----------------------------------------
+Status: Summary of device heatlh
+-----------------------------------------
++---------+-------+------+------+
+| Uplinks | Power | Fans | TCAM |
++=========+=======+======+======+
+| OK      | OK    | OK   | OK   |
++---------+-------+------+------+
+-----------------------------------------
+```
+
+Try to disable one of the uplink interfaces in Leaf1 and re-run the show health local
+
+### 8. Change the ***'show Demo hello'*** message
+
+Enter in the SR Linux bash, and change the corresponding CLI report python file:
+````
+A:leaf1# bash
+[admin@leaf1 ~]$ sudo vi /opt/srlinux/python/virtual-env/lib/python3.6/site-packages/srlinux/mgmt/cli/plugins/reports/demo.py
+````
+
+Start a new CLI session from the bash and check the ***show Demo hello*** output:
+```
+admin@leaf1 ~]$ sr_cli
+Using configuration file(s): []
+Welcome to the srlinux CLI.
+Type 'help' (and press <ENTER>) if you need any help using this.
+--{ + running }--[  ]--
+A:leaf1# show  Demo hello  
+Welcome to the SR Linux Partner! This is G1 Demo!
+``
+

@@ -167,11 +167,11 @@ Connect to the hosts and `ping` from:
 
 - **h1 to eth1 of h3** *(ping goes over ip-vrf-1)*
 
-`sudo docker exec -it clab-srl-generic-h1 ping h3`
+`sudo docker exec -it clab-srl-generic-h1 ping 100.101.3.13`
 
 - **h2 to eth2 of h3** *(ping goes over ip-vrf-2)*
 
-`sudo docker exec -it clab-srl-generic-h2 ping h3`
+`sudo docker exec -it clab-srl-generic-h2 ping 100.102.4.13`
 
 - **h3 to 100.100.100.100** *(ping an address on ip-vrf-1 and ip-vrf-2)*
 

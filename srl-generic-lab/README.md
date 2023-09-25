@@ -141,9 +141,6 @@ These alias can receive inputs so that the neighbor can be dynamiclly selected (
 -`environment alias mybgp "info from state network-instance default protocols bgp neighbor {} | filter fields admin-state session-state | as table"`
 -`mybgp mybgp 10.0.0.5`
 
-
-
-
 ### iBGP EVPN as Network Virtualization Overlay
 
 EVPN uses MP-BGP as a control plane protocol between the tunnel endpoints. Typically, route-reflectors (RRs) are configured for the scalability. In this lab, spine routers are configured as RRs. All the leaf routers are peering with the spine routers for iBGP EVPN routes.

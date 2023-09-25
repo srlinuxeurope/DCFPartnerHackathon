@@ -81,10 +81,10 @@ gnmic -a clab-config-leaf1 -u admin -p NokiaSrl1! --skip-verify capabilities
 
 - [ ] **Obtain the hierarchy about a given context**
 
-To obtain the hierarchy of the interfaces under the router "Base", use the command **get**:
+To obtain the hierarchy of the interfaces under the router "Base", use the command **get** to query the state context:
 ```
 gnmic -a clab-config-sr1 -u admin -p admin --insecure get \
-          --path "/configure/router[router-name=Base]/interface"
+          --path "/state/router[router-name=Base]/interface"
 ```
 
 - [ ] **Provision ports in SR1 and SR2 - port connector**

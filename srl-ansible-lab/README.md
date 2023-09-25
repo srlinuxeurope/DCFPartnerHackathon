@@ -21,7 +21,7 @@ The lab uses [containerlab](https://containerlab.dev) lab emulation tool that is
 To deploy the lab, change to the `srl-ansible-lab` directory and run the following command:
 
 ```bash
-cd $HOME/DCFPartnerHackathon/srl-generic-lab
+cd $HOME/DCFPartnerHackathon/srl-ansible-lab
 sudo clab deploy -c
 ```
 

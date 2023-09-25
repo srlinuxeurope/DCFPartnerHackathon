@@ -39,7 +39,12 @@ sudo containerlab deploy -c -t srl-generic.clab.yml
 
 ## Credentials & Access
 
-Once the lab is running, you can access the network elements and hosts using the DNS name of a VM and the port numbers assigned to the respective services.
+Once the lab is running, you can access the network elements from inside the VM through **ssh**, just passing the node name:
+```
+ssh admin@clab-srl-generic-leaf1
+```
+
+You can also access the nodes remotely hosts using the DNS name of a VM and the port numbers assigned to the respective services.
 
 To get the list of ports allocated by containerlab:
 
@@ -81,7 +86,8 @@ ssh -p 50009 admin@g1.dcfpartnerws.net
 To access host h1:
 
 ```bash
-docker exec -it clab-srl-generic-h1 bash
+# password: srllabs@123
+ssh -p 50011 root@g1.dcfpartnerws.net
 ```
 
 In alternative you can directly attach a shell session to the host h1 from the Docker Extension of your WEB based IDE:
@@ -165,19 +171,27 @@ Connect to the hosts and `ping` from:
 
 - **h1 to h4** *(ping goes over mac-vrf-1)*
 
-`sudo docker exec -it clab-srl-generic-h1 ping h4`
+```
+sudo docker exec -it clab-srl-generic-h1 ping 100.101.1.14
+```
 
 - **h1 to eth1 of h3** *(ping goes over ip-vrf-1)*
 
-`sudo docker exec -it clab-srl-generic-h1 ping h3`
+```
+sudo docker exec -it clab-srl-generic-h1 ping 100.101.3.13
+```
 
 - **h2 to eth2 of h3** *(ping goes over ip-vrf-2)*
 
-`sudo docker exec -it clab-srl-generic-h2 ping h3`
+```
+sudo docker exec -it clab-srl-generic-h2 ping 100.102.4.13
+```
 
 - **h3 to 100.100.100.100** *(ping an address on ip-vrf-1 and ip-vrf-2)*
 
-`sudo docker exec -it clab-srl-generic-h3 ping 100.100.100.100`
+```
+sudo docker exec -it clab-srl-generic-h3 ping 100.100.100.100
+```
 
 Check the mac/ip table entries and EVPN route advertisements on the related SR Linux nodes with:
 

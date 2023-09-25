@@ -78,8 +78,6 @@ Imagine you are assigned a VM with an address `1.dcfpartnerws.net` and the `show
 ssh -p 50009 admin@g1.dcfpartnerws.net
 ```
 
-<<<<<<< HEAD
-=======
 To access host h1:
 
 ```bash
@@ -87,7 +85,6 @@ To access host h1:
 ssh -p 50011 root@g1.dcfpartnerws.net
 ```
 
->>>>>>> 1e35dde (fix readme)
 ## Exploring SR Linux
 
 ### Explore the underlay configuration

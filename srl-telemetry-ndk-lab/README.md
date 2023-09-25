@@ -237,7 +237,7 @@ Adjust the `gnmic` config to collect statistics for the `mgmt0` interface such t
 > **Note**  
 > When you changed gnmic config, you need to restart the deployment:
 
->`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab`
+>`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab` <br>
 >`sudo clab deploy --reconfigure`
 
 ### 4. Fix routing stats panel
@@ -253,7 +253,7 @@ The panel displayed the number of active, total and active ECMP'ed routes for IP
 > **Note**  
 > When you changed gnmic config, you need to restart the deployment:
 
->`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab`
+>`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab` <br>
 >`sudo clab deploy --reconfigure`
 
 ### 5. Add a new panel with a NDK Git agent stats
@@ -265,7 +265,7 @@ If you completed the tasks above, or they weren't your cup of tea, you can add a
 > **Note**  
 > When you changed gnmic config, you need to restart the deployment:
 
->`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab`
+>`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab` <br>
 >`sudo clab deploy --reconfigure`
 
 ### 6. NDK Agent -  Save the config. in the Git Repository

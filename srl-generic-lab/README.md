@@ -163,7 +163,7 @@ Connect to the hosts and `ping` from:
 
 - **h1 to h4** *(ping goes over mac-vrf-1)*
 
-`sudo docker exec -it clab-srl-generic-h1 ping h4`
+`sudo docker exec -it clab-srl-generic-h1 ping 100.101.1.14`
 
 - **h1 to eth1 of h3** *(ping goes over ip-vrf-1)*
 

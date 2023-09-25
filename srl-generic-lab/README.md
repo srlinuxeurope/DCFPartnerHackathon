@@ -78,13 +78,6 @@ Imagine you are assigned a VM with an address `g1.dcfpartnerws.net` and the `sho
 ssh -p 50009 admin@g1.dcfpartnerws.net
 ```
 
-To access host h1:
-
-```bash
-# password: srllabs@123
-ssh -p 50011 root@g1.dcfpartnerws.net
-```
-
 ## Exploring SR Linux
 
 ### Explore the underlay configuration

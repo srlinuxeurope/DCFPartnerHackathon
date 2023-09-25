@@ -235,7 +235,10 @@ Adjust the `gnmic` config to collect statistics for the `mgmt0` interface such t
 </details>
 
 > **Note**  
-> When you changed gnmic config, you need to restart the gnmic container to apply the changes. You can do it by running `docker restart clab-st-gnmic`.
+> When you changed gnmic config, you need to restart the deployment:
+
+>`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab`
+>`sudo clab deploy --reconfigure`
 
 ### 4. Fix routing stats panel
 
@@ -247,12 +250,23 @@ A colleague had a screenshot of how the panel looked like before the change:
 
 The panel displayed the number of active, total and active ECMP'ed routes for IPv4 AFI. Currently, the panel is empty, and even the expressions to fetch the data are missing...
 
+> **Note**  
+> When you changed gnmic config, you need to restart the deployment:
+
+>`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab`
+>`sudo clab deploy --reconfigure`
+
 ### 5. Add a new panel with a NDK Git agent stats
 
 If you completed the tasks above, or they weren't your cup of tea, you can add a new panel to the dashboard with the custom NDK git-client stats.
 
 <img src="images/ndk_panel.png" width="180" height="300" />
 
+> **Note**  
+> When you changed gnmic config, you need to restart the deployment:
+
+>`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab`
+>`sudo clab deploy --reconfigure`
 
 ### 6. NDK Agent -  Save the config. in the Git Repository
 

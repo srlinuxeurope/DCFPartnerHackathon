@@ -71,7 +71,7 @@ Some well-known port numbers:
 | gNMI    | 57400                |
 | HTTP    | 80/443               |
 
-Imagine you are assigned a VM with an address `1.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` SSH via Internet with the following command:
+Imagine you are assigned a VM with an address `g1.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` SSH via Internet with the following command:
 
 ```bash
 # password: NokiaSrl1!

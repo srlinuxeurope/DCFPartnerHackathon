@@ -39,7 +39,12 @@ sudo containerlab deploy -c -t srl-generic.clab.yml
 
 ## Credentials & Access
 
-Once the lab is running, you can access the network elements and hosts using the DNS name of a VM and the port numbers assigned to the respective services.
+Once the lab is running, you can access the network elements from inside the VM through **ssh**, just passing the node name:
+```
+ssh admin@clab-srl-generic-leaf1
+```
+
+You can also access the nodes remotely hosts using the DNS name of a VM and the port numbers assigned to the respective services.
 
 To get the list of ports allocated by containerlab:
 

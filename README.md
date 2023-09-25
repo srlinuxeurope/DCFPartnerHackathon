@@ -50,24 +50,6 @@ Details provided in the session.
 
 ## The projects
 
-### Clone this repo
-As the first step, you must clone the git repository where all the proposed projects are available. You could also clone it to your personal device for future reference.
-This can be done using one of the following commands.
-
-> HTTPS
-```
-git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
-```
-> VS Code IDE
-```
--> Source Control
--> Clone Repository
--> https://github.com/srlinuxeurope/DCFPartnerHackathon.git
--> /home/srlinux/
--> Open
--> Check flag "Trust the authors of all files" and click on "Yes, I trust the authors"
-```
-Note: GitHub has other options to clone a repo, such as ssh or the gh cli, but they are not in the scope of this document.
 
 ### Overview of pre-provided projects
 During this hackathon you can work on any problem/project you are inspired to tackle or on one of the pre-provided projects of varying difficulty.
@@ -99,6 +81,7 @@ DCFPartnerHackathon
 README.md
 srl-ansible-lab
 srl-generic-lab
+srl-k8s-anycast-lab
 srl-sros-gnmi-config-lab
 srl-telemetry-lab
 ~/DCFPartnerHackathon$

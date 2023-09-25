@@ -40,8 +40,7 @@ Demonstrate kubernetes MetalLB load balancing scenario in a Containerlab+Minikub
 ## Deploying the lab
 
 ```bash
-# clone this repository
-git clone https://github.com/srl-labs/srl-k8s-anycast-lab && cd srl-k8s-anycast-lab
+cd DCFPartnerHackathon/srl-k8s-anycast-lab
 ```
 
 ```bash

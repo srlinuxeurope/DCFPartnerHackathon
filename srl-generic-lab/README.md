@@ -44,7 +44,7 @@ Once the lab is running, you can access the network elements from inside the VM 
 ssh admin@clab-srl-generic-leaf1
 ```
 
-You can also access the nodes remotely hosts using the DNS name of a VM and the port numbers assigned to the respective services.
+You can also access the nodes remotely hosts using the DNS name of a VM and the port numbers assigned to the respective services - **except for hosts h1 to h4** which are not configured for that type of access.
 
 To get the list of ports allocated by containerlab:
 

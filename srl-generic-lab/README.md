@@ -74,7 +74,7 @@ Some well-known port numbers:
 | ------- | -------------------- |
 | SSH     | 22                   |
 | gNMI    | 57400                |
-| HTTP    | 80/443               |
+| HTTP/JSON-RPC    | 80/443               |
 
 Imagine you are assigned a VM with an address `g1.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` SSH via Internet with the following command:
 
@@ -127,6 +127,14 @@ And from the state datastore:
 - `info from state network-instance default protocols bgp neighbor * received-messages`
 
 The output can be retrieved in different formats:
+
+As JSON:
+ - 'info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as json'
+
+info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as table
+
+environment alias mybgp "info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as table"
+environment alias mybgp "info from state network-instance default protocols bgp neighbor {} | filter fields admin-state session-state | as table"
 
 
 

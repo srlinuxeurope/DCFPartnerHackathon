@@ -170,7 +170,7 @@ The following table shows common container internal ports and is meant to help y
 | SSH        | 22                   |
 | Netconf    | 830                  |
 | gNMI       | 57400                |
-| HTTP/HTTPS | 80/443               |
+| HTTP/HTTPS/JSON-RPC | 80/443               |
 | Grafana    | 3000                 |
 
 Subsequently you can access the lab node on the external port for your given instance using the DNS name of the assigned VM.

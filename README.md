@@ -81,6 +81,7 @@ DCFPartnerHackathon
 README.md
 srl-ansible-lab
 srl-generic-lab
+srl-k8s-anycast-lab
 srl-sros-gnmi-config-lab
 srl-telemetry-lab
 ~/DCFPartnerHackathon$

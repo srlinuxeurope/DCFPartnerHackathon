@@ -49,7 +49,7 @@ In the context of SR Linux's Ansible collection, we are primarily interested in 
 
 Ansible core (v2.13.8) is already pre-installed on the Lab VM, but you need to download the [SR Linux Ansible collection](https://learn.srlinux.dev/ansible/collection/):
 ```
-sudo ansible-galaxy collection install nokia.srlinux
+ansible-galaxy collection install nokia.srlinux
 ```
 
 SR Linux Ansible collection docs can be found at [learn.srlinux.dev](https://learn.srlinux.dev/ansible/collection/) portal with a good number of examples and use cases. You will have to refer to the documentation to understand how the modules are composed and complete the lab tasks.

@@ -62,7 +62,7 @@ Each pre-provided project comes with a README of it's own, please click the pre-
 | Link to pre-provided project | Difficulty |
 | --- | --- |
 | [Standard SR Linux](./srl-generic-lab/) | # |
-| [SR Linux Streaming Telemetry & NDK](./srl-telemetry-ndk-lab/) | ## |
+| [SR Linux Streaming Telemetry & NDK](./srl-telemetry-ndk-lab/) | ### |
 | [SR Linux JSON-RPC with Ansible](./srl-ansible-lab/) | ## |
 | [Config Management with gNMI](./srl-sros-gnmi-config-lab/) | ### |
 | [SRLinux and k8s Metal LB integration](./srl-k8s-anycast-lab/) | ### |

@@ -126,6 +126,10 @@ And from the state datastore:
 - `info from state interface ethernet-1/31 subinterface 1 statistics`
 - `info from state network-instance default protocols bgp neighbor * received-messages`
 
+The output can be retrieved in different formats:
+
+
+
 ### iBGP EVPN as Network Virtualization Overlay
 
 EVPN uses MP-BGP as a control plane protocol between the tunnel endpoints. Typically, route-reflectors (RRs) are configured for the scalability. In this lab, spine routers are configured as RRs. All the leaf routers are peering with the spine routers for iBGP EVPN routes.

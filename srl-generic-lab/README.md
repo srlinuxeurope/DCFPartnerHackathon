@@ -87,7 +87,7 @@ To access host h1:
 
 ```bash
 # password: srllabs@123
-ssh -p 50011 root@g1.dcfpartnerws.net
+sudo docker exec -it clab-srl-generic-h1 bash
 ```
 
 In alternative you can directly attach a shell session to the host h1 from the Docker Extension of your WEB based IDE:

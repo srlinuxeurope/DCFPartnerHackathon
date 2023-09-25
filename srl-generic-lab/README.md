@@ -34,7 +34,7 @@ Deploy the topology with containerlab.
 
 ```bash
 cd $HOME/DCFPartnerHackathon/srl-generic-lab
-sudo containerlab deploy -c -t srl-generic.clab.yml
+sudo clab deploy -c -t srl-generic.clab.yml
 ```
 
 ## Credentials & Access
@@ -91,7 +91,8 @@ sudo docker exec -it clab-srl-generic-h1 bash
 ```
 
 In alternative you can directly attach a shell session to the host h1 from the Docker Extension of your WEB based IDE:
-![pic](images/access_docker_extension.png)
+
+<img src="images/access_docker_extension.png" width="350" height="300" />
 
 ## Exploring SR Linux
 

@@ -28,7 +28,7 @@ The starting point for most of the commands require passing node, username and p
 
 So, the CLI will always start like this:
 
-`gnmic -a $node -u $username -p $password` $options $command
+`gnmic -a $node -u $username -p $password $options $command`
 
 For lab purposes, we will also need to skip some security verifications. SROS and SR Linux OS requires different parameters:
 | OS | Parameter |

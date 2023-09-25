@@ -122,19 +122,25 @@ Getting information from the configuration datastore:
 - `info network-instance default`
 
 And from the state datastore:
-
 - `info from state interface ethernet-1/31 subinterface 1 statistics`
 - `info from state network-instance default protocols bgp neighbor * received-messages`
 
 The output can be retrieved in different formats:
 
 As JSON:
- - 'info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as json'
+- `info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as json`
 
-info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as table
+As Table:
+- `info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as table`
 
-environment alias mybgp "info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as table"
-environment alias mybgp "info from state network-instance default protocols bgp neighbor {} | filter fields admin-state session-state | as table"
+These commands can be associated to CLI Aliases
+-`environment alias mybgp "info from state network-instance default protocols bgp neighbor * | filter fields admin-state session-state | as table"`
+-`mybgp`
+
+These alias can receive inputs so that the neighbor can be dynamiclly selected (dynamic aliases)
+-`environment alias mybgp "info from state network-instance default protocols bgp neighbor {} | filter fields admin-state session-state | as table"`
+-`mybgp mybgp 10.0.0.5`
+
 
 
 

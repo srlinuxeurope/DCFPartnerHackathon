@@ -78,13 +78,6 @@ Imagine you are assigned a VM with an address `1.dcfpartnerws.net` and the `show
 ssh -p 50009 admin@1.dcfpartnerws.net
 ```
 
-To access host h1:
-
-```bash
-# password: srllabs@123
-ssh -p 50011 root@1.dcfpartnerws.net
-```
-
 ## Exploring SR Linux
 
 ### Explore the underlay configuration
@@ -162,9 +155,16 @@ With overlay services deployed, you can successfully test network reachability b
 Connect to the hosts and `ping` from:
 
 - **h1 to h4** *(ping goes over mac-vrf-1)*
+`sudo docker exec -it clab-srl-generic-h1 ping h4`
+
 - **h1 to eth1 of h3** *(ping goes over ip-vrf-1)*
+`sudo docker exec -it clab-srl-generic-h1 ping h3`
+
 - **h2 to eth2 of h3** *(ping goes over ip-vrf-2)*
+`sudo docker exec -it clab-srl-generic-h2 ping h3`
+
 - **h3 to 100.100.100.100** *(ping an address on ip-vrf-1 and ip-vrf-2)*
+`sudo docker exec -it clab-srl-generic-h3 ping 100.100.100.100`
 
 Check the mac/ip table entries and EVPN route advertisements on the related SR Linux nodes with:
 

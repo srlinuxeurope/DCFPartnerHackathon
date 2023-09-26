@@ -72,10 +72,10 @@ Some well-known port numbers:
 So imagine you are assigned a VM with address `gX.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` via Internet with the following command:
 
 ```bash
-ssh -p 50034 admin@g1.dcfpartnerws.net
+ssh -p 50034 admin@gX.dcfpartnerws.net
 ```
 
-For Grafana, we made the external port to be static as 3000 (native Grafana port) so that it can be accessible as well from VSCode interface. However, it can be accessed by pasting `g**X**.dcfpartnerws.net:3000` in your browser.
+For Grafana, we made the external port to be static as 3000 (native Grafana port) so that it can be accessible as well from VSCode interface. However, it can be accessed by pasting `gX.dcfpartnerws.net:3000` in your browser.
 
 For lab nodes that don't have a web management interface or an SSH server, use `docker exec` to access the node's shell executed from a VM.
 

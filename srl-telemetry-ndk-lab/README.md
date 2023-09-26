@@ -280,7 +280,7 @@ If you completed the tasks above, or they weren't your cup of tea, you can add a
 <img src="images/ndk_panel.png" width="180" height="300" />
 
 > **Note**  
-> When you changed the gnmic config is already done:
+> The gnmic config is already done:
 ```
   srl_ndk_app:
     paths:
@@ -290,7 +290,7 @@ If you completed the tasks above, or they weren't your cup of tea, you can add a
     sample-interval: 5s
 
 ```
-> Just need to update the grafana dashboard
+> You just need to update the grafana dashboard and include the new panel.
 
 
 ### 6. NDK Agent -  Save the config. in the Git Repository

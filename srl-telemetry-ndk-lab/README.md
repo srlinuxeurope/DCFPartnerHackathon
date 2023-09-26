@@ -2,7 +2,7 @@
 
 This lab represents a small Clos fabric with [Nokia SR Linux](https://learn.srlinux.dev/) switches running as containers. The lab topology consists of a network fabric, plus a Streaming Telemetry stack comprised of [gnmic](https://gnmic.openconfig.net), prometheus and grafana applications.
 
-As part of this Lab. a custom NDK application is installed on Leaf1. This application is a simple GIT client used to save the device configurion in a git repository. The NDK application has specific configuration and state elements exposed in SR Linux CLI and gNMI interfaces.
+As part of this Lab, a custom NDK application is installed on Leaf1. This application is a simple GIT client used to save the device configuration in a git repository. The NDK application has specific configuration and state elements exposed in SR Linux CLI and gNMI interfaces.
 
 ![pic1](images/lab_setup.png)
 
@@ -40,23 +40,24 @@ To get the list of ports allocated by containerlab, use the following command:
 ```bash
 $ show-ports
 NAMES                PORTS
-clab-st-promtail
-clab-st-leaf1        50034->22/tcp, 50034->22/tcp, 50033->57400/tcp, 50033->57400/tcp
-clab-st-grafana      50032->3000/tcp, 50032->3000/tcp
-clab-st-client3      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
 clab-st-gnmic
-clab-st-prometheus   50031->9090/tcp, 50031->9090/tcp
-clab-st-loki         50026->3100/tcp, 50026->3100/tcp
-clab-st-spine2       50025->22/tcp, 50025->22/tcp, 50023->57400/tcp, 50023->57400/tcp
-clab-st-client1      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
-clab-st-spine1       50024->22/tcp, 50024->22/tcp, 50022->57400/tcp, 50022->57400/tcp
-clab-st-leaf3        50029->22/tcp, 50029->22/tcp, 50027->57400/tcp, 50027->57400/tcp
-clab-st-leaf2        50030->22/tcp, 50030->22/tcp, 50028->57400/tcp, 50028->57400/tcp
-clab-st-syslog       6514/tcp, 5514/udp, 6601/tcp
-clab-st-client2      22/tcp, 80/tcp, 443/tcp, 1180/tcp, 11443/tcp
+clab-st-client2      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
+clab-st-spine2       50093->22/tcp 50092->57400/tcp
+clab-st-spine1       50091->22/tcp 50090->57400/tcp
+clab-st-leaf1        50089->22/tcp 50088->57400/tcp
+clab-st-grafana      3000->3000/tcp
+clab-st-syslog       6514/tcp 5514/udp 6601/tcp
+clab-st-loki         50087->3100/tcp
+clab-st-leaf2        50084->22/tcp 50083->57400/tcp
+clab-st-prometheus   50082->9090/tcp
+clab-st-client1      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
+clab-st-client3      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
+clab-st-leaf3        50086->22/tcp 50085->57400/tcp
+clab-st-promtail
+
 ```
 
-Each service exposed on a lab node gets a unique external port number as per the table above. For example, Grafana's web interface is available on port `50032` of the VM and is mapped to Grafana's node internal port of `3000`.
+Each service exposed on a lab node gets a unique external port number as per the table above. For example, Prometheus's web interface is available on port `50082` of the VM and is mapped to Prometheus's node internal port of `9090`.
 
 Some well-known port numbers:
 
@@ -68,13 +69,13 @@ Some well-known port numbers:
 | HTTP/HTTPS | 80/443               |
 | Grafana    | 3000                 |
 
-So imagine you are assigned a VM with address `g1.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` via Internet with the following command:
+So imagine you are assigned a VM with address `gX.dcfpartnerws.net` and the `show-ports` command matches the output above; then you can access `leaf1` via Internet with the following command:
 
 ```bash
-ssh -p 50034 admin@g1.dcfpartnerws.net
+ssh -p 50034 admin@gX.dcfpartnerws.net
 ```
 
-In a similar way, you can access Grafana's web interface by pasting `g1.dcfpartnerws.net:50032` in your browser.
+For Grafana, we made the external port to be static as 3000 (native Grafana port) so that it can be accessible as well from VSCode interface. However, it can be accessed by pasting `gX.dcfpartnerws.net:3000` in your browser.
 
 For lab nodes that don't have a web management interface or an SSH server, use `docker exec` to access the node's shell executed from a VM.
 

@@ -234,8 +234,8 @@ Adjust the `gnmic` config to collect statistics for the `mgmt0` interface such t
 </details>
 </details>
 
-> **Note**  
-> When you changed gnmic config, you need to restart the deployment:
+> **Note** 
+> When you are done with the gnmic config. you need to restart the deployment:
 
 >`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab` <br>
 >`sudo clab deploy --reconfigure`
@@ -250,11 +250,27 @@ A colleague had a screenshot of how the panel looked like before the change:
 
 The panel displayed the number of active, total and active ECMP'ed routes for IPv4 AFI. Currently, the panel is empty, and even the expressions to fetch the data are missing...
 
-> **Note**  
-> When you changed gnmic config, you need to restart the deployment:
+> **Note** 
+
+> Please save your new Grafana Dashboard in the containerlab file system:
+>On the grafana UI click on "save dashboard":
+![pic](images/Save_dashboard.png)
+>Then on the next panel copy the dashboard .json definition to the clipboard:
+
+<img src="images/Copy_dashboard.png" width="300" height="350" />
+
+>In your IDE copy the content into:
+
+`srl-telemetry-ndk-lab->configs->grafana->dashboards->telemetry-dashboard.json`
+
+
+![pic](images/Paste_dashboard_content.png)
+
+> When you saved the new dashboard config, you need to restart the deployment:
 
 >`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab` <br>
 >`sudo clab deploy --reconfigure`
+
 
 ### 5. Add a new panel with a NDK Git agent stats
 
@@ -263,18 +279,32 @@ If you completed the tasks above, or they weren't your cup of tea, you can add a
 <img src="images/ndk_panel.png" width="180" height="300" />
 
 > **Note**  
-> When you changed gnmic config, you need to restart the deployment:
+> When you changed the gnmic config is already done:
+```
+  srl_ndk_app:
+    paths:
+      - /git-client/statistics
+    mode: stream
+    stream-mode: sample
+    sample-interval: 5s
 
->`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab` <br>
->`sudo clab deploy --reconfigure`
+```
+> Just need to update the grafana dashboard
+
 
 ### 6. NDK Agent -  Save the config. in the Git Repository
 
 You can commit the leaf1 config. into git
 
+SSH to leaf1:
+```
+ssh -l admin clab-st-leaf1
+password is: admin
+``````
+
 On Leaf1 execute:
 ```
-tools git commit "g10 leaf1 group config"
+tools git commit "g1 commit"
 ```
 
 Check in the gitlab repository that the configuration was saved under a dedicated branch for your group:

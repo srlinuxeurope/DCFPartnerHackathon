@@ -73,6 +73,14 @@ subscriptions:
     stream-mode: sample
     sample-interval: 5s
 
+  srl_ndk_app:
+    paths:
+      - /git-client/statistics
+    mode: stream
+    stream-mode: sample
+    sample-interval: 5s
+
+
 outputs:
   prom:
     type: prometheus

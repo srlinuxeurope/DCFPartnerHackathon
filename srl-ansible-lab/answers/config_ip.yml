@@ -1,21 +1,55 @@
-- name: Set ethernet-1/1 IPv4 R1
+- name: Config IP Interface Ethernet 1-1 srl1
+  gather_facts: false
   hosts: clab-ansible-srl1
-  gather_facts: false
   tasks:
-  - name: Set ethernet-1/1 IPv4 R1
-    nokia.srlinux.config:
-      update:
-      - path: /interface[name=ethernet-1/1]/subinterface[index=0]/ipv4/address[ip-prefix=1.1.1.1/30]
-        value:
-          ip-prefix: 1.1.1.1/32
+    - name: Add interface
+      nokia.srlinux.config:
+        update:
+          - path: /interface[name=ethernet-1/1]
+            value:
+              admin-state: enable
+              description: "interface description set with Ansible"
+              subinterface:
+                - index: 0
+                  admin-state: enable
+                  description: "subinterface description set with Ansible"
+                  ipv4:
+                    admin-state: enable
+                    address:
+                      - ip-prefix: 1.1.1.1/30
+        update:
+          - path: /network-instance[name=default]
+            value:
+                interface: 
+                  - name: ethernet-1/1.0
+      register: set_response
 
-- name: Set ethernet-1/1 IPv4 R2
-  hosts: clab-ansible-srl2
+
+- name: Config IP Interface Ethernet 1-1 srl2
   gather_facts: false
+  hosts: clab-ansible-srl2
   tasks:
-  - name: Set ethernet-1/1 IPv4 R2
-    nokia.srlinux.config:
-      update:
-      - path: /interface[name=ethernet-1/1]/subinterface[index=0]/ipv4/address[ip-prefix=1.1.1.2/30]
-        value:
-          ip-prefix: 1.1.1.2/32
+    - name: Add interface
+      nokia.srlinux.config:
+        update:
+          - path: /interface[name=ethernet-1/1]
+            value:
+              admin-state: enable
+              description: "interface description set with Ansible"
+              subinterface:
+                - index: 0
+                  admin-state: enable
+                  description: "subinterface description set with Ansible"
+                  ipv4:
+                    admin-state: enable
+                    address:
+                      - ip-prefix: 1.1.1.2/30
+        update:
+          - path: /network-instance[name=default]
+            value:
+                interface: 
+                  - name: ethernet-1/1.0
+      register: set_response
+
+    
+

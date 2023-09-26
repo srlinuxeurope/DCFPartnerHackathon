@@ -2,7 +2,7 @@
 
 This lab represents a small Clos fabric with [Nokia SR Linux](https://learn.srlinux.dev/) switches running as containers. The lab topology consists of a network fabric, plus a Streaming Telemetry stack comprised of [gnmic](https://gnmic.openconfig.net), prometheus and grafana applications.
 
-As part of this Lab. a custom NDK application is installed on Leaf1. This application is a simple GIT client used to save the device configurion in a git repository. The NDK application has specific configuration and state elements exposed in SR Linux CLI and gNMI interfaces.
+As part of this Lab, a custom NDK application is installed on Leaf1. This application is a simple GIT client used to save the device configuration in a git repository. The NDK application has specific configuration and state elements exposed in SR Linux CLI and gNMI interfaces.
 
 ![pic1](images/lab_setup.png)
 

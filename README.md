@@ -42,7 +42,7 @@ To enable passwordless access to an instance, use `ssh-keygen -h` to generate a 
 ### IDE
 
 For your convenience, we've installed VSCode on the VM.
-Just point your browser to https://**g1**.dcfpartnerws.net/ and open the folder corresponding to the `DCFPartnerHackathon` cloned repository.
+Just point your browser to https://**gX**.dcfpartnerws.net/ and open the folder corresponding to the `DCFPartnerHackathon` cloned repository.
 
 ### WiFi
 
@@ -83,7 +83,7 @@ srl-ansible-lab
 srl-generic-lab
 srl-k8s-anycast-lab
 srl-sros-gnmi-config-lab
-srl-telemetry-lab
+srl-telemetry-ndk-lab
 ~/DCFPartnerHackathon$
 ```
 
@@ -143,25 +143,25 @@ With the `show-ports`(*) command executed on a VM you get a list of mappings bet
 ```
 ~$ show-ports
 NAMES                PORTS
-clab-st-spine2       50012->22/tcp 50010->57400/tcp
-clab-st-leaf1        50011->22/tcp 50008->57400/tcp
-clab-st-leaf2        50009->22/tcp 50007->57400/tcp
-clab-st-leaf3        50006->22/tcp 50005->57400/tcp
-clab-st-syslog       6514/tcp 5514/udp 6601/tcp
-clab-st-grafana      50004->3000/tcp
-clab-st-client1      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
-clab-st-loki         50002->3100/tcp
-clab-st-client2      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
-clab-st-prometheus   50003->9090/tcp
-clab-st-promtail
 clab-st-gnmic
+clab-st-client2      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
+clab-st-spine2       50093->22/tcp 50092->57400/tcp
+clab-st-spine1       50091->22/tcp 50090->57400/tcp
+clab-st-leaf1        50089->22/tcp 50088->57400/tcp
+clab-st-grafana      3000->3000/tcp
+clab-st-syslog       6514/tcp 5514/udp 6601/tcp
+clab-st-loki         50087->3100/tcp
+clab-st-leaf2        50084->22/tcp 50083->57400/tcp
+clab-st-prometheus   50082->9090/tcp
+clab-st-client1      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
 clab-st-client3      22/tcp 80/tcp 443/tcp 1180/tcp 11443/tcp
-clab-st-spine1       50001->22/tcp 50000->57400/tcp
+clab-st-leaf3        50086->22/tcp 50085->57400/tcp
+clab-st-promtail
 ```
 (*) `show-ports` is actualy an alias on bash that provides a more user-friendly output for the docker command line
 
 Each service exposed on a lab node gets a unique external port number as per the table above. 
-In the given case, Grafana's web interface is available on port 50004 of the VM which is mapped to Grafana's node internal port of 3000.
+In the given case, Prometheus's web interface is available on port 50082 of the VM which is mapped to Prometheus's node internal port of 9090.
 
 The following table shows common container internal ports and is meant to help you find the correct exposed port for the services.
 
@@ -184,7 +184,7 @@ In the example above, accessing Leaf1 on group 1 would be possible by:
 ssh admin@g1.dcfpartnerws.net -p 50104
 ```
 
-In the example above, accessing grafana would be possible browsing towards **http://gX.dcfpartnerws.net:50004** (where X is the group ID you've been allocated)
+In the example above, accessing Prometheus would be possible browsing towards **http://gX.dcfpartnerws.net:50082** (where X is the group ID you've been allocated)
 
 Optional:
 > You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.
@@ -199,9 +199,11 @@ Optional:
 * [Learn SR Linux](https://learn.srlinux.dev/)
 * [YANG Browser](https://yang.srlinux.dev/)
 * [gNxI Browser](https://gnxi.srlinux.dev/)
+* [Ansible Collection](https://learn.srlinux.dev/ansible/collection/)
 
 ### SR OS
 * [pySROS](https://network.developer.nokia.com/static/sr/learn/pysros/latest/index.html)
+* [SROS YANG models](https://github.com/nokia/7x50_YangModels.git)
 
 ### Misc Tools/Software
 #### Windows

@@ -80,7 +80,6 @@ subscriptions:
     stream-mode: sample
     sample-interval: 5s
 
-
 outputs:
   prom:
     type: prometheus

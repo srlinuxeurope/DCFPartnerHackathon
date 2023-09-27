@@ -251,8 +251,17 @@ A colleague had a screenshot of how the panel looked like before the change:
 
 The panel displayed the number of active, total and active ECMP'ed routes for IPv4 AFI. Currently, the panel is empty, and even the expressions to fetch the data are missing...
 
-> **Note** 
+After fixing the gnmic configuration file - [gnmic-config.yml](gnmic-config.yml) you must restart the containerlab deployment:
 
+>`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab` <br>
+>`sudo clab deploy --reconfigure`
+
+You can then fix the grafana dashboard by logging in with admin/admin
+
+>**Note:**
+> use as reference the existing BGP Peering Stats panel
+
+> **Note:** 
 > Please save your new Grafana Dashboard in the containerlab file system:
 >On the grafana UI click on "save dashboard":
 ![pic](images/Save_dashboard.png)

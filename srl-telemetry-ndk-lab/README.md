@@ -261,26 +261,6 @@ You can then fix the grafana dashboard by logging in with admin/admin
 >**Note:**
 > use as reference the existing BGP Peering Stats panel
 
-> **Note:** 
-> Please save your new Grafana Dashboard in the containerlab file system:
->On the grafana UI click on "save dashboard":
-![pic](images/Save_dashboard.png)
->Then on the next panel copy the dashboard .json definition to the clipboard:
-
-<img src="images/Copy_dashboard.png" width="300" height="350" />
-
->In your IDE copy the content into:
-
-`srl-telemetry-ndk-lab->configs->grafana->dashboards->telemetry-dashboard.json`
-
-
-![pic](images/Paste_dashboard_content.png)
-
-> When you saved the new dashboard config, you need to restart the deployment:
-
->`cd $HOME/DCFPartnerHackathon/srl-telemetry-ndk-lab` <br>
->`sudo clab deploy --reconfigure`
-
 
 ### 5. Add a new panel with a NDK Git agent stats
 

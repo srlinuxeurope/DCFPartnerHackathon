@@ -17,7 +17,6 @@
                     admin-state: enable
                     address:
                       - ip-prefix: 1.1.1.1/30
-        update:
           - path: /network-instance[name=default]
             value:
                 interface: 
@@ -44,7 +43,6 @@
                     admin-state: enable
                     address:
                       - ip-prefix: 1.1.1.2/30
-        update:
           - path: /network-instance[name=default]
             value:
                 interface: 

@@ -1,30 +1,32 @@
-# Nokia SR Linux Kubernetes Anycast Lab
+# Nokia SR Linux Kubernetes Anycast Lab - Metallb in L2 Mode
 
 In this lab we will explore a topology consisting of a Leaf/Spine [SR Linux](https://learn.srlinux.dev/) Fabric connected to a Kubernetes Cluster.
 
-Our k8s Cluster will feature [MetalLB](https://metallb.universe.tf/), which is a load-balancer implementation for bare metal clusters. This will unlock the possibility to have **anycast** services in our fabric.
+Our k8s Cluster will feature [MetalLB](https://metallb.universe.tf/), which is a load-balancer implementation for bare metal clusters. This will unlock the possibility to have **anycast** services in the SR Linux fabric.
 
 To deploy this lab we will use [Containerlab](https://containerlab.dev/) which help us to effortlessly create complex network topologies and validate features, scenarios... And also, [Minikube](https://minikube.sigs.k8s.io/) which is an open-source tool that facilitates running Kubernetes clusters locally to quickly test and experiment with containerized applications.
 
 The end service we will use on top of the kubernetes cluster is a Nginx HTTP echo server. This service will be deployed and exposed in all the k8s nodes. With simulated clients, we will verify how traffic is distributed among the different nodes/pods.
 
-For a detailed walkthrough of this lab please check the [SR Linux blog](https://learn.srlinux.dev/blog/2023/exposing-kubernetes-services-to-sr-linux-based-ip-fabric-with-anycast-gateway-and-metallb/).
+This lab. is using metallb in L2 Mode. Static routes are programmed in each ToR switch targeting the Metallb service IPs. The Next-Hops of the static routes are the worker node interfaces.
+
+The following diagram represent the physical an logical topology.
 
 ## Topology
 
 <p align="center">
- <img src="images/topology.svg" width="600">
+ <img src="images/metallb_l2_mode.jpg" width="900">
 </p>
 
 ## Goal
 
-Demonstrate kubernetes MetalLB load balancing scenario in a Containerlab+Minikube Lab.
+Demonstrate kubernetes MetalLB load balancing in L2 Mode using a Containerlab+Minikube Lab.
 
 ## Features
 
 - Containerlab topology
-- Minikube kubernetes cluster (3 nodes)
-- MetalLB integration (FRR mode)
+- Minikube kubernetes cluster (4 nodes)
+- MetalLB integration (L2 Mode)
 - Preconfigured Leaf/Spine Fabric: 2xSpine, 4xLeaf SR Linux switches
 - Anycast services
 - Linux clients to simulate connections to k8s services (4 clients)
@@ -45,7 +47,7 @@ cd DCFPartnerHackathon/srl-k8s-anycast-lab
 
 ```bash
 # deploy minikube cluster
-minikube start --nodes 3 -p cluster1
+minikube start --nodes 4 -p cluster1
 ```
 
 ```bash
@@ -59,8 +61,8 @@ minikube addons enable metallb -p cluster1
 ```
 
 ```bash
-# install MetalLB (BGP FRR mode)
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/config/manifests/metallb-frr.yaml
+# install MetalLB (native mode l2advertisement)
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
 ```
 
 ```bash
@@ -79,7 +81,7 @@ kubectl apply -f nginx.yaml
 # check underlay sessions in Spine, leaf switches
 A:spine1$ show network-instance default protocols bgp neighbor
 
-# check MetalLB BGP sessions in Leaf switches
+# check the static route is up on all the leaf switches
 A:leaf2$ show network-instance ip-vrf-1 protocols bgp neighbor
 
 # check kubernetes status
@@ -103,7 +105,7 @@ cluster1$ show bgp summary
 cluster1$ show run
 
 # check HTTP echo service
-docker exec -it client4 curl 1.1.1.100
+docker exec -it client4 curl 2.2.2.100
 Server address: 10.244.0.3:80
 Server name: nginxhello-6b97fd8857-4vp6z
 Date: 10/Aug/2023:09:06:01 +0000

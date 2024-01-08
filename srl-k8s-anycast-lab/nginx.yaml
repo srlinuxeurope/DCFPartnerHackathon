@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginxhello
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: nginxhello
@@ -32,4 +32,4 @@ spec:
   selector:
     app: nginxhello
   type: LoadBalancer
-  externalTrafficPolicy: Cluster
+  externalTrafficPolicy: Local

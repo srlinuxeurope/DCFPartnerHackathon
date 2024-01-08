@@ -5,20 +5,14 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 1.1.1.100-1.1.1.200
+    - 2.2.2.100-2.2.2.200
 ---
 apiVersion: metallb.io/v1beta1
-kind: BGPAdvertisement
+kind: L2Advertisement
 metadata:
-  name: bgpadv
-  namespace: metallb-system
----
-apiVersion: metallb.io/v1beta2
-kind: BGPPeer
-metadata:
-  name: peer
+  name: example
   namespace: metallb-system
 spec:
-  myASN: 65535
-  peerASN: 65535
-  peerAddress: 192.168.1.1
+  ipAddressPools:
+  - vip-pool
+

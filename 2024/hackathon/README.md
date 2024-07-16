@@ -1,4 +1,4 @@
-# Welcome at the hackathon @ SReXperts 2024!
+# Welcome at the Europe Partners DC Fabric Hackathon 2024!
 
 This README is your starting point into the hackathon, it should get you familiar with the lab environment provided by Nokia, and provide an overview of the suggested sample activities.
 

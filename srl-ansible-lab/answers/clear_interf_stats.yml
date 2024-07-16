@@ -1,9 +1,0 @@
-- name: Clear interfaces Stats
-  hosts: clab
-  gather_facts: false
-  tasks:
-    - name: Clear Interface Stats
-      nokia.srlinux.config:
-        datastore: tools
-        update:
-          - path: /interface[name=ethernet-1/1]/statistics/clear

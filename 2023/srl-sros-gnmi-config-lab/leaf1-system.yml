@@ -1,0 +1,14 @@
+interface:
+  - name: system0
+    admin-state: enable
+    subinterface:
+      - index: 0
+        admin-state: enable
+        ipv4:
+          admin-state: enable
+          address:
+            - ip-prefix: 1.1.1.1/32
+network-instance:
+  - name: default
+    interface:
+      - name: system0.0

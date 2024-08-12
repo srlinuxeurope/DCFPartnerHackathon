@@ -1,8 +1,0 @@
-- name: Execute "show version" CLI command
-  hosts: clab
-  gather_facts: false
-  tasks:
-  - name: Execute "show version" CLI command
-    nokia.srlinux.cli:
-      commands:
-      - show version

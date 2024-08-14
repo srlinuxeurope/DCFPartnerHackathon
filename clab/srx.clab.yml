@@ -68,7 +68,7 @@ topology:
     client02:
       kind: linux
       group: peclient
-      mgmt-ipv 4: 10.128.${INSTANCE_ID}.26
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.26
       image: ghcr.io/srl-labs/network-multitool
       binds:
         - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro

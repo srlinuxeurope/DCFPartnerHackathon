@@ -1,5 +1,5 @@
 INSTANCE_ID ?= 1
-CLAB_LABDIR_BASE ?= /home/nokia
+CLAB_LABDIR_BASE ?= /home/srlinux/DCFPartnerHackathon
 EVENT_PASSWORD ?= NokiaSrl1!
 
 config:
@@ -27,7 +27,7 @@ clean:
 	rm configs/sros/post-good-exec.cfg
 	rm ../activities/sros-ansible-netconf/ansible-example/group_vars/sros_routers
 
-deploy: config
+deploy:
 	EVENT_PASSWORD=${EVENT_PASSWORD} CLAB_LABDIR_BASE=${CLAB_LABDIR_BASE} INSTANCE_ID=${INSTANCE_ID} sudo -E containerlab deploy -t srx.clab.yml --reconfigure
 
 destroy:

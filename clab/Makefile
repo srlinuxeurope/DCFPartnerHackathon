@@ -3,8 +3,8 @@ CLAB_LABDIR_BASE ?= /home/srlinux/DCFPartnerHackathon
 EVENT_PASSWORD ?= NokiaSrl1!
 
 config:
+	envsubst < configs/sros/pe1.partial.tmpl.cfg | tee configs/sros/pe1.partial.cfg > /dev/null 2>&1
 	envsubst < configs/sros/pe2.partial.tmpl.cfg | tee configs/sros/pe2.partial.cfg > /dev/null 2>&1
-	envsubst < configs/sros/pe3.partial.tmpl.cfg | tee configs/sros/pe3.partial.cfg > /dev/null 2>&1
 	envsubst < configs/srl/spine11.tmpl.cfg | tee configs/srl/spine11.cfg > /dev/null 2>&1
 	envsubst < configs/srl/spine12.tmpl.cfg | tee configs/srl/spine12.cfg > /dev/null 2>&1
 	envsubst < configs/srl/leaf11.tmpl.cfg | tee configs/srl/leaf11.cfg > /dev/null 2>&1
@@ -27,8 +27,8 @@ clean:
 	rm configs/sros/post-good-exec.cfg
 	rm ../activities/sros-ansible-netconf/ansible-example/group_vars/sros_routers
 
-deploy:
-	EVENT_PASSWORD=${EVENT_PASSWORD} CLAB_LABDIR_BASE=${CLAB_LABDIR_BASE} INSTANCE_ID=${INSTANCE_ID} sudo -E containerlab deploy -t srx.clab.yml --reconfigure
+deploy: config
+	EVENT_PASSWORD=${EVENT_PASSWORD} CLAB_LABDIR_BASE=${CLAB_LABDIR_BASE} INSTANCE_ID=${INSTANCE_ID} sudo -E containerlab deploy -t dcfpartnerws.clab.yml --reconfigure
 
 destroy:
-	sudo -E containerlab destroy -t srx.clab.yml --cleanup
+	sudo -E containerlab destroy -t dcfpartnerws.clab.yml --cleanup

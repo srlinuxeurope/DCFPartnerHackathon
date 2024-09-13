@@ -21,6 +21,12 @@ topology:
       image: ghcr.io/nokia/srlinux:24.3.2
     linux:
       image: ghcr.io/srl-labs/network-multitool
+      startup-delay: 120
+      stages:
+        create:
+          wait-for:
+            - node: pe2
+              stage: healthy
 
   nodes:
     dns:
@@ -50,11 +56,6 @@ topology:
         - 50021:22
         - 50321:57400
         - 50421:830
-      stages:
-        create:
-          wait-for:
-            - node: p1
-              stage: healthy
     pe2:
       kind: nokia_sros
       mgmt-ipv4: 10.128.1.22
@@ -63,11 +64,6 @@ topology:
         - 50022:22
         - 50322:57400
         - 50422:830
-      stages:
-        create:
-          wait-for:
-            - node: p1
-              stage: healthy
     client01:
       kind: linux
       group: peclient
@@ -267,6 +263,9 @@ topology:
         GF_AUTH_ANONYMOUS_ENABLED: "true"
         GF_AUTH_ANONYMOUS: "true"
         GF_SECURITY_ADMIN_PASSWORD: NokiaSrl1!
+        http_proxy: $http_proxy
+        https_proxy: $https_proxy
+        ftp_proxy: $ftp_proxy
       cmd: "sh -c grafana cli admin reset-admin-password ${GF_SECURITY_ADMIN_PASSWORD} && /run.sh"
       group: "10"
 

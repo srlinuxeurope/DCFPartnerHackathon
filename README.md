@@ -73,7 +73,7 @@ When accessing your hackathon VM instance you'll see this repository has already
 
 *Don't worry: This is your personal group network, you cannot impact any other groups.*
 
-![topology](./../topology/EuropePartnersHackathon2024.png)
+![topology](./topology/EuropePartnersHackathon2024.png)
 
 The above topology contains a number of functional blocks to help you in area's you might want to focus on, it contains:
 
@@ -243,12 +243,10 @@ The dns hostname is composed out of the client name and a domain suffix.
 | --- | --- | --- | --- |
 | clab-dcfpartnerws-client01 | client01 | .grt | .vprn.dci |
 | clab-dcfpartnerws-client02 | client02 | .grt | .vprn.dci |
-| clab-dcfpartnerws-client03 | client03 | .grt | .vprn.dci |
-| clab-dcfpartnerws-client04 | client04 | .grt | .vprn.dci |
 | clab-dcfpartnerws-client11 | client11 | .grt | .vprn.dci |
 | clab-dcfpartnerws-client12 | client12 | .grt | .vprn.dci |
 | clab-dcfpartnerws-client13 | client13 | .grt | .vprn.dci |
-| clab-dcfpartnerws-client14 | client21 | .grt | .vprn.dci |
+| clab-dcfpartnerws-client21 | client21 | .grt | .vprn.dci |
 
 For example, if you'd like to start a unidirectional traffic flow from `client11` to `client21` in the global routing table:
 ```
@@ -269,8 +267,6 @@ However, if you'd like to start a full mesh of traffic between `client11` and th
 client11:~$ /traffic.sh -a start -d all.grt
 starting traffic to client01.grt, binding on client11.grt, saving logs to /tmp/client01.grt.log
 starting traffic to client02.grt, binding on client11.grt, saving logs to /tmp/client02.grt.log
-starting traffic to client03.grt, binding on client11.grt, saving logs to /tmp/client03.grt.log
-starting traffic to client04.grt, binding on client11.grt, saving logs to /tmp/client04.grt.log
 starting traffic to client12.grt, binding on client11.grt, saving logs to /tmp/client12.grt.log
 starting traffic to client13.grt, binding on client11.grt, saving logs to /tmp/client13.grt.log
 starting traffic to client21.grt, binding on client11.grt, saving logs to /tmp/client21.grt.log
@@ -278,8 +274,6 @@ starting traffic to client21.grt, binding on client11.grt, saving logs to /tmp/c
 client11:~$ /traffic.sh -a stop -d all.grt
 stopping traffic to client01.grt
 stopping traffic to client02.grt
-stopping traffic to client03.grt
-stopping traffic to client04.grt
 stopping traffic to client12.grt
 stopping traffic to client13.grt
 stopping traffic to client21.grt

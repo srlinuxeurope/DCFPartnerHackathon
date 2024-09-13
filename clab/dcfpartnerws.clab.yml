@@ -21,7 +21,7 @@ topology:
       image: ghcr.io/nokia/srlinux:24.3.2
     linux:
       image: ghcr.io/srl-labs/network-multitool
-      startup-delay: 120
+      startup-delay: 30
       stages:
         create:
           wait-for:

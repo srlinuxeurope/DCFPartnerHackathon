@@ -2,6 +2,20 @@
 # Licensed under the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 
+#--{ candidate shared default }--[ system event-handler instance backup-config-on-changes ]--
+#A:srlinuxd2# info
+#    admin-state enable
+#    upython-script remote-backup.py
+#    paths [
+#        "system configuration last-change"
+#    ]
+#    options {
+#        object target {
+#            value 'nokia@192.168.99.1:~/backups/'
+#        }
+#    }
+
+
 import json
 
 def event_handler_main(in_json_str):

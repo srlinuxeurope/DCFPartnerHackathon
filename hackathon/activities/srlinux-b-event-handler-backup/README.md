@@ -49,17 +49,12 @@ Log into the node, go to the linux CLI (by typing `bash network-instance mgmt`) 
 ```bash
 --{ running }--[  ]--
 A:leaf21# bash network-instance mgmt
-admin@leaf21:~$ cd /opt/srlinux/eventmgr
-admin@leaf21:/opt/srlinux/eventmgr$ sudo vim remote-backup.py
-admin@leaf21:/opt/srlinux/eventmgr$ sudo chmod +x remote-backup.py
-admin@leaf21:/opt/srlinux/eventmgr$ ls -l .
-total 36
--rwxrwxrwx 1 root root 4587 Apr 10 23:01 change-history-with-yang.py
--rwxrwxrwx 1 root root 2826 Apr 10 23:01 change-history.py
--rwxrwxrwx 1 root root 6835 Apr 10 23:01 lldp-interface-descriptions.py
--rwxrwxrwx 1 root root 4015 Apr 10 23:01 oper-group.py
--rwxrwxrwx 1 root root 6230 Apr 10 23:01 perf-mon-with-yang.py
--rwxr-xr-x 1 root root    5 May 15 11:08 remote-backup.py
+admin@leaf21:~$ cd /etc/opt/srlinux/eventmgr
+admin@leaf21:/etc/opt/srlinux/eventmgr$ vim remote-backup.py
+admin@leaf21:/etc/opt/srlinux/eventmgr$ chmod +x remote-backup.py
+admin@leaf21:/etc/opt/srlinux/eventmgr$ ls -l .
+total 4
+-rwxrwxrwx+ 1 admin ntwkadmin 728 Sep 18 20:25 remote-backup.py
 ```
 
 ## Step 3: create the Event Handler instance
@@ -134,7 +129,7 @@ You can instruct the event handler to run a bash script: the returned `action` l
 
 ## Step 5 - test
 
-This lab has been completed when the user does `admin save stay` and the startup file is correctly copied to the target destination. The file must:
+This lab has been completed when the user does `commit save stay` and the startup file is correctly copied to the target destination. The file must:
 
 - contain the changes that were made (hence the `save` to commit them to the startup file)
 - contain the timestamp of when the last change was done (important! the name should be different every time the script is executed)

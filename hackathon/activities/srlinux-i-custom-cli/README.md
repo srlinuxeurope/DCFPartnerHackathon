@@ -406,9 +406,9 @@ A:leaf12# show bgp-by
 As expected, the usage string shows the command with the arguments as they have been provided in the plugin code via the Syntax object. All arguments appear as optional and there is a help string for each.
 
 Try to enter the following command:
-`show bgp-by network-instance default peer-address 10.64.51.1 bgp-group eBGP-transit-v4`
+`show bgp-by network-instance default peer-address fe80::18e4:13ff:feff:2%ethernet-1/50.0 bgp-group spine`
 
-The parameter names (network-instance, peer-address, peer-as, bgp-group) can be auto-completed with the `<tab>` key, but the values (default, 10.64.51.1, eBGP-transit-v4) can't be autocompleted yet. SR Linux offers the 'suggestions' options for this purpose.
+The parameter names (network-instance, peer-address, peer-as, bgp-group) can be auto-completed with the `<tab>` key, but the values (default, fe80::18e4:13ff:feff:2%ethernet-1/50.0, spine) can't be autocompleted yet. SR Linux offers the 'suggestions' options for this purpose.
 
 Return to the [skeleton.py](solutions/skeleton.py) file you have been editing and add the `suggestions` lines to your `load()` method.
 
@@ -452,7 +452,7 @@ def load(self, cli, **_kwargs):
 The 'suggestions' option uses the `KeyCompleter()` method to return a list of possible completions from the state datastore by the provided `path`. In the code snippet above we use `KeyCompleter(path='/network-instance[name=*]')` to retrieve available network instance names to autosuggest the `network-instance` named argument.  
 In the same spirit, we provide the key completion functionality for all other arguments of our show command.
 
-📝 The options to display can be filtered. For example, the peer-address suggestion string uses the path `/network-instance[name=*]/protocols/bgp/neighbor[peer-address=*]`. If you only wanted to show the user options with peers whose address started with '10.64' you could change the suggestions path to `/network-instance[name=*]/protocols/bgp/neighbor[peer-address=10.64*]`
+📝 The options to display can be filtered. For example, the peer-address suggestion string uses the path `/network-instance[name=*]/protocols/bgp/neighbor[peer-address=*]`. If you only wanted to show the user options with peers whose address started with 'fe80' you could change the suggestions path to `/network-instance[name=*]/protocols/bgp/neighbor[peer-address=fe80*]`
 
 Save your file and scp it to the router again.
 

@@ -161,8 +161,7 @@ You need to parameterize the subinterface, in this example it's system0.0. Try t
 <summary>Solution</summary>
 
 ```python
-A:leaf11# environment alias "show bfd" "info from state bfd subinterface {} | as table | filter fields admin-state desired-minimum-transmit-interval required-minimum-receive detection-multiplier mi
-nimum-echo-receive-interval max-hop-count"
+A:leaf11# environment alias "show bfd" "info from state bfd subinterface {} | as table | filter fields admin-state desired-minimum-transmit-interval required-minimum-receive detection-multiplier minimum-echo-receive-interval max-hop-count"
 
 --{ running }--[  ]--
 A:leaf11# show bfd system0.0

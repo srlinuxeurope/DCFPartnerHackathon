@@ -20,10 +20,10 @@ In this lab, you will learn how to implement aliases in SR Linux through hands-o
 
 ## Accessing a lab node
 
-In this lab you will create CLI aliases on `clab-srexperts-leaf11` node. You can log in by using the container name.
+In this lab you will create CLI aliases on `clab-dcfpartnerws-leaf11` node. You can log in by using the container name.
 
 ```bash
-ssh admin@clab-srexperts-leaf11
+ssh admin@clab-dcfpartnerws-leaf11
 ```
 
 <!-- GETTING STARTED -->

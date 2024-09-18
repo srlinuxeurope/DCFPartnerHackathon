@@ -129,7 +129,7 @@ You can instruct the event handler to run a bash script: the returned `action` l
 
 ## Step 5 - test
 
-This lab has been completed when the user does `admin save stay` and the startup file is correctly copied to the target destination. The file must:
+This lab has been completed when the user does `commit save stay` and the startup file is correctly copied to the target destination. The file must:
 
 - contain the changes that were made (hence the `save` to commit them to the startup file)
 - contain the timestamp of when the last change was done (important! the name should be different every time the script is executed)

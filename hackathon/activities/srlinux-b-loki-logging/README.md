@@ -109,6 +109,10 @@ You should notice we don't define individual [subsystems](https://documentation.
 Consider the following example of syslog-formatted messages of the `chassis` subsystem that can be seen on SR Linux:
 
 ```bash
+A:leaf11# bash
+admin@leaf11:~$ cat /var/log/srlinux/file/messages
+(...)
+
 2024-05-17T20:27:21.252868+00:00 leaf11 local6|NOTI sr_chassis_mgr: chassis|1476|1476|00122|N: The subinterface ethernet-1/50.0 is now up
 2024-05-17T20:27:23.630370+00:00 leaf11 local6|NOTI sr_chassis_mgr: chassis|1476|1476|00123|N: Interface lag1 is now up
 2024-05-17T20:27:23.630388+00:00 leaf11 local6|NOTI sr_chassis_mgr: chassis|1476|1476|00124|N: The subinterface lag1.1 is now up
@@ -150,7 +154,7 @@ tcpdump: listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot leng
 
 07:50:36.937551 mgmt0.0 Out IP (tos 0x0, ttl 64, id 10656, offset 0, flags [DF], proto UDP (17), length 182)
     10.128.1.33.48501 > 10.128.1.75.1514: UDP, length 154
-E...).@.@..+..!..K.u....zj<182>1 2024-05-21T07:50:36.937263+00:00 leaf11 sr_cli - - -  debug|896501|896501|00003|I: common    |admin|45|srl running / | info interface ethernet-1/1
+E...).@.@..+..!..K.u....zj<182>1 -05-21T07:50:36.937263+00:00 leaf11 sr_cli - - -  debug|896501|896501|00003|I: common    |admin|45|srl running / | info interface ethernet-1/1
 ```
 
 </details>
@@ -213,7 +217,7 @@ scrape_configs:
 
 ## Loki
 
-Time to open up Loki and query some logs based on the label created by Promtail. Log into the Grafana dashboard with `admin`/`SReXperts2024` credentials.
+Time to open up Loki and query some logs based on the label created by Promtail. Log into the Grafana dashboard with `admin`/`NokiaSrl1!` credentials.
 
 > To open up [Grafana](https://grafana.com) UI on your laptop use `http://<group-id>.srexperts.net:3000` address.
 

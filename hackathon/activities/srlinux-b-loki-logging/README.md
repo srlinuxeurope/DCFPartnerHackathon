@@ -26,10 +26,10 @@ While we will cover the most important steps, you might find the official [SR Li
 
 ## Accessing a lab node
 
-Start by logging into `clab-srexperts-leaf11` node. You can log in by using the container name.
+Start by logging into `clab-dcfpartnerws-leaf11` node. You can log in by using the container name.
 
 ```bash
-ssh admin@clab-srexperts-leaf11
+ssh admin@clab-dcfpartnerws-leaf11
 ```
 
 ## Configure logging on SR Linux
@@ -85,7 +85,7 @@ A:leaf11# info
     }
 ```
 
-Now log into `clab-srexperts-leaf11` and navigate to the `system logging remote-server 10.128.<group-id>.75` context. With the `info` command you can see what is configured in this context. Compare the configuration with the example above. What do you notice?
+Now log into `clab-dcfpartnerws-leaf11` and navigate to the `system logging remote-server 10.128.<group-id>.75` context. With the `info` command you can see what is configured in this context. Compare the configuration with the example above. What do you notice?
 
 ```
 --{ + running }--[  ]--
@@ -188,7 +188,7 @@ scrape_configs:
 
 Relabel configs is used to manipulate or add labels to the log entries. These labels can be very useful when querying them from the Loki database. In the example below we manipulate only one label - the `source` label.
 
-`source_labels` extracts a value from the specified field in the syslog message, in this case the `hostname`, and replaces it with `clab-srexperts-$1` and applies it to the `target_label` `source`.
+`source_labels` extracts a value from the specified field in the syslog message, in this case the `hostname`, and replaces it with `clab-dcfpartnerws-$1` and applies it to the `target_label` `source`.
 
 Besides altering the value of the `source` label, we also use the values from the syslog internal values (e.g. `__syslog_message_severity`) and apply the value to a label with a more human-friendly name `level`.
 
@@ -197,7 +197,7 @@ scrape_configs:
     #<snippet>
     relabel_configs:
       - source_labels: ["__syslog_message_hostname"]
-        replacement: clab-srexperts-$1
+        replacement: clab-dcfpartnerws-$1
         target_label: "source"
       - source_labels: ["__syslog_message_severity"]
         target_label: "level"
@@ -222,12 +222,12 @@ With Grafana UI loaded
 1. Use the menu icon in the top left corner
 2. Click on Explore
 3. Select Loki as data source
-4. In `Label filter` select label `source` with value `clab-srexperts-leaf11`
+4. In `Label filter` select label `source` with value `clab-dcfpartnerws-leaf11`
 5. Click `Run query`
-6. You should now see all the logs related to `clab-srexperts-leaf11`
+6. You should now see all the logs related to `clab-dcfpartnerws-leaf11`
 7. Add a extra search label by clicking on `+`
 8. In `Label filter` select label `application` with value `sr_cli`
-9. You should now see all cli activity on `clab-srexperts-leaf11`
+9. You should now see all cli activity on `clab-dcfpartnerws-leaf11`
 
 ![promtail](./img/loki-nav.gif)
 

@@ -219,7 +219,7 @@ scrape_configs:
 
 Time to open up Loki and query some logs based on the label created by Promtail. Log into the Grafana dashboard with `admin`/`NokiaSrl1!` credentials.
 
-> To open up [Grafana](https://grafana.com) UI on your laptop use `http://<group-id>.srexperts.net:3000` address.
+> To open up [Grafana](https://grafana.com) UI on your laptop use `http://<group-id>.dcfpartnerws.info:3000` address.
 
 With Grafana UI loaded
 

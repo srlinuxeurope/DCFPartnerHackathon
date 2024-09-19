@@ -112,23 +112,23 @@ class Plugin(CliPlugin):
 
 It is helpful to have multiple terminal windows open while developing CLI plugins because each time you make a change, you must upload the file to the correct location on the SR Linux filesystem and then log out and log back in to have the changes load.
 
-📝 _You could edit the file directly on the router as well. Both nano and vim are installed by default, but in this exercise we will be editing the files on the cloud instance and uploading them to the SR Linux node `clab-srexperts-peering2`_
+📝 _You could edit the file directly on the router as well. Both nano and vim are installed by default, but in this exercise we will be editing the files on the cloud instance and uploading them to the SR Linux node `clab-dcfpartnerws-leaf12`_
 
 Log into the router in your first terminal window.
 
-💻 `ssh admin@clab-srexperts-peering2`
+💻 `ssh admin@clab-dcfpartnerws-leaf12`
 
 Now, in another window, upload the [skeleton.py](solutions/skeleton.py) file. Note that we will always name the uploaded file `bgp-by.py` to keep things clean at each step.
 
-💻 `scp skeleton.py clab-srexperts-peering2:/etc/opt/srlinux/cli/plugins/bgp-by.py`
+💻 `scp $HOME/DCFPartnerHackathon/hackathon/activities/srlinux-i-custom-cli/solutions/skeleton.py clab-dcfpartnerws-leaf12:/etc/opt/srlinux/cli/plugins/bgp-by.py`
 
 Logout of the session in your original window by using `ctrl-D` and then log back into the router.
 
 Note the message showing that the [skeleton.py](solutions/skeleton.py) was loaded successfully.
 
 ```
-$ ssh clab-srexperts-peering2
-Warning: Permanently added 'clab-srexperts-peering2' (ED25519) to the list of known hosts.
+$ ssh clab-dcfpartnerws-leaf12
+Warning: Permanently added 'clab-dcfpartnerws-leaf12' (ED25519) to the list of known hosts.
 ................................................................
 :                  Welcome to Nokia SR Linux!                  :
 :              Open Network OS for the NetOps era.             :
@@ -158,7 +158,7 @@ Welcome to the srlinux CLI.
 Type 'help' (and press <ENTER>) if you need any help using this.
 
 --{ running }--[  ]--
-A:peering2#
+A:leaf12#
 ```
 
 When you log in, the CLI engine scans the `/etc/opt/srlinux/cli/plugins` directory for any Python file containing a `CliPlugin` class and executes the `load()` method for each of them. This new message is printed by the `bgp-by.py` plugin's `load()` method. If the message doesn't appear, check the directory and make sure that the file `bgp-by.py` has been copied there.
@@ -174,8 +174,8 @@ def load(self, cli, **_kwargs):
 Save the file, exit the CLI session and restart it:
 
 ```
-$ ssh clab-srexperts-peering2
-Warning: Permanently added 'clab-srexperts-peering2' (ED25519) to the list of known hosts.
+$ ssh clab-dcfpartnerws-leaf12
+Warning: Permanently added 'clab-dcfpartnerws-leaf12' (ED25519) to the list of known hosts.
 ................................................................
 :                  Welcome to Nokia SR Linux!                  :
 :              Open Network OS for the NetOps era.             :
@@ -199,7 +199,7 @@ Welcome to the srlinux CLI.
 Type 'help' (and press <ENTER>) if you need any help using this.
 
 --{ running }--[  ]--
-A:peering2#
+A:leaf12#
 ```
 
 Python errors are displayed as the code is executed.
@@ -265,7 +265,7 @@ def _my_schema(self):
         'netinst',
         key = 'name',
         fields = [ 'name', 'local-as' ]
-        )
+    )
     neigh = netinst.add_child(
         'neighbor',
         key = 'peer-address',
@@ -333,15 +333,15 @@ This creates the syntax object with 'bgp-by' at the root and four arguments. All
 
 Save your file and scp it to the router again.
 
-💻 `scp skeleton.py clab-srexperts-peering2:/etc/opt/srlinux/cli/plugins/bgp-by.py`
+💻 `scp $HOME/DCFPartnerHackathon/hackathon/activities/srlinux-i-custom-cli/solutions/skeleton.py clab-dcfpartnerws-leaf12:/etc/opt/srlinux/cli/plugins/bgp-by.py`
 
 Logout of the session in your original window by using `ctrl-D` and then log back into the router.
 
-💻 `ssh clab-srexperts-peering2`
+💻 `ssh clab-dcfpartnerws-leaf12`
 
 ```
-$ ssh clab-srexperts-peering2
-Warning: Permanently added 'clab-srexperts-peering2' (ED25519) to the list of known hosts.
+$ ssh clab-dcfpartnerws-leaf12
+Warning: Permanently added 'clab-dcfpartnerws-leaf12' (ED25519) to the list of known hosts.
 ................................................................
 :                  Welcome to Nokia SR Linux!                  :
 :              Open Network OS for the NetOps era.             :
@@ -365,7 +365,7 @@ Welcome to the srlinux CLI.
 Type 'help' (and press <ENTER>) if you need any help using this.
 
 --{ running }--[  ]--
-A:peering2#
+A:leaf12#
 ```
 
 The `load()` method is executed and this time, we have the output showing our **syntax** object printed to the screen. This is a good indication that the command has been successfully added to the CLI heirarchy.
@@ -374,7 +374,7 @@ Now, type `show <tab>` and you will see our **bgp-by** command in the list of op
 
 ```
 --{ running }--[  ]--
-A:peering2# show <tab>
+A:leaf12# show <tab>
                   /                bgp-by           network-instance tunnel
                   acl              interface        platform         tunnel-interface
                   arpnd            lag              system           version
@@ -384,7 +384,7 @@ Next, type `show bgp-by ?` to get the help for our command.
 
 ```
 --{ running }--[  ]--
-A:peering2# show bgp-by ?
+A:leaf12# show bgp-by ?
 usage: bgp-by [network-instance <value>] [peer-as <value>] [peer-address <value>] [bgp-group <value>]
 
 Displays brief but useful data related to BGP peers.
@@ -400,15 +400,15 @@ Named arguments:
 *** Not all commands are listed, press '?' again to see all options ***
 
 --{ running }--[  ]--
-A:peering2# show bgp-by
+A:leaf12# show bgp-by
 ```
 
 As expected, the usage string shows the command with the arguments as they have been provided in the plugin code via the Syntax object. All arguments appear as optional and there is a help string for each.
 
 Try to enter the following command:
-`show bgp-by network-instance default peer-address 10.64.51.1 bgp-group eBGP-transit-v4`
+`show bgp-by network-instance default peer-address fe80::18e4:13ff:feff:2%ethernet-1/50.0 bgp-group spine`
 
-The parameter names (network-instance, peer-address, peer-as, bgp-group) can be auto-completed with the `<tab>` key, but the values (default, 10.64.51.1, eBGP-transit-v4) can't be autocompleted yet. SR Linux offers the 'suggestions' options for this purpose.
+The parameter names (network-instance, peer-address, peer-as, bgp-group) can be auto-completed with the `<tab>` key, but the values (default, fe80::18e4:13ff:feff:2%ethernet-1/50.0, spine) can't be autocompleted yet. SR Linux offers the 'suggestions' options for this purpose.
 
 Return to the [skeleton.py](solutions/skeleton.py) file you have been editing and add the `suggestions` lines to your `load()` method.
 
@@ -452,23 +452,24 @@ def load(self, cli, **_kwargs):
 The 'suggestions' option uses the `KeyCompleter()` method to return a list of possible completions from the state datastore by the provided `path`. In the code snippet above we use `KeyCompleter(path='/network-instance[name=*]')` to retrieve available network instance names to autosuggest the `network-instance` named argument.  
 In the same spirit, we provide the key completion functionality for all other arguments of our show command.
 
-📝 The options to display can be filtered. For example, the peer-address suggestion string uses the path `/network-instance[name=*]/protocols/bgp/neighbor[peer-address=*]`. If you only wanted to show the user options with peers whose address started with '10.64' you could change the suggestions path to `/network-instance[name=*]/protocols/bgp/neighbor[peer-address=10.64*]`
+📝 The options to display can be filtered. For example, the peer-address suggestion string uses the path `/network-instance[name=*]/protocols/bgp/neighbor[peer-address=*]`. If you only wanted to show the user options with peers whose address started with 'fe80' you could change the suggestions path to `/network-instance[name=*]/protocols/bgp/neighbor[peer-address=fe80*]`
 
 Save your file and scp it to the router again.
 
-💻 `scp skeleton.py clab-srexperts-peering2:/etc/opt/srlinux/cli/plugins/bgp-by.py`
+💻 `scp $HOME/DCFPartnerHackathon/hackathon/activities/srlinux-i-custom-cli/solutions/skeleton.py clab-dcfpartnerws-leaf12:/etc/opt/srlinux/cli/plugins/bgp-by.py`
 
 Logout of the session in your original window by using `ctrl-D` and then log back into the router.
 
-💻 `ssh clab-srexperts-peering2`
+💻 `ssh clab-dcfpartnerws-leaf12`
 
 Now, you are able to use `<tab>` to autocomplete the available options each of the commands we supplied suggestions for (bgp-group, peer-address, and network-instance):
 
 ```
 --{ running }--[  ]--
-A:peering2# show bgp-by peer-address <value:*>
-                                      10.64.51.1        fd00:fc00:0:51::1
-                                      10.64.54.2        fd00:fde8:0:54::2
+A:leaf12# show bgp-by peer-address 
+                                     fd00:fde8::1:22                       
+                                     fe80::18e4:13ff:feff:2%ethernet-1/50.0
+                                     fe80::185e:12ff:feff:2%ethernet-1/49.0
 ```
 
 We can not autocomplete 'peer-as' because it is just a leaf under neighbor and not a key. Only the keys from a list are able to be suggested. However, we can still sanity check that the user enters an appropriate option for peer-as.
@@ -516,25 +517,25 @@ syntax.add_named_argument(
 
 Add these configurations (you can put the class at the bottom for this) then save your file and scp it to the router again.
 
-💻 `scp skeleton.py clab-srexperts-peering2:/etc/opt/srlinux/cli/plugins/bgp-by.py`
+💻 `scp $HOME/DCFPartnerHackathon/hackathon/activities/srlinux-i-custom-cli/solutions/skeleton.py clab-dcfpartnerws-leaf12:/etc/opt/srlinux/cli/plugins/bgp-by.py`
 
 Logout of the session in your original window by using `ctrl-D` and then log back into the router.
 
-💻 `ssh clab-srexperts-peering2`
+💻 `ssh clab-dcfpartnerws-leaf12`
 
 Now, we are able to check if a peer-as is a valid asn.
 
 ```
 --{ running }--[  ]--
-A:peering2# show bgp-by peer-as 131000
+A:leaf12# show bgp-by peer-as 131000
 Parsing error: While parsing 'bgp-by': Wrong value for 'peer-as': Invalid value '131000':
 This is not a valid 16-bit or 32-bit ASN: '131000'
 
 --{ running }--[  ]--
-A:peering2# show bgp-by peer-as 131073
+A:leaf12# show bgp-by peer-as 131073
 
 --{ running }--[  ]--
-A:peering2#
+A:leaf12#
 ```
 
 ## Retrieving State Datastore Information
@@ -570,21 +571,21 @@ You could enter into the state datastore:
 
 ```
 --{ running }--[  ]--
-A:peering2# enter state
+A:leaf12# enter state
 
 --{ state }--[  ]--
-A:peering2#
+A:leaf12#
 ```
 
 And then navigate to the needed context and execute `pwc xpath`:
 
 ```
 --{ state }--[  ]--
-A:peering2# network-instance default protocols bgp neighbor 10.64.51.1 local-as
+A:leaf12# network-instance default protocols bgp neighbor fd00:fde8::1:22 local-as
 
---{ state }--[ network-instance default protocols bgp neighbor 10.64.51.1 local-as ]--
-A:peering2# pwc xpath
-/network-instance[name=default]/protocols/bgp/neighbor[peer-address=10.64.51.1]/local-as
+--{ + state }--[ network-instance default protocols bgp neighbor fd00:fde8::1:22 local-as ]--
+A:leaf12# pwc xpath
+/network-instance[name=default]/protocols/bgp/neighbor[peer-address=fd00:fde8::1:22]/local-as
 ```
 
 But there is also an off-box solution! Nokia has an [online YANG browser for SR Linux](https://yang.srlinux.dev/) that is very fast and full-featured, allowing you to view the data model in many different forms.
@@ -718,23 +719,23 @@ def _print(self, state, arguments, output, **_kwargs):
 
 Save your file and scp it to the router again.
 
-💻 `scp skeleton.py clab-srexperts-peering2:/etc/opt/srlinux/cli/plugins/bgp-by.py`
+💻 `scp $HOME/DCFPartnerHackathon/hackathon/activities/srlinux-i-custom-cli/solutions/skeleton.py clab-dcfpartnerws-leaf12:/etc/opt/srlinux/cli/plugins/bgp-by.py`
 
 Logout of the session in your original window by using `ctrl-D` and then log back into the router.
 
-💻 `ssh clab-srexperts-peering2`
+💻 `ssh clab-dcfpartnerws-leaf12`
 
 Try running the command again using whichever options you want.
 
 ```
 --{ running }--[  ]--
-A:peering2# show bgp-by network-instance default
+A:leaf12# show bgp-by network-instance default
 
 --{ running }--[  ]--
-A:peering2# show bgp-by peer-address 10.64.51.1
+A:leaf12# show bgp-by peer-address fd00:fde8::1:22
 
 --{ running }--[  ]--
-A:peering2#
+A:leaf12#
 ```
 
 There is no output because more steps are required to populate the schema with state datastore information and to append the formatter to the schema
@@ -944,40 +945,39 @@ Try adding this to your file, upload it and run our command again, this time pas
 
 ```
 --{ running }--[  ]--
-A:peering2# show bgp-by bgp-group eBGP-transit-v6
+A:leaf12# show bgp-by bgp-group spine
 
-The Local AS is: 64699 
+The Local AS is: 4200001002 
 
 ARGUMENTS:
 
 network-instance: default
 peer-address: *
 peer-as: *
-peer-group: eBGP-transit-v6
+peer-group: spine
 
-peer-group check success: eBGP-transit-v6
-['fd00:fc00:0:51::1', 'fd00:fde8:0:54::2']
-adding ethernet-1/1.0 for fd00:fde8:0:54::2
-adding ethernet-1/2.0 for fd00:fc00:0:51::1
+peer-group check success: spine
+['fe80::185e:12ff:feff:2%ethernet-1/49.0', 'fe80::18e4:13ff:feff:2%ethernet-1/50.0']
+
 
 --{ running }--[  ]--
-A:peering2# show bgp-by peer-address 10.64.54.2
+A:leaf12# show bgp-by peer-address 10.64.54.2
 
-The Local AS is: 64699 
+The Local AS is: 4200001002 
 
 ARGUMENTS:
 
 network-instance: default
-peer-address: 10.64.54.2
+peer-address: fe80::18e4:13ff:feff:2%ethernet-1/50.0
 peer-as: *
 peer-group: *
 
-peer-address check success: 10.64.54.2
-['10.64.54.2']
-adding ethernet-1/1.0 for 10.64.54.2
+peer-address check success: fe80::18e4:13ff:feff:2%ethernet-1/50.0
+['fe80::18e4:13ff:feff:2%ethernet-1/50.0']
+
 
 --{ running }--[  ]--
-A:peering2#
+A:leaf12#
 ```
 
 </details>
@@ -992,19 +992,18 @@ Now try to issue our command but add `| as json` to the end.
 
 ```
 --{ running }--[  ]--
-A:peering2# show bgp-by peer-address 10.64.51.1 | as json
+A:leaf12# show bgp-by peer-address fe80::18e4:13ff:feff:2%ethernet-1/50.0 |as json
 {
   "network-instance": [
     {
       "name": "default",
-      "local-as": 64699,
+      "local-as": 4200001002,
       "neighbor": [
         {
-          "peer-address": "10.64.51.1",
+          "peer-address": "fe80::18e4:13ff:feff:2%ethernet-1/50.0",
           "peer-type": "ebgp",
-          "peer-as": 65000,
-          "peer-group": "eBGP-transit-v4",
-          "interface": "ethernet-1/2.0"
+          "peer-as": 4200001000,
+          "peer-group": "spine"
         }
       ]
     }
@@ -1012,7 +1011,7 @@ A:peering2# show bgp-by peer-address 10.64.51.1 | as json
 }
 
 --{ running }--[  ]--
-A:peering2#
+A:leaf12#
 ```
 
 This is a perfect example of how we fully populated the data object we created with our schema!
@@ -1052,29 +1051,26 @@ Think about how you could extend or change this script to make it more specific 
 
 ```
 --{ running }--[  ]--
-A:peering2# show bgp-by peer-as 64599
+A:leaf12# show bgp-by peer-as 4200001000
 name    : default
-local-as: 64699
-  +-------------------+-----------+---------+-----------------+----------------+
-  |   peer-address    | peer-type | peer-as |   peer-group    |   interface    |
-  +===================+===========+=========+=================+================+
-  | 10.64.54.2        | ebgp      | 64599   | eBGP-transit-v4 | ethernet-1/1.0 |
-  | fd00:fde8:0:54::2 | ebgp      | 64599   | eBGP-transit-v6 | ethernet-1/1.0 |
-  +-------------------+-----------+---------+-----------------+----------------+
-
---{ running }--[  ]--
-A:peering2# show bgp-by
+local-as: 4200001002
+  +----------------------------------------+-----------+------------+------------+-----------+
+  |              peer-address              | peer-type |  peer-as   | peer-group | interface |
+  +========================================+===========+============+============+===========+
+  | fe80::185e:12ff:feff:2%ethernet-1/49.0 | ebgp      | 4200001000 | spine      |           |
+  | fe80::18e4:13ff:feff:2%ethernet-1/50.0 | ebgp      | 4200001000 | spine      |           |
+  +----------------------------------------+-----------+------------+------------+-----------+
+--{ + running }--[  ]--
+A:leaf12# show bgp-by
 name    : default
-local-as: 64699
-  +-------------------+-----------+---------+-----------------+----------------+
-  |   peer-address    | peer-type | peer-as |   peer-group    |   interface    |
-  +===================+===========+=========+=================+================+
-  | 10.64.51.1        | ebgp      | 65000   | eBGP-transit-v4 | ethernet-1/2.0 |
-  | 10.64.54.2        | ebgp      | 64599   | eBGP-transit-v4 | ethernet-1/1.0 |
-  | fd00:fc00:0:51::1 | ebgp      | 65000   | eBGP-transit-v6 | ethernet-1/2.0 |
-  | fd00:fde8:0:54::2 | ebgp      | 64599   | eBGP-transit-v6 | ethernet-1/1.0 |
-  +-------------------+-----------+---------+-----------------+----------------+
-
---{ running }--[  ]--
-A:peering2#
+local-as: 4200001002
+  +----------------------------------------+-----------+------------+------------+-----------+
+  |              peer-address              | peer-type |  peer-as   | peer-group | interface |
+  +========================================+===========+============+============+===========+
+  | fd00:fde8::1:22                        | ibgp      | 65000      | iBGP       |           |
+  | fe80::185e:12ff:feff:2%ethernet-1/49.0 | ebgp      | 4200001000 | spine      |           |
+  | fe80::18e4:13ff:feff:2%ethernet-1/50.0 | ebgp      | 4200001000 | spine      |           |
+  +----------------------------------------+-----------+------------+------------+-----------+
+--{ + running }--[  ]--
+A:leaf12#
 ```

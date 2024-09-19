@@ -8,7 +8,7 @@
 
 ## Introduction
 
-Get started with gNMI on Nokia SR Linux in just five simple steps! This exercise will teach you how to leverage gNMI to perform configuration management and streaming telemetry tasks on Nokia SR Linux Network OS. After learning the concepts, you may treat yourself to some short chanllenges we prepared for you in the [Tasks section](#tasks).
+Get started with gNMI on Nokia SR Linux in just five simple steps! This exercise will teach you how to leverage gNMI to perform configuration management and streaming telemetry tasks on Nokia SR Linux Network OS. After learning the concepts, you may treat yourself to some short challenges we prepared for you in the [Tasks section](#tasks).
 
 **gNMI** (gRPC Network Management Interface) is a gRPC-based network management protocol [defined by the Openconfig group](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md) that is used for configuration management and streaming telemetry. gRPC uses Google protocol buffers (protobuf) to describe the Remote Procedure Calls (RPC) and encoded data on the wire.
 
@@ -19,7 +19,7 @@ gNMI supports the following RPCs:
 * Set - Perform configuration management.
 * Subscribe - stream configuration and state data.
 
-**gNMIc** is an [open-source tool](https://gnmic.openconfig.net/) which is part of the openconfig group contributed by Nokia. gNMIc provides full support for Capabilities, Get, Set and Subscribe RPCs with collector capabilities.
+**gNMIc** is a gNMI CLI client that provides full support for Capabilities, Get, Set and Subscribe RPCs with collector capabilities. **gNMIc** is an [open-source tool](https://gnmic.openconfig.net/) which is part of the openconfig group contributed by Nokia.
 
 **Nokia SR Linux** supports the full set of gNMI RPCs and allows operators to leverage both configuration and streaming telemetry capabilities enabled by gNMI interface.
 
@@ -94,7 +94,7 @@ A client MAY discover the capabilities of the target using the Capabilities RPC.
 Using `gnmic` CLI tool perform the following command to query the capabilities:
 
 ```bash
-gnmic -a clab-srexperts-leaf11:57400 -u admin -p SReXperts2024 --skip-verify capabilities
+gnmic -a clab-dcfpartnerws-leaf11:57400 -u admin -p NokiaSrl1! --skip-verify capabilities
 ```
 
 > Note, the port 57400 that we specified to highlight the default port number used by SR Linux. The port can be omitted as well, since gNMIc uses port 57400 whenever the port is not set explicitly.
@@ -141,7 +141,7 @@ The output lists the gNMI version (0.10.0), the list of YANG models supported by
 
 ## Step 4: Get
 
-gNMI can be used to retrieve configuration and state information from the SR Linux nodes. zInformation is retrieved using the GET RPC that consists of the `GetRequest` and `GetResponse` messages.
+gNMI can be used to retrieve configuration and state information from the SR Linux nodes. Information is retrieved using the GET RPC that consists of the `GetRequest` and `GetResponse` messages.
 
 To indicate what part of the device's datastore we want to get we use the `path` field in the `GetRequest` message. The path is a string that represents the gNMI path that points to a particular point in the YANG data model of the device.
 
@@ -159,7 +159,7 @@ To indicate what part of the device's datastore we want to get we use the `path`
 Let's try and get the configuration data for an interface `ethernet-1/1` from the SR Linux node `leaf11`.
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify get --path "/interface[name=ethernet-1/1]" -e json_ietf --type CONFIG
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify get --path "/interface[name=ethernet-1/1]" -e json_ietf --type CONFIG
 ```
 
 Note, how we set the required data encoding (`json-ietf`) and provided the `CONFIG` data type to the command.
@@ -169,7 +169,7 @@ Note, how we set the required data encoding (`json-ietf`) and provided the `CONF
 ```json
 [
   {
-    "source": "clab-srexperts-leaf11",
+    "source": "clab-dcfpartnerws-leaf11",
     "timestamp": 1715880503384439447,
     "time": "2024-05-16T20:28:23.384439447+03:00",
     "updates": [
@@ -218,7 +218,7 @@ Note, how we set the required data encoding (`json-ietf`) and provided the `CONF
 We can see how the output changes when we request the state data for the same interface:
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify get --path "/interface[name=ethernet-1/1]" -e json_ietf --type STATE
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify get --path "/interface[name=ethernet-1/1]" -e json_ietf --type STATE
 ```
 
 *Expected output:*
@@ -226,7 +226,7 @@ gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify get --pat
 ```json
 [
   {
-    "source": "clab-srexperts-leaf11",
+    "source": "clab-dcfpartnerws-leaf11",
     "timestamp": 1715880565056961222,
     "time": "2024-05-16T20:29:25.056961222+03:00",
     "updates": [
@@ -270,10 +270,10 @@ gNMIc supports Set RPC and provides multiple ways of passing the data to the CLI
 
 ### a. Update operation with in-line value
 
-The most simple way to update a single value on the device is by providing the new value using the `update-value` flag. For example, if we were to set the description of the subinterface 101 of the interface `ethernet-1/1` to "setting from gnmic at srexperts2024" we would use the following command:
+The most simple way to update a single value on the device is by providing the new value using the `update-value` flag. For example, if we were to set the description of the subinterface 101 of the interface `ethernet-1/1` to "setting from gnmic at DCFPartners2024" we would use the following command:
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify set --update-path "/interface[name=ethernet-1/1]/subinterface[index=101]/description" --update-value "setting from gnmic at srexperts2024"
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify set --update-path "/interface[name=ethernet-1/1]/subinterface[index=101]/description" --update-value "setting from gnmic at DCFPartners2024"
 ```
 
 As you can see, we leverage two flags `--update-path` to point to the leaf we want to update and `--update-value` to provide the value we want to be set for that leaf.
@@ -282,7 +282,7 @@ As you can see, we leverage two flags `--update-path` to point to the leaf we wa
 
 ```json
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "timestamp": 1715911843938194701,
   "time": "2024-05-17T05:10:43.938194701+03:00",
   "results": [
@@ -298,14 +298,14 @@ The returned data is nothing more than a confirmation, that the data has been se
 
 ### b. Set RPC with file-based input
 
-The downside of the inlined values for Set operations is that they are not suitable when you have to privide a non-scalar value, like a json blob. For example, when you want to create a new subinterface, you would need to provide more data than just a string like we did for the description.
+The downside of the inlined values for Set operations is that they are not suitable when you have to provide a non-scalar value, like a json blob. For example, when you want to create a new subinterface, you would need to provide more data than just a string like we did for the description.
 
 To assist with more complex inputs, gNMIc supports the file-based input. You can provide a file with the data you want to set and gNMIc will read the file and use the data to perform the Set operation.
 
 To demonstrate this, lets create a new subinterface `99` under the `ethernet-1/1` interface where all the parameters are defined in a file:
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify -e JSON_IETF set --update-path "/interface[name=ethernet-1/1]/subinterface[index=99]" --update-file subif.json
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify -e JSON_IETF set --update-path "/interface[name=ethernet-1/1]/subinterface[index=99]" --update-file subif.json
 
 ```
 
@@ -346,7 +346,7 @@ Using one of the above methods we can construct our `subif.json` files that we w
 {
   "index": 99,
   "type": "bridged",
-  "description": "setting from gnmic at srexperts2024",
+  "description": "setting from gnmic at DCFPartners2024",
   "vlan": {
     "encap": {
       "single-tagged": {
@@ -361,7 +361,7 @@ Using one of the above methods we can construct our `subif.json` files that we w
 
 ```json
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "timestamp": 1715923235275894092,
   "time": "2024-05-17T08:20:35.275894092+03:00",
   "results": [
@@ -383,21 +383,21 @@ To demonstrate this, we can entirely replace the original subinterface 99 with t
 {
   "index": 99,
   "type": "routed",
-  "description": "replaced from gnmic at srexperts2024"
+  "description": "replaced from gnmic at DCFPartners2024"
 }
 ```
 
 Note, how for the replace operation we changed the flag names to `replace-path` and `replace-file` accordingly.
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify set --replace-path "/interface[name=ethernet-1/1]/subinterface[index=99]" --replace-file routedsubif.json
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify set --replace-path "/interface[name=ethernet-1/1]/subinterface[index=99]" --replace-file routedsubif.json
 ```
 
 *Expected Output*
 
 ```json
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "timestamp": 1715927443923681216,
   "time": "2024-05-17T09:30:43.923681216+03:00",
   "results": [
@@ -414,14 +414,14 @@ gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify set --rep
 Finally, gNMI Set can delete configuration elements as well. Let's delete the subinterface `99` we created earlier.
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify set --delete "/interface[name=ethernet-1/1]/subinterface[index=99]"
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify set --delete "/interface[name=ethernet-1/1]/subinterface[index=99]"
 ```
 
 *Expected Output*
 
 ```json
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "timestamp": 1715926799833059405,
   "time": "2024-05-17T09:19:59.833059405+03:00",
   "results": [
@@ -448,14 +448,14 @@ ONCE mode on the surface behaves exactly the same as Get operation, it returns t
 This makes ONCE mode useful to retrieve big chunks of data without waiting for the server to aggregate it first.
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify sub --path "/interface[name=ethernet-1/1]/subinterface[index=1]" --mode once
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify sub --path "/interface[name=ethernet-1/1]/subinterface[index=1]" --mode once
 ```
 
 *Expected Output*
 
 ```json
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "subscription-name": "default-1715924368",
   "timestamp": 1715924368499528038,
   "time": "2024-05-17T08:39:28.499528038+03:00",
@@ -494,7 +494,7 @@ The main application for Sample mode is to stream data that changes frequently, 
 In the example below we would subscribe to the CPU utilization of the control plane module, asking it to provide the data every second.
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify sub --path "/platform/control[slot=*]/cpu[index=all]/total" --stream-mode sample --sample-interval 1s
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify sub --path "/platform/control[slot=*]/cpu[index=all]/total" --stream-mode sample --sample-interval 1s
 ```
 
 *Expected output*
@@ -503,7 +503,7 @@ The output will keep streaming every sec as per the configured interval
 
 ```json
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "subscription-name": "default-1715924240",
   "timestamp": 1715924241361100415,
   "time": "2024-05-17T08:37:21.361100415+03:00",
@@ -545,14 +545,14 @@ Most commonly, on change subscriptions are made to the data that represents the 
 Like in the example above, where we subscribe with on change mode to the operational state of all the interfaces on our leaf.
 
 ```bash
-gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify subscribe --stream-mode on_change --path /interface/oper-state
+gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify subscribe --stream-mode on_change --path /interface/oper-state
 ```
 
 Expected output:
 
 ```json
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "subscription-name": "default-1716088033",
   "timestamp": 1716088033376949261,
   "time": "2024-05-19T06:07:13.376949261+03:00",

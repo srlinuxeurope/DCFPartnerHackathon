@@ -23,9 +23,9 @@ If you prefer to listen rather than read, take a look at this [NANOG Video](http
 
 There are many clients that support gNOI services, the most common one is [gNOIc](https://gnoic.kmrd.dev/) developed by Nokia.
 
-## SReXperts Hackathon
+## DCF Partners Hackathon
 
-As part of this SReXperts Hackathon, we will be exploring gNOI file services on SR Linux.
+As part of this Hackathon, we will be exploring gNOI file services on SR Linux.
 
 ## gNOI File Service
 
@@ -142,11 +142,11 @@ The target node returns an error if:
 Let's go ahead and list files in the /opt/srlinux directory. We will be using the `--skip-verify` flag in gNOIc to indicate that the target should skip the signature verification steps.
 
 ```
-# gnoic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify file stat --path /opt/srlinux
+# gnoic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify file stat --path /opt/srlinux
 +-----------------------------+-------------------------+---------------------------+------------+------------+------+
 |         Target Name         |          Path           |       LastModified        |    Perm    |   Umask    | Size |
 +-----------------------------+-------------------------+---------------------------+------------+------------+------+
-| clab-srexperts-leaf11:57400 | /opt/srlinux/appmgr     | 2024-05-04T02:52:34+03:00 | drwxr-xr-x | -----w--w- | 0    |
+| clab-dcfpartnerws-leaf11:57400 | /opt/srlinux/appmgr     | 2024-05-04T02:52:34+03:00 | drwxr-xr-x | -----w--w- | 0    |
 |                             | /opt/srlinux/bin        | 2024-05-04T02:52:44+03:00 | drwxr-xr-x | -----w--w- | 0    |
 |                             | /opt/srlinux/python     | 2024-02-16T04:54:07+02:00 | drwxr-xr-x | -----w--w- | 0    |
 |                             | /opt/srlinux/snmp       | 2024-05-04T02:52:37+03:00 | drwxr-xr-x | -----w--w- | 0    |
@@ -181,9 +181,9 @@ For example, if your name is Chris, the directory will be named srl-gnoi-chris.
 ```
 
 ```
-# gnoic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify file get --file /var/log/srlinux/srl_boot.log --dst .
-INFO[0000] "clab-srexperts-leaf11:57400" received 27572 bytes 
-INFO[0000] "clab-srexperts-leaf11:57400" file "/var/log/srlinux/srl_boot.log" saved 
+# gnoic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify file get --file /var/log/srlinux/srl_boot.log --dst .
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" received 27572 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/var/log/srlinux/srl_boot.log" saved 
 ```
 
 ```
@@ -213,9 +213,9 @@ Select or create a file on your VM (in your own directory) to be transferred ove
 ```
 
 ```
-# gnoic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify file put --file show-int.txt --dst /home/admin/show-int.txt
-INFO[0000] "clab-srexperts-leaf11:57400" sending file="show-int.txt" hash 
-INFO[0000] "clab-srexperts-leaf11:57400" file "show-int.txt" written successfully
+# gnoic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify file put --file show-int.txt --dst /home/admin/show-int.txt
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" sending file="show-int.txt" hash 
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "show-int.txt" written successfully
 ```
 
 ```
@@ -243,8 +243,8 @@ The target node returns an error if:
 - The path references a directory instead of a file.
 
 ```
-# gnoic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify file remove --path /home/admin/show-int.txt
-INFO[0000] "clab-srexperts-leaf11:57400" file "/home/admin/show-int.txt" removed successfully 
+# gnoic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify file remove --path /home/admin/show-int.txt
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/home/admin/show-int.txt" removed successfully 
 ```
 
 ```
@@ -261,7 +261,7 @@ cat: show-int.txt: No such file or directory
 
 Now that you are an expert on gNOI, let's start using gNOI for some real world scenarios.
 
-### Confiuration Backups
+### Configuration Backups
 
 The goal of this hackathon activity is to establish regular configuration backups of your SR Linux device on an external machine.
 

@@ -26,7 +26,7 @@ While we will cover the most important steps, you might find the official [SR Li
 
 ## Accessing a lab node
 
-Start by logging into `clab-dcfpartnerws-leaf11` node. You can log in by using the container name.
+Start by logging into `clab-dcfpartnerws-leaf11` node (admin/NokiaSrl1!). You can log in by using the container name.
 
 ```bash
 ssh admin@clab-dcfpartnerws-leaf11
@@ -85,7 +85,7 @@ A:leaf11# info
     }
 ```
 
-Now log into `clab-dcfpartnerws-leaf11` and navigate to the `system logging remote-server 10.128.<group-id>.75` context. With the `info` command you can see what is configured in this context. Compare the configuration with the example above. What do you notice?
+Now log into `clab-dcfpartnerws-leaf11` and navigate to the `system logging remote-server 10.128.1.75` context. With the `info` command you can see what is configured in this context. Compare the configuration with the example above. What do you notice?
 
 ```
 --{ + running }--[  ]--

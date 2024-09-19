@@ -229,7 +229,30 @@ In the generic topology, linux clients are attached to a number of routers:
 - the leafs in each data center
 - in multiple VRFs: global routing table (grt) and vprn "dci" (vprn.dci)
 
-One can start and/or stop traffic by connecting to the relevant client using SSH, and running `/traffic.sh`, for example:
+To start the traffic on each client from the VM, you can use the `traffic.sh` script present in the `$HOME/DCFPartnerHackathon/clab` path:
+
+```
+~/DCFPartnerHackathon/clab$ ./traffic.sh
+syntax: traffic CLIENT <start|stop> DESTINATION[.SUFFIX]
+where:
+    CLIENT is one of: [ client01 client02 client11 client12 client13 client21 ]
+    DESTINATION is one of: [ all client01 client02 client11 client12 client13 client21 ]
+    SUFFIX is one of: [ .grt .vprn.dci ]   -> if empty .grt will be considered
+```
+
+For example, to start traffic from client11 to all other clients in the topology, through the GRT (Global Routing Table), just try this:
+
+```
+~/DCFPartnerHackathon/clab$ ./traffic.sh client11 start all
+starting traffic on client client11 to all
+starting traffic to client01.grt, binding on client11.grt, saving logs to /tmp/client01.grt.log
+starting traffic to client02.grt, binding on client11.grt, saving logs to /tmp/client02.grt.log
+starting traffic to client12.grt, binding on client11.grt, saving logs to /tmp/client12.grt.log
+starting traffic to client13.grt, binding on client11.grt, saving logs to /tmp/client13.grt.log
+starting traffic to client21.grt, binding on client11.grt, saving logs to /tmp/client21.grt.log
+```
+
+Alternatively, one can start and/or stop traffic by connecting to the relevant client using SSH, and running `/traffic.sh`, for example:
 
 ```
 ssh user@clab-dcfpartnerws-client11

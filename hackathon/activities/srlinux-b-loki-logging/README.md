@@ -154,7 +154,7 @@ tcpdump: listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot leng
 
 07:50:36.937551 mgmt0.0 Out IP (tos 0x0, ttl 64, id 10656, offset 0, flags [DF], proto UDP (17), length 182)
     10.128.1.33.48501 > 10.128.1.75.1514: UDP, length 154
-E...).@.@..+..!..K.u....zj<182>1 -05-21T07:50:36.937263+00:00 leaf11 sr_cli - - -  debug|896501|896501|00003|I: common    |admin|45|srl running / | info interface ethernet-1/1
+E...).@.@..+..!..K.u....zj<182>1 2024-05-21T07:50:36.937263+00:00 leaf11 sr_cli - - -  debug|896501|896501|00003|I: common    |admin|45|srl running / | info interface ethernet-1/1
 ```
 
 </details>

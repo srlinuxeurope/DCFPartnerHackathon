@@ -10,6 +10,11 @@ from srlinux.schema import FixedSchemaRoot
 from srlinux.syntax import Syntax
 
 
+def get_ipv6_addr(ipv6nei):
+    ipv6 = ipv6nei.split("%")
+    return ipv6[0]
+
+
 class Plugin(CliPlugin):
     
     def load(self, cli, **_kwargs):
@@ -116,7 +121,7 @@ class Plugin(CliPlugin):
                     peer_node.peer_group = peeraddr.peer_group
                     peers.append(peeraddr.peer_address) 
             for nh_index in self._nh_path_data.network_instance.get(netinst.name).route_table.get().next_hop.items():
-                if nh_index.ip_address in peers:
+                if nh_index.ip_address in [get_ipv6_addr(nh_index.ip_address) for nh_index.ip_address in peers]:   
                     netinst_node.neighbor.get(nh_index.ip_address).interface = nh_index.subinterface
                     peers.remove(nh_index.ip_address)
 
@@ -144,4 +149,3 @@ class CheckASN(object):
         except ValueError:
             raise ValueError(f"\nThis is not a valid 16-bit or 32-bit ASN: '{value}'")
         return True
-

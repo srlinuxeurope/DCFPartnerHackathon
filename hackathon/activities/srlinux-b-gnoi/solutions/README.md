@@ -1,6 +1,6 @@
 # Solutions for SR Linux gNOI Hackathon Activity
 
-## Confiuration Backups - Solution
+## Configuration Backups - Solution
 
 The goal of this hackathon activity is to establish regular configuration backups of your SR Linux device on an external machine.
 

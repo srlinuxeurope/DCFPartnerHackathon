@@ -10,10 +10,6 @@ from srlinux.schema import FixedSchemaRoot
 from srlinux.syntax import Syntax
 
 
-def get_ipv6_addr(ipv6nei):
-    ipv6 = ipv6nei.split("%")
-    return ipv6[0]
-
 
 class Plugin(CliPlugin):
     
@@ -86,6 +82,7 @@ class Plugin(CliPlugin):
     def _populate_schema(self, arguments):
         schema = Data(arguments.schema)
         peers = []
+        get_ipv6_addr = lambda ipv6_neighbor: ipv6_neighbor.split("%")[0]
         for netinst in self._local_as_path_data.network_instance.items():
             netinst_node = schema.network_instance.create(netinst.name)
             netinst_node.local_as = netinst.protocols.get().bgp.get().autonomous_system

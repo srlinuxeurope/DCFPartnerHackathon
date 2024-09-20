@@ -64,8 +64,8 @@ Each pre-provided activity comes with a README of it's own, please click the pre
 | [Streaming telemetry](./hackathon/activities/srlinux-b-streaming-telemetry) | SR Linux | Basic |
 | [Configuration using Ansible intents](./hackathon/activities/srlinux-i-ansible-intent) | SR Linux | Intermediate |
 | [Create a CLI plugin](./hackathon/activities/srlinux-i-cli-plugin-show-version) | SR Linux | Intermediate | 
-| [Customize the CLI](./hackathon/activities/srlinux-i-custom-cli) | SR Linux | Intermediate |
-| [Using gNMI with Python](./hackathon/activities/srlinux-i-pygnmi) | SR Linux | Intermediate |
+| [Customize the CLI](./hackathon/activities/srlinux-v-custom-cli) | SR Linux | Advanced |
+| [Using gNMI with Python](./hackathon/activities/srlinux-v-pygnmi) | SR Linux | Advanced |
 
 #### Topology
 

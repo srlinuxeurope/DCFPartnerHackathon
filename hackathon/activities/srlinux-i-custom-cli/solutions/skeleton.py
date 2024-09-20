@@ -11,9 +11,7 @@ from srlinux.data import Border, ColumnFormatter, TagValueFormatter, Borders, Da
 from srlinux.syntax.value_checkers import IntegerValueInRangeChecker
 import json
 
-def get_ipv6_addr(ipv6nei):
-    ipv6 = ipv6nei.split("%")
-    return ipv6[0]
+
 
 class Plugin(CliPlugin):
     

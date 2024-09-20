@@ -12,6 +12,7 @@ from srlinux.syntax.value_checkers import IntegerValueInRangeChecker
 import json
 
 
+
 class Plugin(CliPlugin):
     
     '''

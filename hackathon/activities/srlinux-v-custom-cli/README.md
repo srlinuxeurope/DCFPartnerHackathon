@@ -958,7 +958,8 @@ peer-group: spine
 
 peer-group check success: spine
 ['fe80::185e:12ff:feff:2%ethernet-1/49.0', 'fe80::18e4:13ff:feff:2%ethernet-1/50.0']
-
+adding ethernet-1/49.0 for fe80::185e:12ff:feff:2
+adding ethernet-1/50.0 for fe80::18e4:13ff:feff:2
 
 --{ running }--[  ]--
 A:leaf12# show bgp-by peer-address 10.64.54.2
@@ -974,7 +975,7 @@ peer-group: *
 
 peer-address check success: fe80::18e4:13ff:feff:2%ethernet-1/50.0
 ['fe80::18e4:13ff:feff:2%ethernet-1/50.0']
-
+adding ethernet-1/50.0 for fe80::18e4:13ff:feff:2
 
 --{ running }--[  ]--
 A:leaf12#
@@ -991,8 +992,7 @@ First, clean all of the debugging out of your script, upload and relog into the 
 Now try to issue our command but add `| as json` to the end.
 
 ```
---{ running }--[  ]--
-A:leaf12# show bgp-by peer-address fe80::18e4:13ff:feff:2%ethernet-1/50.0 |as json
+A:leaf12# show bgp-by peer-address fe80::18fc:12ff:feff:2%ethernet-1/49.0 | as json
 {
   "network-instance": [
     {
@@ -1000,17 +1000,16 @@ A:leaf12# show bgp-by peer-address fe80::18e4:13ff:feff:2%ethernet-1/50.0 |as js
       "local-as": 4200001002,
       "neighbor": [
         {
-          "peer-address": "fe80::18e4:13ff:feff:2%ethernet-1/50.0",
+          "peer-address": "fe80::18fc:12ff:feff:2%ethernet-1/49.0",
           "peer-type": "ebgp",
           "peer-as": 4200001000,
-          "peer-group": "spine"
+          "peer-group": "spine",
+          "interface": "ethernet-1/49.0"
         }
       ]
     }
   ]
 }
-
---{ running }--[  ]--
 A:leaf12#
 ```
 
@@ -1050,27 +1049,26 @@ Congratulations! You have created your own useful and unique CLI command!
 Think about how you could extend or change this script to make it more specific to your needs.
 
 ```
---{ running }--[  ]--
 A:leaf12# show bgp-by peer-as 4200001000
 name    : default
 local-as: 4200001002
-  +----------------------------------------+-----------+------------+------------+-----------+
-  |              peer-address              | peer-type |  peer-as   | peer-group | interface |
-  +========================================+===========+============+============+===========+
-  | fe80::185e:12ff:feff:2%ethernet-1/49.0 | ebgp      | 4200001000 | spine      |           |
-  | fe80::18e4:13ff:feff:2%ethernet-1/50.0 | ebgp      | 4200001000 | spine      |           |
-  +----------------------------------------+-----------+------------+------------+-----------+
+  +----------------------------------------+-----------+------------+------------+-----------------+
+  |              peer-address              | peer-type |  peer-as   | peer-group |    interface    |
+  +========================================+===========+============+============+=================+
+  | fe80::186c:13ff:feff:2%ethernet-1/50.0 | ebgp      | 4200001000 | spine      | ethernet-1/50.0 |
+  | fe80::18fc:12ff:feff:2%ethernet-1/49.0 | ebgp      | 4200001000 | spine      | ethernet-1/49.0 |
+  +----------------------------------------+-----------+------------+------------+-----------------+
 --{ + running }--[  ]--
 A:leaf12# show bgp-by
 name    : default
 local-as: 4200001002
-  +----------------------------------------+-----------+------------+------------+-----------+
-  |              peer-address              | peer-type |  peer-as   | peer-group | interface |
-  +========================================+===========+============+============+===========+
-  | fd00:fde8::1:22                        | ibgp      | 65000      | iBGP       |           |
-  | fe80::185e:12ff:feff:2%ethernet-1/49.0 | ebgp      | 4200001000 | spine      |           |
-  | fe80::18e4:13ff:feff:2%ethernet-1/50.0 | ebgp      | 4200001000 | spine      |           |
-  +----------------------------------------+-----------+------------+------------+-----------+
+  +----------------------------------------+-----------+------------+------------+-----------------+
+  |              peer-address              | peer-type |  peer-as   | peer-group |    interface    |
+  +========================================+===========+============+============+=================+
+  | fd00:fde8::1:22                        | ibgp      | 65000      | iBGP       |                 |
+  | fe80::186c:13ff:feff:2%ethernet-1/50.0 | ebgp      | 4200001000 | spine      | ethernet-1/50.0 |
+  | fe80::18fc:12ff:feff:2%ethernet-1/49.0 | ebgp      | 4200001000 | spine      | ethernet-1/49.0 |
+  +----------------------------------------+-----------+------------+------------+-----------------+
 --{ + running }--[  ]--
 A:leaf12#
 ```

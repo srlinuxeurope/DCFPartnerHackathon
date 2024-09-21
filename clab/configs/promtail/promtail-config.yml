@@ -16,7 +16,7 @@ scrape_configs:
         job: "syslog"
     relabel_configs:
       - source_labels: ["__syslog_message_hostname"]
-        replacement: clab-srexperts-$1
+        replacement: clab-dcfpartnerws-$1
         target_label: "source"
       - source_labels: ["__syslog_message_severity"]
         target_label: "level"

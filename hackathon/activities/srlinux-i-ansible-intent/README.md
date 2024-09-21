@@ -128,6 +128,13 @@ The Playbook is run against a set of nodes, as defined in the inventory and the 
 
 ## Exercises
 
+Before continuing, make sure no HTTP Proxy is configured, since it conflicts with the `nokia.srlinux` Ansible collection that uses JSON-RPC (HTTPS transport) to interact with the SR Linux nodes. Disable any proxy settings in your environment:
+
+```bash
+unset http_proxy
+unset https_proxy
+```
+
 ### 1. Configure the fabric underlay
 
 To get a fabric-wide view on the state of the fabric, we use the `fcli` tool.

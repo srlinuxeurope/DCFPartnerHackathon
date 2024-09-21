@@ -461,8 +461,8 @@
       {
         "current": {
           "selected": true,
-          "text": "clab-srexperts-pe1",
-          "value": "clab-srexperts-pe1"
+          "text": "clab-dcfpartnerws-pe1",
+          "value": "clab-dcfpartnerws-pe1"
         },
         "datasource": {
           "type": "loki",

@@ -77,7 +77,7 @@ Available Commands:
 
 The next step is fetching or subscribing to data on SR Linux. Since SR Linux is a fully YANG-modelled NOS, we need the identify the gNMI paths that point to the data we want to fetch. You can find these paths in the SR Linux CLI.
 
-Open a second terminal where you log into `clab-srexperts-leaf11`. Let's say we want to retrieve the *host-name* of this device. You can find the XPath by running the following command in SR Linux CLI
+Open a second terminal where you log into `clab-dcfpartnerws-leaf11`. Let's say we want to retrieve the *host-name* of this device. You can find the XPath by running the following command in SR Linux CLI
 
 ```bash
 --{ running }--[  ]--
@@ -98,13 +98,13 @@ The [YANG Browser](https://yang.srlinux.dev/v24.3.1) lets you do a search throug
 
 ### 1 gNMI GET
 
-Now that you know the YANG path for the *host-name*, use gNMIc GET operation to fetch the *host-name* of `clab-srexperts-leaf11`
+Now that you know the YANG path for the *host-name*, use gNMIc GET operation to fetch the *host-name* of `clab-dcfpartnerws-leaf11`
 
 ```bash
->$ gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify -e json_ietf get --path /system/name/host-name
+>$ gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify -e json_ietf get --path /system/name/host-name
 [
   {
-    "source": "clab-srexperts-leaf11",
+    "source": "clab-dcfpartnerws-leaf11",
     "timestamp": 1715173587237581773,
     "time": "2024-05-08T13:06:27.237581773Z",
     "updates": [
@@ -123,10 +123,10 @@ Now that you know the YANG path for the *host-name*, use gNMIc GET operation to 
 Now we would like to fetch the *traffic-rate* of our interfaces. Try to find in the [YANG Browser](https://yang.srlinux.dev/v24.3.1) the YANG path for traffic-rate and fire again a gNMIc GET operation. You will notice there is a match in the YANG browser for ingress-bps and egress-bps.
 
 ```bash
->$ sudo gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify -e json_ietf get --path /interface[name=*]/traffic-rate/in-bps
+>$ sudo gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify -e json_ietf get --path /interface[name=*]/traffic-rate/in-bps
 [
   {
-    "source": "clab-srexperts-leaf11",
+    "source": "clab-dcfpartnerws-leaf11",
     "timestamp": 1715179859187275659,
     "time": "2024-05-08T14:50:59.187275659Z",
     "updates": [
@@ -158,10 +158,10 @@ Now we would like to fetch the *traffic-rate* of our interfaces. Try to find in 
 Notice that you will receive traffic rates for all interface available on the device. This is because we are matching all interfaces in the YANG path. Try to fetch now only the traffic-rate for interface ethernet-1/49
 
 ```bash
->$ sudo gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify -e json_ietf get --path /interface[name=ethernet-1/49]/traffic-rate/in-bps
+>$ sudo gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify -e json_ietf get --path /interface[name=ethernet-1/49]/traffic-rate/in-bps
 [
   {
-    "source": "clab-srexperts-leaf11",
+    "source": "clab-dcfpartnerws-leaf11",
     "timestamp": 1715180821959245729,
     "time": "2024-05-08T15:07:01.959245729Z",
     "updates": [
@@ -182,10 +182,10 @@ Let's start now with some real streaming of telemetry data. Instead of performin
 Choose now for a subscribe command with stream-mode sample with a sample-interval of 5 seconds. The traffic-rate should now pop on on your terminal every 5 seconds.
 
 ```bash
->$ sudo gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify -e json_ietf subscribe --stream-mode sample --sample-interval 5s --path /interface[name=ethernet-1/49]/traffic-rate/in-bps
+>$ sudo gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify -e json_ietf subscribe --stream-mode sample --sample-interval 5s --path /interface[name=ethernet-1/49]/traffic-rate/in-bps
 
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "subscription-name": "default-1715181630",
   "timestamp": 1715181630980740286,
   "time": "2024-05-08T15:20:30.980740286Z",
@@ -208,9 +208,9 @@ Search in the [YANG Browser](https://yang.srlinux.dev/v24.3.1) for the YANG path
 Change now the stream mode to on-change and try to fetch the oper-state of the interface. You should notice that we only will receive an update when the operational state of interface ethernet-1/2 changes.
 
 ```bash
->$ sudo gnmic -a clab-srexperts-leaf11 -u admin -p SReXperts2024 --skip-verify -e json_ietf subscribe --stream-mode on-change --path /interface[name=ethernet-1/2]/oper-state
+>$ sudo gnmic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify -e json_ietf subscribe --stream-mode on-change --path /interface[name=ethernet-1/2]/oper-state
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "subscription-name": "default-1715183276",
   "timestamp": 1715183276383801822,
   "time": "2024-05-08T15:47:56.383801822Z",
@@ -224,7 +224,7 @@ Change now the stream mode to on-change and try to fetch the oper-state of the i
   ]
 }
 {
-  "source": "clab-srexperts-leaf11",
+  "source": "clab-dcfpartnerws-leaf11",
   "subscription-name": "default-1715183276",
   "timestamp": 1715183350700538948,
   "time": "2024-05-08T15:49:10.700538948Z",
@@ -249,11 +249,11 @@ gnmic subscribe --config gnmi-config.yaml
 
 ```yaml
 username: admin
-password: SReXperts2024
+password: NokiaSrl1!
 skip-verify: true
 
 targets:
-  clab-srexperts-leaf11:
+  clab-dcfpartnerws-leaf11:
     subscriptions:
       - oper-state
 
@@ -283,11 +283,11 @@ Let's have a closer look at the telemetry stack components and try to understand
 
 If you have been following the lab from the start, you should now be familiar with gNMIc. It is an Openconfig project developed by Nokia that allows subscribing to streaming telemetry data from network devices and export it to a variety of destinations. In this lab, gNMIc is used to subscribe to the telemetry data from the fabric nodes and export it to the prometheus time-series database.
 
-The gNMIc configuration file [config.yml](../../clab/configs/gnmic/config.yml) is applied to the gNMIc container at startup. It instructs the container to subscribe to telemetry data and export it to the Prometheus time-series database. Examine the file to locate where the YANG paths are defined. You should also note Prometheus is defined as an output. This file should look familiar, as it aligns with what we defined earlier [here](#optional).
+The gNMIc configuration file [config.yml](../../../clab/configs/gnmic/config.yml) is applied to the gNMIc container at startup. It instructs the container to subscribe to telemetry data and export it to the Prometheus time-series database. Examine the file to locate where the YANG paths are defined. You should also note Prometheus is defined as an output. This file should look familiar, as it aligns with what we defined earlier [here](#optional).
 
 ```yaml
 username: admin
-password: SReXperts2024
+password: NokiaSrl1!
 port: 57400
 timeout: 10s
 skip-verify: true
@@ -311,11 +311,11 @@ subscriptions:
 
 #### Prometheus
 
-[Prometheus](https://prometheus.io) is a popular open-source time-series database. It is used in this lab to store the telemetry data exported by gnmic. The prometheus configuration file ([prometheus.yml](../../clab/configs/prometheus/prometheus.yml)) has a minimal configuration and instructs prometheus to scrape the data from the gnmic collector with a 5s interval. Metrics are stored with the timestamp (Time Series Data) at which they were recorded, alongside optional key-value pairs called labels.
+[Prometheus](https://prometheus.io) is a popular open-source time-series database. It is used in this lab to store the telemetry data exported by gnmic. The prometheus configuration file ([prometheus.yml](../../../clab/configs/prometheus/prometheus.yml)) has a minimal configuration and instructs prometheus to scrape the data from the gnmic collector with a 5s interval. Metrics are stored with the timestamp (Time Series Data) at which they were recorded, alongside optional key-value pairs called labels.
 
-\**If you need to adjust the data that is scraped by prometheus you have to edit the [config.yml](../../clab/configs/gnmic/config.yml) file.*
+\**If you need to adjust the data that is scraped by prometheus you have to edit the [config.yml](../../../clab/configs/gnmic/config.yml) file.*
 
-> To open up [Prometheus](https://prometheus.io/) UI on your laptop use `http://<group-id>.srexperts.net:9090` address.
+> To open up [Prometheus](https://prometheus.io/) UI on your laptop use `http://<group-id>.dcfpartnerws.info:9090` address.
 
 ![pic](./img/prom.JPG)
 
@@ -325,7 +325,7 @@ subscriptions:
 
 (\**connect using the instructions below before moving on*)
 
-> To open up [Grafana](https://grafana.com) UI on your laptop use `http://<group-id>.srexperts.net:3000` address.
+> To open up [Grafana](https://grafana.com) UI on your laptop use `http://<group-id>.dcfpartnerws.info:3000` address.
 
 Grafana is pre-configured with anonymous access enabled so that you can view the dashboards without authentication. To edit the dashboards you have to login with the username `admin` and password `admin`. The login button is in the top right corner of the Grafana UI.
 
@@ -335,13 +335,13 @@ There are some preconfigured dashboards avalailable. Navigate to the `SR Linux T
 
 ## Task
 
-For creating dashboards you will need to log in. Click on the `Sign in` button in the top right. User `admin` with password `SReXperts2024`.
+For creating dashboards you will need to log in. Click on the `Sign in` button in the top right. User `admin` with password `NokiaSrl1!`.
 
 If you look to the `SR Linux Telemetry` dashboard you will see a panel named *BGP Peer stats*. It visualizes three gauges: Up peers, Total Peers and Disabled Peers.
 
 ![pic](./img/bgp-panel.JPG)
 
-Your task is to create a dashboard that visualizes if there are any BGP sessions down in the data center fabric. There is no metric that corresponds to the amount of BGP down session, but we can calculate it from the total amount of BGP Total peers available and subtract the total amount BGP sessons in Up state.
+Your task is to create a dashboard that visualizes if there are any BGP sessions down in the data center fabric. There is no metric that corresponds to the amount of BGP down session, but we can calculate it from the total amount of BGP Total peers available and subtract the total amount BGP sessions in Up state.
 
 ### 1 Create a new dashboard
 

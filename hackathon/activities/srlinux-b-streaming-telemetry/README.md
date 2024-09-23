@@ -90,9 +90,9 @@ A:leaf11# tree xpath system name
 
 From the output you can find that for us to retrieve the *host-name* we will need to use the following XPath `/system/name/host-name`. Advanced CLI users who are well aware of the SR Linux YANG model can use this approach, but in many cases we don't know where or what we are looking for. This is when [YANG Browser](https://yang.srlinux.dev/v24.3.1) might come handy.
 
-The YANG browser lets you do a search through the SR Linux YANG model. By simply typing for certain keywords, the YANG browser will return any matches found.
+The [YANG Browser](https://yang.srlinux.dev/v24.3.1) lets you do a search through the SR Linux YANG model. By simply typing for certain keywords, the YANG browser will return any matches found.
 
-<img width="708" alt="yangbrowser" src="https://github.com/jgcumming/srx2024-hackplanning/assets/33862202/ab13e924-7f2d-4750-b7a9-6841c2e9b2fc">
+
 
 ## TASK
 

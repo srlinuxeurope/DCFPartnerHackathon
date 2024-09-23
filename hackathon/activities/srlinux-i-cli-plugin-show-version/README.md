@@ -15,10 +15,10 @@ In this exercise, you will explore the native show commands and dive into all th
 
 ## Accessing a lab node
 
-In this lab you will create your own CLI show command on `clab-srexperts-leaf11` node. You can log in by using the container name.
+In this lab you will create your own CLI show command on `clab-dcfpartnerws-leaf11` node. You can log in by using the container name.
 
 ```bash
-ssh admin@clab-srexperts-leaf11
+ssh admin@clab-dcfpartnerws-leaf11
 ```
 
 ## Navigate the SR Linux CLI engine filesystem

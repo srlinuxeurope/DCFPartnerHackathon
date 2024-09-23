@@ -103,7 +103,7 @@ On the hypervisor: add the contents of the generated `~/id_rsa.pub` file on your
 Validation (on the SRL box)
 
 ```bash
-root@leaf21:/home/admin# ssh -i ~/id_rsa srlinux@10.11.0.2<your_lab>
+admin@leaf21:/home/admin# sudo ssh -i ~/id_rsa srlinux@10.11.0.2<your_lab>
 Linux rd-srx-ws1-155afda 6.1.0-0.deb11.17-cloud-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.69-1~bpo11+1 (2024-01-05) x86_64
 
 ❯ 

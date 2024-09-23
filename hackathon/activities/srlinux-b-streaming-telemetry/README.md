@@ -15,7 +15,7 @@ A Streaming Telemetry stack consists of:
 - Time-series Database (e.g. Prometheus) to collect, store and aggregate the collected metrics.
 - Visualization tool (e.g. Grafana) to visualize the collected data and run queries on top of it.
 
-gNMI is a modern gRPC-based network management interface that is currently the most popular protocol to collect Streaming Telemetry data from the networking devices. It is imoprtant to understand, that Streaming Telemetry with gNMI operates on the configuration and state data streamed from the network devices, but it does not provide flow extraction/sampling like netflow/ipfix.
+gNMI is a modern gRPC-based network management interface that is currently the most popular protocol to collect Streaming Telemetry data from the networking devices. It is important to understand, that Streaming Telemetry with gNMI operates on the configuration and state data streamed from the network devices, but it does not provide flow extraction/sampling like netflow/ipfix.
 
 ## Objective
 
@@ -45,8 +45,9 @@ There are 4 remote procedure calls (RPC) services defined by the gNMI specificat
 | Capabilities | Provides the client with information about the device, such as gNMI version, used data models and supported encodings. Frequently used to test the gNMI connection. |
 | GET          | Retrieve information from the device, typically small amount of data.                                                                                               |
 | SET          | Is used to set, modify or delete configuration on a network device.                                                                                                 |
-
 | Subscribe | Used for streaming telemetry - receiving a stream of state or configuration data from the device. Subscribe RPC supports different modes: In a SAMPLE mode, the data is returned with a cadence governed by a client-provided interval; in an ON-CHANGE mode data is streamed every time there is a change in the subscribed data elements. |
+
+
 
 ## gNMIc as a command line interface to gNMI
 

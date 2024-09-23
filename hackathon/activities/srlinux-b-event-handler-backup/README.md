@@ -38,7 +38,7 @@ Below are some resources you might find interesting:
 
 As the whole purpose of this exercise is to store the device backups outside of the device filesystem, we first need to create a remote backup location that is reachable from an SR Linux device. For example, we can use the VM that runs the lab as a backup (`G<x>.dcfpartnerws.info`).
 
-While logged in to a VM with the standard `srlinux` user, create the `~/backups` directory.
+While logged in to a VM with the standard `srlinux` user, create the `/home/srlinux/backups` directory.
 
 ## Step 2: Create script file
 

@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 #--{ candidate shared default }--[ system event-handler instance backup-config-on-changes ]--
-#A:srlinuxd2# info
+#A:leaf21# info
 #    admin-state enable
 #    upython-script remote-backup.py
 #    paths [

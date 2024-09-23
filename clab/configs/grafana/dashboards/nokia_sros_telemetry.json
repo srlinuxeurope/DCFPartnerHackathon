@@ -2096,8 +2096,8 @@
       {
         "current": {
           "selected": true,
-          "text": "clab-dcfpartnerws-p1",
-          "value": "clab-dcfpartnerws-p1"
+          "text": "clab-dcfpartnerws-pe1",
+          "value": "clab-dcfpartnerws-pe1"
         },
         "datasource": {
           "type": "prometheus",

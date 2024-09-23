@@ -19,8 +19,8 @@ stop() {
 usage() {
    echo "syntax: traffic CLIENT <start|stop> DESTINATION[.SUFFIX]"
    echo "where:"
-   echo "    CLIENT is one of: [ client11 client12 client13 client21 ]"
-   echo "    DESTINATION is one of: [ all client11 client12 client13 client21 ]"
+   echo "    CLIENT is one of: [ client01 client02 client11 client12 client13 client21 ]"
+   echo "    DESTINATION is one of: [ all client01 client02 client11 client12 client13 client21 ]"
    echo "    SUFFIX is one of: [ .grt .vprn .dci ]   -> if empty .grt will be considered"
 }
 

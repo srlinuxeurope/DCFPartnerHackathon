@@ -11,7 +11,7 @@
 #    ]
 #    options {
 #        object target {
-#            value 'nokia@192.168.99.1:~/backups/'
+#            value 'nokia@192.168.99.1:/home/srlinux/backups/'
 #        }
 #    }
 

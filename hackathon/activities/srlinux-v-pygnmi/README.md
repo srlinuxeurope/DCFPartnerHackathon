@@ -19,7 +19,7 @@ In this lab, you will use the [PyGNMI](https://pypi.org/project/pygnmi/) library
 We will be executing Python scripts from the cloud instance (where you're logging in to) to any of the leafs: I'll be using `clab-srexperts-leaf21` for the examples. While it's not necessary to log into the nodes itself, it might be useful to explore the running configuration and the state trees. You can log in by using the DNS name of the container.
 
 ```
-ssh admin@clab-srexperts-leaf21
+ssh admin@clab-dcfpartnerws-leaf21
 ```
 
 ## Documentation resources
@@ -69,9 +69,9 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   
-❯ python get_timezone.py clab-srexperts-leaf21 <username> <password>
-Retrieving timezone for node 'clab-srexperts-leaf21'
-Configured timezone on host clab-srexperts-leaf21 is 'UTC'
+❯ python get_timezone.py clab-dcfpartnerws-leaf21 <username> <password>
+Retrieving timezone for node 'clab-dcfpartnerws-leaf21'
+Configured timezone on host clab-dcfpartnerws-leaf21 is 'UTC'
 ```
 
 ## Exercise 1
@@ -96,9 +96,9 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 
-❯ python get_hostname.py clab-srexperts-leaf21 <username> <password>
-Retrieving hostname for node 'clab-srexperts-leaf21'
-Hostname of node clab-srexperts-leaf21 is 'leaf21'
+❯ python get_hostname.py clab-dcfpartnerws-leaf21 <username> <password>
+Retrieving hostname for node 'clab-dcfpartnerws-leaf21'
+Hostname of node clab-dcfpartnerws-leaf21 is 'leaf21'
 ```
 
 ## Exercise 2
@@ -126,8 +126,8 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 
-❯ python get_interfaces.py clab-srexperts-leaf21 macvrf102 <username> <password>
-Retrieving interfaces for mac-vrf 'macvrf102' on node 'clab-srexperts-leaf21'
+❯ python get_interfaces.py clab-dcfpartnerws-leaf21 macvrf102 <username> <password>
+Retrieving interfaces for mac-vrf 'macvrf102' on node 'clab-dcfpartnerws-leaf21'
 
 Interfaces configured under MAC-VRF 'macvrf102':
 
@@ -164,7 +164,7 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 
-❯ python get_interfaces_improved.py clab-srexperts-leaf21 macvrf102 <username> <password>
+❯ python get_interfaces_improved.py clab-dcfpartnerws-leaf21 macvrf102 <username> <password>
 General information about MAC-VRF 'macvrf102'
 - EVI: 102
 - VNI: 102

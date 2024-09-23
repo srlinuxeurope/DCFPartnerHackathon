@@ -15,7 +15,7 @@ Let's see how this script will look like with shell scripting:
 cur_dir=/home/nokia/srl-gnoi-chris (Replace with your current working directory)
 
 ## Running gNOI to get the configuration file
-/usr/local/bin/gnoic -a clab-srexperts-leaf11 --skip-verify -u admin -p SReXperts2024 file get --file /etc/opt/srlinux/config.json --dst $cur_dir/
+/usr/local/bin/gnoic -a clab-dcfpartnerws-leaf11 --skip-verify -u admin -p NokiaSrl1! file get --file /etc/opt/srlinux/config.json --dst $cur_dir/
 
 ## Renaming the configuration file with current timestamp and moving it to backups directory
 mv $cur_dir/etc/opt/srlinux/config.json $cur_dir/backups/config.json.$(date +%F-%H:%M:%S)
@@ -28,9 +28,9 @@ Now that our script is ready, let's run it once to verify whether it works.
 # chmod +x backup.sh
 # mkdir backups
 # ./backup.sh
-INFO[0000] "clab-srexperts-leaf11:57400" received 64000 bytes 
-INFO[0000] "clab-srexperts-leaf11:57400" received 42411 bytes 
-INFO[0000] "clab-srexperts-leaf11:57400" file "/etc/opt/srlinux/config.json" saved 
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" received 64000 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" received 42411 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/etc/opt/srlinux/config.json" saved 
 ```
 
 ```
@@ -65,7 +65,7 @@ Our file with the list of nodes looks like this:
 
 ```
 # cat node-list.txt
-clab-srexperts-leaf11
+clab-dcfpartnerws-leaf11
 ```
 
 ```
@@ -80,9 +80,9 @@ for i in `awk '{print $0}' $cur_dir/node-list.txt`
                 ## Initializing the filename variable
                 filename=""
                 ## Transfer the package to the device
-                gnoic -a $i -u admin -p SReXperts2024 --skip-verify file put --file $cur_dir/my-gpt.deb --dst /tmp/my-gpt.deb
+                gnoic -a $i -u admin -p NokiaSrl1! --skip-verify file put --file $cur_dir/my-gpt.deb --dst /tmp/my-gpt.deb
                 ## List the package on the device
-                filename=`gnoic -a $i -u admin -p SReXperts2024 --skip-verify file stat --path /tmp/my-gpt.deb --format json | grep path | awk -F'\"' '{print $4}'`
+                filename=`gnoic -a $i -u admin -p NokiaSrl1! --skip-verify file stat --path /tmp/my-gpt.deb --format json | grep path | awk -F'\"' '{print $4}'`
                 ## Check if file package exists on the device
 				if test "$filename" = "/tmp/my-gpt.deb"
 					then
@@ -98,8 +98,8 @@ Now that our script is ready, let's run it
 ```
 # chmod +x file-transfer.sh
 # ./file-transfer.sh
-INFO[0000] "clab-srexperts-leaf11:57400" sending file="/home/nokia/srl-gnoi-chris/my-gpt.deb" hash 
-INFO[0000] "clab-srexperts-leaf11:57400" file "/home/nokia/srl-gnoi-chris/my-gpt.deb" written successfully 
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" sending file="/home/nokia/srl-gnoi-chris/my-gpt.deb" hash 
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/home/nokia/srl-gnoi-chris/my-gpt.deb" written successfully 
 File transferred successfully to clab-srexperts-leaf11
 ```
 
@@ -130,7 +130,7 @@ Our file with the list of nodes looks like this:
 
 ```
 # cat node-list.txt
-clab-srexperts-leaf11
+clab-dcfpartnerws-leaf11
 ```
 
 ```
@@ -145,9 +145,9 @@ for i in `awk '{print $0}' $cur_dir/node-list.txt`
                 ## Initializing the filename variable
 				filename=""
 				## Delete the file on the device
-				gnoic -a $i -u admin -p SReXperts2024 --skip-verify file remove --path /tmp/my-gpt.deb
+				gnoic -a $i -u admin -p NokiaSrl1! --skip-verify file remove --path /tmp/my-gpt.deb
                 ## List the file on the device to confirm file is deleted
-				filename=`gnoic -a $i -u admin -p SReXperts2024 --skip-verify file stat --path /tmp --format json | grep my-gpt.deb | awk -F'\"' '{print $4}'`
+				filename=`gnoic -a $i -u admin -p NokiaSrl1! --skip-verify file stat --path /tmp --format json | grep my-gpt.deb | awk -F'\"' '{print $4}'`
                 ## Check if filename returned is valid.
 				if test "$filename" = ""
                 then
@@ -163,8 +163,8 @@ Now that our script is ready, let's run it
 ```
 # chmod +x file-delete.sh
 # ./file-delete.sh
-INFO[0000] "clab-srexperts-leaf11:57400" file "/tmp/my-gpt.deb" removed successfully 
-File deleted successfully from clab-srexperts-leaf11
+INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/tmp/my-gpt.deb" removed successfully 
+File deleted successfully from clab-dcfpartnerws-leaf11
 ```
 Verify that the file was deleted on the router.
 

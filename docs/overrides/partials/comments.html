@@ -1,0 +1,53 @@
+<!--
+ Copyright 2025 Nokia
+ Licensed under the BSD 3-Clause License.
+ SPDX-License-Identifier: BSD-3-Clause
+-->
+
+{% if page.meta.comments %}
+<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+<script src="https://giscus.app/client.js" data-repo="nokia/SReXperts"
+    data-repo-id="MDEwOlJlcG9zaXRvcnkzODMxMTg5NTQ=" data-category="comments" data-category-id="DIC_kwDOFtXuas4CR_vG"
+    data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top"
+    data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async>
+    </script>
+
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+{% endif %}
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">43ITPTNITSTR-1975842599-11933</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">9c45caed-cf86-46a7-b97f-aa9468d878e6</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://nokia.sharepoint.com/sites/dc-fabric-enterprise-europe/_layouts/15/DocIdRedir.aspx?ID=43ITPTNITSTR-1975842599-11933, 43ITPTNITSTR-1975842599-11933</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

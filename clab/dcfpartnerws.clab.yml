@@ -14,11 +14,10 @@ topology:
     image: ghcr.io/srl-labs/network-multitool
   kinds:
     nokia_sros:
-      image: vr-sros:24.3.R2
-      #image: registry.srlinux.dev/pub/vr-sros:24.3.R2-1
+      image: vr-sros:25.7.R1
       license: /opt/srexperts/license-sros24.txt
     nokia_srlinux:
-      image: ghcr.io/nokia/srlinux:24.3.2
+      image: ghcr.io/nokia/srlinux:25.7.1
     linux:
       image: ghcr.io/srl-labs/network-multitool
       startup-delay: 30
@@ -237,7 +236,7 @@ topology:
     prometheus:
       kind: linux
       mgmt-ipv4: 10.128.1.72
-      image: prom/prometheus:v2.51.2
+      image: prom/prometheus:v2.54.1
       binds:
         - configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       ports:
@@ -248,7 +247,7 @@ topology:
     grafana:
       kind: linux
       mgmt-ipv4: 10.128.1.73
-      image: grafana/grafana:10.3.5
+      image: grafana/grafana:11.2.0
       binds:
         - configs/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
         - configs/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
@@ -284,7 +283,7 @@ topology:
     promtail:
       kind: linux
       mgmt-ipv4: 10.128.1.75
-      image: grafana/promtail:2.9.7
+      image: grafana/promtail:3.2.0
       binds:
         - configs/promtail:/etc/promtail
       cmd: --config.file=/etc/promtail/promtail-config.yml
@@ -292,7 +291,7 @@ topology:
     loki:
       kind: linux
       mgmt-ipv4: 10.128.1.76
-      image: grafana/loki:2.9.7
+      image: grafana/loki:3.2.0
       binds:
         - configs/loki:/etc/loki
       cmd: --config.file=/etc/loki/loki-config.yml

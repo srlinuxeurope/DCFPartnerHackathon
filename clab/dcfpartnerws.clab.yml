@@ -15,7 +15,7 @@ topology:
   kinds:
     nokia_sros:
       image: vr-sros:25.7.R1
-      license: /opt/srexperts/license-sros24.txt
+      license: /opt/srexperts/license-sros25.txt
     nokia_srlinux:
       image: ghcr.io/nokia/srlinux:25.7.1
     linux:

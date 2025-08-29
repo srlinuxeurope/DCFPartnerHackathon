@@ -7,7 +7,7 @@ docs:
 # serve the site locally using mkdocs-material insiders container
 .PHONY: serve-insiders
 serve-insiders:
-	docker run -it --rm -p 8050:8000 -v $$(pwd):/docs registry.srlinux.dev/pub/mkdocs-material-insiders:$(MKDOCS_INS_VER)
+	docker run -it --rm -p 8001:8000 -v $$(pwd):/docs registry.srlinux.dev/pub/mkdocs-material-insiders:$(MKDOCS_INS_VER)
 
 # serve the site locally using mkdocs-material insiders container using dirty-reloader
 .PHONY: serve-insiders-dirty

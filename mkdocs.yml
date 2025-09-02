@@ -36,6 +36,8 @@ nav:
           - REST API: eda/intermediate/api.md
       - Advanced:
           - Service Automation using Python: eda/advanced/service-automation.md
+  - Hackathon2024:
+      - Hackathon2024/index.md
   - Supporting tools and plugins:
       - tools/tools-bash-basics.md
       - tools/tools-clab-vscode-plugin.md

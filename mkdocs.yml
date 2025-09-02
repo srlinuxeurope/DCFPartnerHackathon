@@ -5,40 +5,21 @@
 site_name: Hackathon 2025
 nav:
   - Home: index.md
-  - Network Operating Systems:
+  - SR Linux:
       - nos/index.md
-      - SR OS:
-        - Beginner:
-            - nos/sros/beginner/nos-sros-activity-06.md
-            - nos/sros/beginner/nos-sros-show-latest-commit-activity-14.md
-            - nos/sros/beginner/9-custom-generic-log.md
-            - nos/sros/beginner/43-Grafana-Dashboards.md
-            - nos/sros/beginner/41-ANYsec.md
-        - Intermediate:
-            - nos/sros/intermediate/nos-sros-activity-05.md
-            - nos/sros/intermediate/nos-sros-activity-21.md
-            - nos/sros/intermediate/nos-sros-activity-08.md
-            - nos/sros/intermediate/nos-sros-activity-22.md
-            - nos/sros/intermediate/nos-sros-activity-23.md
-            - nos/sros/intermediate/nos-sros-activity-56.md
-            - nos/sros/intermediate/nos-sros-activity-62.md
-            - nos/sros/intermediate/nos-sros-activity-63.md
-        # - Advanced:
-            # - nos/sros/advanced/index.md
-      - SR Linux:
-          - Beginner:
-              - nos/srlinux/beginner/nos-srlinux-activity-11.md
-              - nos/srlinux/beginner/nos-srl-gnsi-authz.md
-              - nos/sros/beginner/43-Grafana-Dashboards.md
-              - nos/srlinux/beginner/nos-srl-activity-04.md
-              - nos/srlinux/beginner/b-srl-oc.md
-          - Intermediate:
-              - nos/srlinux/intermediate/nos-srl-activity-12.md
-              - nos/srlinux/intermediate/20-SRLinux-Basic-Agent.md
-              - nos/srlinux/intermediate/19-SRLinux-Custom-CLI.md
-              - nos/srlinux/intermediate/58-programming-snmp-mibs.md
-          - Advanced:
-              - nos/srlinux/advanced/nos-srlinux-activity-18.md    
+      - Beginner:
+          - nos/srlinux/beginner/nos-srlinux-activity-11.md
+          - nos/srlinux/beginner/nos-srl-gnsi-authz.md
+          - nos/sros/beginner/43-Grafana-Dashboards.md
+          - nos/srlinux/beginner/nos-srl-activity-04.md
+          - nos/srlinux/beginner/b-srl-oc.md
+      - Intermediate:
+          - nos/srlinux/intermediate/nos-srl-activity-12.md
+          - nos/srlinux/intermediate/20-SRLinux-Basic-Agent.md
+          - nos/srlinux/intermediate/19-SRLinux-Custom-CLI.md
+          - nos/srlinux/intermediate/58-programming-snmp-mibs.md
+      - Advanced:
+          - nos/srlinux/advanced/nos-srlinux-activity-18.md    
   - Event Driven Automation (EDA):
       - eda/index.md
       - Beginner:

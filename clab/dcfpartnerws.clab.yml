@@ -13,9 +13,13 @@ topology:
     kind: linux
     image: ghcr.io/srl-labs/network-multitool
   kinds:
-    nokia_sros:
-      image: vr-sros:25.7.R1
+    nokia_srsim:
+      image: nokia_srsim:25.7.R1
       license: /opt/srexperts/license-sros25.txt
+      type: SR-1
+      env:
+        NOKIA_SROS_MDA_1: me12-100gb-qsfp28
+
     nokia_srlinux:
       image: ghcr.io/nokia/srlinux:25.7.1
     linux:
@@ -46,9 +50,7 @@ topology:
         USER_PASSWORD: NokiaSrl1!
     # PE-layers
     pe1:
-      kind: nokia_sros
-      binds:
-        - configs/sros/boot-good-exec.cfg:/tftpboot/boot-good-exec.cfg
+      kind: nokia_srsim
       mgmt-ipv4: 10.128.1.21
       startup-config: configs/sros/pe1.partial.cfg
       ports:
@@ -56,7 +58,7 @@ topology:
         - 50321:57400
         - 50421:830
     pe2:
-      kind: nokia_sros
+      kind: nokia_srsim
       mgmt-ipv4: 10.128.1.22
       startup-config: configs/sros/pe2.partial.cfg
       ports:
@@ -100,7 +102,7 @@ topology:
     # DC1
     spine11:
       kind: nokia_srlinux
-      type: ixrh2
+      type: ixr-h2
       group: spine
       mgmt-ipv4: 10.128.1.31
       startup-config: configs/srl/spine11.cfg
@@ -109,7 +111,7 @@ topology:
         - 50331:57400
     spine12:
       kind: nokia_srlinux
-      type: ixrh2
+      type: ixr-h2
       group: spine
       mgmt-ipv4: 10.128.1.32
       startup-config: configs/srl/spine12.cfg
@@ -118,7 +120,7 @@ topology:
         - 50332:57400
     leaf11:
       kind: nokia_srlinux
-      type: ixrd2l
+      type: ixr-d2l
       group: leaf
       mgmt-ipv4: 10.128.1.33
       startup-config: configs/srl/leaf11.cfg
@@ -127,7 +129,7 @@ topology:
         - 50333:57400
     leaf12:
       kind: nokia_srlinux
-      type: ixrd2l
+      type: ixr-d2l
       group: leaf
       mgmt-ipv4: 10.128.1.34
       startup-config: configs/srl/leaf12.cfg
@@ -136,7 +138,7 @@ topology:
         - 50334:57400
     leaf13:
       kind: nokia_srlinux
-      type: ixrd2l
+      type: ixr-d2l
       group: leaf
       mgmt-ipv4: 10.128.1.35
       startup-config: configs/srl/leaf13.cfg
@@ -197,7 +199,7 @@ topology:
     # DC2
     leaf21:
       kind: nokia_srlinux
-      type: ixrd2l
+      type: ixr-d2l
       group: leaf
       mgmt-ipv4: 10.128.1.41
       startup-config: configs/srl/leaf21.cfg
@@ -298,36 +300,36 @@ topology:
 
   links:
     # links from PE1 to PE2
-    - endpoints: ["pe2:eth1", "pe1:eth1"]
+    - endpoints: ["pe2:1/1/c1/1", "pe1:1/1/c1/1"]
       mtu: 9500
     # link to dns
-    - endpoints: ["pe2:eth7", "dns:eth1"]
+    - endpoints: ["pe2:1/1/c7/1", "dns:eth1"]
       mtu: 9500
     # links from pe2 to DC1
-    - endpoints: ["pe2:eth3", "spine11:e1-32"]
+    - endpoints: ["pe2:1/1/c3/1", "spine11:ethernet-1/32"]
       mtu: 9500
-    - endpoints: ["pe2:eth4", "spine12:e1-32"]
+    - endpoints: ["pe2:1/1/c4/1", "spine12:ethernet-1/32"]
       mtu: 9500
     # links from pe1 to DC2
-    - endpoints: ["pe1:eth5", "leaf21:e1-49"]
+    - endpoints: ["pe1:1/1/c5/1", "leaf21:ethernet-1/49"]
       mtu: 9500
     # links from pe to client0x
-    - endpoints: ["pe1:eth6", "client01:eth1"]
+    - endpoints: ["pe1:1/1/c6/1", "client01:eth1"]
       mtu: 9500
-    - endpoints: ["pe2:eth6", "client02:eth1"]
+    - endpoints: ["pe2:1/1/c6/1", "client02:eth1"]
       mtu: 9500
     # links from spine1/2 to leafs
-    - endpoints: ["spine11:e1-1", "leaf11:e1-49"]
-    - endpoints: ["spine11:e1-2", "leaf12:e1-49"]
-    - endpoints: ["spine11:e1-3", "leaf13:e1-49"]
-    - endpoints: ["spine12:e1-1", "leaf11:e1-50"]
-    - endpoints: ["spine12:e1-2", "leaf12:e1-50"]
-    - endpoints: ["spine12:e1-3", "leaf13:e1-50"]
+    - endpoints: ["spine11:ethernet-1/1", "leaf11:ethernet-1/49"]
+    - endpoints: ["spine11:ethernet-1/2", "leaf12:ethernet-1/49"]
+    - endpoints: ["spine11:ethernet-1/3", "leaf13:ethernet-1/49"]
+    - endpoints: ["spine12:ethernet-1/1", "leaf11:ethernet-1/50"]
+    - endpoints: ["spine12:ethernet-1/2", "leaf12:ethernet-1/50"]
+    - endpoints: ["spine12:ethernet-1/3", "leaf13:ethernet-1/50"]
     # links from leaf1/2/3 to clients
-    - endpoints: ["leaf11:e1-1", "client11:eth1"]
-    - endpoints: ["leaf11:e1-2", "client12:eth1"]
-    - endpoints: ["leaf12:e1-2", "client12:eth2"]
-    - endpoints: ["leaf13:e1-2", "client12:eth3"]
-    - endpoints: ["leaf13:e1-3", "client13:eth1"]
+    - endpoints: ["leaf11:ethernet-1/1", "client11:eth1"]
+    - endpoints: ["leaf11:ethernet-1/2", "client12:eth1"]
+    - endpoints: ["leaf12:ethernet-1/2", "client12:eth2"]
+    - endpoints: ["leaf13:ethernet-1/2", "client12:eth3"]
+    - endpoints: ["leaf13:ethernet-1/3", "client13:eth1"]
     # links from leaf21 to clients
-    - endpoints: ["leaf21:e1-1", "client21:eth1"]
+    - endpoints: ["leaf21:ethernet-1/1", "client21:eth1"]

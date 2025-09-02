@@ -3,11 +3,11 @@ hide:
   - navigation
 ---
 
-# Welcome to the Nokia Europe Partners DC Fabric Hackathon 2025! 
+# Welcome to the Europe Partners DC Fabric Hackathon 2025
 
-Welcome to the Nokia Europe Partners DC Fabric Hackathon 2025.
+Welcome to the 2025 Europe Partners DC Fabric Hackathon.
 
-We are very glad to welcome you to this special event, the 20th anniversary for SReXperts (and the 5th for the hackathon).
+We are very glad to welcome you to the third edition of this event.
 
 Nokia prides itself on the excellent technical products, solutions that we deliver to the market, and this hackathon is no exception. A large team of engineers,
 developers and product managers have been working hard to deliver what, we'll hope you agree, is a challenging and informative set of activities to challenge

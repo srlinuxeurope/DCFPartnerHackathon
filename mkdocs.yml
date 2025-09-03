@@ -37,7 +37,17 @@ nav:
       - Advanced:
           - Service Automation using Python: eda/advanced/service-automation.md
   - Hackathon2024:
-      - Hackathon2024/index.md
+      - Hackathon2024/index.md  
+      - CLI aliasing: Hackathon2024/srlinux-b-cli-aliasing/README.md
+      - Event handler: Hackathon2024/srlinux-b-event-handler-backup/README.md
+      - gNMIc: Hackathon2024/srlinux-b-gnmic/README.md
+      - gNOIc: Hackathon2024/srlinux-b-gnoi/README.md
+      - Logging: Hackathon2024/srlinux-b-loki-logging/README.md
+      - Streaming telemetry: Hackathon2024/srlinux-b-streaming-telemetry/README.md
+      - Configuration using Ansible intents: Hackathon2024/srlinux-i-ansible-intent/README.md
+      - Create a CLI plugin: Hackathon2024/srlinux-i-cli-plugin-show-version/README.md
+      - Customize the CLI: Hackathon2024/srlinux-v-custom-cli/README.md
+      - Using gNMI with Python: Hackathon2024/srlinux-v-pygnmi/README.md
   - Supporting tools and plugins:
       - tools/tools-bash-basics.md
       - tools/tools-clab-vscode-plugin.md

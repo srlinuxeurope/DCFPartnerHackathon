@@ -56,16 +56,16 @@ Each pre-provided activity comes with a README of it's own, please click the pre
 
 | Link to pre-provided activity | NOS | Difficulty |
 | --- | --- | --- |
-| [CLI aliasing](./hackathon/activities/srlinux-b-cli-aliasing) | SR Linux | Basic |
-| [Event handler](./hackathon/activities/srlinux-b-event-handler-backup) | SR Linux | Basic |
-| [gNMIc](./hackathon/activities/srlinux-b-gnmic) | SR Linux | Basic |
-| [gNOIc](./hackathon/activities/srlinux-b-gnoi) | SR Linux | Basic |
-| [Logging](./hackathon/activities/srlinux-b-loki-logging) | SR Linux | Basic |
-| [Streaming telemetry](./hackathon/activities/srlinux-b-streaming-telemetry) | SR Linux | Basic |
-| [Configuration using Ansible intents](./hackathon/activities/srlinux-i-ansible-intent) | SR Linux | Intermediate |
-| [Create a CLI plugin](./hackathon/activities/srlinux-i-cli-plugin-show-version) | SR Linux | Intermediate | 
-| [Customize the CLI](./hackathon/activities/srlinux-v-custom-cli) | SR Linux | Advanced |
-| [Using gNMI with Python](./hackathon/activities/srlinux-v-pygnmi) | SR Linux | Advanced |
+| [CLI aliasing](./srlinux-b-cli-aliasing) | SR Linux | Basic |
+| [Event handler](./srlinux-b-event-handler-backup) | SR Linux | Basic |
+| [gNMIc](./srlinux-b-gnmic) | SR Linux | Basic |
+| [gNOIc](./srlinux-b-gnoi) | SR Linux | Basic |
+| [Logging](./srlinux-b-loki-logging) | SR Linux | Basic |
+| [Streaming telemetry](./srlinux-b-streaming-telemetry) | SR Linux | Basic |
+| [Configuration using Ansible intents](./srlinux-i-ansible-intent) | SR Linux | Intermediate |
+| [Create a CLI plugin](./srlinux-i-cli-plugin-show-version) | SR Linux | Intermediate | 
+| [Customize the CLI](./srlinux-v-custom-cli) | SR Linux | Advanced |
+| [Using gNMI with Python](./srlinux-v-pygnmi) | SR Linux | Advanced |
 
 #### Topology
 

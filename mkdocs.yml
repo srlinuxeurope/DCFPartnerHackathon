@@ -5,56 +5,19 @@
 site_name: Hackathon 2025
 nav:
   - Home: index.md
-  - Network Operating Systems:
-      - nos/index.md
-      - SR OS:
-        - Beginner:
-            - nos/sros/beginner/nos-sros-activity-06.md
-            - nos/sros/beginner/nos-sros-show-latest-commit-activity-14.md
-            - nos/sros/beginner/9-custom-generic-log.md
-            - nos/sros/beginner/43-Grafana-Dashboards.md
-            - nos/sros/beginner/41-ANYsec.md
-        - Intermediate:
-            - nos/sros/intermediate/nos-sros-activity-05.md
-            - nos/sros/intermediate/nos-sros-activity-21.md
-            - nos/sros/intermediate/nos-sros-activity-08.md
-            - nos/sros/intermediate/nos-sros-activity-22.md
-            - nos/sros/intermediate/nos-sros-activity-23.md
-            - nos/sros/intermediate/nos-sros-activity-56.md
-            - nos/sros/intermediate/nos-sros-activity-62.md
-            - nos/sros/intermediate/nos-sros-activity-63.md
-        # - Advanced:
-            # - nos/sros/advanced/index.md
-      - SR Linux:
-          - Beginner:
-              - nos/srlinux/beginner/nos-srlinux-activity-11.md
-              - nos/srlinux/beginner/nos-srl-gnsi-authz.md
-              - nos/sros/beginner/43-Grafana-Dashboards.md
-              - nos/srlinux/beginner/nos-srl-activity-04.md
-              - nos/srlinux/beginner/b-srl-oc.md
-          - Intermediate:
-              - nos/srlinux/intermediate/nos-srl-activity-12.md
-              - nos/srlinux/intermediate/20-SRLinux-Basic-Agent.md
-              - nos/srlinux/intermediate/19-SRLinux-Custom-CLI.md
-              - nos/srlinux/intermediate/58-programming-snmp-mibs.md
-          - Advanced:
-              - nos/srlinux/advanced/nos-srlinux-activity-18.md    
-  - Network Services Platform (NSP):
-      - nsp/index.md
+  - SR Linux:
+      - srlinux/index.md
       - Beginner:
-          - Acknowledge Alarms: nsp/beginner/60-nsp-alarm-ack.md
-          - Indicator Analytics: nsp/beginner/68-indicator-analytics.md
-          - Baseline Analytics: nsp/beginner/69-nsp-baseline-analytics.md
-          - Inventory Report using WFM: nsp/beginner/70-nsp-inventory-report-using-workflow.md
+          - srlinux/beginner/nos-srlinux-activity-11.md
+          - srlinux/beginner/nos-srl-gnsi-authz.md
+          - sros/beginner/43-Grafana-Dashboards.md
+          - srlinux/beginner/nos-srl-activity-04.md
+          - srlinux/beginner/b-srl-oc.md
       - Intermediate:
-          - Device-specific Infra Config: nsp/intermediate/48-nsp-device-specific-infra-config.md
-          - NE Password Audit/Align: nsp/intermediate/66-nsp-ne-password-audit.md
-          - NE config snapshot/rollback: nsp/intermediate/71-nsp-ne-config-snapshot-rollback.md
-          - Port Migration: nsp/intermediate/51-nsp-access-port-migration.md
-      - Advanced:
-          - Golden Security Configuration: nsp/advanced/73-nsp-golden-cfg-security.md          
-          - Integrating NSP w/ NetBox: nsp/advanced/57-nsp-netbox.md
-          - TLDP to EVPN Migration: nsp/advanced/72-nsp-tldp-to-evpn-migration.md
+          - srlinux/intermediate/nos-srl-activity-12.md
+          - srlinux/intermediate/20-SRLinux-Basic-Agent.md
+          - srlinux/intermediate/19-SRLinux-Custom-CLI.md
+          - srlinux/intermediate/58-programming-snmp-mibs.md   
   - Event Driven Automation (EDA):
       - eda/index.md
       - Beginner:
@@ -73,6 +36,18 @@ nav:
           - REST API: eda/intermediate/api.md
       - Advanced:
           - Service Automation using Python: eda/advanced/service-automation.md
+  - Hackathon2024:
+      - Hackathon2024/index.md  
+      - CLI aliasing: Hackathon2024/srlinux-b-cli-aliasing/README.md
+      - Event handler: Hackathon2024/srlinux-b-event-handler-backup/README.md
+      - gNMIc: Hackathon2024/srlinux-b-gnmic/README.md
+      - gNOIc: Hackathon2024/srlinux-b-gnoi/README.md
+      - Logging: Hackathon2024/srlinux-b-loki-logging/README.md
+      - Streaming telemetry: Hackathon2024/srlinux-b-streaming-telemetry/README.md
+      - Configuration using Ansible intents: Hackathon2024/srlinux-i-ansible-intent/README.md
+      - Create a CLI plugin: Hackathon2024/srlinux-i-cli-plugin-show-version/README.md
+      - Customize the CLI: Hackathon2024/srlinux-v-custom-cli/README.md
+      - Using gNMI with Python: Hackathon2024/srlinux-v-pygnmi/README.md
   - Supporting tools and plugins:
       - tools/tools-bash-basics.md
       - tools/tools-clab-vscode-plugin.md
@@ -81,10 +56,10 @@ site_author: Nokia
 site_description: >-
   SReXperts hackathon event guidelines
 # Repository
-repo_name: nokia/SReXperts
-repo_url: https://github.com/nokia/SReXperts
+repo_name: srlinuxeurope/DCFPartnerHackathon
+repo_url: https://github.com/srlinuxeurope/DCFPartnerHackathon
 edit_uri: edit/main/docs/
-site_url: "https://hack.srexperts.net/"
+site_url: "https://github.com/srlinuxeurope/DCFPartnerHackathon"
 copyright: Copyright &copy; 2021-2025 Nokia
 theme:
   name: material
@@ -182,7 +157,7 @@ extra:
     - icon: fontawesome/brands/discord
       link: https://discord.gg/tZvgjQ6PZf
     - icon: fontawesome/brands/github
-      link: https://github.com/nokia/SReXperts
+      link: https://github.com/srlinuxeurope/DCFPartnerHackathon
   analytics:
     provider: google
     property: G-7C3C7M5XJP

@@ -9,7 +9,7 @@ Welcome to the 2025 Europe Partners DC Fabric Hackathon.
 
 We are very glad to welcome you to the third edition of this event.
 
-Nokia prides itself on the excellent technical products, solutions that we deliver to the market, and this hackathon is no exception.  A large team of engineers,
+Nokia prides itself on the excellent technical products, solutions that we deliver to the market, and this hackathon is no exception. A large team of engineers,
 developers and product managers have been working hard to deliver what, we'll hope you agree, is a challenging and informative set of activities to challenge
 you, no matter what you experience level.
 
@@ -79,7 +79,7 @@ WiFi is important here.  Without it your hackathon experience is going to be rat
 
 ### Topology
 
-When accessing your hackathon VM instance you'll the [SReXperts GitHub repository](https://github.com/nokia/srexperts) that contains all of the documentation, examples, solutions and loads of other great stuff, has already been cloned for you.
+When accessing your hackathon VM instance you'll have the [DCF Hackathon GitHub repository](https://github.com/srlinuxeurope/DCFPartnerHackathon) that contains all of the documentation, examples, solutions and loads of other great stuff, has already been cloned for you.
 
 In this hackathon, every group has their own complete service-provider network at their disposal.  Your network comprises an IP backbone with Provider (P) and Provider Edge (PE) router, a broadband dial-in network, a peering edge network, an internet exchange point, multiple data-centers and a number of client and subscriber devices.  This network is already deployed and provisioned and is ready to go!
 
@@ -1141,19 +1141,19 @@ If you would like to work locally on your personal device you should clone this 
 HTTPS:
 
 ```bash
-git clone https://github.com/nokia/SReXperts.git
+git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
 ```
 
 SSH:
 
 ```bash
-git clone git@github.com:nokia/SReXperts.git
+git clone git@github.com:srlinuxeurope/DCFPartnerHackathon.git
 ```
 
 GitHub CLI:
 
 ```bash
-gh repo clone nokia/SReXperts
+gh repo clone srlinuxeurope/DCFPartnerHackathon
 ```
 
 ## Useful links

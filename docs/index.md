@@ -26,7 +26,7 @@ This page is your starting point into the hackathon, it should get you familiar 
 
 During the afternoon you will work in groups (or alone if you prefer) on any projects that you are inspired to tackle or on one of the pre-provided activities of varying difficulty.
 
-As long as you have a laptop with the ability to SSH and a web broswer, we have example activities and a generic lab topology to help you progress if you don’t have something specific already in mind.
+As long as you have a laptop with the ability to SSH and a web browser, we have example activities and a generic lab topology to help you progress if you don’t have something specific already in mind.
 
 Need help, not a problem, pop your hand in the air and an eager expert will be there to guide you.
 
@@ -43,7 +43,7 @@ If everything went according to plan, you should have received a physical piece 
 
 /// warning
 The public cloud compute instances will be destroyed once the hackathon is concluded.</p>
-Please make sure to backup any code, config, etc. <u>offline</u> (e.g. onto your laptop) if you'd like to keep it after the hacakthon.
+Please make sure to backup any code, config, etc. <u>offline</u> (e.g. onto your laptop) if you'd like to keep it after the hackathon.
 ///
 
 ### Group ID
@@ -63,7 +63,7 @@ Please refer to the paper provided by the hackathon session leader. If nothing h
 
 The simplest way to get going is to use your SSH client to connect to your group's hackathon VM instance and work from there.  All tools and applications are pre-installed and you will have direct access to your entire network. 
 
-SSH is also important if you want to driectly access your network from your laptop but more on that later.
+SSH is also important if you want to directly access your network from your laptop but more on that later.
 
 |     |     |
 | --- | --- |
@@ -77,7 +77,7 @@ If you're familiar with SSH and wish to setup passwordless access, you can use `
 
 ### WiFi
 
-WiFi is important here.  Without it your hackathon experience is going to be rather dull.  To connect to the hackthon event's WiFi, refer to the paper provided or the slide presented.
+WiFi is important here.  Without it your hackathon experience is going to be rather dull.  To connect to the hackathon event's WiFi, refer to the paper provided or the slide presented.
 
 ### Topology
 

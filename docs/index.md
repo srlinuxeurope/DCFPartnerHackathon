@@ -50,6 +50,8 @@ Please make sure to backup any code, config, etc. <u>offline</u> (e.g. onto your
 
 Please refer to the paper provided by the hackathon session leader. If nothing has been provided, not a problem, pop your hand in the air and someone will allocate you one before you can say "Aequeosalinocalcalinoceraceoaluminosocupreovitriolic".
 
+<!-- TBU - Include final table -->
+
 | Group ID | hostname instance |
 | --- | --- |
 | 1 | 1.srexperts.net |
@@ -85,30 +87,31 @@ In this hackathon, every group has their own complete service-provider network a
 
 *Don't worry: This is your personal group network, you cannot impact any other groups.*
 
--{{ diagram(url='srexperts/hackathon-diagrams/main/SReXperts2025.drawio', title='Topology', page=0) }}-
+<!-- TBU - Include final diagram - use the one from 2024?-->
+
+![topology](./topology/EuropePartnersHackathon2024.png)
 
 The above topology contains a number of functional blocks to help you in area's you might want to focus on, it contains:
 
+<!-- TBU - Include final description - use the one from 2024?-->
+
 - Routing:
-    - SR-MPLS (Dual-Stack ISIS)
-    - MP-BGP (SAFIs with IPv6 next-hop) ; single node (vRR) route-reflector
-    - 2x P-nodes (SR OS)
-    - 4x PE-nodes (SR OS)
-    - 1x route-reflector (SR Linux)
+  - SR-MPLS (Dual-Stack ISIS)
+  - MP-BGP (SAFIs with IPv6 next-hop) ; single node (vRR) route-reflector
+  - 2x P/PE-nodes (SR OS)
+  - 1x route-reflector (SR OS) - collapsed into PE2
 - Data Centers:
-    - DC1: a CLOS model
-        - 2x spines (spine11|spine12) and 3 leaf switches (leaf11|leaf12|leaf13)
-    - DC2: a single leaf (leaf21) to demonstrate Data Center Interconnect usecases
-    - IPv6 BGP unnumbered configured in the underlay
-    - DCGW Integration:
-        - DC1: PE2 and PE3
-        - DC2: PE1 and PE4
-    - a Data Center interconnect using a MPLS IP-VPN (EVPN/IPVPN integration):
-        - VPRN "DCI" and EVPN/VPLS "IPVRF201" and EVPN/VPLS "IPVRF202"
-- Subscriber management (BNG+NAT) on PE4
-- a Transit/Peering setup with RPKI available on PE1
+  - DC1: a CLOS model
+    - 2x spines (spine11|spine12) and 3 leaf switches (leaf11|leaf12|leaf13)
+  - DC2: a single leaf (leaf21) to demonstrate Data Center Interconnect usecases
+  - IPv6 BGP unnumbered configured in the underlay
+  - DCGW Integration:
+    - DC1: PE2
+    - DC2: PE1
+  - a Data Center interconnect using a MPLS IP-VPN (EVPN/IPVPN integration):
+    - VPRN "DCI" and EVPN/VPLS "IPVRF201" and EVPN/VPLS "IPVRF202"
 - a fully working telemetry stack (gNMIc/prometheus/grafana + syslog/promtail/loki)
-- Linux clients are attached to both the GRT and VPRN services allowing a full mesh of traffic.
+- Linux clients are attached to both the GRT and VPRN services allowing a full mesh of traffic. 
 
 ### Accessing Topology nodes
 
@@ -127,156 +130,49 @@ sudo containerlab inspect -a
 ///
 /// tab | output
 
+<!-- TBU - Include topology - use the one from 2024?-->
+
 ``` bash
-╭─────────────────────────────┬───────────┬────────────────────────────────────┬─────────────────────────────────────────────┬───────────┬────────────────╮
-│           Topology          │  Lab Name │                Name                │                  Kind/Image                 │   State   │ IPv4/6 Address │
-├─────────────────────────────┼───────────┼────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│ SReXperts/clab/srx.clab.yml │ srexperts │ clab-srexperts-agg1                │ nokia_srlinux                               │ running   │ 10.128.1.52    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-client01            │ linux                                       │ running   │ 10.128.1.25    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-client02            │ linux                                       │ running   │ 10.128.1.26    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-client03            │ linux                                       │ running   │ 10.128.1.27    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-client04            │ linux                                       │ running   │ 10.128.1.28    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-client11            │ linux                                       │ running   │ 10.128.1.36    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-client12            │ linux                                       │ running   │ 10.128.1.37    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-client13            │ linux                                       │ running   │ 10.128.1.38    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-client21            │ linux                                       │ running   │ 10.128.1.42    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-codeserver          │ linux                                       │ running   │ 10.128.1.90    │
-│                             │           │                                    │ ghcr.io/coder/code-server:latest            │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-dns                 │ linux                                       │ running   │ 10.128.1.15    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-gnmic               │ linux                                       │ running   │ 10.128.1.71    │
-│                             │           │                                    │ ghcr.io/openconfig/gnmic:0.38.2             │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-grafana             │ linux                                       │ running   │ 10.128.1.73    │
-│                             │           │                                    │ grafana/grafana:10.3.5                      │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-ixp1                │ nokia_srlinux                               │ running   │ 10.128.1.51    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-leaf11              │ nokia_srlinux                               │ running   │ 10.128.1.33    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-leaf12              │ nokia_srlinux                               │ running   │ 10.128.1.34    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-leaf13              │ nokia_srlinux                               │ running   │ 10.128.1.35    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-leaf21              │ nokia_srlinux                               │ running   │ 10.128.1.41    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-loki                │ linux                                       │ running   │ 10.128.1.76    │
-│                             │           │                                    │ grafana/loki:2.9.7                          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-netbox              │ linux                                       │ running   │ 10.128.1.81    │
-│                             │           │                                    │ docker.io/netboxcommunity/netbox:v4.2-3.2.0 │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-netbox-housekeeping │ linux                                       │ running   │ 10.128.1.83    │
-│                             │           │                                    │ docker.io/netboxcommunity/netbox:v4.2-3.2.0 │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-netbox-worker       │ linux                                       │ running   │ 10.128.1.82    │
-│                             │           │                                    │ docker.io/netboxcommunity/netbox:v4.2-3.2.0 │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-p1                  │ nokia_sros                                  │ running   │ 10.128.1.11    │
-│                             │           │                                    │ vr-sros:25.3.R1                             │ (healthy) │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-p2                  │ nokia_sros                                  │ running   │ 10.128.1.12    │
-│                             │           │                                    │ vr-sros:25.3.R1                             │ (healthy) │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-pe1                 │ nokia_sros                                  │ running   │ 10.128.1.21    │
-│                             │           │                                    │ vr-sros:25.3.R1                             │ (healthy) │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-pe2                 │ nokia_sros                                  │ running   │ 10.128.1.22    │
-│                             │           │                                    │ vr-sros:25.3.R1                             │ (healthy) │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-pe3                 │ nokia_sros                                  │ running   │ 10.128.1.23    │
-│                             │           │                                    │ vr-sros:25.3.R1                             │ (healthy) │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-pe4                 │ nokia_sros                                  │ running   │ 10.128.1.24    │
-│                             │           │                                    │ vr-sros:25.3.R1                             │ (healthy) │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-peering2            │ nokia_srlinux                               │ running   │ 10.128.1.53    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-postgres            │ linux                                       │ running   │ 10.128.1.84    │
-│                             │           │                                    │ docker.io/postgres:17-alpine                │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-prometheus          │ linux                                       │ running   │ 10.128.1.72    │
-│                             │           │                                    │ prom/prometheus:v2.51.2                     │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-promtail            │ linux                                       │ running   │ 10.128.1.75    │
-│                             │           │                                    │ grafana/promtail:2.9.7                      │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-radius              │ linux                                       │ running   │ 10.128.1.14    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-redis               │ linux                                       │ running   │ 10.128.1.85    │
-│                             │           │                                    │ docker.io/valkey/valkey:8.0-alpine          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-redis-cache         │ linux                                       │ running   │ 10.128.1.86    │
-│                             │           │                                    │ docker.io/valkey/valkey:8.0-alpine          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-rpki                │ linux                                       │ running   │ 10.128.1.55    │
-│                             │           │                                    │ rpki/stayrtr                                │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-spine11             │ nokia_srlinux                               │ running   │ 10.128.1.31    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-spine12             │ nokia_srlinux                               │ running   │ 10.128.1.32    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-sub1                │ linux                                       │ running   │ 10.128.1.61    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-sub2                │ linux                                       │ running   │ 10.128.1.62    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-sub3                │ linux                                       │ running   │ 10.128.1.63    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-syslog              │ linux                                       │ running   │ 10.128.1.74    │
-│                             │           │                                    │ linuxserver/syslog-ng:4.5.0                 │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-transit1            │ linux                                       │ running   │ 10.128.1.54    │
-│                             │           │                                    │ ghcr.io/srl-labs/network-multitool          │           │ N/A            │
-│                             │           ├────────────────────────────────────┼─────────────────────────────────────────────┼───────────┼────────────────┤
-│                             │           │ clab-srexperts-vRR                 │ nokia_srlinux                               │ running   │ 10.128.1.13    │
-│                             │           │                                    │ ghcr.io/nokia/srlinux:24.10.4               │           │ N/A            │
-╰─────────────────────────────┴───────────┴────────────────────────────────────┴─────────────────────────────────────────────┴───────────┴────────────────╯
+sudo clab inspect -a
++----+-----------------------+--------------+------------------------------+--------------+------------------------------------+---------------+---------+----------------+--------------+
+| #  |       Topo Path       |   Lab Name   |             Name             | Container ID |               Image                |     Kind      |  State  |  IPv4 Address  | IPv6 Address |
++----+-----------------------+--------------+------------------------------+--------------+------------------------------------+---------------+---------+----------------+--------------+
+|  1 | dcfpartnerws.clab.yml | dcfpartnerws | clab-dcfpartnerws-client01   | 58a1bf782d0e | ghcr.io/srl-labs/network-multitool | linux         | running | 10.128.1.25/24 | N/A          |
+|  2 |                       |              | clab-dcfpartnerws-client02   | df5372d9b8f6 | ghcr.io/srl-labs/network-multitool | linux         | running | 10.128.1.26/24 | N/A          |
+|  3 |                       |              | clab-dcfpartnerws-client11   | 90179de11e55 | ghcr.io/srl-labs/network-multitool | linux         | running | 10.128.1.36/24 | N/A          |
+|  4 |                       |              | clab-dcfpartnerws-client12   | 0c3021e5bdbd | ghcr.io/srl-labs/network-multitool | linux         | running | 10.128.1.37/24 | N/A          |
+|  5 |                       |              | clab-dcfpartnerws-client13   | b9c8bca77ec1 | ghcr.io/srl-labs/network-multitool | linux         | running | 10.128.1.38/24 | N/A          |
+|  6 |                       |              | clab-dcfpartnerws-client21   | 0c59fb5cfe14 | ghcr.io/srl-labs/network-multitool | linux         | running | 10.128.1.42/24 | N/A          |
+|  7 |                       |              | clab-dcfpartnerws-dns        | 9d7dd9ade5b4 | ghcr.io/srl-labs/network-multitool | linux         | running | 10.128.1.15/24 | N/A          |
+|  8 |                       |              | clab-dcfpartnerws-gnmic      | 0122d505bb35 | ghcr.io/openconfig/gnmic:0.36.2    | linux         | running | 10.128.1.71/24 | N/A          |
+|  9 |                       |              | clab-dcfpartnerws-grafana    | c8f8f44c8917 | grafana/grafana:10.3.5             | linux         | running | 10.128.1.73/24 | N/A          |
+| 10 |                       |              | clab-dcfpartnerws-leaf11     | da4d77529ada | ghcr.io/nokia/srlinux:24.3.2       | nokia_srlinux | running | 10.128.1.33/24 | N/A          |
+| 11 |                       |              | clab-dcfpartnerws-leaf12     | 7ccc109bf094 | ghcr.io/nokia/srlinux:24.3.2       | nokia_srlinux | running | 10.128.1.34/24 | N/A          |
+| 12 |                       |              | clab-dcfpartnerws-leaf13     | 0e04f81850f6 | ghcr.io/nokia/srlinux:24.3.2       | nokia_srlinux | running | 10.128.1.35/24 | N/A          |
+| 13 |                       |              | clab-dcfpartnerws-leaf21     | 3a54429e0e8f | ghcr.io/nokia/srlinux:24.3.2       | nokia_srlinux | running | 10.128.1.41/24 | N/A          |
+| 14 |                       |              | clab-dcfpartnerws-loki       | 3a8209af32a8 | grafana/loki:2.9.7                 | linux         | running | 10.128.1.76/24 | N/A          |
+| 15 |                       |              | clab-dcfpartnerws-pe1        | cde558dc6a37 | vr-sros:24.3.R2                    | nokia_sros    | running | 10.128.1.21/24 | N/A          |
+| 16 |                       |              | clab-dcfpartnerws-pe2        | 42eed39f1815 | vr-sros:24.3.R2                    | nokia_sros    | running | 10.128.1.22/24 | N/A          |
+| 17 |                       |              | clab-dcfpartnerws-prometheus | 9d0ce758eb23 | prom/prometheus:v2.51.2            | linux         | running | 10.128.1.72/24 | N/A          |
+| 18 |                       |              | clab-dcfpartnerws-promtail   | ddd5496e3374 | grafana/promtail:2.9.7             | linux         | running | 10.128.1.75/24 | N/A          |
+| 19 |                       |              | clab-dcfpartnerws-spine11    | cb82313b68f8 | ghcr.io/nokia/srlinux:24.3.2       | nokia_srlinux | running | 10.128.1.31/24 | N/A          |
+| 20 |                       |              | clab-dcfpartnerws-spine12    | d249372aa26f | ghcr.io/nokia/srlinux:24.3.2       | nokia_srlinux | running | 10.128.1.32/24 | N/A          |
+| 21 |                       |              | clab-dcfpartnerws-syslog     | d94d689e81b1 | linuxserver/syslog-ng:4.5.0        | linux         | running | 10.128.1.74/24 | N/A          |
++----+-----------------------+--------------+------------------------------+--------------+------------------------------------+---------------+---------+----------------+--------------+
 ```
 
 ///
 
 Using the names from the above output, we can login to the a node using the following command:
 
-For example, to access the `clab-srexperts-pe1` node via ssh simply type:
+For example to access node `clab-dcfpartnerws-leaf11` via ssh simply type:
 
-``` bash
-ssh admin@clab-srexperts-pe1
+```
+ssh admin@clab-dcfpartnerws-leaf11
 ```
 
 #### From the Internet
-
+<!-- TBU - Access details -->
 Each public cloud instance has a port-range (`50000` - `51000`) exposed towards the Internet, as lab nodes spin up, a public port is allocated by the docker daemon on the public cloud instance. You can utilize those to access the lab services straight from your laptop via the Internet.
 
 With the `show-ports` command executed on a VM you get a list of mappings between external and internal ports allocated for each node of a lab:
@@ -365,7 +261,7 @@ You can generate `ssh-config` using the `generate-ssh-config` command and store 
 ///
 
 ### Generate Traffic
-
+<!-- TBU - review this section-->
 In the generic topology, linux clients are attached to a number of routers:
 
 - the PE layer
@@ -432,11 +328,11 @@ stopping traffic to client21.grt
 ## FAQ
 
 ### My employer/security department locked down my laptop
-
+<!-- TBU - review this section-->
 No worries, we have got you covered! Each instance is running a web-based VSCode code server, when accessing it at `http://<my group id>.srexperts.net` should prompt you for a password (which is documented on the physical paper provided), and you should be able to access the topology through the terminal there.
 
 ### Help! I've bricked my lab, how do I redeploy?
-
+<!-- TBU - update outputs-->
 First we destroy the lab:
 /// tab | cmd
 
@@ -1212,4 +1108,4 @@ gh repo clone srlinuxeurope/DCFPartnerHackathon
 
 ## Thanks and contributions
 
-As you can imagine, creating the activities that make up this hackathon is a lot of work.  The hackathon team would like to thanks the following team members (in alphabetical order) for their contributions: Asad Arafat, Diogo Pinheiro, Guilherme Cale, Hans Thienpondt, James Cumming, Joao Machado, Kaelem Chandra, Laleh Kiani, Louis Van Eeckhoudt, Maged Makramalla, Miguel Redondo Ferrero, Roman Dodin, Saju Salahudeen, Samier Barguil, Shafkat Waheed, Shashi Sharma, Simon Tibbitts, Siva Sivakumar, Subba Konda, Sven Wisotzky, Thomas Hendriks, Tiago Amado. Zeno Dhaene, Tim Raphael and Vasileios Tekidis
+As you can imagine, creating the activities that make up this hackathon is a lot of work. The hackathon team would like to thanks the following team members (in alphabetical order) for their contributions: Asad Arafat, Diogo Pinheiro, Guilherme Cale, Hans Thienpondt, James Cumming, Joao Machado, Kaelem Chandra, Laleh Kiani, Louis Van Eeckhoudt, Maged Makramalla, Miguel Redondo Ferrero, Roman Dodin, Saju Salahudeen, Samier Barguil, Shafkat Waheed, Shashi Sharma, Simon Tibbitts, Siva Sivakumar, Subba Konda, Sven Wisotzky, Thomas Hendriks, Tiago Amado, Zeno Dhaene, Tim Raphael and Vasileios Tekidis.

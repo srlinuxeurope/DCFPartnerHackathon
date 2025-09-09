@@ -10,7 +10,7 @@ nav:
       - Beginner:
           - srlinux/beginner/nos-srlinux-activity-11.md
           - srlinux/beginner/nos-srl-gnsi-authz.md
-          - sros/beginner/43-Grafana-Dashboards.md
+          - srlinux/beginner/43-Grafana-Dashboards.md
           - srlinux/beginner/nos-srl-activity-04.md
           - srlinux/beginner/b-srl-oc.md
       - Intermediate:

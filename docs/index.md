@@ -89,7 +89,7 @@ In this hackathon, every group has their own complete service-provider network a
 
 <!-- TBU - Include final diagram - use the one from 2024?-->
 
-![topology](./topology/EuropePartnersHackathon2024.png)
+![topology](diagrams/EuropePartnersHackathon2025.png)  
 
 The above topology contains a number of functional blocks to help you in area's you might want to focus on, it contains:
 

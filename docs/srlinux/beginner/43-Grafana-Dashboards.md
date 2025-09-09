@@ -169,7 +169,7 @@ Prometheus is a widely used open-source time-series database (TSDB). In this act
 
 ### Grafana
 Grafana provides visualization for the collected telemetry data. 
-You can find preconfigured reference dashboards that offer multiple views of the collected real-time data. Navigate thorugh the different dashboards and try to figure out how the data is visualized.
+You can find pre-configured reference dashboards that offer multiple views of the collected real-time data. Navigate through the different dashboards and try to figure out how the data is visualized.
 
 !!! info "Connect to Grafana"
     ```     

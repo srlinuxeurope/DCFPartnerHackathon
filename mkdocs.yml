@@ -10,9 +10,9 @@ nav:
       - Beginner:
           - srlinux/beginner/nos-srlinux-activity-11.md
           - srlinux/beginner/nos-srl-gnsi-authz.md
-          - srlinux/beginner/43-Grafana-Dashboards.md
-          - srlinux/beginner/nos-srl-activity-04.md
-          - srlinux/beginner/b-srl-oc.md
+          - srlinux/beginner/43-Grafana-Dashboards.md   # final URLs TBU
+          #- srlinux/beginner/nos-srl-activity-04.md   ### This activity is for peering1 (SROS) and peering2(SRL), and these nodes are not part of the topology anymore
+          - srlinux/beginner/b-srl-oc.md   # update to change PE3 to PE2
       - Intermediate:
           - srlinux/intermediate/nos-srl-activity-12.md
           - srlinux/intermediate/20-SRLinux-Basic-Agent.md

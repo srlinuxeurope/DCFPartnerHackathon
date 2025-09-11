@@ -85,7 +85,9 @@ When accessing your hackathon VM instance you'll have the [DCF Hackathon GitHub 
 
 In this hackathon, every group has their own complete service-provider network at their disposal.  Your network comprises an IP backbone with Provider (P) and Provider Edge (PE) router, a broadband dial-in network, a peering edge network, an internet exchange point, multiple data-centers and a number of client and subscriber devices.  This network is already deployed and provisioned and is ready to go!
 
+/// note
 *Don't worry: This is your personal group network, you cannot impact any other groups.*
+///
 
 <!-- TBU - Include final diagram - use the one from 2024?-->
 
@@ -112,6 +114,7 @@ The above topology contains a number of functional blocks to help you in area's 
     - VPRN "DCI" and EVPN/VPLS "IPVRF201" and EVPN/VPLS "IPVRF202"
 - a fully working telemetry stack (gNMIc/prometheus/grafana + syslog/promtail/loki)
 - Linux clients are attached to both the GRT and VPRN services allowing a full mesh of traffic. 
+- EDA - the powerful Event Driven Automation (EDA) platform is included in the setup
 
 ### Accessing Topology nodes
 

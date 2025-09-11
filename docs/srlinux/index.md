@@ -22,15 +22,19 @@ A number of activities have been created for you to follow, separated by our rou
 
 ### Split by difficulty level
 
-For organizational purposes, we have separated the SR Linux in beginner and intermediate level. We've excluded SR Linux advanced activities for this hackathon, but if you want to try them or try SROS activities, please refer to the [SReXperts Hackathon](https://github.com/nokia/SReXperts/).  
+For organizational purposes, we have separated the SR Linux in beginner and intermediate level. We've excluded SR Linux advanced activities for this hackathon, but if you want to try them or try SROS activities afterwards, please refer to the [SReXperts Hackathon](https://github.com/nokia/SReXperts/).  
 
+/// note
 If its your first hackathon with us, and you want to try introductory SR-Linux activities from previous years, please have a look to the [Hackathon2024](../Hackathon2024/index.md) activities.
+///
 
 ### Standalone activities and not in order
 
 Each activity is a stand alone use-case.  Each has a scenario, a set of objectives and lots of information for you to learn and practice.  
 
+/// note
 **The activities are not in order**.  You do not need to start at the top and work your way down.  We recommend instead that you take a look through activities that sound interesting and tackle the ones that you feel would give you the most benefit, whether that's solidifying knowledge you already have or learning a totally new technology.
+///
 
 ### You can't break anything
 
@@ -53,7 +57,9 @@ The SR Linux stream activities focus on the SR Linux devices in the network, but
 
 To gain access to any of the devices you can either connect using SSH to your groups hackathon server (also references as hackathon VM in a number of the activities) or use the ports mapped directly to the node and service you want to connect to from your own laptop.  More details are available on the [main page of this hackathon site](../index.md).
 
+/// note
 **Refer to your handout for the username and passwords of any of the equipment in your network.**
+///
 
 ## Help!
 

@@ -15,7 +15,7 @@ tags:
 | **Short Description**       | Perform a set of small configuration changes using vendor neutral OpenConfig YANG models over gNMI.  You will create a new loopback interface an advertise it's IP address over BGP.                                                                                                                                                                                                                                                                                                                                                      |
 | **Difficulty**              | Beginner                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Tools used**              | [gNMIc](https://gnmic.openconfig.net/), [SR Linux](https://www.nokia.com/ip-networks/service-router-linux-NOS/)                                                                                                                                                                                                                                                                                                                                                                              |
-| **Topology Nodes**          | :material-router: spine11                                                                                                , :material-router: pe3                                                                                                                                                                                                                                                                                                                            |
+| **Topology Nodes**          | :material-router: spine11                                                                                                , :material-router: pe2                                                                                                                                                                                                                                                                                                                            |
 | **References**              | [gRPC](https://grpc.io/)<br/>[gNxI](https://gnxi.srlinux.dev/)<br/>[Openconfig](https://www.openconfig.net/) |
 
 
@@ -63,6 +63,7 @@ Run the following command to enable openconfig. After making the changes, run `c
 /// tab | command
 ``` bash
 set / system management openconfig admin-state enable
+commit now
 ```
 ///
 /// tab | verify after commit
@@ -124,20 +125,20 @@ To display interface configuration:
 
 /// tab | command
 ``` bash
-info flat interfaces interface ethernet-1/31
+info flat interfaces interface ethernet-1/32
 ```
 ///
 /// tab | expected response
 
 ``` bash
-set / interfaces interface ethernet-1/31 config name ethernet-1/31
-set / interfaces interface ethernet-1/31 config type ethernetCsmacd
-set / interfaces interface ethernet-1/31 config description spine11-pe3
-set / interfaces interface ethernet-1/31 config enabled true
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 config index 0
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv6 addresses address fd00:fde8:0:1:15:23:31:1 config ip fd00:fde8:0:1:15:23:31:1
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv6 addresses address fd00:fde8:0:1:15:23:31:1 config prefix-length 127
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv6 config enabled true
+set / interfaces interface ethernet-1/32 config name ethernet-1/32
+set / interfaces interface ethernet-1/32 config type ethernetCsmacd
+set / interfaces interface ethernet-1/32 config description spine11-pe2
+set / interfaces interface ethernet-1/32 config enabled true
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 config index 0
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv6 addresses address fd00:fde8:0:1:15:23:31:1 config ip fd00:fde8:0:1:15:23:31:1
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv6 addresses address fd00:fde8:0:1:15:23:31:1 config prefix-length 127
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv6 config enabled true
 ```
 ///
 
@@ -157,28 +158,28 @@ To display interface state information:
 
 /// tab | command
 ``` bash
-info flat interfaces interface ethernet-1/31 state counters
+info flat interfaces interface ethernet-1/32 state counters
 ```
 ///
 /// tab | expected response
 
 ``` bash
-/ interfaces interface ethernet-1/31 state counters in-octets 28194796
-/ interfaces interface ethernet-1/31 state counters in-pkts 180118
-/ interfaces interface ethernet-1/31 state counters in-unicast-pkts 145378
-/ interfaces interface ethernet-1/31 state counters in-broadcast-pkts 0
-/ interfaces interface ethernet-1/31 state counters in-multicast-pkts 34737
-/ interfaces interface ethernet-1/31 state counters in-errors 3
-/ interfaces interface ethernet-1/31 state counters in-discards 0
-/ interfaces interface ethernet-1/31 state counters out-octets 254612533
-/ interfaces interface ethernet-1/31 state counters out-pkts 2123668
-/ interfaces interface ethernet-1/31 state counters out-unicast-pkts 2091309
-/ interfaces interface ethernet-1/31 state counters out-broadcast-pkts 0
-/ interfaces interface ethernet-1/31 state counters out-multicast-pkts 32359
-/ interfaces interface ethernet-1/31 state counters out-discards 0
-/ interfaces interface ethernet-1/31 state counters out-errors 0
-/ interfaces interface ethernet-1/31 state counters in-fcs-errors 0
-/ interfaces interface ethernet-1/31 state counters carrier-transitions 0
+/ interfaces interface ethernet-1/32 state counters in-octets 28194796
+/ interfaces interface ethernet-1/32 state counters in-pkts 180118
+/ interfaces interface ethernet-1/32 state counters in-unicast-pkts 145378
+/ interfaces interface ethernet-1/32 state counters in-broadcast-pkts 0
+/ interfaces interface ethernet-1/32 state counters in-multicast-pkts 34737
+/ interfaces interface ethernet-1/32 state counters in-errors 3
+/ interfaces interface ethernet-1/32 state counters in-discards 0
+/ interfaces interface ethernet-1/32 state counters out-octets 254612533
+/ interfaces interface ethernet-1/32 state counters out-pkts 2123668
+/ interfaces interface ethernet-1/32 state counters out-unicast-pkts 2091309
+/ interfaces interface ethernet-1/32 state counters out-broadcast-pkts 0
+/ interfaces interface ethernet-1/32 state counters out-multicast-pkts 32359
+/ interfaces interface ethernet-1/32 state counters out-discards 0
+/ interfaces interface ethernet-1/32 state counters out-errors 0
+/ interfaces interface ethernet-1/32 state counters in-fcs-errors 0
+/ interfaces interface ethernet-1/32 state counters carrier-transitions 0
 ```
 ///
 
@@ -188,7 +189,7 @@ We can see the OC state information for an interface configured using SR Linux n
 
 Next, let's configure an interface IP address using OC CLI.
 
-We will configure an IPv4 address on `ethernet-1/31` connected to `PE3`. An IPv6 address is already configured on this interface using the SR Linux native model. With this task, we also prove that a mix of native and OC models are possible under the same object.
+We will configure an IPv4 address on `ethernet-1/32` connected to `PE2`. An IPv6 address is already configured on this interface using the SR Linux native model. With this task, we also prove that a mix of native and OC models are possible under the same object.
 
 To switch to OC candidate mode, use:
 
@@ -200,30 +201,30 @@ Run the below configuration:
 
 /// tab | command
 ``` bash
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv4 addresses address 10.10.10.0 config ip 10.10.10.0
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv4 addresses address 10.10.10.0 config prefix-length 31
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv4 config enabled true
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv4 addresses address 10.10.10.0 config ip 10.10.10.0
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv4 addresses address 10.10.10.0 config prefix-length 31
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv4 config enabled true
 ```
 ///
 /// tab | verify after commit
 
 ``` bash
-info flat from running interfaces interface ethernet-1/31
+info flat from running interfaces interface ethernet-1/32
 ```
 ///
 /// tab | expected response
 ``` bash  hl_lines="6"
-set / interfaces interface ethernet-1/31 config name ethernet-1/31
-set / interfaces interface ethernet-1/31 config type ethernetCsmacd
-set / interfaces interface ethernet-1/31 config description spine11-pe3
-set / interfaces interface ethernet-1/31 config enabled true
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 config index 0
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv4 addresses address 10.10.10.0 config ip 10.10.10.0
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv4 addresses address 10.10.10.0 config prefix-length 31
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv4 config enabled true
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv6 addresses address fd00:fde8:0:1:15:23:31:1 config ip fd00:fde8:0:1:15:23:31:1
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv6 addresses address fd00:fde8:0:1:15:23:31:1 config prefix-length 127
-set / interfaces interface ethernet-1/31 subinterfaces subinterface 0 ipv6 config enabled true
+set / interfaces interface ethernet-1/32 config name ethernet-1/32
+set / interfaces interface ethernet-1/32 config type ethernetCsmacd
+set / interfaces interface ethernet-1/32 config description spine11-PE2
+set / interfaces interface ethernet-1/32 config enabled true
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 config index 0
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv4 addresses address 10.10.10.0 config ip 10.10.10.0
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv4 addresses address 10.10.10.0 config prefix-length 31
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv4 config enabled true
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv6 addresses address fd00:fde8:0:1:15:23:31:1 config ip fd00:fde8:0:1:15:23:31:1
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv6 addresses address fd00:fde8:0:1:15:23:31:1 config prefix-length 127
+set / interfaces interface ethernet-1/32 subinterfaces subinterface 0 ipv6 config enabled true
 ```
 ///
 
@@ -237,18 +238,18 @@ enter srl running
 
 /// tab | command
 ``` bash
-info flat from running interface ethernet-1/31
+info flat from running interface ethernet-1/32
 ```
 ///
 /// tab | expected response
 
 ``` bash
-set / interface ethernet-1/31 description spine11-pe3
-set / interface ethernet-1/31 admin-state enable
-set / interface ethernet-1/31 subinterface 0 ipv4 admin-state enable
-set / interface ethernet-1/31 subinterface 0 ipv4 address 10.10.10.0/31
-set / interface ethernet-1/31 subinterface 0 ipv6 admin-state enable
-set / interface ethernet-1/31 subinterface 0 ipv6 address fd00:fde8:0:1:15:23:31:1/127
+set / interface ethernet-1/32 description spine11-PE2
+set / interface ethernet-1/32 admin-state enable
+set / interface ethernet-1/32 subinterface 0 ipv4 admin-state enable
+set / interface ethernet-1/32 subinterface 0 ipv4 address 10.10.10.0/31
+set / interface ethernet-1/32 subinterface 0 ipv6 admin-state enable
+set / interface ethernet-1/32 subinterface 0 ipv6 address fd00:fde8:0:1:15:23:31:1/127
 ```
 ///
 
@@ -311,7 +312,7 @@ Now that we confirmed that gNMI is operational on `spine11`, let's get the inter
 
 /// tab | command
 ``` bash
-gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get --path "openconfig:/interfaces/interface[name=ethernet-1/31]" -e json_ietf --type config
+gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get --path "openconfig:/interfaces/interface[name=ethernet-1/32]" -e json_ietf --type config
 ```
 ///
 /// tab | expected output
@@ -323,13 +324,13 @@ gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get
     "time": "2025-05-06T01:32:27.75601095+03:00",
     "updates": [
       {
-        "Path": "openconfig:interfaces/interface[name=ethernet-1/31]",
+        "Path": "openconfig:interfaces/interface[name=ethernet-1/32]",
         "values": {
           "interfaces/interface": {
             "config": {
-              "description": "spine11-pe3",
+              "description": "spine11-PE2",
               "enabled": true,
-              "name": "ethernet-1/31",
+              "name": "ethernet-1/32",
               "type": "iana-if-type:ethernetCsmacd"
             },
             "subinterfaces": {
@@ -388,14 +389,14 @@ The gNMI path for this object can be obtained from CLI using the `pwc xpath` com
 
 
 ```bash
---{ + oc state }--[ interfaces interface ethernet-1/31 state ]--
+--{ + oc state }--[ interfaces interface ethernet-1/32 state ]--
 A:g15-spine11# pwc xpath
-/interfaces/interface[name=ethernet-1/31]/state
+/interfaces/interface[name=ethernet-1/32]/state
 ```
 
 /// tab | cmd
 ``` bash
-gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get --path "openconfig:/interfaces/interface[name=ethernet-1/31]/state" -e json_ietf
+gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get --path "openconfig:/interfaces/interface[name=ethernet-1/32]/state" -e json_ietf
 ```
 ///
 /// tab | expected output
@@ -407,7 +408,7 @@ gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get
     "time": "2025-05-06T01:34:06.619698764+03:00",
     "updates": [
       {
-        "Path": "openconfig:interfaces/interface[name=ethernet-1/31]/state",
+        "Path": "openconfig:interfaces/interface[name=ethernet-1/32]/state",
         "values": {
           "interfaces/interface/state": {
             "admin-status": "UP",
@@ -429,16 +430,16 @@ gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get
               "out-pkts": "2135307",
               "out-unicast-pkts": "2102851"
             },
-            "description": "spine11-pe3",
+            "description": "spine11-PE2",
             "enabled": true,
             "ifindex": 999422,
             "last-change": "1745511341684000000",
             "loopback-mode": "NONE",
             "management": false,
             "mtu": 9232,
-            "name": "ethernet-1/31",
-            "openconfig-platform-port:hardware-port": "Ethernet-1/31-Port",
-            "openconfig-platform-transceiver:transceiver": "Ethernet-1/31-transceiver",
+            "name": "ethernet-1/32",
+            "openconfig-platform-port:hardware-port": "ethernet-1/32-Port",
+            "openconfig-platform-transceiver:transceiver": "ethernet-1/32-transceiver",
             "oper-status": "UP",
             "type": "iana-if-type:ethernetCsmacd"
           }
@@ -452,7 +453,7 @@ gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get
 
 ### Configure BGP using gNMI and the OpenConfig YANG models
 
-We will now configure a BGP neighbor to `pe3 ` using OC.
+We will now configure a BGP neighbor to `PE2 ` using OC.
 
 To prepare for this, we need the OpenConfig BGP payload in JSON format.
 
@@ -561,7 +562,7 @@ set / network-instance default protocols bgp neighbor 10.10.10.1 peer-group oc-b
 ```
 ///
 
-To finish the configuration, login to the neighboring `pe3` device and configure interface and BGP facing `spine11`.
+To finish the configuration, login to the neighboring `PE2` device and configure interface and BGP facing `spine11`.
 
 /// tab | cmd
 ``` bash

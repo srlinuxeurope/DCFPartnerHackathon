@@ -159,7 +159,7 @@ stateDiagram-v2
 
 ### Prometheus
 Prometheus is a widely used open-source time-series database (TSDB). In this activity, it is utilized to store telemetry data exported by gNMIc. The Prometheus configuration file -{{ github_link('clab/configs/prometheus/prometheus.yml') }}- contains a minimal setup and directs Prometheus to scrape data from the gNMIc collector at 5-second intervals. Metrics are stored as time-series data, including timestamps indicating when they were recorded, along with optional key-value pairs known as labels.
-
+<!-- TBU - Validate URL -->
 !!! info "Connect ot Prometheus Web UI"
     ```   
     http://<group-id>.srexperts.net:9090
@@ -170,7 +170,7 @@ Prometheus is a widely used open-source time-series database (TSDB). In this act
 ### Grafana
 Grafana provides visualization for the collected telemetry data. 
 You can find pre-configured reference dashboards that offer multiple views of the collected real-time data. Navigate through the different dashboards and try to figure out how the data is visualized.
-
+<!-- TBU - Validate URL & update images-->
 !!! info "Connect to Grafana"
     ```     
     http://<group-id>.srexperts.net:3000

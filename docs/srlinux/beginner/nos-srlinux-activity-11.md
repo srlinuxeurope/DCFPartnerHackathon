@@ -52,7 +52,7 @@ In this activity, participants will work specifically with IPv4 Interface ACLs.
 ### Interactive Traffic Monitoring Tool
 SR Linux includes a built-in traffic monitoring tool that enables users to capture traffic based on defined match criteria. This is achieved through the use of a packet capture ACL, which can be applied to all subinterfaces of a specific IXR device.
 
-Captured traffic can be viewed directly in the CLI, either in a simplified format or a more detailed output using the verbose option. Additionally, the capture data can be exported to a file for later analysis using third-party tools such as [wireshark](https://www.wireshark.org/), or `tshark`, which is available directly in SR Linux through bash.
+Captured traffic can be viewed directly in the CLI, either in a simplified format or a more detailed output using the verbose option. Additionally, the capture data can be exported to a file for later analysis using third-party tools such as [wireshark](https://www.wireshark.org/), or [tshark](https://tshark.dev/), which is available directly in SR Linux through bash.
 
 ## Tasks
 
@@ -303,7 +303,6 @@ To do this:
 
 /// details | Solution (check if you get stuck)
 ```
-type: success
 A:g15-spine11# enter candidate
 A:g15-spine11# diff
       acl {

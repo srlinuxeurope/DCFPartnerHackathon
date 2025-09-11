@@ -52,6 +52,7 @@ The event handler can read scripts from the following locations:
  - ```/opt/srlinux/eventmgr/``` - Nokia-provided scripts that come pre-installed with SR Linux
  - ```/etc/opt/srlinux/eventmgr``` - user-provided scripts
 /// tip
+<!-- TBU - Verify if this is working -->
 The ```/etc/opt/srlinux/eventmgr``` directory is directly accessible on your group's hackathon VM filesystem at <br/>```~/clab-srexperts/spine12/config/eventmgr```<br>
 This allows you to edit scripts directly from the host using remote editing capabilities of Visual Studio Code or any other editor.
 ///
@@ -848,4 +849,4 @@ Congratulations!  If you have got this far you have completed this activity and 
 - You have made the behavior of SR Linux dynamic using event handling
 - You have worked with YANG modeled data
 
-If you're hungry for more have a go at another activity, or try a similar activity on SR OS: ([Automatic update of interface descriptions using the event handler](../../sros/intermediate/nos-sros-activity-08.md){:target="_blank"}).
+If you're hungry for more have a go at another activity!

@@ -1077,15 +1077,15 @@ The `_set_formatters()` method specifies how the schema should be displayed. It 
     ///
 
 
-5. You may compare the output of the `show version` command with the differente fields of the schema.  
-You can see that the different fields from the schema are displayed line by line. The system has automatically adjusted the width of the columns to the widest field and there is a border above and below all the fiels. Note that you can change the number of columns for your CLI session and SR linux automatically calculates how wide the borders need to be. 
+5. You may compare the output of the `show version` command with the different fields of the schema.  
+You can see that the different fields from the schema are displayed line by line. The system has automatically adjusted the width of the columns to the widest field and there is a border above and below all the fields. Note that you can change the number of columns for your CLI session and SR linux automatically calculates how wide the borders need to be. 
 When implementing a show command, the focus is on the schema definition rather that on the output formatting. Once the schema values are filled in, SR Linux can automatically format the output.
 
 
 
     > **Note 1:** It is possible to use the `as json` modifier for the show commands to display the output in JSON notation instead of displaying as text. If you compare with the python code, you can see that it's the schema definition that is being displayed. 
 
-    > **Note 2:** The SR Linux containes several classes and utility functions. The formatters and format utilities allows to customize the outputs look-and-feel. E.g. you have the `show version | as table` that displays the output in a table format. You can achieve the same by using the `ColumnFormatter()` instead of the `TagValueFormatter()` in your code.
+    > **Note 2:** The SR Linux contains several classes and utility functions. The formatters and format utilities allows to customize the outputs look-and-feel. E.g. you have the `show version | as table` that displays the output in a table format. You can achieve the same by using the `ColumnFormatter()` instead of the `TagValueFormatter()` in your code.
 
 
 
@@ -1206,9 +1206,9 @@ In this exercise you'll use the `show version` command file to create a new cust
     ///warning
     Don't forget to check and adjust the folder permissions with `chmod` if needed. 
     ///
-
+    
     /// note
-
+    <!-- TBU - Confirm if this is ok -->
     If you prefer to use VSCode, we suggest you to add the server home folder to you workspace (`~/` or `/home/nokia/`).  
     The `~/clab-srexperts/leaf11/config/cli/plugins` is bound to the `leaf11's` `/etc/opt/srlinux/cli/plugins` folder.  
     As such, you may edit the `~/clab-srexperts/leaf11/config/cli/plugins/version_srx.py` directly from VSCode.  
@@ -1549,7 +1549,7 @@ You may refer to [SR Linux Classes and utility functions](https://documentation.
 You just need to perform two small changes:  
 
 1. You need to import the `ColumnFormatter` module from `srlinux.data`.
-2. You need to edit the `_set_formaters()` method at the end of the `version_srx.py`
+2. You need to edit the `_set_formatters()` method at the end of the `version_srx.py`
 
 ///
 
@@ -1564,7 +1564,7 @@ Import the ColumnFormatter module
 from srlinux.data import TagValueFormatter, Border, Data, ColumnFormatter
 ```
 
-Edit the `_set_formaters()` method to use `ColumnFormatter()` instead ot `TagValueFormatter()`
+Edit the `_set_formatters()` method to use `ColumnFormatter()` instead ot `TagValueFormatter()`
 ``` py hl_lines="2"
 def _set_formatters(self, data):
     data.set_formatter('/basic system info', Border(ColumnFormatter(), Border.Above | Border.Below))
@@ -1610,7 +1610,7 @@ Total rate-out: 267.57 Kbps
 
 /// admonition 
     type: question
-Is there another way to get this without a CLI plugin?   
+Is there another easy way to get this without a custom CLI plugin?   
 ///
 
 /// details | Answer
@@ -1722,7 +1722,7 @@ The SR Linux CLI needs to be restarted to load new code changes made on CLI plug
 #### Create the `show_traffic.py` file
 Recall that at the start of a CLI session, SR linux scans the following directories to check for new CLI plugins: 
 
-*  `/home/<user>/cli/plugins`: a plugin in this directory is usable only foth this user  
+*  `/home/<user>/cli/plugins`: a plugin in this directory is usable only for this user  
 
 *  `/etc/opt/srlinux/cli/plugins`: a plugin in this directory is usable for all users  
 

@@ -22,7 +22,7 @@ A number of activities have been created for you to follow, separated by our rou
 
 ### Split by difficulty level
 
-For organizational purposes, we have separated the SR Linux in beginner and intermediate level. We've excluded SR Linux advanced activities for this hackathon, but if you want to try them or try SROS activities afterwards, please refer to the [SReXperts Hackathon](https://github.com/nokia/SReXperts/).  
+For organizational purposes, we have separated the SR Linux in beginner, intermediate and advanced level.   
 
 /// note
 If its your first hackathon with us, and you want to try introductory SR-Linux activities from previous years, please have a look to the [Hackathon2024](../Hackathon2024/index.md) activities.

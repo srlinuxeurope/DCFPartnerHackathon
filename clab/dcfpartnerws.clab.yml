@@ -38,7 +38,7 @@ topology:
       mgmt-ipv4: 10.128.1.15
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
+        #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/dns/interfaces:/etc/network/interfaces
         - configs/dns/dns.sh:/client.sh
         - configs/dns/dnsmasq.conf:/etc/dnsmasq.conf
@@ -71,7 +71,7 @@ topology:
       mgmt-ipv4: 10.128.1.25
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
+        #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client01:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
@@ -88,7 +88,7 @@ topology:
       mgmt-ipv4: 10.128.1.26
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
+        #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client02:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
@@ -151,7 +151,7 @@ topology:
       mgmt-ipv4: 10.128.1.36
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
+        #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client11:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
@@ -168,7 +168,7 @@ topology:
       mgmt-ipv4: 10.128.1.37
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
+        #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client12:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
@@ -185,7 +185,7 @@ topology:
       mgmt-ipv4: 10.128.1.38
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
+        #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client13:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
@@ -212,7 +212,7 @@ topology:
       mgmt-ipv4: 10.128.1.42
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
+        #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client21:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh

@@ -9,7 +9,7 @@ metadata:
 spec:
   filePath: srlinux-25.7.1.zip
   remoteFileUrl:
-    fileUrl: https://github.com/nokia/srlinux-yang-models/releases/download/v25.7.1/srlinux-25.7.1-187.zip
+    fileUrl: https://github.com/nokia-eda/schema-profiles/releases/download/nokia-srl-25.7.1/srlinux-25.7.1-187.zip
   repo: schemaprofiles
 # --- INIT ---
 ---

@@ -2,14 +2,14 @@
 apiVersion: artifacts.eda.nokia.com/v1
 kind: Artifact
 metadata:
-  name: srlinux-ghcr-24.10.4
+  name: srlinux-ghcr-25.7.1
   namespace: eda-system
   labels:
     role: hackathon-infra
 spec:
-  filePath: srlinux-24.10.4.zip
+  filePath: srlinux-25.7.1.zip
   remoteFileUrl:
-    fileUrl: https://github.com/nokia/srlinux-yang-models/releases/download/v24.10.4/srlinux-24.10.4-244.zip
+    fileUrl: https://github.com/nokia/srlinux-yang-models/releases/download/v25.7.1/srlinux-25.7.1-187.zip
   repo: schemaprofiles
 # --- INIT ---
 ---
@@ -34,7 +34,7 @@ metadata:
     role: hackathon-infra
 spec:
   nodeSelector:
-    - eda.nokia.com/security-profile=managed
+    - eda.nokia.com/security-profile=managed,containerlab=managed
   tls:
     csrParams:
       certificateValidity: 2160h
@@ -60,6 +60,8 @@ spec:
     - GNMI
     - CLI
     - NETCONF
+    - GNOI
+    - GNSI
   superuser: true
 ---
 # --- NODE-USER ---
@@ -80,7 +82,6 @@ spec:
       nodeSelector:
         - containerlab=managed
   sshPublicKeys:
-    - ${SSH_PUBLIC_KEY}
     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQComgPcG3DJaOI/Hj6SteEvwuIObe9qSLdecDHmAPLbhyvClEKN7i2AVc0UHCY10Lxxc0XsLuNPgHZYlWk1Ii9SFMHE/60MdlpP7TvcUdLBTuy0Byhx7i+0LO+vMTDJMWsil8Ivgc9xCT6iL5a/kEc3AR7FQwf3K/3jidyLpLFBy+Nliz060Y5j7X+u5sqPogdoa47qdSOJCzCD7DfThaxyPLcnNiGuco/5OoAujC/ZLCFgj2JnIrsf3ZAvl8yzrJfH3KtDK3klNlA5oc2+l92NOcTdasE7iTHZfZg3HXWvdKP5U63FsXNzisIeHkmjs4AtuTvTyCam2PEKwPuy1X+ogTBTKTSAlud5rkDeoGBIyhbO6gZTQnqb8dyLpD4mz2Fyn/6k97YcZn3KVgS6OTEzHhOOhEd1OlFlRgNdREw3YqL4B2ooq/In0GJjhPHQg6L8cyyhL+oPm2noQUp8jw9Sp42EHDgG33dYPiwbQ2eq6Ql2PLCc0M8YXJdVtFhENV6zoPTtosxx4OEWtauoART931a000/qa51cvuJX7bSEvJGhGUh3sTSYGke3X0gQKMHtVh/5iDcb0IowW0J/e/UnITwP6FgTE2AhOsEXaoJiSd4BcUUDG1mHMuLKxRSFw63V7T0XTOHSousHS8QNKMJoNe1PcaArFCJ+gOZmY68Mzw==
 
     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCawBI+34vsY84oZNbyFr1hhX/7aFu1ReakjBdcfF2BAOw5ZB/UBO5AVs02KU4fug7kK6Y599dvmRXemAMH6d0hzw3Y38bn0p00B1o+5EL6fgIWOwEel/ofQXTMLLKE+EUwAg4N02PduQ8Ywwz7EnSmgOlkmmv06V1NVcjngL8rWDe3t7tu9mCEk4uUbTns+0fw0V/HPvDZNJrZ+hWhcvSRvlkKw9zKSKqepHmIbOkk9dsbImui5sX7whjbcP4Md/Of43KTqb6ifireKedKlpWFOj5k2VAQsoJIbTxBE9/JyAUHjBHw2FLYjLtW1CAB7xyFRAprwpOgn4rgDjaWX5V3xXkJU5QLXcQjo/BCbfIXWyQu7GYgjO54D/QULlIwJhws3FP5VOy6MtgKCzyqOVScV+P78RMtgYgcJPt9+x67HOyIQpOGYQnZFopEKZn4ftw4ONxYsoMSVBuz9+YqnoUbNCLDm+4Sv1aANOxW+flDmGuh+dYGC28jsQYPMbVyLnU=
@@ -117,7 +118,7 @@ spec:
 apiVersion: core.eda.nokia.com/v1
 kind: NodeProfile
 metadata:
-  name: srexperts-srlinux-24.10.4
+  name: srexperts-srlinux-25.7.1
   namespace: eda
   labels:
     role: hackathon-infra
@@ -125,10 +126,11 @@ spec:
   port: 57410
   annotate: true
   operatingSystem: srl
-  version: 24.10.4
+  version: 25.7.1
   versionPath: .system.information.version
-  versionMatch: v24\.10\.4.*
-  yang: https://eda-asvr.eda-system/eda-system/schemaprofiles/srlinux-ghcr-24.10.4/srlinux-24.10.4.zip
+  versionMatch: v25\.7\.1.*
+  yang: https://eda-asvr.eda-system/eda-system/schemaprofiles/srlinux-ghcr-25.7.1/srlinux-25.7.1.zip
+  llmDb: https://eda-asvr.eda-system.svc/eda-system/llm-dbs/llm-db-srlinux-ghcr-25.7.1/llm-embeddings-srl-25-7-1.tar.gz
   nodeUser: admin
   onboardingPassword: NokiaSrl1!
   onboardingUsername: admin
@@ -151,13 +153,15 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-24.10.4
+  nodeProfile: srexperts-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.4
+  version: 25.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.33
     ipv6: ""
+  npp:
+    mode: normal
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -172,13 +176,15 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-24.10.4
+  nodeProfile: srexperts-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.4
+  version: 25.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.34
     ipv6: ""
+  npp:
+    mode: normal
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -193,13 +199,15 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-24.10.4
+  nodeProfile: srexperts-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.4
+  version: 25.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.35
     ipv6: ""
+  npp:
+    mode: normal
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -214,13 +222,15 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-24.10.4
+  nodeProfile: srexperts-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-H2
-  version: 24.10.4
+  version: 25.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.31
     ipv6: ""
+  npp:
+    mode: normal
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -235,13 +245,15 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-24.10.4
+  nodeProfile: srexperts-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-H2
-  version: 24.10.4
+  version: 25.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.32
     ipv6: ""
+  npp:
+    mode: normal
 ---
 # --- INTERFACES ---
 ---
@@ -256,9 +268,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -280,9 +289,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -304,9 +310,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -328,9 +331,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -352,9 +352,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -376,9 +373,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -400,9 +394,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -424,9 +415,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -448,9 +436,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -472,9 +457,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -496,9 +478,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -520,9 +499,6 @@ metadata:
 spec:
   enabled: true
   encapType: "null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -705,16 +681,15 @@ spec:
         }
 
 
-# --- EDA COMMON INSECURE GRPC SERVER ---
+# --- EDA NON-DEFAULT SECURE GRPC SERVER ---
 # since EDA removes any prior existing config from the node
-# we need to bring back the server running on the default 57400
+# we need to bring back the explicit server running on port 57410
 # so that other tools could've used the original port
-# we also make this server insecure to match SR OS config
 ---
 apiVersion: config.eda.nokia.com/v1alpha1
 kind: Configlet
 metadata:
-  name: insecure-mgmt
+  name: eda-mgmt
   namespace: eda
   labels:
     role: hackathon-infra
@@ -723,56 +698,21 @@ spec:
     - containerlab=managed
   operatingSystem: srl
   configs:
-    - path: .system.grpc-server{.name=="insecure-mgmt"}
+    - path: .system.grpc-server{.name=="eda-mgmt"}
       operation: Create
       config: |-
         {
-          "name": "insecure-mgmt",
+          "name": "eda-mgmt",
           "admin-state": "enable",
           "rate-limit": 65535,
           "session-limit": 1024,
+          "metadata-authentication": true,
+          "tls-profile": "EDA",
           "network-instance": "mgmt",
-          "port": 57400,
+          "port": 57410,
           "services": [
             "gnmi",
             "gnoi",
-            "p4rt",
-            "gnsi"
-          ]
-        }
-
-# --- EDA COMMON SECURE GRPC SERVER ---
-# since EDA removes any prior existing config from the node
-# we need to bring back the explicit server running on port 57401
-# so that other tools could've used the original port
----
-apiVersion: config.eda.nokia.com/v1alpha1
-kind: Configlet
-metadata:
-  name: secure-mgmt
-  namespace: eda
-  labels:
-    role: hackathon-infra
-spec:
-  endpointSelector:
-    - containerlab=managed
-  operatingSystem: srl
-  configs:
-    - path: .system.grpc-server{.name=="secure-mgmt"}
-      operation: Create
-      config: |-
-        {
-          "name": "secure-mgmt",
-          "admin-state": "enable",
-          "rate-limit": 65535,
-          "session-limit": 1024,
-          "default-tls-profile": true,
-          "network-instance": "mgmt",
-          "port": 57401,
-          "services": [
-            "gnmi",
-            "gnoi",
-            "p4rt",
             "gnsi"
           ]
         }

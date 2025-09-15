@@ -1,4 +1,4 @@
-apiVersion: protocols.eda.nokia.com/v1alpha1
+apiVersion: protocols.eda.nokia.com/v1
 kind: DefaultBGPPeer
 metadata:
   name: uplink-unnumbered-spine11-pe2
@@ -6,8 +6,6 @@ metadata:
   labels:
     role: hackathon-infra
 spec:
-  bfd: false
-  client: false
   dynamicNeighbor: true
   dynamicNeighborAllowedPeerAS:
     - 65000
@@ -20,15 +18,9 @@ spec:
     receiveIPV6NextHops: true
   ipv6Unicast:
     enabled: true
-  l2VPNEVPN:
-    enabled: false
-    advertiseIPV6NextHops: false
-  nextHopSelf: false
   peerInterface: interface-spine11-ethernet-1-32
-  sendCommunityLarge: false
-  sendCommunityStandard: false
 ---
-apiVersion: protocols.eda.nokia.com/v1alpha1
+apiVersion: protocols.eda.nokia.com/v1
 kind: DefaultBGPPeer
 metadata:
   name: uplink-unnumbered-spine11-pe3
@@ -36,8 +28,6 @@ metadata:
   labels:
     role: hackathon-infra
 spec:
-  bfd: false
-  client: false
   dynamicNeighbor: true
   dynamicNeighborAllowedPeerAS:
     - 65000
@@ -50,15 +40,9 @@ spec:
     receiveIPV6NextHops: true
   ipv6Unicast:
     enabled: true
-  l2VPNEVPN:
-    enabled: false
-    advertiseIPV6NextHops: false
-  nextHopSelf: false
   peerInterface: interface-spine11-ethernet-1-31
-  sendCommunityLarge: false
-  sendCommunityStandard: false
 ---
-apiVersion: protocols.eda.nokia.com/v1alpha1
+apiVersion: protocols.eda.nokia.com/v1
 kind: DefaultBGPPeer
 metadata:
   name: uplink-unnumbered-spine12-pe2
@@ -66,8 +50,6 @@ metadata:
   labels:
     role: hackathon-infra
 spec:
-  bfd: false
-  client: false
   dynamicNeighbor: true
   dynamicNeighborAllowedPeerAS:
     - 65000
@@ -80,15 +62,9 @@ spec:
     receiveIPV6NextHops: true
   ipv6Unicast:
     enabled: true
-  l2VPNEVPN:
-    enabled: false
-    advertiseIPV6NextHops: false
-  nextHopSelf: false
   peerInterface: interface-spine12-ethernet-1-32
-  sendCommunityLarge: false
-  sendCommunityStandard: false
 ---
-apiVersion: protocols.eda.nokia.com/v1alpha1
+apiVersion: protocols.eda.nokia.com/v1
 kind: DefaultBGPPeer
 metadata:
   name: uplink-unnumbered-spine12-pe3
@@ -96,8 +72,6 @@ metadata:
   labels:
     role: hackathon-infra
 spec:
-  bfd: false
-  client: false
   dynamicNeighbor: true
   dynamicNeighborAllowedPeerAS:
     - 65000
@@ -110,13 +84,4 @@ spec:
     receiveIPV6NextHops: true
   ipv6Unicast:
     enabled: true
-  l2VPNEVPN:
-    enabled: false
-    advertiseIPV6NextHops: false
-  nextHopSelf: false
   peerInterface: interface-spine12-ethernet-1-31
-  sendCommunityLarge: false
-  sendCommunityStandard: false
-  localPreference: null
-  multiHopMaxHop: null
-  grStaleRouteTime: null

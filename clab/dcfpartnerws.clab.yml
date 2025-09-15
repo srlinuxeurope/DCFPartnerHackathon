@@ -6,7 +6,7 @@ name: dcfpartnerws
 
 mgmt:
   network: dcfpartnerws            # management network name
-  ipv4-subnet: 10.128.1.0/24       # ipv4 range
+  ipv4-subnet: 10.128.${INSTANCE_ID}.0/24       # ipv4 range
 
 topology:
   defaults:
@@ -35,7 +35,7 @@ topology:
     dns:
       kind: linux
       group: core
-      mgmt-ipv4: 10.128.1.15
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.15
       image: ghcr.io/srl-labs/network-multitool
       binds:
         #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
@@ -51,7 +51,7 @@ topology:
     # PE-layers
     pe1:
       kind: nokia_srsim
-      mgmt-ipv4: 10.128.1.21
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.21
       startup-config: configs/sros/pe1.partial.cfg
       ports:
         - 50021:22
@@ -59,7 +59,7 @@ topology:
         - 50421:830
     pe2:
       kind: nokia_srsim
-      mgmt-ipv4: 10.128.1.22
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.22
       startup-config: configs/sros/pe2.partial.cfg
       ports:
         - 50022:22
@@ -68,7 +68,7 @@ topology:
     client01:
       kind: linux
       group: peclient
-      mgmt-ipv4: 10.128.1.25
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.25
       image: ghcr.io/srl-labs/network-multitool
       binds:
         #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
@@ -77,7 +77,7 @@ topology:
         - configs/client/traffic.sh:/traffic.sh
       exec:
         - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.1.15' | sudo tee /etc/resolv.conf"
+        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
       ports:
         - 50025:22
       env:
@@ -85,7 +85,7 @@ topology:
     client02:
       kind: linux
       group: peclient
-      mgmt-ipv4: 10.128.1.26
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.26
       image: ghcr.io/srl-labs/network-multitool
       binds:
         #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
@@ -94,7 +94,7 @@ topology:
         - configs/client/traffic.sh:/traffic.sh
       exec:
         - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.1.15' | sudo tee /etc/resolv.conf"
+        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
       ports:
         - 50026:22
       env:
@@ -104,7 +104,7 @@ topology:
       kind: nokia_srlinux
       type: ixr-h2
       group: spine
-      mgmt-ipv4: 10.128.1.31
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.31
       startup-config: configs/srl/spine11.cfg
       ports:
         - 50031:22
@@ -113,7 +113,7 @@ topology:
       kind: nokia_srlinux
       type: ixr-h2
       group: spine
-      mgmt-ipv4: 10.128.1.32
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.32
       startup-config: configs/srl/spine12.cfg
       ports:
         - 50032:22
@@ -122,7 +122,7 @@ topology:
       kind: nokia_srlinux
       type: ixr-d2l
       group: leaf
-      mgmt-ipv4: 10.128.1.33
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.33
       startup-config: configs/srl/leaf11.cfg
       ports:
         - 50033:22
@@ -131,7 +131,7 @@ topology:
       kind: nokia_srlinux
       type: ixr-d2l
       group: leaf
-      mgmt-ipv4: 10.128.1.34
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.34
       startup-config: configs/srl/leaf12.cfg
       ports:
         - 50034:22
@@ -140,7 +140,7 @@ topology:
       kind: nokia_srlinux
       type: ixr-d2l
       group: leaf
-      mgmt-ipv4: 10.128.1.35
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.35
       startup-config: configs/srl/leaf13.cfg
       ports:
         - 50035:22
@@ -148,7 +148,7 @@ topology:
     client11:
       kind: linux
       group: dcclient
-      mgmt-ipv4: 10.128.1.36
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.36
       image: ghcr.io/srl-labs/network-multitool
       binds:
         #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
@@ -157,7 +157,7 @@ topology:
         - configs/client/traffic.sh:/traffic.sh
       exec:
         - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.1.15' | sudo tee /etc/resolv.conf"
+        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
       ports:
         - 50036:22
       env:
@@ -165,7 +165,7 @@ topology:
     client12:
       kind: linux
       group: dcclient
-      mgmt-ipv4: 10.128.1.37
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.37
       image: ghcr.io/srl-labs/network-multitool
       binds:
         #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
@@ -174,7 +174,7 @@ topology:
         - configs/client/traffic.sh:/traffic.sh
       exec:
         - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.1.15' | sudo tee /etc/resolv.conf"
+        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
       ports:
         - 50037:22
       env:
@@ -182,7 +182,7 @@ topology:
     client13:
       kind: linux
       group: dcclient
-      mgmt-ipv4: 10.128.1.38
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.38
       image: ghcr.io/srl-labs/network-multitool
       binds:
         #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
@@ -191,7 +191,7 @@ topology:
         - configs/client/traffic.sh:/traffic.sh
       exec:
         - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.1.15' | sudo tee /etc/resolv.conf"
+        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
       ports:
         - 50038:22
       env:
@@ -201,7 +201,7 @@ topology:
       kind: nokia_srlinux
       type: ixr-d2l
       group: leaf
-      mgmt-ipv4: 10.128.1.41
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.41
       startup-config: configs/srl/leaf21.cfg
       ports:
         - 50041:22
@@ -209,7 +209,7 @@ topology:
     client21:
       kind: linux
       group: dcclient
-      mgmt-ipv4: 10.128.1.42
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.42
       image: ghcr.io/srl-labs/network-multitool
       binds:
         #- $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
@@ -218,7 +218,7 @@ topology:
         - configs/client/traffic.sh:/traffic.sh
       exec:
         - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.1.15' | sudo tee /etc/resolv.conf"
+        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
       ports:
         - 50042:22
       env:
@@ -227,7 +227,7 @@ topology:
     ### TELEMETRY STACK ###
     gnmic:
       kind: linux
-      mgmt-ipv4:  10.128.1.71
+      mgmt-ipv4:  10.128.${INSTANCE_ID}.71
       image: ghcr.io/openconfig/gnmic:0.36.2
       binds:
         - configs/gnmic/config.yml:/gnmic-config.yml:ro
@@ -237,7 +237,7 @@ topology:
 
     prometheus:
       kind: linux
-      mgmt-ipv4: 10.128.1.72
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.72
       image: prom/prometheus:v2.54.1
       binds:
         - configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
@@ -248,7 +248,7 @@ topology:
 
     grafana:
       kind: linux
-      mgmt-ipv4: 10.128.1.73
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.73
       image: grafana/grafana:11.2.0
       binds:
         - configs/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
@@ -266,6 +266,8 @@ topology:
         GF_SECURITY_ADMIN_PASSWORD: NokiaSrl1!
         http_proxy: $http_proxy
         https_proxy: $https_proxy
+        HTTP_PROXY: $HTTP_PROXY
+        HTTPS_PROXY: $HTTPS_PROXY
         ftp_proxy: $ftp_proxy
       cmd: "sh -c grafana cli admin reset-admin-password ${GF_SECURITY_ADMIN_PASSWORD} && /run.sh"
       group: "10"
@@ -273,7 +275,7 @@ topology:
     ### LOGGING STACK ###
     syslog:
       kind: linux
-      mgmt-ipv4: 10.128.1.74
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.74
       image: linuxserver/syslog-ng:4.5.0
       binds:
         - configs/syslog/syslog-ng.conf:/config/syslog-ng.conf:rslave
@@ -284,7 +286,7 @@ topology:
 
     promtail:
       kind: linux
-      mgmt-ipv4: 10.128.1.75
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.75
       image: grafana/promtail:3.2.0
       binds:
         - configs/promtail:/etc/promtail
@@ -292,7 +294,7 @@ topology:
 
     loki:
       kind: linux
-      mgmt-ipv4: 10.128.1.76
+      mgmt-ipv4: 10.128.${INSTANCE_ID}.76
       image: grafana/loki:3.2.0
       binds:
         - configs/loki:/etc/loki

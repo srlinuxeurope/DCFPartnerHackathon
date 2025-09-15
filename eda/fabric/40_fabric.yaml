@@ -20,7 +20,7 @@ spec:
       rrClientNodeSelector:
         - eda.nokia.com/role=leaf
       rrIPAddresses:
-        - fd00:fde8::${INSTANCE_ID}:13
+        - fd00:fde8::${INSTANCE_ID}:22
     protocol: IBGP
   spines:
     asnPool: hackathon-asnpool

@@ -1,5 +1,5 @@
 # Welcome at the Nokia Europe Partners DC Fabric Hackathon 2024!
-
+<!-- TBU - Review full file, update or delete sections -->
 This README is your starting point into the hackathon, it should get you familiar with the lab environment provided by Nokia, and provide an overview of the suggested sample activities.
 
 During the day you will work in groups on any project that you are inspired to tackle or on one of the pre-provided activities of varying difficulty.

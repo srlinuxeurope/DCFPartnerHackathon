@@ -117,7 +117,7 @@ After creating the checkpoint, run the `show` command to view the list of availa
 
 ``` bash
 save checkpoint
-show system configuration checkpoint
+info from state / system configuration checkpoint {} | as table | filter fields name comment username created
 ```
 
 ///
@@ -129,7 +129,7 @@ show system configuration checkpoint
 
 
 --{ + running }--[  ]--
-A:g15-spine11# show system configuration checkpoint
+A:g15-spine11# info from state / system configuration checkpoint {} | as table | filter fields name comment username created
 +-----+---------------------------------------+-----------------------+------------------+-------------------------------+
 | Id  |    Name                               |      Comment          |     Username     |   Created                     |
 +=====+=======================================+=======================+==================+===============================+

@@ -353,7 +353,7 @@ If you run the ping multiple times, the statistics will show a cumulative count 
 /// tab | Command
 
 ``` bash
-show acl ipv4-filter ping_leaf entry 10
+/show acl acl-filter ping_leaf type ipv4 entry 10
 ```
 
 ///
@@ -361,7 +361,7 @@ show acl ipv4-filter ping_leaf entry 10
 /// tab | expected output
 
 ``` bash
-A:g15-spine11# show acl ipv4-filter ping_leaf entry 10
+A:g15-spine11# /show acl acl-filter ping_leaf type ipv4 entry 10
 ======================================================================================================================================================================================================================================================================================
 Filter        : ping_leaf
 SubIf-Specific: disabled
@@ -429,13 +429,13 @@ You should observe:
 /// tab | Command
 ``` bash
 tools acl acl-filter ping_leaf type ipv4 statistics clear
-show acl ipv4-filter ping_leaf entry 10
+/show acl acl-filter ping_leaf type ipv4 entry 10
 ```
 ///
 /// tab | expected output
 
 ``` bash
-A:g15-spine11# show acl ipv4-filter ping_leaf entry 10
+A:g15-spine11# /show acl acl-filter ping_leaf type ipv4 entry 10
 ======================================================================================================================================================================================================================================================================================
 Filter        : ping_leaf
 SubIf-Specific: disabled

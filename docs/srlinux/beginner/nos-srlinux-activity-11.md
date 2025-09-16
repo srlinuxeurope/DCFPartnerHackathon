@@ -40,7 +40,7 @@ Before making configuration changes, network engineers commonly back up the curr
 
 Checkpoints are named using the format `checkpoint-<#>.json`, where `<#>` is a sequential number, 0 representing the most recent checkpoint. At any time, users can roll back the device configuration to a previously saved checkpoint, ensuring a reliable and efficient method for configuration recovery.
 
-The list of saved checkpoint configurations can be obtained with the command `show system configuration checkpoint`.
+The list of saved checkpoint configurations can be obtained with the command `info from state / system configuration checkpoint * | as table | filter fields name comment username created`.
 
 ### Access Control List (ACL)
 An Access Control List (ACL) is a set of rules used within a network environment to evaluate packets individually, determining whether to allow or deny access. Each ACL entry includes a match condition and an associated action, which can be one of the following: accept, drop, log, or a rate-limit policer.
@@ -117,7 +117,7 @@ After creating the checkpoint, run the `show` command to view the list of availa
 
 ``` bash
 save checkpoint
-info from state / system configuration checkpoint {} | as table | filter fields name comment username created
+info from state / system configuration checkpoint * | as table | filter fields name comment username created
 ```
 
 ///

@@ -93,25 +93,6 @@ spec:
 apiVersion: interfaces.eda.nokia.com/v1alpha1
 kind: Interface
 metadata:
-  name: spine11-ethernet-1-31
-  namespace: eda
-  labels:
-    role: hackathon-infra
-spec:
-  enabled: true
-  encapType: "null"
-  lldp: true
-  members:
-    - enabled: true
-      interface: ethernet-1-31
-      lacpPortPriority: 32768
-      node: g${INSTANCE_ID}-spine11
-  type: interface
-  description: "spine11-ethernet-1-31"
----
-apiVersion: interfaces.eda.nokia.com/v1alpha1
-kind: Interface
-metadata:
   name: spine11-ethernet-1-32
   namespace: eda
   labels:
@@ -127,25 +108,6 @@ spec:
       node: g${INSTANCE_ID}-spine11
   type: interface
   description: "spine11-ethernet-1-32"
----
-apiVersion: interfaces.eda.nokia.com/v1alpha1
-kind: Interface
-metadata:
-  name: spine12-ethernet-1-31
-  namespace: eda
-  labels:
-    role: hackathon-infra
-spec:
-  enabled: true
-  encapType: "null"
-  lldp: true
-  members:
-    - enabled: true
-      interface: ethernet-1-31
-      lacpPortPriority: 32768
-      node: g${INSTANCE_ID}-spine12
-  type: interface
-  description: "spine12-ethernet-1-31"
 ---
 apiVersion: interfaces.eda.nokia.com/v1alpha1
 kind: Interface

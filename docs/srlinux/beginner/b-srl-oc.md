@@ -552,8 +552,8 @@ Verify the configuration in SR Linux CLI.
 /// tab | cmd
 
 ``` bash
-enter srl running
-info flat network-instance default protocols bgp neighbor 10.10.10.1
+enter srl
+info flat from running / network-instance default protocols bgp neighbor 10.10.10.1
 ```
 ///
 /// tab | expected output

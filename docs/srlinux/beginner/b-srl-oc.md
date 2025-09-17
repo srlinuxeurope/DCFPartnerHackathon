@@ -800,7 +800,7 @@ Unknown Attr    : None
                       },
                       "reference": {
                         "config": {
-                          "community-set-ref": "oc-comm"
+                          "community-set-refs": [ "oc-comm" ]
                         }
                       }
                     }

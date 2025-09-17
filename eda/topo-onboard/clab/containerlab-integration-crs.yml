@@ -118,7 +118,7 @@ spec:
 apiVersion: core.eda.nokia.com/v1
 kind: NodeProfile
 metadata:
-  name: srexperts-srlinux-25.7.1
+  name: hackathon-srlinux-25.7.1
   namespace: eda
   labels:
     role: hackathon-infra
@@ -146,14 +146,14 @@ metadata:
   name: g${INSTANCE_ID}-leaf11
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-leaf
+    eda-connector.nokia.com/topology: hackathon
+    eda-connector.nokia.com/role: hackathon-leaf
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-25.7.1
+  nodeProfile: hackathon-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-D2L
   version: 25.7.1
@@ -169,14 +169,14 @@ metadata:
   name: g${INSTANCE_ID}-leaf12
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-leaf
+    eda-connector.nokia.com/topology: hackathon
+    eda-connector.nokia.com/role: hackathon-leaf
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-25.7.1
+  nodeProfile: hackathon-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-D2L
   version: 25.7.1
@@ -192,14 +192,14 @@ metadata:
   name: g${INSTANCE_ID}-leaf13
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-leaf
+    eda-connector.nokia.com/topology: hackathon
+    eda-connector.nokia.com/role: hackathon-leaf
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-25.7.1
+  nodeProfile: hackathon-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-D2L
   version: 25.7.1
@@ -215,14 +215,14 @@ metadata:
   name: g${INSTANCE_ID}-spine11
   labels:
     eda.nokia.com/role: spine
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-spine
+    eda-connector.nokia.com/topology: hackathon
+    eda-connector.nokia.com/role: hackathon-spine
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-25.7.1
+  nodeProfile: hackathon-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-H2
   version: 25.7.1
@@ -238,14 +238,14 @@ metadata:
   name: g${INSTANCE_ID}-spine12
   labels:
     eda.nokia.com/role: spine
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-spine
+    eda-connector.nokia.com/topology: hackathon
+    eda-connector.nokia.com/role: hackathon-spine
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-25.7.1
+  nodeProfile: hackathon-srlinux-25.7.1
   operatingSystem: srl
   platform: 7220 IXR-H2
   version: 25.7.1
@@ -719,7 +719,7 @@ spec:
 
 # --- EDA COMMON SYSLOG SERVER ---
 # considering we don't have a way (yet) to configure a
-# common syslog server, this makes sure the SReXperts
+# common syslog server, this makes sure the hackathon
 # syslog server is applied on all EDA managed devices
 ---
 apiVersion: config.eda.nokia.com/v1alpha1
@@ -757,7 +757,7 @@ spec:
         }
 # --- EDA SYSTEM DEFAULT IP MTU ---
 # considering we don't have a way (yet) to configure a
-# common default ip mtu, this makes sure the SReXperts
+# common default ip mtu, this makes sure the hackathon
 # ip default mtu is applied on all EDA managed devices
 ---
 apiVersion: config.eda.nokia.com/v1alpha1

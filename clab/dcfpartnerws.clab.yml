@@ -242,7 +242,7 @@ topology:
       binds:
         - configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       ports:
-        - 9090:9090
+        - ${port_prometheus}:9090
       cmd: --config.file=/etc/prometheus/prometheus.yml
       group: "10"
 
@@ -255,7 +255,7 @@ topology:
         - configs/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
         - configs/grafana/dashboards:/var/lib/grafana/dashboards
       ports:
-        - 3000:3000
+        - ${port_grafana}:3000
       env:
         GF_INSTALL_PLUGINS: https://github.com/skyfrank/grafana-flowcharting/releases/download/v1.0.0e/agenty-flowcharting-panel-1.0.0e.231214594-SNAPSHOT.zip;agenty-flowcharting-panel
         # env vars to enable anonymous access

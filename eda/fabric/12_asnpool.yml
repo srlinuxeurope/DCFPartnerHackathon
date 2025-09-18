@@ -11,5 +11,11 @@ spec:
     - allocations:
         - name: hackathon-fabric-spine
           value: 4200001000
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf11
+          value: 4200001001
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf12
+          value: 4200001002
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf13
+          value: 4200001003
       start: 4200001000
       size: 1000

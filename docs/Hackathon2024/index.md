@@ -25,14 +25,14 @@ Please refer to the paper provided. If nothing has been provided, not a problem,
 
 | Group ID | hostname instance |
 | --- | --- |
-| 1 | g1.dcfpartnerws.info |
-| 2 | g2.dcfpartnerws.info |
+| 1 | g1.dcfdemo.ddns.net |
+| 2 | g2.dcfdemo.ddns.net |
 | ... | ... |
-| **X** | g**X**.dcfpartnerws.info |
+| **X** | g**X**.dcfdemo.ddns.net |
 
 ### SSH
 
-hostname: g**X**.dcfpartnerws.info
+hostname: g**X**.dcfdemo.ddns.net
 
 username: `refer to the paper provided or the slide presented`
 
@@ -209,15 +209,15 @@ Subsequently you can access the lab node on the external port for your given ins
 
 | Group ID | hostname instance |
 | --- | --- |
-| **X** | g**X**.dcfpartnerws.info |
+| **X** | g**X**.dcfdemo.ddns.net |
 
 In the example above, accessing `pe1` would be possible by: 
 
 ```
-ssh -l admin gX.dcfpartnerws.info -p 50021
+ssh -l admin gX.dcfdemo.ddns.net -p 50021
 ```
 
-In the example above, accessing grafana would be possible browsing towards **http://X.dcfpartnerws.info:3000** (where X is the group ID you've been allocated)
+In the example above, accessing grafana would be possible browsing towards **http://X.dcfdemo.ddns.net:3000** (where X is the group ID you've been allocated)
 
 [Optional] You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.
 

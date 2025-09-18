@@ -315,7 +315,7 @@ subscriptions:
 
 \**If you need to adjust the data that is scraped by prometheus you have to edit the [config.yml](../../../clab/configs/gnmic/config.yml) file.*
 
-> To open up [Prometheus](https://prometheus.io/) UI on your laptop use `http://<group-id>.dcfpartnerws.info:9090` address.
+> To open up [Prometheus](https://prometheus.io/) UI on your laptop use `http://<group-id>.dcfdemo.ddns.net:9090` address.
 
 ![pic](./img/prom.JPG)
 
@@ -325,7 +325,7 @@ subscriptions:
 
 (\**connect using the instructions below before moving on*)
 
-> To open up [Grafana](https://grafana.com) UI on your laptop use `http://<group-id>.dcfpartnerws.info:3000` address.
+> To open up [Grafana](https://grafana.com) UI on your laptop use `http://<group-id>.dcfdemo.ddns.net:3000` address.
 
 Grafana is pre-configured with anonymous access enabled so that you can view the dashboards without authentication. To edit the dashboards you have to login with the username `admin` and password `admin`. The login button is in the top right corner of the Grafana UI.
 

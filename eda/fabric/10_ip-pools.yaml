@@ -8,7 +8,7 @@ metadata:
 spec:
   publishAllocations: true
   segments:
-        - allocations:
+    - allocations:
         - name: hackathon-fabric-spine-g${INSTANCE_ID}-spine11
           value: 10.46.${INSTANCE_ID}.31
         - name: hackathon-fabric-spine-g${INSTANCE_ID}-spine12

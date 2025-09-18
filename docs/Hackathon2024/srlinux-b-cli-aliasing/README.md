@@ -55,9 +55,9 @@ The SR Linux CLI includes many commands you're already familiar with from the Li
 
 Create an alias `display up-int` for the following show command `show interface brief | grep ethernet | grep up` which shows all ethernet interfaces that are operational up. You should note that an alias can exist of multiple words.
 
-  ``` sh
-  environment alias "display up-int" "show interface brief | grep ethernet | grep up"
-  ```
+``` sh
+environment alias "display up-int" "show interface brief | grep ethernet | grep up"
+```
 
 Run the alias command.
 

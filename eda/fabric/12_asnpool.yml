@@ -1,7 +1,7 @@
 apiVersion: core.eda.nokia.com/v1
 kind: IndexAllocationPool
 metadata:
-  name: srexperts-asnpool
+  name: hackathon-asnpool
   namespace: eda
   labels:
     role: hackathon-infra
@@ -9,7 +9,7 @@ spec:
   publishAllocations: true
   segments:
     - allocations:
-        - name: srexperts-fabric-spine
+        - name: hackathon-fabric-spine
           value: 4200001000
       start: 4200001000
       size: 1000

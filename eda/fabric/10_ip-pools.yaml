@@ -1,7 +1,7 @@
 apiVersion: core.eda.nokia.com/v1
 kind: IPAllocationPool
 metadata:
-  name: srexperts-systemipv4
+  name: hackathon-systemipv4
   namespace: eda
   labels:
     role: hackathon-infra
@@ -16,7 +16,7 @@ spec:
 apiVersion: core.eda.nokia.com/v1
 kind: IPAllocationPool
 metadata:
-  name: srexperts-systemipv6
+  name: hackathon-systemipv6
   namespace: eda
   labels:
     role: hackathon-infra

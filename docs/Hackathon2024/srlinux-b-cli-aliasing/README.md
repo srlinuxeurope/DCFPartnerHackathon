@@ -51,29 +51,30 @@ The SR Linux CLI includes many commands you're already familiar with from the Li
 
 | Create alias command                            |      Alias can have more than one word       |                  Existing Command                   |                                               Piped Commands |
 | :---------------------------------------------- | :------------------------------------------: | :-------------------------------------------------: | -----------------------------------------------------------: |
-| $`\textcolor{green}{\text{environment alias}}`$ | $`\textcolor{red}{\text{"display up-int"}}`$ | $`\textcolor{blue}{\text{"show interface brief"}}`$ | $`\textcolor{purple}{\text{"\| grep ethernet \| grep up"}}`$ |
+| environment alias | "display up-int" | "show interface brief" | "\| grep ethernet \| grep up" |
 
 Create an alias `display up-int` for the following show command `show interface brief | grep ethernet | grep up` which shows all ethernet interfaces that are operational up. You should note that an alias can exist of multiple words.
 
-  ```sh
-   A:leaf11# environment alias "display up-int" "show interface brief | grep ethernet | grep up"
+  ``` sh
+  environment alias "display up-int" "show interface brief | grep ethernet | grep up"
   ```
 
 Run the alias command.
 
-  ```sh
-   A:leaf11# display up-int
+``` bash
+A:leaf11# display up-int
 
 | ethernet-1/1        | enable                                   | up                                       | 25G 
 | ethernet-1/2        | enable                                   | up                                       | 25G 
 | ethernet-1/49       | enable                                   | up                                       | 100G
 | ethernet-1/50       | enable                                   | up                                       | 100G  
 
-  ```
+```
 
 When using aliases auto-complete works in the same way as with regular commands.
-
-display $`\textcolor{grey}{\text{up-int}}`$
+``` bash
+display up-int
+```
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -87,9 +88,9 @@ A parameter can be provided by making use of the curly brackets `{}`. By providi
 
 Create the following alias to summarize the interface information in table format. Note we are using the required parameter `{name}` which will be substitute during runtime with your provided parameter, e.g. `ethernet-1/49` or `system0`.
 
-  ```sh
+``` sh
 environment alias "display interface {name}" "info from state / interface {name} | as table "
-  ```
+```
 
 Execute the alias and type `display interface <TAB>`, you should see a drop-down box will appear with all available parameter for you to choose from. These correspond to the `{name}` parameter described above.
 
@@ -109,17 +110,17 @@ When a parameter is specified between curly brackets only on the alias value sid
 
 ![](./img/alias-optional-param.JPG)
 
-In the example below you can see we create an unamed parameter `{}` for the interface names and a named parameter `{subint}` for the subinterface. Note that we define only parameters on the alias value side, this makes this alias an optional alias.
+In the example below you can see we create an unnamed parameter `{}` for the interface names and a named parameter `{subint}` for the subinterface. Note that we define only parameters on the alias value side, this makes this alias an optional alias.
 
-  ```sh
+```sh
 environment alias "display subinterface" "info from state / interface {} subinterface {subint} | as table"
-  ```
+```
 
-Execute the alias with only the unamed parameter
+Execute the alias with only the unnamed parameter
 
 ![](./img/alias-unnamed-optional-param1.JPG)
 
-Execute now the alias with the named and unamed parameter.
+Execute now the alias with the named and unnamed parameter.
 
 ![](./img/alias-named-optional-param1.JPG)
 
@@ -183,11 +184,11 @@ Aliases are ephemeral unless saved to the environment file. Yes, aliases are sav
 
 _Saving environment settings:_
 
-  ```sh
+```sh
 environment save home
 
 Saved configuration to /admin/.srlinuxrc
 --{ + running }--[  ]--
-  ```
+```
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>

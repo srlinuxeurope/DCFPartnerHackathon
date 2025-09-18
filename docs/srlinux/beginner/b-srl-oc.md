@@ -280,7 +280,7 @@ From your host VM:
 
 /// tab | command
 ``` bash
-gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure cap
+gnmic -a clab-srexperts-spine11:57401 -u admin -p $EVENT_PASSWORD --insecure cap
 ```
 ///
 /// tab | expected output
@@ -312,14 +312,14 @@ Now that we confirmed that gNMI is operational on `spine11`, let's get the inter
 
 /// tab | command
 ``` bash
-gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get --path "openconfig:/interfaces/interface[name=ethernet-1/32]" -e json_ietf --type config
+gnmic -a clab-srexperts-spine11:57401 -u admin -p $EVENT_PASSWORD --insecure get --path "openconfig:/interfaces/interface[name=ethernet-1/32]" -e json_ietf --type config
 ```
 ///
 /// tab | expected output
 ``` bash
 [
   {
-    "source": "clab-srexperts-spine11:57400",
+    "source": "clab-srexperts-spine11:57401",
     "timestamp": 1746484347756010950,
     "time": "2025-05-06T01:32:27.75601095+03:00",
     "updates": [
@@ -396,14 +396,14 @@ A:g15-spine11# pwc xpath
 
 /// tab | cmd
 ``` bash
-gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure get --path "openconfig:/interfaces/interface[name=ethernet-1/32]/state" -e json_ietf
+gnmic -a clab-srexperts-spine11:57401 -u admin -p $EVENT_PASSWORD --insecure get --path "openconfig:/interfaces/interface[name=ethernet-1/32]/state" -e json_ietf
 ```
 ///
 /// tab | expected output
 ``` bash
 [
   {
-    "source": "clab-srexperts-spine11:57400",
+    "source": "clab-srexperts-spine11:57401",
     "timestamp": 1746484446619698764,
     "time": "2025-05-06T01:34:06.619698764+03:00",
     "updates": [
@@ -528,13 +528,13 @@ Using gNMIc, use the `set` RPC to push the OpenConfig configuration to `spine11`
 /// tab | cmd
 
 ``` bash
-gnmic -a clab-srexperts-spine11:57400 -u admin -p $EVENT_PASSWORD --insecure set --update-path openconfig:/ --update-file oc-bgp.json --encoding=JSON_IETF
+gnmic -a clab-srexperts-spine11:57401 -u admin -p $EVENT_PASSWORD --insecure set --update-path openconfig:/ --update-file oc-bgp.json --encoding=JSON_IETF
 ```
 ///
 /// tab | expected output
 ``` bash
 {
-  "source": "clab-srexperts-spine11:57400",
+  "source": "clab-srexperts-spine11:57401",
   "timestamp": 1746560230200785690,
   "time": "2025-05-06T22:37:10.20078569+03:00",
   "results": [
@@ -552,8 +552,8 @@ Verify the configuration in SR Linux CLI.
 /// tab | cmd
 
 ``` bash
-enter srl running
-info flat network-instance default protocols bgp neighbor 10.10.10.1
+enter srl
+info flat from running / network-instance default protocols bgp neighbor 10.10.10.1
 ```
 ///
 /// tab | expected output
@@ -800,7 +800,7 @@ Unknown Attr    : None
                       },
                       "reference": {
                         "config": {
-                          "community-set-ref": "oc-comm"
+                          "community-set-refs": [ "oc-comm" ]
                         }
                       }
                     }

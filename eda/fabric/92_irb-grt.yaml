@@ -5,24 +5,19 @@
 apiVersion: config.eda.nokia.com/v1alpha1
 kind: Configlet
 metadata:
-  name: irb-grt
-  namespace: eda
   labels:
     role: hackathon-infra
+  name: irb-grt
+  namespace: eda
 spec:
-  endpointSelector:
-    - eda.nokia.com/role=leaf
-  operatingSystem: srl
   configs:
-    - path: .interface{.name=="irb1"}
-      operation: Create
-      config: |-
+    - config: |-
         {
-            "name": "irb1",
+            "name": "irb0",
             "subinterface": [
                 {
                     "index": 1,
-                    "description": "irb1.1",
+                    "description": "to-default-ni",
                     "ipv4": {
                         "admin-state": "enable",
                         "address": [
@@ -32,7 +27,6 @@ spec:
                             }
                         ],
                         "arp": {
-                            "timeout": 14400,
                             "learn-unsolicited": true,
                             "evpn": {
                                 "advertise": [
@@ -74,51 +68,62 @@ spec:
                 }
             ]
         }
+      operation: Create
+      path: .interface{.name=="irb0"}
+  endpointSelector:
+    - eda.nokia.com/role=leaf
+  operatingSystem: srl
+  priority: 10
+  version: 25.7.1
 ---
 # configlet to tie the IRB to the GRT
 apiVersion: config.eda.nokia.com/v1alpha1
 kind: Configlet
 metadata:
-  name: netinst-default-irb1
-  namespace: eda
   labels:
     role: hackathon-infra
+  name: netinst-default-irb0.1
+  namespace: eda
 spec:
-  endpointSelector:
-    - eda.nokia.com/role=leaf
-  operatingSystem: srl
   configs:
-    - path: .network-instance{.name=="default"}
-      operation: Create
-      config: |-
+    - config: |-
         {
             "interface": [
                 {
-                    "name": "irb1.1"
+                    "name": "irb0.1"
                 }
             ]
         }
+      operation: Create
+      path: .network-instance{.name=="default"}
+  endpointSelector:
+    - eda.nokia.com/role=leaf
+  operatingSystem: srl
+  priority: 11
+  version: 25.7.1
 ---
 # configlet to tie the IRB to MACVRF-1
 apiVersion: config.eda.nokia.com/v1alpha1
 kind: Configlet
 metadata:
-  name: netinst-macvrf1-irb1
-  namespace: eda
   labels:
     role: hackathon-infra
+  name: netinst-macvrf1-irb0.1
+  namespace: eda
 spec:
-  endpointSelector:
-    - eda.nokia.com/role=leaf
-  operatingSystem: srl
   configs:
-    - path: .network-instance{.name=="macvrf1"}
-      operation: Create
-      config: |-
+    - config: |-
         {
             "interface": [
                 {
-                    "name": "irb1.1"
+                    "name": "irb0.1"
                 }
             ]
         }
+      operation: Create
+      path: .network-instance{.name=="macvrf1"}
+  endpointSelector:
+    - eda.nokia.com/role=leaf
+  operatingSystem: srl
+  priority: 11
+  version: 25.7.1

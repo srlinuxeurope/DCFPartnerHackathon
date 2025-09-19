@@ -10,25 +10,18 @@ spec:
   description: Multi-homed device connected to port 2
   enabled: true
   encapType: dot1q
-  ethernet:
-    standbySignaling: lacp
   lag:
     lacp:
       adminKey: 12
       interval: fast
-      lacpFallback:
-        mode: static
-        timeout: 60
       mode: active
       systemIdMac: "00:00:00:00:00:12"
-      systemPriority: 32768
+      systemPriority: 12
     minLinks: 1
     multihoming:
       esi: 01:DC:01:12:12:12:12:00:00:01
       mode: all-active
       reloadDelayTimer: 100
-      revertive: false
-      preferredActiveNode: ""
     type: lacp
   lldp: false
   members:
@@ -48,7 +41,6 @@ spec:
       lacpPortPriority: 32768
       node: g${INSTANCE_ID}-leaf13
   type: lag
-  mtu: null
 ---
 apiVersion: interfaces.eda.nokia.com/v1alpha1
 kind: Interface

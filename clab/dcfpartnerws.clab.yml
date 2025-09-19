@@ -269,7 +269,8 @@ topology:
         HTTP_PROXY: $HTTP_PROXY
         HTTPS_PROXY: $HTTPS_PROXY
         ftp_proxy: $ftp_proxy
-      cmd: "sh -c grafana cli admin reset-admin-password ${GF_SECURITY_ADMIN_PASSWORD} && /run.sh"
+      cmd: "'grafana cli admin reset-admin-password NokiaSrl1! && /run.sh'"
+      entrypoint: "sh -c"
       group: "10"
 
     ### LOGGING STACK ###

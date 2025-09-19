@@ -11,7 +11,8 @@ spec:
   eviPool: evi-pool
   exportTarget: target:65000:1
   importTarget: target:65000:1
-  macAging: 600
+  macAging: 300
+  macLearning: false
   tunnelIndexPool: tunnel-index-pool
   type: EVPNVXLAN
   vni: 1

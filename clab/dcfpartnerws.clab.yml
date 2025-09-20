@@ -92,6 +92,7 @@ topology:
         - configs/client/interfaces-client02:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
+        - configs/client/probe.sh:/probe.sh
       exec:
         - bash /client.sh
         - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
@@ -161,9 +162,12 @@ topology:
         - configs/client/interfaces-client11:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
+        - configs/client/probe-responder.sh:/probe-responder.sh
+        - configs/client/probe.sh:/probe.sh
       exec:
         - bash /client.sh
         - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
+        - setsid /probe-responder.sh
       ports:
         - 50036:22
       env:
@@ -195,9 +199,12 @@ topology:
         - configs/client/interfaces-client13:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
+        - configs/client/probe-responder.sh:/probe-responder.sh
+        - configs/client/probe.sh:/probe.sh
       exec:
         - bash /client.sh
         - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
+        - setsid /probe-responder.sh
       ports:
         - 50038:22
       env:

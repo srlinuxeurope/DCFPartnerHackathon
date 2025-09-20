@@ -28,9 +28,9 @@ Now that our script is ready, let's run it once to verify whether it works.
 # chmod +x backup.sh
 # mkdir backups
 # ./backup.sh
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" received 64000 bytes 
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" received 42411 bytes 
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/etc/opt/srlinux/config.json" saved 
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" received 64000 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" received 42411 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "/etc/opt/srlinux/config.json" saved 
 ```
 
 ```
@@ -98,8 +98,8 @@ Now that our script is ready, let's run it
 ```
 # chmod +x file-transfer.sh
 # ./file-transfer.sh
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" sending file="/home/nokia/srl-gnoi-chris/my-gpt.deb" hash 
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/home/nokia/srl-gnoi-chris/my-gpt.deb" written successfully 
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" sending file="/home/nokia/srl-gnoi-chris/my-gpt.deb" hash 
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "/home/nokia/srl-gnoi-chris/my-gpt.deb" written successfully 
 File transferred successfully to clab-srexperts-leaf11
 ```
 
@@ -163,7 +163,7 @@ Now that our script is ready, let's run it
 ```
 # chmod +x file-delete.sh
 # ./file-delete.sh
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/tmp/my-gpt.deb" removed successfully 
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "/tmp/my-gpt.deb" removed successfully 
 File deleted successfully from clab-dcfpartnerws-leaf11
 ```
 Verify that the file was deleted on the router.

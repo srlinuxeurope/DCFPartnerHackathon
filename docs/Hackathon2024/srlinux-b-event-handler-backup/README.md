@@ -20,11 +20,21 @@ In this lab, you will use the SR Linux [Event Handler](https://documentation.nok
 
 ## Accessing a lab node
 
-You can run this exercise on any SR Linux device in the topology. For example, on `clab-dcfpartnerws-leaf21` node. To login to this device, execute:
+You can run this exercise on any SR Linux device in the topology. For example, on `clab-dcfpartnerws-leaf21` node.  
+To login to this device, execute:
 
 ```bash
 ssh admin@clab-dcfpartnerws-leaf21
 ```
+
+Credentials for SRLinux nodes are: `admin/NokiaSrl1!`
+
+To perform remote backups You can use `clab-dcfpartnerws-leaf11` to perform remote backups.  
+Open a new session to `leaf11` and login to this device with:
+```bash
+ssh admin@clab-dcfpartnerws-leaf11
+```
+
 
 ## Documentation resources
 
@@ -36,19 +46,61 @@ Below are some resources you might find interesting:
 
 ## Step 1: creating the backups directory
 
-As the whole purpose of this exercise is to store the device backups outside of the device filesystem, we first need to create a remote backup location that is reachable from an SR Linux device. For example, we can use the VM that runs the lab as a backup (`G<x>.dcfdemo.ddns.net`).
+As the whole purpose of this exercise is to store the device backups outside of the device filesystem, we first need to create a remote backup location that is reachable from an SR Linux device. 
 
-While logged in to a VM with the standard `srlinux` user, create the `~/backups` directory.
+While logged in to the `leaf11` with the standard `admin` user, create a new `nokia` user that we will use for the backups:
+
+/// tab | SR_CLI
 ```bash
-sudo mkdir ~/backups
-ls -al ~/backups
+sr_cli 
+enter candidate
+system aaa 
+system aaa authentication user nokia password nokia superuser true
+commit stay
 ```
+///
+/// tab | Bash
+```bash
+bash network-instance mgmt
+sudo useradd -m -d /home/nokia -s /bin/bash nokia
+sudo passwd nokia   
+```
+///
+
+Test the user nokia and check permissions:
+```bash
+sudo su - nokia
+pwd
+sudo ls -al
+```
+
+Create the `~/backups` directory.
+
+```bash
+sudo chown -R nokia:nokia /home/nokia/
+sudo chmod 700 /home/nokia/
+sudo mkdir -p /home/nokia/backups
+sudo chown nokia:nokia /home/nokia/backups
+sudo ls -al /home/nokia/backups
+```
+
+Also create the `.ssh` folder and the `authorized_keys` files that will be required later. Ensure that permissions are set correctly:
+```bash
+sudo mkdir -p /home/nokia/.ssh
+sudo chown -R nokia:nokia /home/nokia/.ssh
+sudo chmod 700 /home/nokia/.ssh
+sudo touch /home/nokia/.ssh/authorized_keys
+sudo chmod 600 /home/nokia/.ssh/authorized_keys
+sudo chown nokia:nokia /home/nokia/.ssh/authorized_keys
+```
+
+
 
 ## Step 2: Create script file
 
 We need to create our Python event handling script on an SR Linux box, and prepare the event handler configuration context:
 
-Log into the node, go to the linux CLI (by typing `bash network-instance mgmt`) and create the script `remote-backup.py` in the `/etc/opt/srlinux/eventmgr` directory.
+Log into the `leaf21` node, go to the linux CLI (by typing `bash network-instance mgmt`) and create the script `remote-backup.py` in the `/etc/opt/srlinux/eventmgr` directory.
 
 ```bash
 --{ running }--[  ]--
@@ -67,11 +119,39 @@ Using the [documentation](https://documentation.nokia.com/srlinux/24-3/books/eve
 
 - The location to the python script you created in step 1
 - A path monitoring the last time the configuration was changed (tip: use the [SRL YANG browser](https://yang.srlinux.dev/v24.3.2))
-- A static value indicating the target destination (`nokia@G<x>.dcfdemo.ddns.net:~/backups`)
+- A static value indicating the target destination (`nokia@10.128.<GID>.33:~/backups`). Replace GID with your group ID.
 
-**NOTE:**
 
-To copy files to the remote location, you can use SCP **with the IP address of the hypervisor**. To ensure no password needs to be provided to the scp command, it is advised you set up key-authentication first. Below is a configuration session where this is demonstrated:
+/// details | Solution
+    type: success
+Bellow an example of a possible solution
+
+/// tab | Commands
+``` bash
+sr_cli
+enter candidate
+system event-handler instance remote-backup
+    admin-state enable
+    upython-script remote-backup.py
+    paths [
+        "system configuration last-change"
+    ]
+    options {
+        object target {
+            value nokia@10.128.6.33:~/backups
+        }
+    }
+commit stay
+```
+///
+///
+
+
+///note
+To copy files to the remote location, you can use SCP **with the IP address of the leaf21**. To ensure no password needs to be provided to the scp command, it is advised you set up key-authentication first. 
+///
+
+Below is a configuration session where this is demonstrated:
 
 - Leave the password blank
 - Make sure to test afterwards! This will add the hypervisor to the `known_hosts` file
@@ -102,16 +182,18 @@ The key's randomart image is:
 +----[SHA256]-----+
 ```
 
-On the hypervisor: add the contents of the generated `~/.ssh/id_rsa.pub` file on your SRL box to the `~/.ssh/authorized_keys` file
+
+
+On the `leaf11`: add the contents of the generated `~/.ssh/id_rsa.pub` file on your SRL box to the `/home/nokia/.ssh/authorized_keys` file.
 
 /// tab | leaf21 - SRL pub key
 ```bash
-more ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa.pub
 ```
 ///
-/// tab | Server - G<x>.dcfdemo.ddns.net
+/// tab | Leaf11 - authorized keys
 ```bash
-vi ~/.ssh/authorized_keys 
+sudo vi /home/nokia/.ssh/authorized_keys
 ```
 ///
 
@@ -122,9 +204,23 @@ Validation (on the SRL box)
 ///
 
 ```bash
-admin@leaf21:~$ sudo ssh -i ~/.ssh/id_rsa nokia@10.80.252.73
-Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 5.15.0-153-generic x86_64)
+admin@g6-leaf21:~$ sudo ssh -i ~/.ssh/id_rsa nokia@10.128.6.33
+Last login: Sat Sep 20 08:11:22 2025 from 10.128.6.41
+[nokia@g6-leaf11 ~]$ 
 ```
+
+
+///tip
+To troubleshoot you may use the `-vvv` debug flag.
+```bash
+sudo ssh -i ~/.ssh/id_rsa nokia@10.128.6.33
+sudo ssh -i ~/.ssh/id_rsa nokia@10.128.6.33 -vvv
+```
+Most common issues are permissions: home/.ssh/authorized_keys => 700 / 700 / 600
+The other common issue is the key mismatch or syntax. The verbose output should give you hints.
+
+///
+
 
 ## Step 4: develop the `remote-backup.py` script
 
@@ -161,12 +257,58 @@ Two interesting commands:
 
 Example:
 
+/// tab | Reload
 ``` bash
---{ running }--[ system event-handler ]--
-A:leaf21# / tools system event-handler instance backup-config-on-changes reload
-/system/event-handler/instance[name=backup-config-on-changes]:
-    instance backup-config-on-changes reloaded
+A:admin@g7-leaf21# / tools system event-handler instance remote-backup reload
+/system/event-handler/instance[name=remote-backup]:
+    instance remote-backup reloaded
+
+
+--{ candidate shared default }--[ system event-handler ]--
 ```
+///
+/// tab | Display event-handler instance 
+``` bash
+A:admin@g7-leaf21# / info from state system event-handler instance remote-backup
+    admin-state enable
+    upython-script remote-backup.py
+    oper-state up
+    paths [
+        "system configuration last-change"
+    ]
+    options {
+        object target {
+            value nokia@10.128.7.33:~/backups/
+        }
+    }
+    last-execution {
+        start-time "2025-09-20T11:09:13.560Z (11 seconds ago)"
+        end-time "2025-09-20T11:09:15.737Z (9 seconds ago)"
+        upython-duration 1
+        input "{\"paths\":[{\"path\":\"system configuration last-change\",\"value\":\"2025-09-20T11:02:08.456Z\"}],\"schemas\":[{\"path\":\"system configuration last-change\"}],\"options\":{\"target\":\"nokia@10.128.7.33:~/backups/\"}}"
+        output "{\"actions\": [{\"run-script\": {\"cmdline\": \"sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no /etc/opt/srlinux/config.json nokia@10.128.7.33:~/backups/config-2025-09-20T11:02:08.456Z.json\"}}]}"
+        stdout-stderr ""
+    }
+    last-errored-execution {
+        oper-down-reason script-action-failed
+        oper-down-reason-detail "Script action timed out for command 'sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/.shh/id_rsa -o StrictHostKeyChecking=no /etc/opt/srlinux/config.json nokia@10.128.7.33:~/backups/config-2025-09-20T11:00:20.368Z.json'"
+        start-time "2025-09-20T11:01:22.609Z (8 minutes ago)"
+        end-time "2025-09-20T11:01:32.902Z (7 minutes ago)"
+        upython-duration 0
+        input "{\"paths\":[{\"path\":\"system configuration last-change\",\"value\":\"2025-09-20T11:00:20.368Z\"}],\"schemas\":[{\"path\":\"system configuration last-change\"}],\"options\":{\"target\":\"nokia@10.128.7.33:~/backups/\"}}"
+        output "{\"actions\": [{\"run-script\": {\"cmdline\": \"sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/.shh/id_rsa -o StrictHostKeyChecking=no /etc/opt/srlinux/config.json nokia@10.128.7.33:~/backups/config-2025-09-20T11:00:20.368Z.json\"}}]}"
+        stdout-stderr ""
+    }
+    statistics {
+        upython-duration 180
+        execution-count 294
+        execution-successes 4
+        execution-errors 290
+    }
+
+--{ candidate shared default }--[ system event-handler ]--
+```
+///
 
 /// details | Solution
     type: success
@@ -187,7 +329,7 @@ If you did not manage to implement the solution fully, you can find an example s
 #    ]
 #    options {
 #        object target {
-#            value 'srlinux@10.128.1.1:/home/srlinux/backups/'
+#            value 'nokia@10.128.<GID>.33:~/backups/'
 #        }
 #    }
 
@@ -212,13 +354,21 @@ def event_handler_main(in_json_str):
         "actions": [
             {
                 "run-script": {
-                    "cmdline": f"sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/id_rsa -o StrictHostKeyChecking=no /etc/opt/srlinux/config.json {target}config-{timestamp}.json"
+                    "cmdline": f"sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no /etc/opt/srlinux/config.json {target}config-{timestamp}.json"
                 }
             }
         ]
     }
 
     return json.dumps(response)
+```
+///
+
+/// tab | Test command
+You may use the following command from the bash to troubleshoot. Just replace <GID> with your group ID.
+```bash
+#sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no /etc/opt/srlinux/config.json nokia@10.128.<GID>.33:~/backups/<FILENAME>
+sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no /etc/opt/srlinux/config.json nokia@10.128.6.33:~/backups/Test
 ```
 ///
 

@@ -158,10 +158,19 @@ Create an alias `show bfd` to simplify this long command. Add an optional parame
 You need to parameterize the subinterface, in this example it's system0.0. Try to add `{}` in the correct location in the long command when creating the alias
 </details>
 
-<details>
-<summary>Solution</summary>
+/// details | Solution
+    type: success
 
-```python
+
+/// tab | Commands
+```bash
+environment alias "show bfd" "info from state bfd subinterface {} | as table | filter fields admin-state desired-minimum-transmit-interval required-minimum-receive detection-multiplier minimum-echo-receive-interval max-hop-count"
+show bfd system0.0
+```
+///
+
+/// tab | Output
+```bash
 A:leaf11# environment alias "show bfd" "info from state bfd subinterface {} | as table | filter fields admin-state desired-minimum-transmit-interval required-minimum-receive detection-multiplier minimum-echo-receive-interval max-hop-count"
 
 --{ running }--[  ]--
@@ -172,10 +181,12 @@ A:leaf11# show bfd system0.0
 | system0.0                | enable      |                            100000 |                   100000 |                    3 |                             0 |           255 |
 +--------------------------+-------------+-----------------------------------+--------------------------+----------------------+-------------------------------+---------------+
 
-
 ```
+///
 
-</details>
+///
+
+
 
 <!-- Load and Save Env -->
 ## Appendix: Saving aliases

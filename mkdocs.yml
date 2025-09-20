@@ -58,7 +58,7 @@ nav:
   - Supporting tools and plugins:
       - tools/tools-bash-basics.md
       - tools/tools-clab-vscode-plugin.md
-
+      - tools/tools_vi_indentation.md
 site_author: Nokia
 site_description: >-
   SReXperts hackathon event guidelines

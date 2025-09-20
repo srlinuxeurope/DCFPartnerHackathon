@@ -11,4 +11,3 @@ spec:
   interfaceSelector:
     - edge-type=compute
   vlanID: "1"
-  macDuplicationDetectionAction: "UseBridgeDomainAction"

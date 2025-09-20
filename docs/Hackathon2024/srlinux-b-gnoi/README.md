@@ -42,11 +42,15 @@ SR Linux supports the following gNOI file RPCs:
 
 ### SR Linux Configuration for gNOI
 
-Choose a SR Linux device in your topology.
+Open a new session to `leaf11` and login to this device with:
+```bash
+ssh admin@clab-dcfpartnerws-leaf11
+```
+Credentials for SRLinux nodes are: `admin/NokiaSrl1!`
 
 Login to the SR Linux device and configure/verify the following. When deploying a SR Linux container using [Containerlab](https://containerlab.dev/), gRPC and gNOI are enabled by Containerlab by default. It is ready to use.
 
-The below example is provided as a reference for an insecure connection that should only be used in lab environments. By default, Containerlab sets up a secured TLS connection for gRPC services.
+The below example is provided as a reference for an insecure connection that should only be used in lab environments. By default, Containerlab sets up a secured TLS connection for gRPC services, but it may not be available in your setup as we override CLAB configs for the hackathon. We all replace default port `57400` with `57410`.
 
 ```
 set / system grpc-server mgmt admin-state enable
@@ -108,9 +112,13 @@ ZVmupvtACHHh5GiTgiXO9xXoATYDVA==
 
 ### gNOI client
 
-gNOIc is already installed on the server that runs the lab topology.
+You may install gNOIc in your VM the single command below. Further details on [gNOIc](https://gnoic.kmrd.dev/) page.
 
-To test this, run the below command on the VM:
+```bash
+bash -c "$(curl -sL https://get-gnoic.kmrd.dev)"
+```
+
+You may test if gNOIc is already installed using `gnoic version`.
 
 ```
 # gnoic version
@@ -135,30 +143,47 @@ The Stat RPC returns metadata about files on the target node.
 
 If the path specified in the StatRequest references a directory, the StatResponse returns the metadata for all files and folders, including the parent directory. If the path references a direct path to a file, the StatResponse returns metadata for the specified file only.
 
-The target node returns an error if:
-- The file does not exist.
-- An error occurs while accessing the metadata.
+The target node returns an error if:  
+- The file does not exist.  
+- An error occurs while accessing the metadata.  
 
 Let's go ahead and list files in the /opt/srlinux directory. We will be using the `--skip-verify` flag in gNOIc to indicate that the target should skip the signature verification steps.
 
-```
-# gnoic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify file stat --path /opt/srlinux
-+-----------------------------+-------------------------+---------------------------+------------+------------+------+
-|         Target Name         |          Path           |       LastModified        |    Perm    |   Umask    | Size |
-+-----------------------------+-------------------------+---------------------------+------------+------------+------+
-| clab-dcfpartnerws-leaf11:57400 | /opt/srlinux/appmgr     | 2024-05-04T02:52:34+03:00 | drwxr-xr-x | -----w--w- | 0    |
-|                             | /opt/srlinux/bin        | 2024-05-04T02:52:44+03:00 | drwxr-xr-x | -----w--w- | 0    |
-|                             | /opt/srlinux/python     | 2024-02-16T04:54:07+02:00 | drwxr-xr-x | -----w--w- | 0    |
-|                             | /opt/srlinux/snmp       | 2024-05-04T02:52:37+03:00 | drwxr-xr-x | -----w--w- | 0    |
-|                             | /opt/srlinux/systemd    | 2024-05-04T02:52:34+03:00 | drwxr-xr-x | -----w--w- | 0    |
-|                             | /opt/srlinux/usr        | 2024-02-16T04:54:07+02:00 | drwxr-xr-x | -----w--w- | 0    |
-|                             | /opt/srlinux/var        | 2024-02-16T04:54:18+02:00 | drwxr-xr-x | -----w--w- | 0    |
-|                             | /opt/srlinux/ztp        | 2024-05-04T02:52:37+03:00 | drwxr-xr-x | -----w--w- | 0    |
-+-----------------------------+-------------------------+---------------------------+------------+------------+------+
+```bash
+nokia@g6:~$ gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file stat --path /opt/srlinux
++--------------------------------+-------------------------+---------------------------+------------+------------+------+
+|          Target Name           |          Path           |       LastModified        |    Perm    |   Umask    | Size |
++--------------------------------+-------------------------+---------------------------+------------+------------+------+
+| clab-dcfpartnerws-leaf11:57410 | /opt/srlinux/appmgr     | 2025-08-19T02:09:01+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/bin        | 2025-08-19T02:09:02+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/deviations | 2025-08-19T02:09:02+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/etc        | 2025-08-19T02:09:01+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/eventmgr   | 2025-08-19T02:08:58+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/imm        | 2025-08-19T02:08:59+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/kexec      | 2025-08-19T02:09:01+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/lib        | 2025-08-19T02:09:02+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/mappings   | 2025-08-19T02:09:02+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/models     | 2025-08-19T02:09:04+01:00 | drwxrwxrwx | -----w--w- | 0    |
+|                                | /opt/srlinux/osync      | 2025-08-19T02:09:00+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/phy        | 2025-08-19T02:08:57+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/protos     | 2025-08-19T02:09:02+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/python     | 2025-08-19T02:09:00+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/snmp       | 2025-08-19T02:09:03+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/systemd    | 2025-08-19T02:09:03+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/usr        | 2025-08-19T02:08:57+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/var        | 2025-06-05T16:55:53+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/version    | 2025-08-19T02:09:04+01:00 | drwxr-xr-x | -----w--w- | 0    |
+|                                | /opt/srlinux/ztp        | 2025-08-19T02:09:04+01:00 | drwxr-xr-x | -----w--w- | 0    |
++--------------------------------+-------------------------+---------------------------+------------+------------+------+
+nokia@g6:~$ 
 
 ```
 
 Tip - Try adding the `--format json` option at the end to see the above output in json format.
+
+```bash
+gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file stat --path /opt/srlinux --format json
+```
 
 ### Getting Files from SR Linux
 
@@ -166,10 +191,10 @@ Next we are going to transfer a file from the device to our host VM.
 
 The Get RPC reads and streams the contents of a file from a target node to the client using sequential messages, and sends a final message containing the hash of the streamed data before closing the stream.
 
-The target node returns an error if:
+The target node returns an error if:  
 
-- An error occurs while reading the file.
-- The file does not exist.
+- An error occurs while reading the file.  
+- The file does not exist.  
 
 Create a directory on the VM and name it `srl-gnoi-<yourname>`. We will transfer the `srl_boot.log` file from the router to this directory. Verify the file was transferred to the VM.
 
@@ -180,19 +205,27 @@ For example, if your name is Chris, the directory will be named srl-gnoi-chris.
 # cd srl-gnoi-chris
 ```
 
-```
-# gnoic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify file get --file /var/log/srlinux/srl_boot.log --dst .
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" received 27572 bytes 
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/var/log/srlinux/srl_boot.log" saved 
+```bash
+nokia@g6:~/srl-gnoi-chris$ sudo gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file get --file /var/log/srlinux/srl_boot.log --dst .
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" received 26590 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "/var/log/srlinux/srl_boot.log" saved 
+nokia@g6:~/srl-gnoi-chris$ 
 ```
 
-```
-# tail var/log/srlinux/srl_boot.log
-[23:52:35.906]:[sr_boot_run.sh]: Entering srl_boot_run.sh
-[23:52:35.923]:[11_sr_createuser.sh]: Executed: 'sudo sed -i s/^[       ]*#[    ]*\(HOME_MODE[  ]\+0700.*\)/\1/ /etc/login.defs'
-[23:52:35.955]:[11_sr_createuser.sh]: Executed: '/usr/sbin/groupadd ntwkadmin -g 997'
-[23:52:35.957]:[11_sr_createuser.sh]: Created group ntwkadmin
-[23:52:35.988]:[11_sr_createuser.sh]: Executed: '/usr/sbin/groupadd ntwkuser -g 996
+```bash
+nokia@g6:~/srl-gnoi-chris$ tail -f ./var/log/srlinux/srl_boot.log 
+[01:46:14.631]:[32_sr_sshkeys_permission.sh]:[17]: executing /opt/srlinux/bin/bootscript/33_sr_login_pamd_fix.sh
+[01:46:14.641]:[33_sr_login_pamd_fix.sh]:[17]: executing /opt/srlinux/bin/bootscript/34_sr_pam_limits.sh
+[01:46:14.661]:[34_sr_pam_limits.sh]:[17]: executing /opt/srlinux/bin/bootscript/36_sr_ethtool_mgmt.sh
+[01:46:14.672]:[36_sr_ethtool_mgmt.sh]:[17]: executing /opt/srlinux/bin/bootscript/37_sr_cpu_performance.sh
+[01:46:14.683]:[37_sr_cpu_performance.sh]:[17]: executing /opt/srlinux/bin/bootscript/50_sr_link_squashfs.sh
+[01:46:14.693]:[50_sr_link_squashfs.sh]:[17]: /var/run/srldpapps is not a mountpoint
+[01:46:14.701]:[50_sr_link_squashfs.sh]:[17]: executing /opt/srlinux/bin/bootscript/51_sr_update_imminittar.sh
+[01:46:14.720]:[51_sr_update_imminittar.sh]:[17]: executing /opt/srlinux/bin/bootscript/60_sr_rescue_nsh.sh
+[01:46:14.733]:[60_sr_rescue_nsh.sh]:[17]: executing /opt/srlinux/bin/bootscript/85_sr_debug_infos.sh
+[01:46:14.749]:[85_sr_debug_infos.sh]:[17]: executing /opt/srlinux/bin/bootscript/89_sr_start_srlinux.sh
+^C
+nokia@g6:~/srl-gnoi-chris$ 
 ```
 
 ### Putting Files to SR Linux
@@ -209,26 +242,45 @@ The target node returns an error if:
 Select or create a file on your VM (in your own directory) to be transferred over to the device. Verify the file transferred on the router.
 
 ```
-# echo "show interface" > show-int.txt
+cd /tmp
+echo "show interface" > show-int.txt
 ```
 
 ```
-# gnoic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify file put --file show-int.txt --dst /home/admin/show-int.txt
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" sending file="show-int.txt" hash 
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "show-int.txt" written successfully
+nokia@g6:/tmp$ gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file put --file show-int.txt --dst /tmp/show-int.txt
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" sending file="show-int.txt" hash 
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "show-int.txt" written successfully 
 ```
 
-```
+```bash
 On the router:
 
---{ running }--[  ]--
-A:leaf11# bash cat show-int.txt
+admin@g6-leaf11:~$ sudo cat /tmp/show-int.txt 
 show interface
-
---{ running }--[  ]--
+admin@g6-leaf11:~$
 ```
 
 Tip: Try executing the file we just transferred using the `source` command in SR Linux.
+
+```bash
+--{ + running }--[  ]--
+A:admin@g6-leaf11# source /tmp/show-int.txt
+Sourcing commands from '/tmp/show-int.txt'
+0 lines ================================================================================================================================================================================================================================================================
+ethernet-1/1 is up, speed 25G, type None
+  ethernet-1/1.1 is up
+    Network-instances:
+      * Name: macvrf1 (mac-vrf)
+    Encapsulation   : vlan-id 1
+    Type            : bridged
+  ethernet-1/1.101 is up
+    Network-instances:
+      * Name: macvrf101 (mac-vrf)
+    Encapsulation   : vlan-id 101
+    Type            : bridged
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+```
 
 ### Removing Files from SR Linux
 
@@ -242,19 +294,21 @@ The target node returns an error if:
 - The file does not exist.
 - The path references a directory instead of a file.
 
-```
-# gnoic -a clab-dcfpartnerws-leaf11 -u admin -p NokiaSrl1! --skip-verify file remove --path /home/admin/show-int.txt
-INFO[0000] "clab-dcfpartnerws-leaf11:57400" file "/home/admin/show-int.txt" removed successfully 
+```bash
+nokia@g6:/tmp$ gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file remove --path /tmp/show-int.txt
+INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "/tmp/show-int.txt" removed successfully 
+nokia@g6:/tmp$ 
 ```
 
-```
+```bash
 On the router:
 
---{ running }--[  ]--
-A:leaf11# bash cat show-int.txt
-cat: show-int.txt: No such file or directory
+--{ + running }--[  ]--
+A:admin@g6-leaf11# bash cat /tmp/show-int.txt
+cat: /tmp/show-int.txt: No such file or directory
 
---{ running }--[  ]--
+--{ + running }--[  ]--
+A:admin@g6-leaf11#
 ```
 
 ## Practical scenarios with gNOI

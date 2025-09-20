@@ -127,6 +127,9 @@ topology:
       ports:
         - 50033:22
         - 50333:57400
+      binds:
+        ### Activity#20 - SR Linux basic agent - agent files folder bind
+        - ../activities/nos/srlinux/20-SRLinux-basic-agent/leaf11_agent:/etc/opt/srlinux/appmgr/:rw
     leaf12:
       kind: nokia_srlinux
       type: ixr-d2l
@@ -145,6 +148,9 @@ topology:
       ports:
         - 50035:22
         - 50335:57400
+      binds:
+        ### Activity#20 - SR Linux basic agent - agent files folder bind
+        - ../activities/nos/srlinux/20-SRLinux-basic-agent/solution:/etc/opt/srlinux/appmgr/:rw
     client11:
       kind: linux
       group: dcclient

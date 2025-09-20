@@ -50,7 +50,7 @@ Credentials for SRLinux nodes are: `admin/NokiaSrl1!`
 
 Login to the SR Linux device and configure/verify the following. When deploying a SR Linux container using [Containerlab](https://containerlab.dev/), gRPC and gNOI are enabled by Containerlab by default. It is ready to use.
 
-The below example is provided as a reference for an insecure connection that should only be used in lab environments. By default, Containerlab sets up a secured TLS connection for gRPC services, but it may not be available in your setup as we override CLAB configs for the hackathon. We all replace default port `57400` with `57410`.
+The below example is provided as a reference for an insecure connection that should only be used in lab environments. By default, Containerlab sets up a secured TLS connection for gRPC services, but it may not be available in your setup as we override CLAB configs for the hackathon. We all replace default port `57400` with `57401`.
 
 ```
 set / system grpc-server mgmt admin-state enable
@@ -150,11 +150,11 @@ The target node returns an error if:
 Let's go ahead and list files in the /opt/srlinux directory. We will be using the `--skip-verify` flag in gNOIc to indicate that the target should skip the signature verification steps.
 
 ```bash
-nokia@g6:~$ gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file stat --path /opt/srlinux
+nokia@g6:~$ gnoic -a clab-dcfpartnerws-leaf11:57401 -u admin -p NokiaSrl1! --skip-verify file stat --path /opt/srlinux
 +--------------------------------+-------------------------+---------------------------+------------+------------+------+
 |          Target Name           |          Path           |       LastModified        |    Perm    |   Umask    | Size |
 +--------------------------------+-------------------------+---------------------------+------------+------------+------+
-| clab-dcfpartnerws-leaf11:57410 | /opt/srlinux/appmgr     | 2025-08-19T02:09:01+01:00 | drwxr-xr-x | -----w--w- | 0    |
+| clab-dcfpartnerws-leaf11:57401 | /opt/srlinux/appmgr     | 2025-08-19T02:09:01+01:00 | drwxr-xr-x | -----w--w- | 0    |
 |                                | /opt/srlinux/bin        | 2025-08-19T02:09:02+01:00 | drwxr-xr-x | -----w--w- | 0    |
 |                                | /opt/srlinux/deviations | 2025-08-19T02:09:02+01:00 | drwxr-xr-x | -----w--w- | 0    |
 |                                | /opt/srlinux/etc        | 2025-08-19T02:09:01+01:00 | drwxr-xr-x | -----w--w- | 0    |
@@ -182,7 +182,7 @@ nokia@g6:~$
 Tip - Try adding the `--format json` option at the end to see the above output in json format.
 
 ```bash
-gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file stat --path /opt/srlinux --format json
+gnoic -a clab-dcfpartnerws-leaf11:57401 -u admin -p NokiaSrl1! --skip-verify file stat --path /opt/srlinux --format json
 ```
 
 ### Getting Files from SR Linux
@@ -206,9 +206,9 @@ For example, if your name is Chris, the directory will be named srl-gnoi-chris.
 ```
 
 ```bash
-nokia@g6:~/srl-gnoi-chris$ sudo gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file get --file /var/log/srlinux/srl_boot.log --dst .
-INFO[0000] "clab-dcfpartnerws-leaf11:57410" received 26590 bytes 
-INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "/var/log/srlinux/srl_boot.log" saved 
+nokia@g6:~/srl-gnoi-chris$ sudo gnoic -a clab-dcfpartnerws-leaf11:57401 -u admin -p NokiaSrl1! --skip-verify file get --file /var/log/srlinux/srl_boot.log --dst .
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" received 26590 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" file "/var/log/srlinux/srl_boot.log" saved 
 nokia@g6:~/srl-gnoi-chris$ 
 ```
 
@@ -247,9 +247,9 @@ echo "show interface" > show-int.txt
 ```
 
 ```
-nokia@g6:/tmp$ gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file put --file show-int.txt --dst /tmp/show-int.txt
-INFO[0000] "clab-dcfpartnerws-leaf11:57410" sending file="show-int.txt" hash 
-INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "show-int.txt" written successfully 
+nokia@g6:/tmp$ gnoic -a clab-dcfpartnerws-leaf11:57401 -u admin -p NokiaSrl1! --skip-verify file put --file show-int.txt --dst /tmp/show-int.txt
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" sending file="show-int.txt" hash 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" file "show-int.txt" written successfully 
 ```
 
 ```bash
@@ -295,8 +295,8 @@ The target node returns an error if:
 - The path references a directory instead of a file.
 
 ```bash
-nokia@g6:/tmp$ gnoic -a clab-dcfpartnerws-leaf11:57410 -u admin -p NokiaSrl1! --skip-verify file remove --path /tmp/show-int.txt
-INFO[0000] "clab-dcfpartnerws-leaf11:57410" file "/tmp/show-int.txt" removed successfully 
+nokia@g6:/tmp$ gnoic -a clab-dcfpartnerws-leaf11:57401 -u admin -p NokiaSrl1! --skip-verify file remove --path /tmp/show-int.txt
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" file "/tmp/show-int.txt" removed successfully 
 nokia@g6:/tmp$ 
 ```
 

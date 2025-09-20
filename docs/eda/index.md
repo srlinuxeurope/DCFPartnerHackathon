@@ -32,7 +32,7 @@ When inside a particular exercise, you should complete the tasks in the order th
 
 The lab environment you work on features a DC network topology with EDA already installed and a number of SR Linux datacenter switches already onboarded onto the platform. In particular, EDA manages five switches in total: `leaf11`, `leaf12`, `leaf13`, `spine11`, `spine12`.
 
--{{ diagram(url='srexperts/hackathon-diagrams/main/eda.drawio', title='EDA Managed nodes', page=0, zoom=1.5) }}-
+![topology](../../diagrams/eda-onboarded-nodes.png)
 
 As you go through the exercise, you might connect to the EDA UI, one of the switches or clients connected to them.
 

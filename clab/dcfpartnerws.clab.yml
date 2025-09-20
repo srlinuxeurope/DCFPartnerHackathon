@@ -47,7 +47,7 @@ topology:
       ports:
         - 50015:22
       env:
-        USER_PASSWORD: NokiaSrl1!
+        USER_PASSWORD: ${EVENT_PASSWORD}
     # PE-layers
     pe1:
       kind: nokia_srsim
@@ -81,7 +81,7 @@ topology:
       ports:
         - 50025:22
       env:
-        USER_PASSWORD: NokiaSrl1!
+        USER_PASSWORD: ${EVENT_PASSWORD}
     client02:
       kind: linux
       group: peclient
@@ -99,7 +99,7 @@ topology:
       ports:
         - 50026:22
       env:
-        USER_PASSWORD: NokiaSrl1!
+        USER_PASSWORD: ${EVENT_PASSWORD}
     # DC1
     spine11:
       kind: nokia_srlinux
@@ -171,7 +171,7 @@ topology:
       ports:
         - 50036:22
       env:
-        USER_PASSWORD: NokiaSrl1!
+        USER_PASSWORD: ${EVENT_PASSWORD}
     client12:
       kind: linux
       group: dcclient
@@ -188,7 +188,7 @@ topology:
       ports:
         - 50037:22
       env:
-        USER_PASSWORD: NokiaSrl1!
+        USER_PASSWORD: ${EVENT_PASSWORD}
     client13:
       kind: linux
       group: dcclient
@@ -208,7 +208,7 @@ topology:
       ports:
         - 50038:22
       env:
-        USER_PASSWORD: NokiaSrl1!
+        USER_PASSWORD: ${EVENT_PASSWORD}
     # DC2
     leaf21:
       kind: nokia_srlinux
@@ -235,7 +235,7 @@ topology:
       ports:
         - 50042:22
       env:
-        USER_PASSWORD: NokiaSrl1!
+        USER_PASSWORD: ${EVENT_PASSWORD}
     
     ### TELEMETRY STACK ###
     gnmic:

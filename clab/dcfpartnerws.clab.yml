@@ -92,6 +92,7 @@ topology:
         - configs/client/interfaces-client02:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
+        - configs/client/probe.sh:/probe.sh
       exec:
         - bash /client.sh
         - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
@@ -127,6 +128,9 @@ topology:
       ports:
         - 50033:22
         - 50333:57400
+      binds:
+        ### Activity#20 - SR Linux basic agent - agent files folder bind
+        - ../activities/nos/srlinux/20-SRLinux-basic-agent/leaf11_agent:/etc/opt/srlinux/appmgr/:rw
     leaf12:
       kind: nokia_srlinux
       type: ixr-d2l
@@ -145,6 +149,9 @@ topology:
       ports:
         - 50035:22
         - 50335:57400
+      binds:
+        ### Activity#20 - SR Linux basic agent - agent files folder bind
+        - ../activities/nos/srlinux/20-SRLinux-basic-agent/solution:/etc/opt/srlinux/appmgr/:rw
     client11:
       kind: linux
       group: dcclient
@@ -155,9 +162,12 @@ topology:
         - configs/client/interfaces-client11:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
+        - configs/client/probe-responder.sh:/probe-responder.sh
+        - configs/client/probe.sh:/probe.sh
       exec:
         - bash /client.sh
         - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
+        - setsid /probe-responder.sh
       ports:
         - 50036:22
       env:
@@ -189,9 +199,12 @@ topology:
         - configs/client/interfaces-client13:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh
+        - configs/client/probe-responder.sh:/probe-responder.sh
+        - configs/client/probe.sh:/probe.sh
       exec:
         - bash /client.sh
         - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
+        - setsid /probe-responder.sh
       ports:
         - 50038:22
       env:

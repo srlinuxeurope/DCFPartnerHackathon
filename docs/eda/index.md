@@ -18,7 +18,7 @@ While the concept of declarative intents or blueprints is not new, in EDA made s
 
 And it would be a miss to keep EDA anchored to Nokia-only devices, that is why we ensured that EDA core is **multivendor** and users can leverage EDA superpowers with other vendors and their devices and APIs[^1].
 
-At SReXperts Hackathon, you get a unique chance to spend a day with EDA by venturing into the exercises meticulously crafted by the EDA team and be the judge of its capabilities.
+At DCF Partner Hackathon, you get a unique chance to spend a day with EDA by venturing into the exercises meticulously crafted by the EDA team and be the judge of its capabilities.
 
 ## How to get through the exercises?
 
@@ -37,7 +37,7 @@ The lab environment you work on features a DC network topology with EDA already 
 As you go through the exercise, you might connect to the EDA UI, one of the switches or clients connected to them.
 
 /// tab | UI
-Most of the exercises can be completed by using EDA Web UI. The UI is accessible over `https://{your-group-id}.srexperts.net:9443`.
+Most of the exercises can be completed by using EDA Web UI. The UI is accessible over `https://{your-group-id}.dcfdemo.ddns.net:5{your-group-id}01`.
 
 The login credentials are available in the leaflet provided to you.
 ///
@@ -46,7 +46,7 @@ The login credentials are available in the leaflet provided to you.
 The lab server runs the EDA platform and the whole lab topology. You will need to login to the topology server when you want to SSH further into one of the switches or clients.
 
 ```
-ssh nokia@{your-group-id}.srexperts.net
+ssh nokia@{your-group-id}.dcfdemo.ddns.net
 ```
 
 You will find the server credentials in the leaflet provided to you.
@@ -61,11 +61,11 @@ ssh admin@{switch-hostname}
 
 The switch hostnames are:
 
-* `clab-srexperts-leaf11`
-* `clab-srexperts-leaf12`
-* `clab-srexperts-leaf13`
-* `clab-srexperts-spine11`
-* `clab-srexperts-spine12`
+* `clab-dcfpartnerws-leaf11`
+* `clab-dcfpartnerws-leaf12`
+* `clab-dcfpartnerws-leaf13`
+* `clab-dcfpartnerws-spine11`
+* `clab-dcfpartnerws-spine12`
 
 You will find the switch credentials in the leaflet provided to you.
 ///
@@ -82,9 +82,9 @@ ssh user@{client-hostname}
 
 The switch hostnames are:
 
-* `clab-srexperts-client11`
-* `clab-srexperts-client12`
-* `clab-srexperts-client13`
+* `clab-dcfpartnerws-client11`
+* `clab-dcfpartnerws-client12`
+* `clab-dcfpartnerws-client13`
 
 The client's credentials are `user:multit00l`
 
@@ -183,7 +183,7 @@ As you go through the exercises, you will create and modify quite a few resource
 In such cases you can manually delete conflicting resources, but if you want to reset EDA to a state as it was at the beginning of the hackathon, you can easily do this by running the following command from the lab server:
 
 ```bash
-bash /opt/srexperts/restore-eda.sh
+bash /home/nokia/DCFPartnerHackathon/eda/restore-eda.sh
 ```
 
 This script will immediately revert all changes happened in EDA since you first logged in so you can start fresh.

@@ -378,411 +378,177 @@ CLAB_LABDIR_BASE=/home/nokia sudo -E clab deploy -t $HOME/DCFPartnerHackathon/cl
 /// tab | output
 
 ``` bash
-12:45:38 INFO Containerlab started version=0.69.3
-12:45:38 INFO Parsing & checking topology file=srx.clab.yml
-12:45:38 INFO Creating docker network name=dcfpartnerws IPv4 subnet=10.128.1.0/24 IPv6 subnet="" MTU=0
-12:45:38 INFO Creating lab directory path=/home/nokia/DCFPartnerHackathon/clab-dcfpartnerws
-12:47:09 INFO Creating container name=pe1
-12:47:09 INFO Creating container name=pe2
-12:47:12 INFO Adding configuration node=clab-dcfpartnerws-pe2 type=partial source=/home/nokia/DCFPartnerHackathon/clab/configs/sros/pe2.partial.cfg
-12:47:12 INFO Adding public keys configuration node=clab-dcfpartnerws-pe2
-12:47:12 INFO Waiting for node to be ready. This may take a while node=clab-dcfpartnerws-pe2 log="docker logs -f clab-dcfpartnerws-pe2"
-12:47:12 INFO Adding configuration node=clab-dcfpartnerws-pe1 type=partial source=/home/nokia/DCFPartnerHackathon/clab/configs/sros/pe1.partial.cfg
-12:47:12 INFO Adding public keys configuration node=clab-dcfpartnerws-pe1
-12:47:12 INFO Waiting for node to be ready. This may take a while node=clab-dcfpartnerws-pe1 log="docker logs -f clab-dcfpartnerws-pe1"
-12:49:10 INFO node "pe2" turned healthy, continuing
-12:49:11 INFO node "pe1" turned healthy, continuing
-12:50:42 INFO node "client11" is being delayed for 120 seconds
-12:50:42 INFO node "client01" is being delayed for 120 seconds
-12:50:42 INFO node "client21" is being delayed for 120 seconds
-12:50:42 INFO node "client12" is being delayed for 120 seconds
-12:50:42 INFO node "prometheus" is being delayed for 120 seconds
-12:50:42 INFO node "codeserver" is being delayed for 120 seconds
-12:50:42 INFO node "grafana" is being delayed for 120 seconds
-12:50:42 INFO node "loki" is being delayed for 120 seconds
-12:50:42 INFO node "client02" is being delayed for 120 seconds
-12:50:42 INFO node "dns" is being delayed for 120 seconds
-12:50:42 INFO node "client13" is being delayed for 120 seconds
-12:50:42 INFO node "syslog" is being delayed for 120 seconds
-12:50:42 INFO node "gnmic" is being delayed for 120 seconds
-12:50:42 INFO Creating container name=spine11
-12:50:42 INFO Creating container name=leaf12
-12:50:42 INFO Creating container name=leaf11
-12:50:42 INFO Creating container name=leaf13
-12:50:42 INFO Creating container name=spine12
-12:50:42 INFO Creating container name=leaf21
-12:50:44 INFO Created link: pe2:eth3 ▪┄┄▪ spine11:e1-32
-12:50:45 INFO Created link: pe1:eth5 ▪┄┄▪ leaf21:e1-49
-12:50:45 INFO Created link: pe2:eth4 ▪┄┄▪ spine12:e1-32
-12:50:46 INFO Created link: spine11:e1-1 ▪┄┄▪ leaf11:e1-49
-12:50:46 INFO Running postdeploy actions kind=nokia_srlinux node=leaf21
-12:50:46 INFO Created link: spine11:e1-2 ▪┄┄▪ leaf12:e1-49
-12:50:47 INFO Created link: spine12:e1-1 ▪┄┄▪ leaf11:e1-50
-12:50:47 INFO Created link: spine11:e1-3 ▪┄┄▪ leaf13:e1-49
-12:50:47 INFO Running postdeploy actions kind=nokia_srlinux node=spine11
-12:50:47 INFO Running postdeploy actions kind=nokia_srlinux node=leaf12
-12:50:47 INFO Created link: spine12:e1-2 ▪┄┄▪ leaf12:e1-50
-12:50:47 INFO Running postdeploy actions kind=nokia_srlinux node=leaf11
-12:50:48 INFO Created link: spine12:e1-3 ▪┄┄▪ leaf13:e1-50
-12:50:48 INFO Running postdeploy actions kind=nokia_srlinux node=spine12
-12:50:48 INFO Running postdeploy actions kind=nokia_srlinux node=leaf13
-12:52:42 INFO Creating container name=codeserver
-12:52:42 INFO Creating container name=syslog
-12:52:42 INFO Creating container name=client21
-12:52:42 INFO Creating container name=prometheus
-12:52:42 INFO Creating container name=client13
-12:52:42 INFO Creating container name=client01
-12:52:42 INFO Creating container name=client11
-12:52:42 INFO Creating container name=dns
-12:52:42 INFO Creating container name=grafana
-12:52:42 INFO Creating container name=gnmic
-12:52:42 INFO Creating container name=client12
-12:52:42 INFO Creating container name=client02
-12:52:42 INFO Creating container name=loki
-12:52:44 INFO Created link: pe2:eth6 ▪┄┄▪ client02:eth1
-12:52:44 INFO Created link: pe1:eth3 ▪┄┄▪ transit1:eth1
-12:52:45 INFO Created link: leaf11:e1-2 ▪┄┄▪ client12:eth1
-12:52:45 INFO Created link: leaf12:e1-2 ▪┄┄▪ client12:eth2
-12:52:45 INFO Created link: leaf13:e1-2 ▪┄┄▪ client12:eth3
-12:52:45 INFO Created link: leaf21:e1-1 ▪┄┄▪ client21:eth1
-12:52:46 INFO Created link: pe1:eth6 ▪┄┄▪ client01:eth1
-12:52:47 INFO Created link: leaf11:e1-1 ▪┄┄▪ client11:eth1
-12:52:47 INFO Created link: leaf13:e1-3 ▪┄┄▪ client13:eth1
-12:55:03 INFO Executed command node=spine11 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
+12:51:22 INFO Containerlab started version=0.69.3
+12:51:22 INFO Parsing & checking topology file=dcfpartnerws.clab.yml
+12:51:22 INFO Removing directory path=/home/nokia/containerlab/DCFPartnerHackathon/clab/clab-dcfpartnerws
+12:51:22 INFO Creating docker network name=dcfpartnerws IPv4 subnet=10.128.5.0/24 IPv6 subnet="" MTU=0
+12:51:22 INFO Creating lab directory path=/home/nokia/containerlab/DCFPartnerHackathon/clab/clab-dcfpartnerws
+12:51:22 INFO Creating container name=leaf21
+12:51:22 INFO Creating container name=spine12
+12:51:22 INFO Creating container name=leaf13
+12:51:22 INFO Creating container name=leaf12
+12:51:22 INFO Creating container name=spine11
+12:51:22 INFO Creating container name=leaf11
+12:51:22 INFO Adding configuration node=clab-dcfpartnerws-pe1 type=partial source=/home/nokia/containerlab/DCFPartnerHackathon/clab/configs/sros/pe1.partial.cfg
+12:51:22 INFO Creating container name=pe1
+12:51:22 INFO Adding configuration node=clab-dcfpartnerws-pe2 type=partial source=/home/nokia/containerlab/DCFPartnerHackathon/clab/configs/sros/pe2.partial.cfg
+12:51:22 INFO Creating container name=pe2
+12:51:27 INFO Running postdeploy actions kind=nokia_srsim node=pe1
+12:51:28 INFO Created link: pe1:e1-1-c5-1 (1/1/c5/1) ▪┄┄▪ leaf21:e1-49 (ethernet-1/49)
+12:51:28 INFO Running postdeploy actions kind=nokia_srlinux node=leaf21
+12:51:29 INFO Running postdeploy actions kind=nokia_srlinux node=leaf13
+12:51:29 INFO Running postdeploy actions kind=nokia_srlinux node=leaf12
+12:51:30 INFO Created link: spine11:e1-2 (ethernet-1/2) ▪┄┄▪ leaf12:e1-49 (ethernet-1/49)
+12:51:30 INFO Created link: spine11:e1-3 (ethernet-1/3) ▪┄┄▪ leaf13:e1-49 (ethernet-1/49)
+12:51:30 INFO Running postdeploy actions kind=nokia_srlinux node=spine11
+12:51:31 INFO Created link: pe2:e1-1-c1-1 (1/1/c1/1) ▪┄┄▪ pe1:e1-1-c1-1 (1/1/c1/1)
+12:51:31 INFO Created link: pe2:e1-1-c3-1 (1/1/c3/1) ▪┄┄▪ spine11:e1-32 (ethernet-1/32)
+12:51:31 INFO Running postdeploy actions kind=nokia_srsim node=pe2
+12:51:31 INFO Created link: pe2:e1-1-c4-1 (1/1/c4/1) ▪┄┄▪ spine12:e1-32 (ethernet-1/32)
+12:51:31 INFO Created link: spine12:e1-2 (ethernet-1/2) ▪┄┄▪ leaf12:e1-50 (ethernet-1/50)
+12:51:31 INFO Created link: spine12:e1-3 (ethernet-1/3) ▪┄┄▪ leaf13:e1-50 (ethernet-1/50)
+12:51:31 INFO Running postdeploy actions kind=nokia_srlinux node=spine12
+12:51:32 INFO Created link: spine11:e1-1 (ethernet-1/1) ▪┄┄▪ leaf11:e1-49 (ethernet-1/49)
+12:51:32 INFO Created link: spine12:e1-1 (ethernet-1/1) ▪┄┄▪ leaf11:e1-50 (ethernet-1/50)
+12:51:32 INFO Running postdeploy actions kind=nokia_srlinux node=leaf11
+12:51:39 INFO Saved running configuration node=pe2 addr=10.128.5.22
+12:51:39 INFO node "pe2" turned healthy, continuing
+12:51:39 INFO node "syslog" is being delayed for 30 seconds
+12:51:39 INFO node "dns" is being delayed for 30 seconds
+12:51:39 INFO node "grafana" is being delayed for 30 seconds
+12:51:39 INFO node "prometheus" is being delayed for 30 seconds
+12:51:39 INFO node "client12" is being delayed for 30 seconds
+12:51:39 INFO node "loki" is being delayed for 30 seconds
+12:51:39 INFO node "client13" is being delayed for 30 seconds
+12:51:39 INFO node "gnmic" is being delayed for 30 seconds
+12:51:39 INFO node "client01" is being delayed for 30 seconds
+12:51:39 INFO node "client02" is being delayed for 30 seconds
+12:51:39 INFO node "client11" is being delayed for 30 seconds
+12:51:39 INFO node "client21" is being delayed for 30 seconds
+12:51:39 INFO node "promtail" is being delayed for 30 seconds
+12:51:48 INFO Saved running configuration node=pe1 addr=10.128.5.21
+12:52:09 INFO Creating container name=syslog
+12:52:09 INFO Creating container name=dns
+12:52:09 INFO Creating container name=promtail
+12:52:09 INFO Creating container name=prometheus
+12:52:09 INFO Creating container name=gnmic
+12:52:09 INFO Creating container name=grafana
+12:52:09 INFO Creating container name=client01
+12:52:09 INFO Creating container name=client11
+12:52:09 INFO Creating container name=client13
+12:52:09 INFO Creating container name=client21
+12:52:09 INFO Creating container name=client12
+12:52:09 INFO Creating container name=loki
+12:52:09 INFO Creating container name=client02
+12:52:16 INFO Created link: leaf11:e1-1 (ethernet-1/1) ▪┄┄▪ client11:eth1
+12:52:16 INFO Created link: leaf13:e1-3 (ethernet-1/3) ▪┄┄▪ client13:eth1
+12:52:19 INFO Created link: pe2:e1-1-c6-1 (1/1/c6/1) ▪┄┄▪ client02:eth1
+12:52:19 INFO Created link: pe1:e1-1-c6-1 (1/1/c6/1) ▪┄┄▪ client01:eth1
+12:52:20 INFO Created link: leaf11:e1-2 (ethernet-1/2) ▪┄┄▪ client12:eth1
+12:52:20 INFO Created link: leaf12:e1-2 (ethernet-1/2) ▪┄┄▪ client12:eth2
+12:52:20 INFO Created link: leaf13:e1-2 (ethernet-1/2) ▪┄┄▪ client12:eth3
+12:52:20 INFO Created link: leaf21:e1-1 (ethernet-1/1) ▪┄┄▪ client21:eth1
+12:52:22 INFO Created link: pe2:e1-1-c7-1 (1/1/c7/1) ▪┄┄▪ dns:eth1
+12:52:30 INFO Executed command node=client11 command="bash /client.sh" stdout=""
+12:52:30 INFO Executed command node=client11 command="bash -c echo 'nameserver 10.128.5.15' | sudo tee /etc/resolv.conf"
   stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
+  │ nameserver 10.128.5.15
 
-12:55:03 INFO Executed command node=peering2 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
+12:52:30 INFO Executed command node=client13 command="bash /client.sh" stdout=""
+12:52:30 INFO Executed command node=client13 command="bash -c echo 'nameserver 10.128.5.15' | sudo tee /etc/resolv.conf"
   stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
+  │ nameserver 10.128.5.15
 
-12:55:03 INFO Executed command node=leaf12 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
+12:52:30 INFO Executed command node=dns command="bash /client.sh" stdout=""
+12:52:30 INFO Executed command node=client21 command="bash /client.sh" stdout=""
+12:52:30 INFO Executed command node=client21 command="bash -c echo 'nameserver 10.128.5.15' | sudo tee /etc/resolv.conf"
   stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
+  │ nameserver 10.128.5.15
 
-12:55:03 INFO Executed command node=vRR command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
+12:52:30 INFO Executed command node=client01 command="bash /client.sh" stdout=""
+12:52:30 INFO Executed command node=client01 command="bash -c echo 'nameserver 10.128.5.15' | sudo tee /etc/resolv.conf"
   stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
+  │ nameserver 10.128.5.15
 
-12:55:03 INFO Executed command node=spine12 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
+12:52:30 INFO Executed command node=client02 command="bash /client.sh" stdout=""
+12:52:30 INFO Executed command node=client02 command="bash -c echo 'nameserver 10.128.5.15' | sudo tee /etc/resolv.conf"
   stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
+  │ nameserver 10.128.5.15
 
-12:55:03 INFO Executed command node=client02 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=client02 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
+12:52:30 INFO Executed command node=client12 command="bash /client.sh" stdout=""
+12:52:30 INFO Executed command node=client12 command="bash -c echo 'nameserver 10.128.5.15' | sudo tee /etc/resolv.conf"
   stdout=
-  │ nameserver 10.128.15.15
+  │ nameserver 10.128.5.15
 
-12:55:03 INFO Executed command node=transit1 command="bash -c envsubst < /gobgp/gobgp.tmpl.yml | tee /gobgp/gobgp.yml"
-  stdout=
-  │ # Copyright 2023 Nokia
-  │ # Licensed under the BSD 3-Clause License.
-  │ # SPDX-License-Identifier: BSD-3-Clause
-  │
-  │ global:
-  │   config:
-  │     as: 64599
-  │     router-id: 10.46.15.51
-  │   apply-policy:
-  │     config:
-  │       export-policy-list:
-  │         - next-hop-self
-  │       default-export-policy: accept-route
-  │ neighbors:
-  │   - config:
-  │       neighbor-address: 10.64.54.1
-  │       peer-as: 65000
-  │     afi-safis:
-  │       - config:
-  │           afi-safi-name: ipv4-unicast
-  │   - config:
-  │       neighbor-address: fd00:fde8:0:54::1
-  │       peer-as: 65000
-  │     afi-safis:
-  │       - config:
-  │           afi-safi-name: ipv6-unicast
-  │   - config:
-  │         neighbor-address: fd00:fc00:0:51::1
-  │         peer-as: 65000
-  │     afi-safis:
-  │       - config:
-  │           afi-safi-name: ipv6-unicast
-  │   - config:
-  │       neighbor-address: 10.64.54.3
-  │       peer-as: 64699
-  │     afi-safis:
-  │       - config:
-  │           afi-safi-name: ipv4-unicast
-  │   - config:
-  │       neighbor-address: fd00:fde8:0:54::3
-  │       peer-as: 64699
-  │     afi-safis:
-  │       - config:
-  │           afi-safi-name: ipv6-unicast
-  │
-  │ policy-definitions:
-  │   - name: "next-hop-self"
-  │     statements:
-  │       - name: "nhs"
-  │         actions:
-  │           bgp-actions:
-  │             set-next-hop: "self"
-  │           route-disposition: "accept-route"
-12:55:03 INFO Executed command node=transit1 command="bash /client.sh"
-  stdout=
-  │ failed to open file: open /tmp/latest-bview: no such file or directory
-  │ failed to open file: open /tmp/latest-bview: no such file or directory
-
-12:55:03 INFO Executed command node=client12 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=client12 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=sub3 command="ip link set dev eth1 address 00:d0:f6:03:03:03" stdout=""
-12:55:03 INFO Executed command node=sub3 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=sub3 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=sub2 command="ip link set dev eth1 address 00:d0:f6:02:02:02" stdout=""
-12:55:03 INFO Executed command node=sub2 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=sub2 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=ixp1 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
-  stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
-
-12:55:03 INFO Executed command node=agg1 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
-  stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
-
-12:55:03 INFO Executed command node=leaf21 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
-  stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
-
-12:55:03 INFO Executed command node=netbox-housekeeping command="chown -R unit:root /opt/netbox/netbox/media/" stdout=""
-12:55:03 INFO Executed command node=netbox-housekeeping command="chown -R unit:root /opt/netbox/netbox/reports/" stdout=""
-12:55:03 INFO Executed command node=netbox-housekeeping command="chown -R unit:root /opt/netbox/netbox/scripts/" stdout=""
-12:55:03 INFO Executed command node=client21 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=client21 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=client11 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=client11 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=leaf13 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
-  stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
-
-12:55:03 INFO Executed command node=client01 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=client01 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=netbox-worker command="chown -R unit:root /opt/netbox/netbox/media/" stdout=""
-12:55:03 INFO Executed command node=netbox-worker command="chown -R unit:root /opt/netbox/netbox/reports/" stdout=""
-12:55:03 INFO Executed command node=netbox-worker command="chown -R unit:root /opt/netbox/netbox/scripts/" stdout=""
-12:55:03 INFO Executed command node=sub1 command="ip link set dev eth1 address 00:d0:f6:01:01:01" stdout=""
-12:55:03 INFO Executed command node=sub1 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=sub1 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=leaf11 command="bash -c sr_cli /tools system configuration generate-checkpoint name final-config"
-  stdout=
-  │ /system:
-  │     Generated checkpoint '/etc/opt/srlinux/checkpoint/checkpoint-0.json' with name 'final-config' and comment ''
-  │
-
-12:55:03 INFO Executed command node=radius command="bash -c envsubst < /etc/network/interfaces.tmpl | tee /etc/network/interfaces"
-  stdout=
-  │ auto eth1
-  │ iface eth1
-  │     address 10.64.13.0/31
-  │     address fd00:fde8:0:1:15:13:14:1/127
-  │     up ip r a 10.0.0.0/8 via 10.64.13.1 dev eth1
-  │     up ip -6 r a fd00:fde8::/32 via fd00:fde8:0:1:15:13:14:0 dev eth1
-
-12:55:03 INFO Executed command node=radius command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=radius command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=client13 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=client13 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=dns command="bash -c envsubst < /etc/dnsmasq.tmpl.conf | tee /etc/dnsmasq.d/dns.conf"
-  stdout=
-  │ # CLAB Names
-  │ host-record=clab-dcfpartnerws-pe1,10.46.15.21,fd00:fde8::15:21
-  │ host-record=clab-dcfpartnerws-pe2,10.46.15.22,fd00:fde8::15:22
-  │ host-record=clab-dcfpartnerws-spine11,10.46.15.31,fd00:fde8::15:31
-  │ host-record=clab-dcfpartnerws-spine12,10.46.15.32,fd00:fde8::15:32
-  │ host-record=clab-dcfpartnerws-leaf11,10.46.15.33,fd00:fde8::15:33
-  │ host-record=clab-dcfpartnerws-leaf12,10.46.15.34,fd00:fde8::15:34
-  │ host-record=clab-dcfpartnerws-leaf13,10.46.15.35,fd00:fde8::15:35
-  │ host-record=clab-dcfpartnerws-leaf21,10.46.15.41,fd00:fde8::15:41
-  │ # Short names clients
-  │ host-record=client01.grt,10.64.21.11,fd00:fde8:0:21::11
-  │ host-record=client02.grt,10.64.22.11,fd00:fde8:0:22::11
-  │ host-record=client11.grt,10.64.30.11,fd00:fde8:0:30::11
-  │ host-record=client12.grt,10.64.30.12,fd00:fde8:0:30::12
-  │ host-record=client13.grt,10.64.30.13,fd00:fde8:0:30::13
-  │ host-record=client21.grt,10.64.41.21,fd00:fde8:0:41::21
-  │ host-record=client01.vprn.dci,192.168.21.11,fd00:ffdd:0:21::11
-  │ host-record=client02.vprn.dci,192.168.22.11,fd00:ffdd:0:22::11
-  │ host-record=client11.vprn.dci,192.168.30.11,fd00:ffdd:0:30::11
-  │ host-record=client12.vprn.dci,192.168.30.12,fd00:ffdd:0:30::12
-  │ host-record=client13.vprn.dci,192.168.30.13,fd00:ffdd:0:30::13
-  │ host-record=client21.vprn.dci,192.168.41.21,fd00:ffdd:0:41::21
-  │ host-record=client11.edavpls.dci,10.30.0.11,fd00:fdfd:0:3000::11
-  │ host-record=client12.edavpls.dci,10.30.0.12,fd00:fdfd:0:3000::12
-  │ host-record=client13.edavpls.dci,10.30.0.13,fd00:fdfd:0:3000::13
-  │ host-record=client11.edavprn.dci,10.30.1.11,fd00:fdfd:0:3001::11
-  │ host-record=client12.edavprn.dci,10.30.2.12,fd00:fdfd:0:3002::12
-  │ host-record=client13.edavprn.dci,10.30.3.13,fd00:fdfd:0:3003::13
-  │ # Short names point-to-points
-  │ #pe1
-  │ host-record=p1.interface.pe1.router,10.64.11.1,fd00:fde8:0:1:15:11:21:1
-  │ host-record=p2.interface.pe1.router,10.64.12.1,fd00:fde8:0:1:15:12:21:1
-  │ host-record=client01.interface.pe1.router,10.64.21.1,fd00:fde8:0:21::1
-  │ host-record=client01.interface.pe1.vprn.dci,192.168.21.1,fd00:ffdd:0:21::1
-  │ host-record=pe1.interface.transit1.router,10.64.54.0,fd00:fde8:0:54::0
-  │ #pe2
-  │ host-record=client02.interface.pe2.router,10.64.22.1,fd00:fde8:0:22::1
-  │ host-record=client02.interface.pe2.vprn.dci,192.168.22.1,fd00:ffdd:0:22::1
-  │ host-record=spine11.interface.pe2.router,fd00:fde8:0:1:15:22:31:0
-  │ host-record=spine12.interface.pe2.router,fd00:fde8:0:1:15:22:32:0
-  │ # Special addresses
-  │ host-record=anycast-gw.irb0.1.leafs.dc1,10.64.30.1,fd00:fde8:0:30::1
-  │ host-record=anycast-gw.irb0.101.vprn.dci.leafs.dc1,192.168.30.1,fd00:ffdd:0:30::1
-  │ host-record=anycast-gw.irb0.1.leaf21.dc2,10.64.41.1,fd00:fde8:0:41::1
-  │ host-record=anycast-gw.irb0.102.vprn.dci.leaf21.dc2,192.168.41.1,fd00:ffdd:0:41::1
-  │ #
-  │ address=/web1.dcfpartnerws.topology/10.64.21.11
-  │ address=/web2.dcfpartnerws.topology/10.64.22.11
-  │ address=/web3.dcfpartnerws.topology/10.64.23.11
-  │ # [/]
-  │ # A:admin@pe1# ping clab-dcfpartnerws-pe1
-  │ # PING 10.64.21.1 56 data bytes
-  │ # 64 bytes from 10.64.21.1: icmp_seq=1 ttl=64 time=0.120ms.
-
-12:55:03 ERRO Failed to execute command command="bash /client.sh" node=dns rc=5 stdout=""
-  stderr=
-  │ ifup: could not acquire exclusive lock for eth1.1: Resource temporarily unavailable
-  │ chpasswd: password for 'user' changed
-  │
-  │ dnsmasq: failed to create inotify: No file descriptors available
-
-12:55:03 INFO Executed command node=client04 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=client04 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:03 INFO Executed command node=client03 command="bash /client.sh" stdout=""
-12:55:03 INFO Executed command node=client03 command="bash -c echo 'nameserver 10.128.15.15' | sudo tee /etc/resolv.conf"
-  stdout=
-  │ nameserver 10.128.15.15
-
-12:55:04 INFO Adding host entries path=/etc/hosts
-12:55:04 INFO Adding SSH config for nodes path=/etc/ssh/ssh_config.d/clab-dcfpartnerws.conf
-🎉 A newer containerlab version (0.68.0) is available!
-Release notes: https://containerlab.dev/rn/0.68/
-Run 'sudo clab version upgrade' or see https://containerlab.dev/install/ for installation options.
-╭────────────────────────────────────┬─────────────────────────────────────────────┬─────────┬────────────────╮
-│                Name                │                  Kind/Image                 │  State  │ IPv4/6 Address │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-client01         │ linux                                       │ running │ 10.128.15.25   │
-│                                    │ ghcr.io/srl-labs/network-multitool          │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-client02         │ linux                                       │ running │ 10.128.15.26   │
-│                                    │ ghcr.io/srl-labs/network-multitool          │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-client11         │ linux                                       │ running │ 10.128.15.36   │
-│                                    │ ghcr.io/srl-labs/network-multitool          │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-client12         │ linux                                       │ running │ 10.128.15.37   │
-│                                    │ ghcr.io/srl-labs/network-multitool          │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-client13         │ linux                                       │ running │ 10.128.15.38   │
-│                                    │ ghcr.io/srl-labs/network-multitool          │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-client21         │ linux                                       │ running │ 10.128.15.42   │
-│                                    │ ghcr.io/srl-labs/network-multitool          │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-codeserver       │ linux                                       │ running │ 10.128.15.90   │
-│                                    │ ghcr.io/coder/code-server:latest            │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-dns              │ linux                                       │ running │ 10.128.15.15   │
-│                                    │ ghcr.io/srl-labs/network-multitool          │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-gnmic            │ linux                                       │ running │ 10.128.15.71   │
-│                                    │ ghcr.io/openconfig/gnmic:0.38.2             │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-grafana          │ linux                                       │ running │ 10.128.15.73   │
-│                                    │ grafana/grafana:10.3.5                      │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-leaf11           │ nokia_srlinux                               │ running │ 10.128.15.33   │
-│                                    │ ghcr.io/nokia/srlinux:24.10.4               │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-leaf12           │ nokia_srlinux                               │ running │ 10.128.15.34   │
-│                                    │ ghcr.io/nokia/srlinux:24.10.4               │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-leaf13           │ nokia_srlinux                               │ running │ 10.128.15.35   │
-│                                    │ ghcr.io/nokia/srlinux:24.10.4               │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-leaf21           │ nokia_srlinux                               │ running │ 10.128.15.41   │
-│                                    │ ghcr.io/nokia/srlinux:24.10.4               │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-loki             │ linux                                       │ running │ 10.128.15.76   │
-│                                    │ grafana/loki:2.9.7                          │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-pe1              │ nokia_sros                                  │ running │ 10.128.15.21   │
-│                                    │ vr-sros:25.3.R1                             │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-pe2              │ nokia_sros                                  │ running │ 10.128.15.22   │
-│                                    │ vr-sros:25.3.R1                             │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-prometheus       │ linux                                       │ running │ 10.128.15.72   │
-│                                    │ prom/prometheus:v2.51.2                     │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-promtail         │ linux                                       │ running │ 10.128.15.75   │
-│                                    │ grafana/promtail:2.9.7                      │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-spine11          │ nokia_srlinux                               │ running │ 10.128.15.31   │
-│                                    │ ghcr.io/nokia/srlinux:24.10.4               │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-spine12          │ nokia_srlinux                               │ running │ 10.128.15.32   │
-│                                    │ ghcr.io/nokia/srlinux:24.10.4               │         │ N/A            │
-├────────────────────────────────────┼─────────────────────────────────────────────┼─────────┼────────────────┤
-│ clab-dcfpartnerws-syslog           │ linux                                       │ running │ 10.128.15.74   │
-│                                    │ linuxserver/syslog-ng:4.5.0                 │         │ N/A            │
-╰────────────────────────────────────┴─────────────────────────────────────────────┴─────────┴────────────────╯
+12:52:30 INFO Adding host entries path=/etc/hosts
+12:52:30 INFO Adding SSH config for nodes path=/etc/ssh/ssh_config.d/clab-dcfpartnerws.conf
+You are on the latest version (0.69.3)
+╭──────────────────────────────┬──────────────────────────────────────────────┬─────────┬────────────────╮
+│             Name             │                  Kind/Image                  │  State  │ IPv4/6 Address │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-client01   │ linux                                        │ running │ 10.128.5.25    │
+│                              │ ghcr.io/srl-labs/network-multitool           │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-client02   │ linux                                        │ running │ 10.128.5.26    │
+│                              │ ghcr.io/srl-labs/network-multitool           │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-client11   │ linux                                        │ running │ 10.128.5.36    │
+│                              │ ghcr.io/srl-labs/network-multitool           │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-client12   │ linux                                        │ running │ 10.128.5.37    │
+│                              │ ghcr.io/srl-labs/network-multitool           │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-client13   │ linux                                        │ running │ 10.128.5.38    │
+│                              │ ghcr.io/srl-labs/network-multitool           │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-client21   │ linux                                        │ running │ 10.128.5.42    │
+│                              │ ghcr.io/srl-labs/network-multitool           │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-dns        │ linux                                        │ running │ 10.128.5.15    │
+│                              │ ghcr.io/srl-labs/network-multitool           │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-gnmic      │ linux                                        │ running │ 10.128.5.71    │
+│                              │ ghcr.io/openconfig/gnmic:0.36.2              │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-grafana    │ linux                                        │ running │ 10.128.5.73    │
+│                              │ grafana/grafana:10.3.5                       │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-leaf11     │ nokia_srlinux                                │ running │ 10.128.5.33    │
+│                              │ ghcr.io/nokia/srlinux:25.7.1                 │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-leaf12     │ nokia_srlinux                                │ running │ 10.128.5.34    │
+│                              │ ghcr.io/nokia/srlinux:25.7.1                 │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-leaf13     │ nokia_srlinux                                │ running │ 10.128.5.35    │
+│                              │ ghcr.io/nokia/srlinux:25.7.1                 │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-leaf21     │ nokia_srlinux                                │ running │ 10.128.5.41    │
+│                              │ ghcr.io/nokia/srlinux:25.7.1                 │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-loki       │ linux                                        │ running │ 10.128.5.76    │
+│                              │ grafana/loki:3.2.0                           │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-pe1        │ nokia_srsim                                  │ running │ 10.128.5.21    │
+│                              │ registry.srlinux.dev/pub/nokia_srsim:25.7.R1 │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-pe2        │ nokia_srsim                                  │ running │ 10.128.5.22    │
+│                              │ registry.srlinux.dev/pub/nokia_srsim:25.7.R1 │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-prometheus │ linux                                        │ running │ 10.128.5.72    │
+│                              │ prom/prometheus:v2.54.1                      │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-promtail   │ linux                                        │ running │ 10.128.5.75    │
+│                              │ grafana/promtail:3.2.0                       │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-spine11    │ nokia_srlinux                                │ running │ 10.128.5.31    │
+│                              │ ghcr.io/nokia/srlinux:25.7.1                 │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-spine12    │ nokia_srlinux                                │ running │ 10.128.5.32    │
+│                              │ ghcr.io/nokia/srlinux:25.7.1                 │         │ N/A            │
+├──────────────────────────────┼──────────────────────────────────────────────┼─────────┼────────────────┤
+│ clab-dcfpartnerws-syslog     │ linux                                        │ running │ 10.128.5.74    │
+│                              │ linuxserver/syslog-ng:4.5.0                  │         │ N/A            │
+╰──────────────────────────────┴──────────────────────────────────────────────┴─────────┴────────────────╯
 ```
 
 ///

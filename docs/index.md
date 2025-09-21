@@ -322,7 +322,7 @@ First we destroy the lab:
 /// tab | cmd
 
 ``` bash
-sudo -E clab destroy -t $HOME/DCFPartnerHackathon/clab/srx.clab.yml --cleanup
+sudo -E clab destroy -t $HOME/DCFPartnerHackathon/clab/dcfpartnerws.clab.yml --cleanup
 ```
 
 ///
@@ -330,11 +330,10 @@ sudo -E clab destroy -t $HOME/DCFPartnerHackathon/clab/srx.clab.yml --cleanup
 /// tab | output
 
 ``` bash
-12:41:14 INFO Parsing & checking topology file=srx.clab.yml
-12:41:14 INFO Parsing & checking topology file=srx.clab.yml
+12:41:14 INFO Parsing & checking topology file=dcfpartnerws.clab.yml
+12:41:14 INFO Parsing & checking topology file=dcfpartnerws.clab.yml
 12:41:15 INFO Destroying lab name=dcfpartnerws
 12:41:24 INFO Removed container name=clab-dcfpartnerws-syslog
-12:41:25 INFO Removed container name=clab-dcfpartnerws-codeserver
 12:41:25 INFO Removed container name=clab-dcfpartnerws-leaf11
 12:41:26 INFO Removed container name=clab-dcfpartnerws-leaf21
 12:41:26 INFO Removed container name=clab-dcfpartnerws-spine11
@@ -371,7 +370,7 @@ Secondly, we can deploy the lab again:
 /// tab | cmd
 
 ``` bash
-CLAB_LABDIR_BASE=/home/nokia sudo -E clab deploy -t $HOME/DCFPartnerHackathon/clab/srx.clab.yml --reconfigure
+CLAB_LABDIR_BASE=/home/nokia sudo -E clab deploy -t $HOME/DCFPartnerHackathon/clab/dcfpartnerws.clab.yml --reconfigure
 ```
 
 ///

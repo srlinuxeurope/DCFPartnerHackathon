@@ -12,7 +12,7 @@ cat /tmp/authorized_keys > /home/user/.ssh/authorized_keys
 chown -R user:user /home/user/.ssh
 
 echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-echo "user:$EVENT_PASSWORD" | chpasswd
+echo "user:$USER_PASSWORD" | chpasswd
 
 # Start iperf3 server
 iperf3 -s -p 5201 -D 

@@ -91,7 +91,7 @@ It is tempting to skip ahead but tasks may require you to have completed previou
 To log in to `spine12` for the below activity, you can use SSH from your group's hackathon VM, as below:
 
 ```bash
-ssh admin@clab-srexperts-spine12
+ssh admin@clab-dcfpartnerws-spine12
 ```
 
 If desired, you can also SSH directly to your assigned VM's port `50032` as that port is forwarded to `spine12` port `22` in the topology.

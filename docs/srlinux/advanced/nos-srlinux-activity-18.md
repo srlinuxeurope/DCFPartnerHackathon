@@ -348,13 +348,13 @@ Verify that leaf13 successfully responds with an `echo reply`.<p>
 
 Start by opening 3 separate CLI sessions, one to each node: leaf11, spine11, leaf13. You can connect from your Hackaton VM instance using the following commands:
 ```
-ssh admin@clab-srexperts-leaf11
+ssh admin@clab-dcfpartnerws-leaf11
 ```
 ```
-ssh admin@clab-srexperts-spine11
+ssh admin@clab-dcfpartnerws-spine11
 ```
 ```
-ssh admin@clab-srexperts-leaf13
+ssh admin@clab-dcfpartnerws-leaf13
 ```
 
 #### Test ping from CLI
@@ -823,19 +823,19 @@ Activate traffic between `client11` and `client13`.
 From your Hackton VM, you can use either of this options:
 
 - `ssh user@<client-hostname>`
-- `sudo docker exec -it clab-srexperts-<client-hostname> bash`
+- `sudo docker exec -it clab-dcfpartnerws-<client-hostname> bash`
 
 Example - accessing client11:
 /// tab | ssh
 ```
-❯ ssh user@clab-srexperts-client11
+❯ ssh user@clab-dcfpartnerws-client11
 
 [*]─[client11]─[~]
 ```
 ///
 /// tab | docker exec
 ```
-❯ sudo docker exec -it clab-srexperts-client11 bash
+❯ sudo docker exec -it clab-dcfpartnerws-client11 bash
 
 [*]─[client11]─[/]
 └──> 
@@ -1034,7 +1034,7 @@ On spine12, we capture VxLAN encapsulated traffic from leaf11 to leaf13, which i
 /// details | copying .pcap from spine12 to leaf11
 Copy the output pcap onto leaf11.
 ```
-scp admin@clab-srexperts-spine12:/etc/opt/srlinux/sample_clean.pcap admin@clab-srexperts-leaf11:/etc/opt/srlinux/
+scp admin@clab-dcfpartnerws-spine12:/etc/opt/srlinux/sample_clean.pcap admin@clab-dcfpartnerws-leaf11:/etc/opt/srlinux/
 ```
 ///
 
@@ -1122,7 +1122,7 @@ Sent 1 packets.
 
 /// tab | cmd
 ```
-docker exec clab-srexperts-client13 tcpdump -i eth1.101 "port 22049 or port 22050"
+docker exec clab-dcfpartnerws-client13 tcpdump -i eth1.101 "port 22049 or port 22050"
 ```
 ///
 /// tab | expected output

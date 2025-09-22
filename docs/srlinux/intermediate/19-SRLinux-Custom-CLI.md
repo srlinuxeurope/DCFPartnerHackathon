@@ -90,7 +90,7 @@ You may use the `bash` CLI command to move to the Linux shell from the SR Linux 
 /// tab | login with SSH to `sr_cli`
 
 ```
-ssh admin@clab-srexperts-leaf11
+ssh admin@clab-dcfpartnerws-leaf11
 ```
 
 ///
@@ -2001,7 +2001,7 @@ Logout/login or open a new session to the CLI on `leaf11`.
 ///tip
 Optionally start some traffic between the clients. Run this from your group's Hackaton VM to start traffic from `client11` to `client13`:
 ```
-sudo docker exec clab-srexperts-client11 /traffic.sh -a start -d client13.vprn.dci
+sudo docker exec clab-dcfpartnerws-client11 /traffic.sh -a start -d client13.vprn.dci
 ```
 ///
 

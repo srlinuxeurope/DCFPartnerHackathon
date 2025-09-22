@@ -70,7 +70,7 @@ Keep both SSH sessions open throughout the duration of this task.
 /// tab | ssh
 
 ``` bash
-ssh admin@clab-srexperts-spine11
+ssh admin@clab-dcfpartnerws-spine11
 ```
 
 ///

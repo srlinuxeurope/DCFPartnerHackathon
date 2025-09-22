@@ -264,11 +264,11 @@ topology:
         GF_AUTH_ANONYMOUS_ENABLED: "true"
         GF_AUTH_ANONYMOUS: "true"
         GF_SECURITY_ADMIN_PASSWORD: NokiaSrl1!
-        http_proxy: $http_proxy
-        https_proxy: $https_proxy
-        HTTP_PROXY: $HTTP_PROXY
-        HTTPS_PROXY: $HTTPS_PROXY
-        ftp_proxy: $ftp_proxy
+        #http_proxy: $http_proxy
+        #https_proxy: $https_proxy
+        #HTTP_PROXY: $HTTP_PROXY
+        #HTTPS_PROXY: $HTTPS_PROXY
+        #ftp_proxy: $ftp_proxy
       cmd: "'grafana cli admin reset-admin-password NokiaSrl1! && /run.sh'"
       entrypoint: "sh -c"
       group: "10"

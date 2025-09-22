@@ -16,7 +16,7 @@ you, no matter what you experience level.
 ## Open to all and something for everyone
 
 Whether you're a relative novice to Nokia's products, or a seasoned expert, there is something in this hackathon for you!  All you will need is your trusty laptop,
-an afternoon of focus and possibly some coffee (supplied!) and you should find something to benefit both you and your organizations.
+a day of focus and possibly some coffee (supplied!) and you should find something to benefit both you and your organizations.
 
 ## Getting started
 
@@ -24,9 +24,9 @@ This page is your starting point into the hackathon, it should get you familiar 
 
 **Please read this page all the way through before attempting any of the activities.**
 
-During the afternoon you will work in groups (or alone if you prefer) on any projects that you are inspired to tackle or on one of the pre-provided activities of varying difficulty.
+During the day you will work in groups (or alone if you prefer) on any projects that you are inspired to tackle or on one of the pre-provided activities of varying difficulty.
 
-As long as you have a laptop with the ability to SSH and a web browser, we have example activities and a generic lab topology to help you progress if you don’t have something specific already in mind.
+As long as you have a laptop with a web browser (and optionally the ability to SSH), we have example activities and a generic lab topology to help you progress if you don’t have something specific already in mind.
 
 Need help, not a problem, pop your hand in the air and an eager expert will be there to guide you.
 
@@ -38,7 +38,6 @@ For this hackathon each (group of) participant(s) will receive their own dedicat
 If everything went according to plan, you should have received a physical piece of paper which contains:
 
 - a group ID allocated to your group (or to yourself if you're working alone).
-- SSH credentials to a public cloud instance dedicated to your group.
 - HTTPS URL's for this repository and access to a web based IDE in case you don't have one installed on your operating system.
 
 /// warning
@@ -75,11 +74,11 @@ Then, for each group, you will see the following access:
 
 The simplest way to get going is to use your SSH client to connect to your group's hackathon VM instance and work from there.  All tools and applications are pre-installed and you will have direct access to your entire network. 
 
-SSH is also important if you want to directly access your network from your laptop but more on that later.
+However, if you don't have (or don't want to use) a local SSH client, You can access VsCode interface installed in your VM to access terminal commands.
 
 |     |     |
 | --- | --- |
-| hostname | `refer to the paper provided or the slide presented` |
+| hostname:port | `refer to the paper provided or the slide presented` |
 | username | `refer to the paper provided or the slide presented` |
 | password | `refer to the paper provided or the slide presented` |
 
@@ -89,13 +88,11 @@ If you're familiar with SSH and wish to setup passwordless access, you can use `
 
 ### WiFi
 
-WiFi is important here.  Without it your hackathon experience is going to be rather dull.  To connect to the hackathon event's WiFi, refer to the paper provided or the slide presented.
+WiFi is important here.  Without it your hackathon experience is going to be rather dull.  To connect to the hackathon event's WiFi, refer to the instructions provided on site.
 
 ### Topology
 
 When accessing your hackathon VM instance you'll have the [DCF Hackathon GitHub repository](https://github.com/srlinuxeurope/DCFPartnerHackathon) that contains all of the documentation, examples, solutions and loads of other great stuff, has already been cloned for you.
-
-In this hackathon, every group has their own complete service-provider network at their disposal.  Your network comprises an IP backbone with Provider (P) and Provider Edge (PE) router, a broadband dial-in network, a peering edge network, an internet exchange point, multiple data-centers and a number of client and subscriber devices.  This network is already deployed and provisioned and is ready to go!
 
 /// note
 *Don't worry: This is your personal group network, you cannot impact any other groups.*
@@ -186,80 +183,6 @@ For example to access node `clab-dcfpartnerws-leaf11` via ssh simply type:
 ssh admin@clab-dcfpartnerws-leaf11
 ```
 
-#### From the Internet
-<!-- TBU - Access details -->
-Each instance has a port-range (`50000` - `51000`) exposed towards the Internet, as lab nodes spin up, a public port is allocated by the docker daemon on the public cloud instance. You can utilize those to access the lab services straight from your laptop via the Internet.
-
-With the `show-ports` command executed on a VM you get a list of mappings between external and internal ports allocated for each node of a lab:
-/// tab | cmd
-
-``` bash
-show-ports
-```
-
-///
-/// tab | output
-
-``` bash
-Name                       Forwarded Ports
-clab-dcfpartnerws-client01    50025 -> 22
-clab-dcfpartnerws-client02    50026 -> 22
-clab-dcfpartnerws-client11    50036 -> 22
-clab-dcfpartnerws-client12    50037 -> 22
-clab-dcfpartnerws-client13    50038 -> 22
-clab-dcfpartnerws-client21    50042 -> 22
-clab-dcfpartnerws-codeserver  80 -> 8080
-clab-dcfpartnerws-dns         50015 -> 22
-clab-dcfpartnerws-grafana     3000 -> 3000
-clab-dcfpartnerws-leaf11      50033 -> 22, 50333 -> 57400
-clab-dcfpartnerws-leaf12      50034 -> 22, 50334 -> 57400
-clab-dcfpartnerws-leaf13      50035 -> 22, 50335 -> 57400
-clab-dcfpartnerws-leaf21      50041 -> 22, 50341 -> 57400
-clab-dcfpartnerws-netbox      8000 -> 8080
-clab-dcfpartnerws-pe1         50021 -> 22, 50421 -> 830, 50321 -> 57400
-clab-dcfpartnerws-pe2         50022 -> 22, 50422 -> 830, 50322 -> 57400
-clab-dcfpartnerws-prometheus  9090 -> 9090
-clab-dcfpartnerws-spine11     50031 -> 22, 50331 -> 57400
-clab-dcfpartnerws-spine12     50032 -> 22, 50332 -> 57400
-```
-
-///
-
-Each service exposed on a lab node gets a unique external port number as per the table above. For example, Grafana's web interface is available on port `3000` of the VM which is mapped to Grafana's node internal port of `3000`.
-
-The following table shows common container internal ports which can assist you to find the correct exposed port for the services.
-
-| Service    | Internal Port number |
-| ---------- | -------------------- |
-| SSH        | 22                   |
-| VSCode     | 80                   |
-| Netconf    | 830                  |
-| gNMI       | 57400                |
-| HTTP/HTTPS | 80/443               |
-| Grafana    | 3000                 |
-| Netbox     | 8000                 |
-| EDA        | 9443                 |
-
-Subsequently you can access the lab node on the external port for your given instance using the DNS name of the assigned VM.
-
-| Group ID | hostname instance |
-| --- | --- |
-| **X** | **X**.dcfdemo.ddns.net |
-
-In the example above, accessing `pe1` would be possible by:
-
-```
-ssh admin@X.dcfdemo.ddns.net -p 50021
-```
-
-In the example above, accessing grafana would be possible browsing towards **http://X.dcfdemo.ddns.net:3000** (where X is the group ID you've been allocated)
-
-/// details | ssh-config
-    type: tip
-
-You can generate `ssh-config` using the `generate-ssh-config` command and store the output on your local laptop's SSH client, in order to connect directly to nodes.
-///
-
 ### Generate Traffic
 <!-- TBU - review this section-->
 In the generic topology, linux clients are attached to a number of routers:
@@ -271,7 +194,7 @@ In the generic topology, linux clients are attached to a number of routers:
 One can start and/or stop traffic by connecting to the relevant client using SSH, and running `/traffic.sh`, for example:
 
 ```
-ssh user@clab-dcfpartnerws-client11
+ssh nokia@clab-dcfpartnerws-client11
 
 client11:~$ /traffic.sh [-a <start|stop>] [-d <dns hostname>]
 ```
@@ -326,7 +249,7 @@ stopping traffic to client21.grt
 
 ### My employer/security department locked down my laptop
 <!-- TBU - review this section-->
-No worries, we have got you covered! Each instance is running a web-based VSCode code server, when accessing it at `http://<my group id>.dcfdemo.ddns.net` should prompt you for a password (which is documented on the physical paper provided), and you should be able to access the topology through the terminal there.
+No worries, we have got you covered! Each instance is running a web-based VSCode code server, when accessing it at `http://<my group id>.dcfdemo.ddns.net:5XX02` should prompt you for a password (which is documented on the physical paper provided), and you should be able to access the topology through the terminal there.
 
 ### Help! I've bricked my lab, how do I redeploy?
 <!-- TBU - update outputs-->

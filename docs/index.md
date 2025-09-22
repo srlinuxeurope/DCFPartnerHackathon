@@ -56,9 +56,9 @@ Consider that "XX" is your group number, which can range from 01 to 20.
 
 |  | Static | Group | Application |
 | --- | --- | --- | --- |
-| EDA | 5 | XX | 01 |
-| VsCode | 5 | XX | 02 |
-| SSH | 5 | XX | 01 |
+| EDA | 5 | <b>XX</b> | 01 |
+| VsCode | 5 | <b>XX</b> | 02 |
+| SSH | 5 | <b>XX</b> | 01 |
 
 Then, for each group, you will see the following access:
 
@@ -66,10 +66,10 @@ Then, for each group, you will see the following access:
 
 | Group ID | hostname instance | EDA Port | VSCode Port | SSH Port |
 | --- | --- | --- | --- | --- |
-| 01 | dcfdemo.ddns.net | 5**01**01 | 5**01**02 | 5**01**10 |
-| 02 | dcfdemo.ddns.net | 5**02**01 | 5**02**02 | 5**02**10 |
+| 01 | dcfdemo.ddns.net | 5<b>01</b>01 | 5<b>01</b>02 | 5<b>01</b>10 |
+| 02 | dcfdemo.ddns.net | 5<b>02</b>01 | 5<b>02</b>02 | 5<b>02</b>10 |
 | ... | ... | ... | ... | ... |
-| **XX** | dcfdemo.ddns.net | 5**XX**01 | 5**XX**02 | 5**XX**10 |
+| **XX** | dcfdemo.ddns.net | 5<b>XX</b>01 | 5<b>XX</b>02 | 5<b>XX</b>10 |
 
 ### SSH
 

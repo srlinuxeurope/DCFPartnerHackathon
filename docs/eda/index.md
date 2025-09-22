@@ -32,12 +32,19 @@ When inside a particular exercise, you should complete the tasks in the order th
 
 The lab environment you work on features a DC network topology with EDA already installed and a number of SR Linux datacenter switches already onboarded onto the platform. In particular, EDA manages five switches in total: `leaf11`, `leaf12`, `leaf13`, `spine11`, `spine12`.
 
-![topology](../../diagrams/eda-onboarded-nodes.png)
+![topology](../diagrams/eda-onboarded-nodes.png)
 
 As you go through the exercise, you might connect to the EDA UI, one of the switches or clients connected to them.
 
 /// tab | UI
-Most of the exercises can be completed by using EDA Web UI. The UI is accessible over `https://{your-group-id}.dcfdemo.ddns.net:5{your-group-id}01`.
+Most of the exercises can be completed by using EDA Web UI.  
+The UI is accessible over:  
+https://dcfdemo.ddns.net:5{your-group-id}01
+
+
+Example for group-id=06 (always us 2 digits):  
+https://dcfdemo.ddns.net:50601/
+
 
 The login credentials are available in the leaflet provided to you.
 ///
@@ -46,7 +53,7 @@ The login credentials are available in the leaflet provided to you.
 The lab server runs the EDA platform and the whole lab topology. You will need to login to the topology server when you want to SSH further into one of the switches or clients.
 
 ```
-ssh nokia@{your-group-id}.dcfdemo.ddns.net
+ssh nokia@dcfdemo.ddns.net -p 5{your-group-id}10
 ```
 
 You will find the server credentials in the leaflet provided to you.
@@ -74,9 +81,13 @@ You will find the switch credentials in the leaflet provided to you.
 
 Clients are the Linux containers connected to the switches that you would need to configure to perform end-to-end ping tests between the hosts.
 
-To access the clients you first need to login to the lab server, and then from the server's shell you SSH further to the desired client.
+To access the clients you first need to login to the lab server, and then from the server's shell you may run docker exec or (no credentials needed) SSH further to the desired client.
 
-```bash title="run from the lab server"
+```bash title="docker exec to clients - run from the lab server"
+docker exec -it {client-hostname} bash
+```
+
+```bash title="ssh to clients - run from the lab server"
 ssh user@{client-hostname}
 ```
 

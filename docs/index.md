@@ -33,7 +33,7 @@ Need help, not a problem, pop your hand in the air and an eager expert will be t
 ## Lab Environment
 
 For this hackathon each (group of) participant(s) will receive their own dedicated cloud instance (VM) running a copy of the generic lab topology.  You will see this called "your VM",
-"your group's hackathon VM", "your instance", "your server" and other similar phrases in the activities.  They all mean the same thing, your own dedicated could instance.
+"your group's hackathon VM", "your instance", "your server" and other similar phrases in the activities.  They all mean the same thing, your own dedicated cloud instance.
 
 If everything went according to plan, you should have received a physical piece of paper which contains:
 
@@ -42,7 +42,7 @@ If everything went according to plan, you should have received a physical piece 
 - HTTPS URL's for this repository and access to a web based IDE in case you don't have one installed on your operating system.
 
 /// warning
-The public cloud compute instances will be destroyed once the hackathon is concluded.</p>
+The compute instances will be destroyed once the hackathon is concluded.</p>
 Please make sure to backup any code, config, etc. <u>offline</u> (e.g. onto your laptop) if you'd like to keep it after the hackathon.
 ///
 
@@ -50,14 +50,26 @@ Please make sure to backup any code, config, etc. <u>offline</u> (e.g. onto your
 
 Please refer to the paper provided by the hackathon session leader. If nothing has been provided, not a problem, pop your hand in the air and someone will allocate you one before you can say "Aequeosalinocalcalinoceraceoaluminosocupreovitriolic".
 
+The groups will access the applications for each instance using a different TCP port. This is how the TCP ports are made:
+
+Consider that "XX" is your group number, which can range from 01 to 20.
+
+|  | Static | Group | Application |
+| --- | --- | --- | --- |
+| EDA | 5 | XX | 01 |
+| VsCode | 5 | XX | 02 |
+| SSH | 5 | XX | 01 |
+
+Then, for each group, you will see the following access:
+
 <!-- TBU - Include final table -->
 
-| Group ID | hostname instance |
-| --- | --- |
-| 1 | 1.dcfdemo.ddns.net |
-| 2 | 2.dcfdemo.ddns.net |
-| ... | ... |
-| **X** | **X**.dcfdemo.ddns.net |
+| Group ID | hostname instance | EDA Port | VSCode Port | SSH Port |
+| --- | --- | --- | --- | --- |
+| 01 | dcfdemo.ddns.net | 5**01**01 | 5**01**02 | 5**01**10 |
+| 02 | dcfdemo.ddns.net | 5**02**01 | 5**02**02 | 5**02**10 |
+| ... | ... | ... | ... | ... |
+| **XX** | dcfdemo.ddns.net | 5**XX**01 | 5**XX**02 | 5**XX**10 |
 
 ### SSH
 
@@ -176,7 +188,7 @@ ssh admin@clab-dcfpartnerws-leaf11
 
 #### From the Internet
 <!-- TBU - Access details -->
-Each public cloud instance has a port-range (`50000` - `51000`) exposed towards the Internet, as lab nodes spin up, a public port is allocated by the docker daemon on the public cloud instance. You can utilize those to access the lab services straight from your laptop via the Internet.
+Each instance has a port-range (`50000` - `51000`) exposed towards the Internet, as lab nodes spin up, a public port is allocated by the docker daemon on the public cloud instance. You can utilize those to access the lab services straight from your laptop via the Internet.
 
 With the `show-ports` command executed on a VM you get a list of mappings between external and internal ports allocated for each node of a lab:
 /// tab | cmd

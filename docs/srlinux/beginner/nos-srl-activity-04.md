@@ -295,17 +295,17 @@ We will use the `gRIBI Get` RPC to get the current installed gRIBI routes.
 /// tab | cmd
 
 ``` bash
-gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft ipv4
+gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft ipv4
 ```
 
 ///
 /// tab | expected output
 
 ``` bash
-❯ gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft ipv4
-INFO[0000] target clab-srexperts-peering2:57400: final get response:  
+❯ gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft ipv4
+INFO[0000] target clab-dcfpartnerws-peering2:57400: final get response:  
 INFO[0000] got 1 results                                
-INFO[0000] "clab-srexperts-peering2:57400":  
+INFO[0000] "clab-dcfpartnerws-peering2:57400":  
 ```
 ///
 
@@ -345,21 +345,21 @@ Use `gRIBI Modify` RPC to inject this route to `peering2`. Replace `file.yml` wi
 
 /// tab | cmd
 ``` bash
-gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 modify --input-file file.yml
+gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 modify --input-file file.yml
 ```
 ///
 /// tab | expected output
 ``` bash
 INFO[0000] trying to find variable file "file_vars.yml" 
-INFO[0000] sending request=params:{redundancy:SINGLE_PRIMARY persistence:PRESERVE ack_type:RIB_AND_FIB_ACK} to "clab-srexperts-peering2:57400" 
-INFO[0000] sending request=election_id:{high:1} to "clab-srexperts-peering2:57400" 
-INFO[0000] clab-srexperts-peering2:57400
+INFO[0000] sending request=params:{redundancy:SINGLE_PRIMARY persistence:PRESERVE ack_type:RIB_AND_FIB_ACK} to "clab-dcfpartnerws-peering2:57400" 
+INFO[0000] sending request=election_id:{high:1} to "clab-dcfpartnerws-peering2:57400" 
+INFO[0000] clab-dcfpartnerws-peering2:57400
 response: session_params_result: {} 
-INFO[0000] clab-srexperts-peering2:57400
+INFO[0000] clab-dcfpartnerws-peering2:57400
 response: election_id: {
   high: 1
 } 
-INFO[0000] target clab-srexperts-peering2:57400 modify request:
+INFO[0000] target clab-dcfpartnerws-peering2:57400 modify request:
 ****snip***
 ```
 ///
@@ -436,15 +436,15 @@ When the firewall application use is complete, the gRIBI routes can be moved usi
 /// tab | cmd
 
 ``` bash
-gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 flush --ns default --override
+gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 flush --ns default --override
 ```
 ///
 /// tab | expected output
 
 ``` bash
-❯ gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 flush --ns default --override
+❯ gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 flush --ns default --override
 INFO[0000] got 1 results                                
-INFO[0000] "clab-srexperts-peering2:57400": timestamp: 1745865482482562426
+INFO[0000] "clab-dcfpartnerws-peering2:57400": timestamp: 1745865482482562426
 result: OK 
 ```
 ///
@@ -492,23 +492,23 @@ operations:
 /// details | Injecting the route
 /// tab | cmd
 ``` bash
-gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 modify --input-file gribi-input.yml
+gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 modify --input-file gribi-input.yml
 ```
 ///
 /// tab | expected output
 
 ``` bash
-❯ gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 modify --input-file gribi-input.yml
+❯ gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 modify --input-file gribi-input.yml
 INFO[0000] trying to find variable file "gribi-input_vars.yml" 
-INFO[0000] sending request=params:{redundancy:SINGLE_PRIMARY persistence:PRESERVE ack_type:RIB_AND_FIB_ACK} to "clab-srexperts-peering2:57400" 
-INFO[0000] sending request=election_id:{high:1} to "clab-srexperts-peering2:57400" 
-INFO[0000] clab-srexperts-peering2:57400
+INFO[0000] sending request=params:{redundancy:SINGLE_PRIMARY persistence:PRESERVE ack_type:RIB_AND_FIB_ACK} to "clab-dcfpartnerws-peering2:57400" 
+INFO[0000] sending request=election_id:{high:1} to "clab-dcfpartnerws-peering2:57400" 
+INFO[0000] clab-dcfpartnerws-peering2:57400
 response: session_params_result: {} 
-INFO[0000] clab-srexperts-peering2:57400
+INFO[0000] clab-dcfpartnerws-peering2:57400
 response: election_id: {
   high: 1
 } 
-INFO[0000] target clab-srexperts-peering2:57400 modify request:
+INFO[0000] target clab-dcfpartnerws-peering2:57400 modify request:
 operation: {
   id: 1
   network_instance: "default"
@@ -525,7 +525,7 @@ operation: {
     high: 1
   }
 } 
-INFO[0010] target clab-srexperts-peering2:57400 modify request:
+INFO[0010] target clab-dcfpartnerws-peering2:57400 modify request:
 operation: {
   id: 2
   network_instance: "default"
@@ -542,19 +542,19 @@ operation: {
     high: 1
   }
 } 
-INFO[0010] clab-srexperts-peering2:57400
+INFO[0010] clab-dcfpartnerws-peering2:57400
 response: result: {
   id: 1
   status: FIB_PROGRAMMED
   timestamp: 1745865166674709126
 } 
-INFO[0010] clab-srexperts-peering2:57400
+INFO[0010] clab-dcfpartnerws-peering2:57400
 response: result: {
   id: 2
   status: FIB_PROGRAMMED
   timestamp: 1745865166684152065
 } 
-INFO[0010] target clab-srexperts-peering2:57400 modify request:
+INFO[0010] target clab-dcfpartnerws-peering2:57400 modify request:
 operation: {
   id: 3
   network_instance: "default"
@@ -571,8 +571,8 @@ operation: {
     high: 1
   }
 } 
-INFO[0010] target clab-srexperts-peering2:57400 modify stream done 
-INFO[0010] clab-srexperts-peering2:57400
+INFO[0010] target clab-dcfpartnerws-peering2:57400 modify stream done 
+INFO[0010] clab-dcfpartnerws-peering2:57400
 response: result: {
   id: 3
   status: FIB_PROGRAMMED
@@ -592,16 +592,16 @@ To see the next-hop definition:
 /// tab | cmd
 
 ``` bash
-gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft nh
+gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft nh
 ```
 ///
 /// tab | expected output
 
 ``` bash
-❯ gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft nh
-INFO[0000] target clab-srexperts-peering2:57400: final get response: entry:{network_instance:"default" next_hop:{index:1 next_hop:{ip_address:{value:"10.64.51.1"}}} rib_status:PROGRAMMED fib_status:PROGRAMMED} 
+❯ gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft nh
+INFO[0000] target clab-dcfpartnerws-peering2:57400: final get response: entry:{network_instance:"default" next_hop:{index:1 next_hop:{ip_address:{value:"10.64.51.1"}}} rib_status:PROGRAMMED fib_status:PROGRAMMED} 
 INFO[0000] got 1 results                                
-INFO[0000] "clab-srexperts-peering2:57400":
+INFO[0000] "clab-dcfpartnerws-peering2:57400":
 entry: {
   network_instance: "default"
   next_hop: {
@@ -624,16 +624,16 @@ To see the next-hop group definition:
 /// tab | cmd
 
 ``` bash
-gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft nhg
+gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft nhg
 ```
 ///
 /// tab | expected output
 
 ``` bash
-❯ gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft nhg
-INFO[0000] target clab-srexperts-peering2:57400: final get response: entry:{network_instance:"default" next_hop_group:{id:1 next_hop_group:{next_hop:{index:1}}} rib_status:PROGRAMMED fib_status:PROGRAMMED} 
+❯ gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft nhg
+INFO[0000] target clab-dcfpartnerws-peering2:57400: final get response: entry:{network_instance:"default" next_hop_group:{id:1 next_hop_group:{next_hop:{index:1}}} rib_status:PROGRAMMED fib_status:PROGRAMMED} 
 INFO[0000] got 1 results                                
-INFO[0000] "clab-srexperts-peering2:57400":
+INFO[0000] "clab-dcfpartnerws-peering2:57400":
 entry: {
   network_instance: "default"
   next_hop_group: {
@@ -655,16 +655,16 @@ To see the destination prefix definition:
 /// tab | cmd
 
 ``` bash
-gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft ipv4
+gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft ipv4
 ```
 ///
 /// tab | expected output
 
 ``` bash
-❯ gribic -a clab-srexperts-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft ipv4
-INFO[0000] target clab-srexperts-peering2:57400: final get response: entry:{network_instance:"default" ipv4:{prefix:"31.10.31.11/32" ipv4_entry:{next_hop_group:{value:1}}} rib_status:PROGRAMMED fib_status:PROGRAMMED} 
+❯ gribic -a clab-dcfpartnerws-peering2:57400 --insecure -u grclient1 -p grclient1 get --ns default --aft ipv4
+INFO[0000] target clab-dcfpartnerws-peering2:57400: final get response: entry:{network_instance:"default" ipv4:{prefix:"31.10.31.11/32" ipv4_entry:{next_hop_group:{value:1}}} rib_status:PROGRAMMED fib_status:PROGRAMMED} 
 INFO[0000] got 1 results                                
-INFO[0000] "clab-srexperts-peering2:57400":
+INFO[0000] "clab-dcfpartnerws-peering2:57400":
 entry: {
   network_instance: "default"
   ipv4: {

@@ -201,7 +201,7 @@ For this test, we will be using the gNOI `System` service `Time` RPC to get the 
 /// tab | cmd
 
 ``` bash
-gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify system time
+gnoic -a clab-dcfpartnerws-leaf11:57401 -u client1 -p client1 --skip-verify system time
 ```
 ///
 /// tab | expected output
@@ -210,7 +210,7 @@ gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify system 
 +-----------------------------+------------------------------------------+---------------------+
 |         Target Name         |                   Time                   |      Timestamp      |
 +-----------------------------+------------------------------------------+---------------------+
-| clab-srexperts-leaf11:57401 | 2025-04-25 22:32:58.749420494 +0300 EEST | 1745609578749420494 |
+| clab-dcfpartnerws-leaf11:57401 | 2025-04-25 22:32:58.749420494 +0300 EEST | 1745609578749420494 |
 +-----------------------------+------------------------------------------+---------------------+
 ```
 ///
@@ -233,7 +233,7 @@ We will be using `gNOI File Stat` RPC for this purpose. The default configuratio
 /// tab | cmd
 
 ``` bash
-gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify file stat --path /etc/opt/srlinux/config.json
+gnoic -a clab-dcfpartnerws-leaf11:57401 -u client1 -p client1 --skip-verify file stat --path /etc/opt/srlinux/config.json
 ```
 ///
 /// tab | expected output
@@ -242,7 +242,7 @@ gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify file st
 +-----------------------------+------------------------------+---------------------------+------------+------------+--------+
 |         Target Name         |             Path             |       LastModified        |    Perm    |   Umask    |  Size  |
 +-----------------------------+------------------------------+---------------------------+------------+------------+--------+
-| clab-srexperts-leaf11:57401 | /etc/opt/srlinux/config.json | 2025-04-24T19:16:13+03:00 | -rw-rw-r-- | -----w--w- | 121885 |
+| clab-dcfpartnerws-leaf11:57401 | /etc/opt/srlinux/config.json | 2025-04-24T19:16:13+03:00 | -rw-rw-r-- | -----w--w- | 121885 |
 +-----------------------------+------------------------------+---------------------------+------------+------------+--------+
 ```
 ///
@@ -262,15 +262,15 @@ We will be using `gNOI File Get` RPC to retrieve the file from `leaf11`.
 /// tab | cmd
 
 ``` bash
-gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify file get --file /etc/opt/srlinux/config.json --dst ~/my-backups
+gnoic -a clab-dcfpartnerws-leaf11:57401 -u client1 -p client1 --skip-verify file get --file /etc/opt/srlinux/config.json --dst ~/my-backups
 ```
 ///
 /// tab | expected output
 
 ``` bash
-INFO[0000] "clab-srexperts-leaf11:57401" received 64000 bytes 
-INFO[0000] "clab-srexperts-leaf11:57401" received 57885 bytes 
-INFO[0000] "clab-srexperts-leaf11:57401" file "/etc/opt/srlinux/config.json" saved 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" received 64000 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" received 57885 bytes 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" file "/etc/opt/srlinux/config.json" saved 
 ```
 ///
 
@@ -314,14 +314,14 @@ We will use the `gNOI File Put` RPC to transfer this file to `leaf11` under the 
 
 /// tab | cmd
 ``` bash
-gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1  --skip-verify file put --file ~/corrupt.img --dst /var/log/srlinux/SRL-25-3.img
+gnoic -a clab-dcfpartnerws-leaf11:57401 -u client1 -p client1  --skip-verify file put --file ~/corrupt.img --dst /var/log/srlinux/SRL-25-3.img
 ```
 ///
 /// tab | expected output
 
 ``` bash
-INFO[0000] "clab-srexperts-leaf11:57401" sending file="/home/nokia/corrupt.img" hash 
-INFO[0000] "clab-srexperts-leaf11:57401" file "/home/nokia/corrupt.img" written successfully 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" sending file="/home/nokia/corrupt.img" hash 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" file "/home/nokia/corrupt.img" written successfully 
 ```
 ///
 
@@ -329,7 +329,7 @@ Let's verify that the file is now present on `leaf11`. We will use the `gNOI Fil
 
 /// tab | cmd
 ``` bash
-gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify file stat --path /var/log/srlinux/SRL-25-3.img
+gnoic -a clab-dcfpartnerws-leaf11:57401 -u client1 -p client1 --skip-verify file stat --path /var/log/srlinux/SRL-25-3.img
 ```
 ///
 /// tab | expected output
@@ -338,7 +338,7 @@ gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify file st
 +-----------------------------+-------------------------------+---------------------------+------------+------------+------+
 |         Target Name         |             Path              |       LastModified        |    Perm    |   Umask    | Size |
 +-----------------------------+-------------------------------+---------------------------+------------+------------+------+
-| clab-srexperts-leaf11:57401 | /var/log/srlinux/SRL-25-3.img | 2025-04-25T23:11:43+03:00 | -rwxrwxrwx | -----w--w- | 25   |
+| clab-dcfpartnerws-leaf11:57401 | /var/log/srlinux/SRL-25-3.img | 2025-04-25T23:11:43+03:00 | -rwxrwxrwx | -----w--w- | 25   |
 +-----------------------------+-------------------------------+---------------------------+------------+------------+------+
 ```
 ///
@@ -349,7 +349,7 @@ Before we move on, let's delete that file on `leaf11` using `gNOI File Remove` R
 
 /// tab | cmd
 ``` bash
-gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify file remove --path /var/log/srlinux/SRL-25-3.img
+gnoic -a clab-dcfpartnerws-leaf11:57401 -u client1 -p client1 --skip-verify file remove --path /var/log/srlinux/SRL-25-3.img
 ```
 ///
 
@@ -423,16 +423,16 @@ Once your Authz policy is ready to be configured, use Authz Rotate RPC in the gN
 
 /// tab | cmd
 ``` bash
-gnsic -a clab-srexperts-leaf11:57401 -u admin -p $EVENT_PASSWORD --skip-verify authz rotate --policy "json payload"
+gnsic -a clab-dcfpartnerws-leaf11:57401 -u admin -p $EVENT_PASSWORD --skip-verify authz rotate --policy "json payload"
 ```
 ///
 /// tab | expected output
 
 ``` bash
-INFO[0000] targets: map[clab-srexperts-leaf11:57401:0xc00034c4e0] 
-INFO[0000] "clab-srexperts-leaf11:57401": got UploadResponse 
-INFO[0001] "clab-srexperts-leaf11:57401": sending finalize request 
-INFO[0001] "clab-srexperts-leaf11:57401": closing stream 
+INFO[0000] targets: map[clab-dcfpartnerws-leaf11:57401:0xc00034c4e0] 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401": got UploadResponse 
+INFO[0001] "clab-dcfpartnerws-leaf11:57401": sending finalize request 
+INFO[0001] "clab-dcfpartnerws-leaf11:57401": closing stream 
 ```
 ///
 
@@ -443,13 +443,13 @@ WIth the configured Authz policy, the system will deny the request to write a fi
 
 /// tab | cmd
 ``` bash
-gnoic -a clab-srexperts-leaf11:57401 -u client1 -p client1 --skip-verify file put --file ~/corrupt.img --dst /var/log/srlinux/SRL-25-3.img
+gnoic -a clab-dcfpartnerws-leaf11:57401 -u client1 -p client1 --skip-verify file put --file ~/corrupt.img --dst /var/log/srlinux/SRL-25-3.img
 ```
 ///
 /// tab | expected output with Authz policy
 ``` bash
-INFO[0000] "clab-srexperts-leaf11:57401" sending file="corrupt.img" hash  
-ERRO[0000] "clab-srexperts-leaf11:57401" File Put failed: rpc error: code = PermissionDenied desc = User 'client1' is not authorized to use rpc '/gnoi.file.File/Put' 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401" sending file="corrupt.img" hash  
+ERRO[0000] "clab-dcfpartnerws-leaf11:57401" File Put failed: rpc error: code = PermissionDenied desc = User 'client1' is not authorized to use rpc '/gnoi.file.File/Put' 
 Error: there was 1 error(s)
 ```
 ///
@@ -519,22 +519,22 @@ Here's the command to push this policy to `leaf11` using `Authz Rotate` RPC.
 
 /// tab | cmd
 ``` bash
-gnsic -a clab-srexperts-leaf11:57401 -u admin -p $EVENT_PASSWORD --skip-verify authz rotate --policy "{\"name\":\"Ext-clients\",\"allow_rules\":[{\"name\":\"backup-access\",\"source\":{\"principals\":[\"client1\",\"ext-clients\"]},\"request\":{\"paths\":[\"/gnoi.file.File/Get\",\"/gnoi.file.File/Stat\"]}}],\"deny_rules\":[{\"name\":\"backup-access\",\"source\":{\"principals\":[\"client1\",\"ext-clients\"]},\"request\":{\"paths\":[\"/gnoi.file.File/Put\"]}}]}"
+gnsic -a clab-dcfpartnerws-leaf11:57401 -u admin -p $EVENT_PASSWORD --skip-verify authz rotate --policy "{\"name\":\"Ext-clients\",\"allow_rules\":[{\"name\":\"backup-access\",\"source\":{\"principals\":[\"client1\",\"ext-clients\"]},\"request\":{\"paths\":[\"/gnoi.file.File/Get\",\"/gnoi.file.File/Stat\"]}}],\"deny_rules\":[{\"name\":\"backup-access\",\"source\":{\"principals\":[\"client1\",\"ext-clients\"]},\"request\":{\"paths\":[\"/gnoi.file.File/Put\"]}}]}"
 ```
 ///
 /// tab | expected output
 ``` bash
-INFO[0000] targets: map[clab-srexperts-leaf11:57401:0xc00034c4e0] 
-INFO[0000] "clab-srexperts-leaf11:57401": got UploadResponse 
-INFO[0001] "clab-srexperts-leaf11:57401": sending finalize request 
-INFO[0001] "clab-srexperts-leaf11:57401": closing stream 
+INFO[0000] targets: map[clab-dcfpartnerws-leaf11:57401:0xc00034c4e0] 
+INFO[0000] "clab-dcfpartnerws-leaf11:57401": got UploadResponse 
+INFO[0001] "clab-dcfpartnerws-leaf11:57401": sending finalize request 
+INFO[0001] "clab-dcfpartnerws-leaf11:57401": closing stream 
 ```
 ///
 
 /// tip | Using an input file
 Although not officially supported, you could try putting the Authz payload in a file with the following workaround:\n
 
-`gnsic -a clab-srexperts-leaf11:57401 -u admin -p $EVENT_PASSWORD --skip-verify authz rotate --policy "$(jq . authz.json)"`
+`gnsic -a clab-dcfpartnerws-leaf11:57401 -u admin -p $EVENT_PASSWORD --skip-verify authz rotate --policy "$(jq . authz.json)"`
 
 where `authz.json` is the file with the Authz payload.
 ///
@@ -614,17 +614,17 @@ Here are the commands to test Get, Set and Subscribe.
 
 /// tab | gNMI Get
 ``` bash
-gnmic -a clab-srexperts-leaf11:57401 -u grclient1 -p grclient1 --skip-verify get --type state --path "/interface[name=ethernet-1/1]/statistics/in-octets/" -e json_ietf
+gnmic -a clab-dcfpartnerws-leaf11:57401 -u grclient1 -p grclient1 --skip-verify get --type state --path "/interface[name=ethernet-1/1]/statistics/in-octets/" -e json_ietf
 ```
 ///
 /// tab | gNMI Set
 ``` bash
-gnmic -a clab-srexperts-leaf11:57401 -u grclient1 -p grclient1 --skip-verify set --update-path "/interface[name=ethernet-1/1]/description" --update-value "gnmi-test"
+gnmic -a clab-dcfpartnerws-leaf11:57401 -u grclient1 -p grclient1 --skip-verify set --update-path "/interface[name=ethernet-1/1]/description" --update-value "gnmi-test"
 ```
 ///
 /// tab | gNMI Subscribe
 ``` bash
-gnmic -a clab-srexperts-leaf11:57401 -u grclient1 -p grclient1 --skip-verify sub --path "/interface[name=ethernet-1/1]/statistics/in-octets/" --mode once
+gnmic -a clab-dcfpartnerws-leaf11:57401 -u grclient1 -p grclient1 --skip-verify sub --path "/interface[name=ethernet-1/1]/statistics/in-octets/" --mode once
 ```
 ///
 
@@ -681,7 +681,7 @@ If you need help, refer to the solution below.
 
 /// details | gNSI request for gNMI Authz policy
 ```bash
-gnsic -a clab-srexperts-leaf11:57401 -u admin -p $EVENT_PASSWORD --skip-verify authz rotate --policy "{\"name\":\"gnmi-access\",\"allow_rules\":[{\"name\":\"gnmi-access\",\"source\":{\"principals\":[\"grclient1\",\"gnmi-clients\"]},\"request\":{\"paths\":[\"/gnmi.gNMI/Get\",\"/gnmi.gNMI/Subscribe\"]}}],\"deny_rules\":[{\"name\":\"gnmi-access\",\"source\":{\"principals\":[\"grclient1\",\"gnmi-clients\"]},\"request\":{\"paths\":[\"/gnmi.gNMI/Set\"]}}]}"
+gnsic -a clab-dcfpartnerws-leaf11:57401 -u admin -p $EVENT_PASSWORD --skip-verify authz rotate --policy "{\"name\":\"gnmi-access\",\"allow_rules\":[{\"name\":\"gnmi-access\",\"source\":{\"principals\":[\"grclient1\",\"gnmi-clients\"]},\"request\":{\"paths\":[\"/gnmi.gNMI/Get\",\"/gnmi.gNMI/Subscribe\"]}}],\"deny_rules\":[{\"name\":\"gnmi-access\",\"source\":{\"principals\":[\"grclient1\",\"gnmi-clients\"]},\"request\":{\"paths\":[\"/gnmi.gNMI/Set\"]}}]}"
 ```
 ///
 

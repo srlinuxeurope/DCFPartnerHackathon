@@ -65,7 +65,7 @@ Metric paths are what the collector uses to identify the data that you would lik
 
 !!! info "Connect to a SR OS Node"
     ```   
-    ssh admin@clab-srexperts-pe2
+    ssh admin@clab-dcfpartnerws-pe2
     ```
 Consider that you want to fetch information about the operationally up BGP peers of the router.  You may use the MD-CLI command `pwc gnmi-path` to find the paths to subscribe to.
 
@@ -83,7 +83,7 @@ Present Working Context:
 
 !!! info "Connect to a SR Linux Node"
     ```   
-    ssh admin@clab-srexperts-spine11
+    ssh admin@clab-dcfpartnerws-spine11
     ```
 Consider that you want to fetch the VLAN information of interfaces, the `xpath` command can provide the details as shown below; or you can also find the intended paths by searching the keywords in [YANG Browser](https://yang.srlinux.dev/v25.3.1).
 

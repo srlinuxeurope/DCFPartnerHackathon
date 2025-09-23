@@ -31,7 +31,7 @@ nav:
           - Virtual Networks: eda/beginner/virtual-networks.md
           - Notifications: eda/beginner/notifications.md
       - Intermediate:
-          - Install Your Own EDA: eda/intermediate/install-eda.md
+          #- Install Your Own EDA: eda/intermediate/install-eda.md
           - Custom Allocations: eda/intermediate/custom-allocations.md
           - REST API: eda/intermediate/api.md
       - Advanced:

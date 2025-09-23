@@ -77,7 +77,7 @@ Using the IP configuration provided in the [Objective](#objective) section, veri
 To connect to the shell of the client nodes, you should connect to the server running your lab and then ssh to each node, for example, for `client11`:
 
 ```bash title="execute from the lab server"
-ssh user@clab-srexperts-client11
+ssh user@clab-dcfpartnerws-client11
 ```
 
 <div class="embed-result">

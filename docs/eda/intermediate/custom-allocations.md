@@ -32,7 +32,7 @@ In this hands-on lab, you'll customize resource allocations in Nokia's EDA platf
 2. Assign system IPs from a user-defined subnet range
 3. Configure inter-switch links (ISL) subnets for underlay point-to-point links
 
-The goal is to replace generic, automatically-assigned values with a custom, consistent naming convention across the SReXperts lab topology.
+The goal is to replace generic, automatically-assigned values with a custom, consistent naming convention across the Hackathon lab topology.
 
 ## Technology Explanation
 
@@ -82,7 +82,7 @@ For instance, **ASN 3310000101** decodes as:
 * **000**: Site ID  
 * **0101**: Rack 01, Node 01
 
-Mapping this design to the SReXperts fabric you are working on, the ASN format translates to:
+Mapping this design to the Hackathon fabric you are working on, the ASN format translates to:
 
 | **Device**               | **Role**                | **Custom ASN** | **Breakdown**                                             |
 | ------------------------ | ----------------------- | -------------- | --------------------------------------------------------- |
@@ -104,10 +104,10 @@ First, let's verify what ASNs are currently assigned to the fabric devices befor
     ```
   
 * **Identify the ASN Pool**  
-  Identify the name of the ASN pool being used. For example, if the pool is named `srexperts-asnpool`, inspect it with:
+  Identify the name of the ASN pool being used. For example, if the pool is named `hackathon-asnpool`, inspect it with:
 
     ```shell
-    kubectl -n eda get indexallocationpool srexperts-asnpool -o yaml
+    kubectl -n eda get indexallocationpool hackathon-asnpool -o yaml
     ```
   
 * **Review the Output**  
@@ -119,7 +119,7 @@ First, let's verify what ASNs are currently assigned to the fabric devices befor
     metadata:
       creationTimestamp: "2025-04-07T14:03:46Z"
       generation: 5
-      name: srexperts-asnpool
+      name: hackathon-asnpool
       namespace: eda
       resourceVersion: "1145904"
       uid: 2b1ec70a-3d9d-404b-8493-f87640d43638
@@ -149,7 +149,7 @@ Let's find what allocation pool is being used for the leaf switches, by checking
 * In the list of configured fabric resources double click on the fabric resource you have.  
 * In the opened configuration view of the fabric resource, use the navigation panel on the left side to find the **Leafs** section.  
 * Select the **Autonomous System Pool** in the left nav bar. You should see the right pane to scroll to the position where the ASN allocation pool name is set for the leaf nodes.  
-  > *For example, it might indicate “Autonomous System Pool: srexperts-asnpool” or display another pool name.*
+  > *For example, it might indicate “Autonomous System Pool: hackathon-asnpool” or display another pool name.*
 
 ![used-pool](https://gitlab.com/rdodin/pics/-/wikis/uploads/942bc1a8332d315124ef221de9e9e5e8/CleanShot_2025-04-16_at_13.37.14_2x.png)
 
@@ -169,7 +169,7 @@ Using the pool name identified in step 2, find this pool in the Allocation Pools
 **5. For Spine Nodes**  
 
 * Check if there is a similar setting under **Spines** in the fabric settings.  
-* If a separate pool is in use for spines, take note; if not, spines might also be using **srexperts-asnpool**.
+* If a separate pool is in use for spines, take note; if not, spines might also be using **hackathon-asnpool**.
 
 **6. Review Assigned ASNs**  
 Verify the current ASN assignments for the fabric to ensure everything is in order.  
@@ -185,7 +185,7 @@ All pools that we have defined for this hackathon set this value to `true`, whic
 Use the below EQL to see existing allocations made from the `srexperts-asnpool` pool:
 
 ```
-.namespace.allocations.v1.template.instance.allocation where ( .namespace.allocations.v1.template.name = "srexperts-asnpool" )
+.namespace.allocations.v1.template.instance.allocation where ( .namespace.allocations.v1.template.name = "hackathon-asnpool" )
 ```
 
 You should find the familiar `4200001001`, `4200001002`, `4200001003` ASN numbers allocated to the fabric leafs and `4200001000` allocated to spines.
@@ -210,10 +210,10 @@ When in the Edit mode you will have a chance to add the explicit allocations usi
 1. Adding the new `start` value to fit the new addressing scheme
 2. Create allocations under the segment block that will list all keys and their explicit ASN values.
 
-Remember, that the allocation key you would use needs to match the key format used by the Fabric app, as this is the app that asks for the allocations from the ASN pool in our topology. For example, keeping our numbering scheme in mind and having the fabric resource named as `srexperts-fabric`, the allocation key/value pair for `leaf11` should be:
+Remember, that the allocation key you would use needs to match the key format used by the Fabric app, as this is the app that asks for the allocations from the ASN pool in our topology. For example, keeping our numbering scheme in mind and having the fabric resource named as `hackathon-fabric`, the allocation key/value pair for `leaf11` should be:
 
 ```yaml
-- name: srexperts-fabric-leaf-leaf11
+- name: hackathon-fabric-leaf-leaf11
   value: 3310000101
 ```
 
@@ -233,24 +233,24 @@ Here is how your the YAML representation of our intended edits to the `srexperts
 apiVersion: core.eda.nokia.com/v1
 kind: IndexAllocationPool
 metadata:
-  name: srexperts-asnpool
+  name: hackathon-asnpool
   namespace: eda
 spec:
   segments:
     - start: 3310000000
       size: 1000000
       allocations:
-        - name: srexperts-fabric-leaf-leaf11
+        - name: hackathon-fabric-leaf-leaf11
           value: 3310000101
-        - name: srexperts-fabric-leaf-leaf12
+        - name: hackathon-fabric-leaf-leaf12
           value: 3310000102
-        - name: srexperts-fabric-leaf-leaf13
+        - name: hackathon-fabric-leaf-leaf13
           value: 3310000103
 
     - start: 3320000000
       size: 1000000
       allocations:
-        - name: srexperts-fabric-spine
+        - name: hackathon-fabric-spine
           value: 3320000101
 ```
 
@@ -288,7 +288,7 @@ After committing the changes, it's time to confirm that they have been recorded 
 
 **3. With EQL**  
 
-* Run the EQL query you used in [step 3](#step-3-cross-check-asn-allocations-with-eql) to see the new allocations made from the `srexperts-asnpool` pool.
+* Run the EQL query you used in [step 3](#step-3-cross-check-asn-allocations-with-eql) to see the new allocations made from the `hackathon-asnpool` pool.
 
 ### Step 6: Network-level Verification
 
@@ -301,7 +301,7 @@ Log in to the actual Nokia SR Linux devices to confirm each node's local ASN and
 For example, connect to **leaf11** and check its BGP configuration:
 
 ```shell title="Execute on the server hosting the lab topology"
-ssh clab-srexperts-leaf11
+ssh clab-dcfpartnerws-leaf11
 ```
 
 Then, in the SR Linux CLI run:

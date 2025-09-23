@@ -74,7 +74,7 @@ An operator would create an allocation pool of a specific kind like any other re
 apiVersion: core.eda.nokia.com/v1
 kind: IndexAllocationPool
 metadata:
-  name: srexperts-asnpool
+  name: hackathon-asnpool
   namespace: eda
 spec:
   segments:
@@ -88,7 +88,7 @@ As mentioned above, the indices allocation pools are determined by the `start` a
 
 ### Using Allocation Pools
 
-The YAML above defines the `srexperts-asnpool` allocation pool, which starts from `4200001000` and has a size of `1000` elements in it. Whenever any EDA resource asks for an allocation from this pool, it will be allocated an AS Number from the range `[4200001000, 4200001999]` in the sequential order.
+The YAML above defines the `hackathon-asnpool` allocation pool, which starts from `4200001000` and has a size of `1000` elements in it. Whenever any EDA resource asks for an allocation from this pool, it will be allocated an AS Number from the range `[4200001000, 4200001999]` in the sequential order.
 
 Here is how this pool is referenced in the Fabric resource that creates the DC fabric across all leaf and spines in our topology:
 
@@ -96,7 +96,7 @@ Here is how this pool is referenced in the Fabric resource that creates the DC f
 apiVersion: fabrics.eda.nokia.com/v1alpha1
 kind: Fabric
 metadata:
-  name: srexperts-fabric
+  name: hackathon-fabric
   namespace: eda
 spec:
   interSwitchLinks:
@@ -104,7 +104,7 @@ spec:
       - eda.nokia.com/role=interSwitch
     unnumbered: IPV6
   leafs:
-    asnPool: srexperts-asnpool
+    asnPool: hackathon-asnpool
     leafNodeSelector:
       - eda.nokia.com/role=leaf
   overlayProtocol:
@@ -144,7 +144,7 @@ Custom Allocations (aka Preallocations) are a way to mark identifiers in an allo
 apiVersion: core.eda.nokia.com/v1
 kind: IndexAllocationPool
 metadata:
-  name: srexperts-asnpool
+  name: hackathon-asnpool
   namespace: eda
 spec:
   publishAllocations: true
@@ -152,7 +152,7 @@ spec:
     - start: 4200001000
       size: 1000
       allocations:
-        - name: srexperts-fabric-leaf-leaf11
+        - name: hackathon-fabric-leaf-leaf11
           value: 4200001111
 ```
 
@@ -224,7 +224,7 @@ kubectl -n eda get indexallocationpools
 
 Now that you know what allocation pools exist in your EDA instance, it is time to find out how these pools are used.
 
-The SReXperts 2025 topology that is deployed in the lab environment you work on uses EDA to deploy the fabric configuration over the three leafs and two spines that make up the DC1 topology.
+The DCF Partners Hackathon 2025 topology that is deployed in the lab environment you work on uses EDA to deploy the fabric configuration over the three leafs and two spines that make up the DC1 topology.
 
 -{{ diagram(url='srexperts/hackathon-diagrams/main/eda.drawio', title='EDA Managed nodes', page=0, zoom=1.5) }}-
 

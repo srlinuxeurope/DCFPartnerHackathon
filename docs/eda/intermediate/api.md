@@ -204,7 +204,7 @@ Interface is a namespaced resource, hence your URL will contain a namespace elem
 Next challenge. You need to create a new login banner message across all switches in your fabric that will say the following:
 
 ```
-This device is used in the best workshop ever - the SReXperts Hackathon 2025.
+This device is used in the best workshop ever - the DCF Partners Hackathon 2025.
 ```
 
 A free hint for you - the Banner resource is part of the **Site Information** application. You will find it under its name in the API docs.

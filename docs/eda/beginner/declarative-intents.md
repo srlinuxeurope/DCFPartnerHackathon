@@ -90,7 +90,7 @@ The transaction-based model also allows for Dry Runs - seeing what changes will 
 
 ## EDA UI
 
-Every hackathon group has access to an EDA instance and its interfaces. In this exercise you will be using EDA Web UI that you can reach over public Internet by navigating your browser to https://{group-ID}.srexperts.net:9443
+Every hackathon group has access to an EDA instance and its interfaces. In this exercise you will be using EDA Web UI that you can reach over public Internet by navigating your browser to https://dcfdemo.ddns.net:5xx01 (where xx is your group ID)
 
 > Use the provided leaflet to get the authentication details and Internet access instructions.
 

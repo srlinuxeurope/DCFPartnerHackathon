@@ -81,13 +81,13 @@ You will find the switch credentials in the leaflet provided to you.
 
 Clients are the Linux containers connected to the switches that you would need to configure to perform end-to-end ping tests between the hosts.
 
-To access the clients you first need to login to the lab server, and then from the server's shell you may run docker exec or (no credentials needed) SSH further to the desired client.
+To access the clients you first need to login to the lab server, and then from the server's shell you may run docker exec  (no credentials needed), or SSH (credentials needed) to the desired client.
 
-```bash title="docker exec to clients - run from the lab server"
+```bash title="docker exec to clients (no credentials needed)- run from the lab server"
 docker exec -it {client-hostname} bash
 ```
 
-```bash title="ssh to clients - run from the lab server"
+```bash title="ssh to clients (credentials needed) - run from the lab server"
 ssh user@{client-hostname}
 ```
 
@@ -97,7 +97,7 @@ The switch hostnames are:
 * `clab-dcfpartnerws-client12`
 * `clab-dcfpartnerws-client13`
 
-The client's credentials are `user:multit00l`
+The client's SSH credentials are `user:multit00l`.
 
 ///
 

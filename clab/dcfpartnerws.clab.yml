@@ -185,7 +185,7 @@ topology:
       mgmt-ipv4: 10.128.${INSTANCE_ID}.38
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
+        - /home/nokia/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client13:/etc/network/interfaces
         - configs/client/client.sh:/client.sh
         - configs/client/traffic.sh:/traffic.sh

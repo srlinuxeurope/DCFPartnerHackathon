@@ -228,7 +228,7 @@ Once logged in, paste this script that shuts down the `ethernet-1/1` on `leaf11`
 Run in the bash shell of the server:
 
 ```shell title="bring down leaf1:ethernet-1/1"
-docker exec clab-srexperts-leaf11 \
+docker exec clab-dcfpartnerws-leaf11 \
 sr_cli -ec "/interface ethernet-1/1 admin-state disable"
 ```
 
@@ -258,7 +258,7 @@ Alarm Type: `InterfaceDown`
 Bring back the interface state by running the following command in the bash shell of the server:
 
 ```shell
-docker exec clab-srexperts-leaf11 \
+docker exec clab-dcfpartnerws-leaf11 \
 sr_cli -ec "/interface ethernet-1/1 admin-state enable"
 ```
 
@@ -310,7 +310,7 @@ sr_cli -ec "/interface ethernet-1/1 admin-state disable"
 /// tab | Enable interface
 
 ```shell title="bring up leaf1:ethernet-1/1"
-docker exec clab-srexperts-leaf11 \
+docker exec clab-dcfpartnerws-leaf11 \
 sr_cli -ec "/interface ethernet-1/1 admin-state enable"
 ```
 

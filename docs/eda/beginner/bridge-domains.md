@@ -52,7 +52,7 @@ Before we start, we need to verify the IP configuration on both clients. We're i
 To connect to the shell of the client nodes, you should connect to the server running your lab and then ssh to each node, for example, for `client11`:
 
 ```bash title="execute from the lab server"
-ssh user@clab-srexperts-client11
+ssh user@clab-dcfpartnerws-client11
 ```
 
 <div class="embed-result">
@@ -278,7 +278,7 @@ With Bridge Domain and two Bridge Interfaces committed to the fabric, you should
 Connect to the server and then SSH into the client
 
 ```bash
-ssh user@clab-srexperts-client11
+ssh nokia@clab-dcfpartnerws-client11
 ```
 
 Once in the shell, ping client13:
@@ -313,7 +313,7 @@ rtt min/avg/max/mdev = 1.915/1.915/1.915/0.000 ms
 Connect to the server and then SSH into the client
 
 ```bash
-ssh user@clab-srexperts-client13
+ssh nokia@clab-dcfpartnerws-client13
 ```
 
 Once in the shell, ping client11:
@@ -418,7 +418,7 @@ To ensure that everything was configured correctly, re-check the connectivity be
 Connect to the server and then SSH into the client
 
 ```bash
-ssh user@clab-srexperts-client11
+ssh nokia@clab-dcfpartnerws-client11
 ```
 
 Once in the shell, ping client13:
@@ -453,7 +453,7 @@ rtt min/avg/max/mdev = 1.915/1.915/1.915/0.000 ms
 Connect to the server and then SSH into the client
 
 ```bash
-ssh user@clab-srexperts-client13
+ssh nokia@clab-dcfpartnerws-client13
 ```
 
 Once in the shell, ping client11:

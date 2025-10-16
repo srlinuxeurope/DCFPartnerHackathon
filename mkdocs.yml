@@ -58,6 +58,15 @@ nav:
       - tools/tools-bash-basics.md
       - tools/tools-clab-vscode-plugin.md
       - tools/tools_vi_indentation.md
+  - Containerlab Workshop (CH):
+    - Overview: workshop/index.md
+    - 05 - Installation: workshop/install.md
+    - 10 - Basics first: workshop/basics.md
+    - 15 - Startup config: workshop/startup.md
+    - 20 - VM-based nodes: workshop/vm.md
+    - 30 - SR Linux AskAI: workshop/askai.md
+    - 40 - Streaming telemetry: workshop/streaming-telemetry.md
+    - 50 - VS Code extension: workshop/vscode-extension.md
 site_author: Nokia
 site_description: >-
   SReXperts hackathon event guidelines

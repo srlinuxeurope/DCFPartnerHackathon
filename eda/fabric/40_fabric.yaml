@@ -1,0 +1,41 @@
+# Copyright 2026 Nokia
+# Licensed under the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+
+apiVersion: fabrics.eda.nokia.com/v1
+kind: Fabric
+metadata:
+  name: srexperts-fabric
+  namespace: eda
+  labels:
+    role: hackathon-infra
+spec:
+  interSwitchLinks:
+    linkSelectors:
+      - eda.nokia.com/role=interSwitch
+    unnumbered: IPv6
+  leafs:
+    asnPool: srexperts-asnpool
+    leafNodeSelectors:
+      - eda.nokia.com/role=leaf
+  overlayProtocol:
+    bgp:
+      autonomousSystem: 65000
+      rrClientNodeSelectors:
+        - eda.nokia.com/role=leaf
+      rrIpAddresses:
+        - fd00:fde8::${INSTANCE_ID}:13
+    protocol: IBGP
+  spines:
+    asnPool: srexperts-asnpool
+    spineNodeSelectors:
+      - eda.nokia.com/role=spine
+  systemPoolIPv4: srexperts-systemipv4
+  systemPoolIPv6: srexperts-systemipv6
+  underlayProtocol:
+    bgp:
+      asnPool: srexperts-asnpool
+      exportPolicies:
+        - ebgp-isl-export-policy-srexperts-fabric-custom
+    protocols:
+      - EBGP

@@ -1,0 +1,278 @@
+# Copyright 2026 Nokia
+# Licensed under the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+
+site_name: Hackathon 2026
+nav:
+  - Home: index.md
+  - Network Operating Systems (NOS):
+      - nos/index.md
+      - SR OS:
+          - Beginner:
+              - nos/sros/beginner/27-securing-grpc.md
+              - nos/sros/beginner/19-Enable_per_service-PQC_encryption_with_ANYsec.md
+              - nos/sros/beginner/nos-sros-activity-29.md
+              - nos/sros/beginner/57-SROS_remote_logging_with_Syslog_and_Loki.md
+              - nos/sros/beginner/55-SROS_Streaming_Telemetry.md
+          - Intermediate:
+              - nos/sros/intermediate/21-sros-automating-network-operations.md
+              - nos/sros/intermediate/22-Automated_network_configuration_validation.md
+              - nos/sros/intermediate/17-Delay-Optimization_Flex-Algo_SRv6.md
+              - nos/sros/intermediate/82-Delay-Optimization_Flex-Algo_SR-MPLS.md
+              - nos/sros/intermediate/25-override-radius-attributes-subscribers.md
+              - nos/sros/intermediate/18-secure-gRPC-mTLS.md
+              - nos/sros/intermediate/65-Ring-buffer-mirror-pcap.md
+              - nos/sros/intermediate/51-Enable_PQC_link_encryption_with_MACsec.md
+              - nos/sros/intermediate/56-SR_OS_Triggering_backups.md
+          - Advanced:
+              - nos/sros/advanced/33-rov-with-rpki.md
+              - nos/sros/advanced/159-custom-grpcserver-configuration.md
+      - SR Linux:
+          - Beginner:
+              - nos/srlinux/beginner/52-SR_Linux_remote_logging_with_Syslog_and_Loki.md
+              - nos/srlinux/beginner/26-sr-linux-realtime-monitoring-via-gnmi.md
+              - nos/srlinux/beginner/20-sr-linux-fund-real-world-tshoot-scen.md
+              - nos/srlinux/beginner/28-introduction-to-srl.md
+              - nos/srlinux/beginner/53-SR_Linux_Streaming_Telemetry.md
+          - Intermediate:
+              - nos/srlinux/intermediate/54-SR_Linux_Triggering_backups.md
+          - Advanced:
+              - nos/srlinux/advanced/32-inventory-ndk-app.md
+  - Network Services Platform (NSP):
+      - nsp/index.md
+      - Beginner:
+          - nsp/beginner/nsp-activity-34.md
+          - nsp/beginner/nsp-activity-67.md
+          - nsp/beginner/nsp-activity-41.md
+          - nsp/beginner/nsp-activity-36.md
+          - nsp/beginner/nsp-activity-38.md
+          - nsp/beginner/nsp-activity-76.md
+      - Intermediate:
+          - nsp/intermediate/nsp-activity-35.md
+          - nsp/intermediate/nsp-activity-43.md
+          - nsp/intermediate/nsp-activity-39.md
+      - Advanced:
+          - nsp/advanced/nsp-activity-40.md
+  - Event Driven Automation (EDA):
+      - eda/index.md
+      - Beginner:
+          - eda/beginner/bridge-domains.md
+          - eda/beginner/routers.md
+          - eda/beginner/virtual-networks.md
+          - eda/beginner/eda-app-deploy.md
+          - eda/beginner/app-delivery.md
+          - eda/beginner/digital-twin.md
+          - eda/beginner/ask-eda.md
+          - eda/beginner/inventory-collection-ansible.md
+          - eda/beginner/eda-query-language.md
+          - eda/beginner/dashboards.md
+      - Intermediate:
+          - eda/intermediate/python-sdk.md
+      - Advanced:
+          - eda/advanced/intent-app-development.md
+  - Supporting tools and plugins:
+      - tools/tools-bash-basics.md
+      - tools/tools-clab-vscode-plugin.md
+      - tools/tools-packet-capture.md
+      - tools/tools-code-server.md
+
+site_author: Nokia
+site_description: >-
+  SReXperts Hackathon event guidelines
+# Repository
+repo_name: nokia/SReXperts
+repo_url: https://github.com/nokia/SReXperts
+edit_uri: edit/main/docs/
+site_url: "https://hackathon.srexperts.net/"
+copyright: Copyright &copy; 2021-2026 Nokia
+theme:
+  name: material
+  custom_dir: docs/overrides
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  features:
+    - navigation.top
+    # - navigation.instant # removed until code selection are fixed https://github.com/squidfunk/mkdocs-material/issues/5066
+    - navigation.tabs
+    - navigation.sections
+    - search.suggest
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.action.edit
+    - toc.follow
+    - content.tooltips
+    - content.footnote.tooltips
+    - navigation.indexes
+
+  language: en
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  font:
+    text: NokiaPureText
+    code: Fira Code
+  logo: images/srexperts.svg
+  icon:
+    logo: nokia/srexperts
+    repo: fontawesome/brands/github
+    edit: material/file-edit-outline
+  favicon: images/nokia_favicon.svg
+
+# Plugins
+plugins:
+  - privacy:
+      assets: false
+      links_attr_map:
+        target: _blank
+  - meta
+  - glightbox
+  - macros:
+      j2_block_start_string: "-{{%"
+      j2_block_end_string: "%}}-"
+      j2_variable_start_string: "-{{"
+      j2_variable_end_string: "}}-"
+      include_yaml:
+        - macros/vars.yml
+      include_dir: macros
+      module_name: macros/main
+  - enumerate-headings:
+      increment_across_pages: false
+      start_level: 2
+  - blog:
+      blog_dir: blog
+      post_url_date_format: yyyy
+      archive: false
+      categories: false
+      post_excerpt_max_authors: 2
+      authors_profiles: true
+  - tags
+  - typeset
+  - search
+  - minify:
+      minify_html: true
+  - rss:
+      use_git: false
+      match_path: blog/posts/.*
+      abstract_chars_count: 5000
+      date_from_meta:
+        as_creation: date
+      categories:
+        - tags
+      comments_path:
+        "#__comments"
+        #- redirects:
+        #redirect_maps:
+  - privacy:
+      assets: false
+      links_attr_map:
+        target: _blank
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/tZvgjQ6PZf
+    - icon: fontawesome/brands/github
+      link: https://github.com/nokia/SReXperts
+  analytics:
+    provider: google
+    property: G-7C3C7M5XJP
+  tags:
+    # tags and their identifiers
+    media: media # media tag is used to show posts in media.md
+  annotate:
+    bash:
+      - .s1
+      - .s2
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.md_in_html
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - toc:
+      permalink: "#"
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji ""
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg ""
+  - pymdownx.highlight:
+      line_spans: __span
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: nokia
+      repo: SReXperts
+  - pymdownx.mark
+  - pymdownx.smartsymbols:
+      fractions: false
+  - pymdownx.snippets:
+      check_paths: true
+      url_download: true
+      dedent_subsections: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format ""
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.blocks.tab:
+      alternate_style: true
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.definition
+  - pymdownx.blocks.details
+  - pymdownx.blocks.html:
+      custom:
+        - tag: td
+          mode: block
+        - tag: th
+          mode: block
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_css:
+  - stylesheets/nokia.css
+  - stylesheets/nokia-fonts.css
+  - stylesheets/diagrams.css
+  - stylesheets/animations.css
+  - stylesheets/feedback.css
+
+extra_javascript:
+  - javascripts/sh-annotation.js
+  - javascripts/visitor-id.js
+  - javascripts/scroll-tracker.js
+  - javascripts/star-rating.js
+  - javascripts/heading-buttons.js
+  - javascripts/random-nav.js
+

@@ -1,0 +1,19 @@
+# Copyright 2026 Nokia
+# Licensed under the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+
+apiVersion: core.eda.nokia.com/v1
+kind: IndexAllocationPool
+metadata:
+  name: srexperts-asnpool
+  namespace: eda
+  labels:
+    role: hackathon-infra
+spec:
+  publishAllocations: true
+  segments:
+    - allocations:
+        - name: srexperts-fabric-spine
+          value: 4200001000
+      start: 4200001000
+      size: 1000

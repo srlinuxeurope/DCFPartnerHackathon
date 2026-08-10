@@ -1,0 +1,18 @@
+# Copyright 2026 Nokia
+# Licensed under the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+
+apiVersion: core.eda.nokia.com/v1
+kind: IndexAllocationPool
+metadata:
+  labels:
+    eda.nokia.com/bootstrap: "true"
+    role: hackathon-infra
+  name: vni-pool
+  namespace: eda
+  annotations: {}
+spec:
+  segments:
+    - size: 1000
+      start: 2000
+  publishAllocations: true

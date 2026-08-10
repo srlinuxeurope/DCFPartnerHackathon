@@ -1,0 +1,33 @@
+# Copyright 2026 Nokia
+# Licensed under the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultBGPGroup
+metadata:
+  name: bgpgroup-ebgp-pe
+  namespace: eda
+  labels:
+    role: hackathon-infra
+spec:
+  bfd: false
+  client: false
+  exportPolicies:
+    - accept-all
+  importPolicies:
+    - accept-all
+  ipv4Unicast:
+    advertiseIPv6NextHops: true
+    enabled: true
+    receiveIPv6NextHops: true
+    maxReceivedRoutes: null
+  ipv6Unicast:
+    enabled: true
+    maxReceivedRoutes: null
+  l2VPNEVPN:
+    enabled: false
+    advertiseIPv6NextHops: false
+    maxReceivedRoutes: null
+  nextHopSelf: false
+  sendCommunityLarge: false
+  sendCommunityStandard: false

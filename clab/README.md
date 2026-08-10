@@ -9,7 +9,7 @@ Assuming bash/zsh, export/append these variables to your rc files.
 ```bash
 # any number between 1-99
 export INSTANCE_ID=99
-export CNSP_INSTANCE_ID=$(printf '%04d' ${INSTANCE_ID})
+export EXT_INSTANCE_ID=$(printf '%04d' ${INSTANCE_ID})
 # Password you want to set when accessing the nodes in the topology
 export EVENT_PASSWORD=iWantToRunThisLabOnMyOwn
 

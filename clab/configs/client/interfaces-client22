@@ -40,5 +40,6 @@ iface bond0.2101
 auto bond0.2200
 iface bond0.2200
     mtu 8700
+    requires bond0
     address 10.65.44.22/24
     post-up ip r a 10.65.0.0/16 via 10.65.44.1 dev bond0.2200

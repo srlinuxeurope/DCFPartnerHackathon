@@ -119,7 +119,7 @@ SIMULATE=false make try-eda
 
 ## Add EDA License
 
-Put the [EDA license](https://gitlabe2.ext.net.nokia.com/sr/eda/license/-/blob/main/eda-non-prod-license.yaml?ref_type=heads) in `/opt/srexperts`
+Put the EDA license in `/opt/srexperts`
 
 Apply the license after EDA is deployed:
 

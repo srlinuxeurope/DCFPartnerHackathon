@@ -1,4 +1,3 @@
-pysros>=25.10
 argparse
 getpass4
 

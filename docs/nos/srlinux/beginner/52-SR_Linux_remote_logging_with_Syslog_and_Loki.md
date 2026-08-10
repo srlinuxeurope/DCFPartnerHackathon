@@ -378,7 +378,7 @@ scrape_configs:
       - source_labels: ["__syslog_message_hostname"]
         replacement: clab-srexperts-$1
         target_label: "source"
-        regex: (?:g\d+)-([a-z]+\d+|vRR)
+        regex: (?:g\d+)-([a-z]+\d+)
       - source_labels: ["__syslog_message_severity"]
         target_label: "level"
       - source_labels: ["__syslog_message_app_name"]

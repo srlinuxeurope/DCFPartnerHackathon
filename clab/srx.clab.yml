@@ -10,7 +10,8 @@
 #     iBGP (ipv4/ipv6 over the link, EVPN RR mesh over loopbacks)
 #   - RADIUS attached in-band to PE4 (e1-4), DNS to PE2 (e1-4, VLAN 1)
 #     (former vRR attachment addressing preserved: 10.64.13.0/31 and 10.64.13.128/25)
-#   - Telemetry & logging stack kept unchanged
+#   - Telemetry & logging: gnmic/prometheus/grafana + promtail/loki (SRL-only;
+#     the syslog-ng relay was removed with the SR OS nodes)
 # Removed: p1, p2, vRR, pe1, pe3, client01-04, ixp1, agg1, peering2, transit1,
 #          rpki, bngblaster and the pe*-p* bridge nodes. No SR OS nodes remain.
 
@@ -53,7 +54,6 @@ topology:
         - configs/radius/authorize:/etc/raddb/mods-config/files/authorize
         - configs/radius/radius.sh:/client.sh
         - configs/radius/dictionary:/usr/share/freeradius/dictionary
-        - configs/radius/dictionary.alcatel.sr.extended:/usr/share/freeradius/dictionary.alcatel.sr.extended
       exec:
         - bash -c "envsubst < /etc/network/interfaces.tmpl | tee /etc/network/interfaces"
         - bash -c "envsubst < /etc/raddb/clients.tmpl.conf | tee /etc/raddb/clients.conf"
@@ -329,7 +329,6 @@ topology:
       ports:
         - 3000:3000
       env:
-        GF_INSTALL_PLUGINS: "andrewbmchugh-flow-panel"
         # env vars to enable anonymous access
         GF_ORG_ROLE: "Admin"
         GF_ORG_NAME: "Main Org."
@@ -342,16 +341,6 @@ topology:
       group: "10"
 
     ### LOGGING STACK ###
-    syslog:
-      kind: linux
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.74
-      image: quay.io/linuxserver.io/syslog-ng:4.10.2
-      binds:
-        - configs/syslog/syslog-ng.conf:/config/syslog-ng.conf:rslave
-        - configs/syslog/log/messages:/var/log/messages:rslave
-      env:
-        PUID: 1001
-        PGID: 1001
     promtail:
       kind: linux
       mgmt-ipv4: 10.128.${INSTANCE_ID}.75

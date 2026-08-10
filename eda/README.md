@@ -105,13 +105,6 @@ echo "NOKIA_GID: $NOKIA_GID"
 echo "SSH_PUBLIC_KEY: $SSH_PUBLIC_KEY"
 ```
 
-The topology also needs to linux bridges to be create, created them using ip link:
-
-```bash
-sudo ip link add pe1-p1 type bridge
-sudo ip link add pe2-p1 type bridge
-```
-
 Proceed with deploying the topology:
 
 ```bash
@@ -262,18 +255,6 @@ uv --directory eda run ansible-playbook -i inventory.yml ./playbooks/users.yaml 
 
 To support activities around Digital Twin/CX on EDA we spin a single VM that is shared by all attendees. It is configured with many admin users (admin admin2 admin3 ... admin80) based on the max number of instances.
 
-This system spins up EDA with `simulate=true` and uses containerized images for SR-SIM and SRL-SIM. Since the default node profile for SR OS comes without the containerImage in its spec, we need to set it by running kubectl patch on the node profile CR `sros-ghcr-26.3.r1`:
+This system spins up EDA with `simulate=true` and uses the containerized SRL-SIM image.
 
-```bash
-SRSIM_IMAGE=europe-west1-docker.pkg.dev/nhc-f4160d67/containerlab/nokia_srsim:26.3.R1
-kubectl -n eda patch nodeprofile sros-ghcr-26.3.r1 --type=merge -p '{"spec":{"containerImage":"'${SRSIM_IMAGE}'"}}'
-```
-
-Then we need to also set the SR-SIM license in the already existing `sros-ghcr-26.3.r1-dummy-license` configmap by reading its content from disk `/opt/srexperts/sros.license`:
-
-```bash
-jq -n --rawfile lic /opt/srexperts/sros.license '{data:{"license.key": $lic}}' > /tmp/cm-patch.json
-kubectl -n eda-system patch configmap sros-ghcr-26.3.r1-dummy-license --type=merge --patch-file=/tmp/cm-patch.json
-```
-
-Now we can use the SR-SIM and SRL-SIM images to spin up the CX topology.
+Now we can use the SRL-SIM images to spin up the CX topology.

@@ -73,7 +73,7 @@ spec:
 apiVersion: core.eda.nokia.com/v1
 kind: NodeProfile
 metadata:
-  name: srexperts-srlinux-26.3.1
+  name: srexperts-srlinux-26.7.1
   namespace: eda
   labels:
     role: hackathon-infra
@@ -81,11 +81,11 @@ spec:
   port: 57410
   annotate: true
   operatingSystem: srl
-  version: 26.3.1
+  version: 26.7.1
   versionPath: .system.information.version
-  versionMatch: v26\.3\.1.*
-  llmDb: https://eda-asvr.eda-system.svc/_base_/llm-dbs/llm-db-srlinux-ghcr-26.3.1/llm-embeddings-srl-26-3-1.tar.gz
-  yang: https://eda-asvr.eda-system.svc/_base_/schemaprofiles/srlinux-ghcr-26.3.1/srlinux-26.3.1.zip
+  versionMatch: v26\.7\.1.*
+  llmDb: https://eda-asvr.eda-system.svc/_base_/llm-dbs/llm-db-srlinux-ghcr-26.7.1/llm-embeddings-srl-26-3-1.tar.gz
+  yang: https://eda-asvr.eda-system.svc/_base_/schemaprofiles/srlinux-ghcr-26.7.1/srlinux-26.7.1.zip
   nodeUser: admin
   onboardingPassword: NokiaSrl1!
   onboardingUsername: admin
@@ -108,10 +108,10 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.3.1
+  nodeProfile: srexperts-srlinux-26.7.1
   operatingSystem: srl
   platform: 7220 IXR-D3L
-  version: 26.3.1
+  version: 26.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.33/24
 ---
@@ -128,10 +128,10 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.3.1
+  nodeProfile: srexperts-srlinux-26.7.1
   operatingSystem: srl
   platform: 7220 IXR-D3L
-  version: 26.3.1
+  version: 26.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.34/24
 ---
@@ -148,10 +148,10 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.3.1
+  nodeProfile: srexperts-srlinux-26.7.1
   operatingSystem: srl
   platform: 7220 IXR-D3L
-  version: 26.3.1
+  version: 26.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.35/24
 ---
@@ -168,10 +168,10 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.3.1
+  nodeProfile: srexperts-srlinux-26.7.1
   operatingSystem: srl
   platform: 7220 IXR-D5
-  version: 26.3.1
+  version: 26.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.31/24
 ---
@@ -188,10 +188,10 @@ metadata:
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.3.1
+  nodeProfile: srexperts-srlinux-26.7.1
   operatingSystem: srl
   platform: 7220 IXR-D5
-  version: 26.3.1
+  version: 26.7.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.32/24
 ---

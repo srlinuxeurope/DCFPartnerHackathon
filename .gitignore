@@ -173,7 +173,6 @@ cython_debug/
 **/*.y*ml.bak
 
 # ignore yml partial configs
-**/sros/*.partial.cfg
 **/srl/spine1*.cfg
 **/srl/leaf1*.cfg
 **/srl/leaf2*.cfg
@@ -184,7 +183,6 @@ cython_debug/
 **/radius/clients.conf
 **/radius/interfaces
 **/dns/dnsmasq.conf
-**/sros/boot-good-exec.cfg
 
 
 .vscode

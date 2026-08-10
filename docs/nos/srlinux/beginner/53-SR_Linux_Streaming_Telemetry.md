@@ -578,7 +578,6 @@ outputs:
     strings-as-labels: true
     debug: false
     event-processors:
-      - trim-sros-prefixes
       - add-labels
       - trim-regex
       - group-by-interface

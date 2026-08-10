@@ -20,7 +20,7 @@ In this event you have the opportunity to undertake challenges on both Network O
 
 A number of activities have been created for you to follow, separated by our rough estimation of difficulty level (opinions may vary :smile:).  Feel free to attempt any of them, or work any project you have in mind.  Which ever approach you choose, a team of dedicated experienced Nokia engineers is on hand to assist you.
 
-### Split by Network Operating System (NOS): SR OS and SR Linux
+### SR Linux activities
 
 For organizational purposes, we have separated those activities focusing on SR OS from those focusing on SR Linux.  That doesn't mean that you need to pick one NOS and stick with it.  The event is a great opportunity to both expand your knowledge on familiar NOS' and to get exposure on unfamiliar ones.
 
@@ -47,7 +47,7 @@ These two small asks will help us continue to improve your experience for when y
 
 Each group has their own complete network, including an IP core running segment routing, multiple data-centers, a braodband network and client and subscriber devices.  This is your playground.  It is all pre-configured and operating as a real end-to-end network would.  
 
-The NOS stream activities focus on the SR OS and SR Linux devices in the network, but many of them also use the Linux client and subscriber devices as well.
+The NOS stream activities focus on the SR Linux devices in the network, but many of them also use the Linux client and subscriber devices as well.
 
 To gain access to any of the devices you can either connect using SSH to your groups event server (also referenced as hackathon VM in a number of the activities) or use the ports mapped directly to the node and service you want to connect to from your own laptop.  More details are available on the [main page of this site](../index.md).
 

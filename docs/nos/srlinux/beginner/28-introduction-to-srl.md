@@ -340,7 +340,7 @@ In this task, BGP is already configured and running on all SR Linux nodes. Your 
                         local
                     ]
                 }
-                neighbor fd00:fde8::1:13 {
+                neighbor fd00:fde8::1:24 {
                     peer-group iBGP-DC
                 }
             ```
@@ -372,10 +372,10 @@ In this task, BGP is already configured and running on all SR Linux nodes. Your 
     ??? example "modify configuration"
         === "Commands"
             ```
-            neighbor fd00:fde8::1:13 description "iBGP-DC overlay peer to vRR"
+            neighbor fd00:fde8::1:24 description "iBGP-DC overlay peer to PE4"
             ```
             ```
-            neighbor fd00:fde8::1:13 local-preference 170
+            neighbor fd00:fde8::1:24 local-preference 170
             ```
             ```
             diff
@@ -383,17 +383,17 @@ In this task, BGP is already configured and running on all SR Linux nodes. Your 
         === "Expected output"
             ``` srl
             --{ + candidate shared default }--[ network-instance default protocols bgp ]--
-            A:admin@g1-leaf21# neighbor fd00:fde8::1:13 description "iBGP-DC overlay peer to vRR"
+            A:admin@g1-leaf21# neighbor fd00:fde8::1:24 description "iBGP-DC overlay peer to PE4"
 
 
             --{ +* candidate shared default }--[ network-instance default protocols bgp ]--
-            A:admin@g1-leaf21# neighbor fd00:fde8::1:13 local-preference 170
+            A:admin@g1-leaf21# neighbor fd00:fde8::1:24 local-preference 170
 
 
             --{ +* candidate shared default }--[ network-instance default protocols bgp ]--
             A:admin@g1-leaf21# diff
-                neighbor fd00:fde8::1:13 {
-            +         description "iBGP-DC overlay peer to vRR"
+                neighbor fd00:fde8::1:24 {
+            +         description "iBGP-DC overlay peer to PE4"
             +         local-preference 170
                 }
 
@@ -654,7 +654,7 @@ Aliases allow operators to define custom command names that map to longer SR Lin
         === "Expected output"
             ``` srl
             --{ + running }--[  ]--
-            A:admin@g1-leaf21# bgp-neighbor fd00:fde8::1:13
+            A:admin@g1-leaf21# bgp-neighbor fd00:fde8::1:24
             ------------------------------------------------------------------------------------------------------------------------
             BGP neighbor summary for network-instance "default"
             Flags: S static, D dynamic, L discovered by LLDP, B BFD enabled, - disabled, * slow

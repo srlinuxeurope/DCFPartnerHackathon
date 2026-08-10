@@ -89,12 +89,10 @@ In this event, every group has their own complete service-provider network at th
 
 The above topology contains a number of functional blocks to help you in areas you might want to focus on, it contains:
 
-- Routing:
-    - SR-MPLS (Dual-Stack ISIS)
-    - MP-BGP (SAFIs with IPv6 next-hop) ; single node (vRR) route-reflector
-    - 2x P-nodes (SR OS)
-    - 4x PE-nodes (SR OS)
-    - 1x route-reflector (SR Linux)
+- An all-SR Linux network (release 26.7.1):
+    - 2x PE / DCGW nodes (pe2 and pe4, 7250 IXR-X1b) directly interconnected
+    - WAN core between the PEs: dual-stack ISIS with SR-MPLS and iBGP (IPv4/IPv6 + EVPN)
+    - each PE acts as EVPN route-reflector for its data center
 - Data Centers:
     - DC1: a CLOS model - managed by EDA
         - 2x spines (spine11|spine12) and 3 leaf switches (leaf11|leaf12|leaf13)
@@ -102,14 +100,13 @@ The above topology contains a number of functional blocks to help you in areas y
         - 2x spines (spine21|spine22) and 3 leaf switches (leaf21|leaf22|leaf23)
     - IPv6 BGP unnumbered configured in the underlay
     - DCGW Integration:
-        - DC1: PE2 and PE3
-        - DC2: PE1 and PE4
-    - a Data Center interconnect using a MPLS IP-VPN (EVPN/IPVPN integration):
-        - VPRN "DCI" and EVPN/VPLS "IPVRF201" and EVPN/VPLS "IPVRF202"
-- Subscriber management (BNG+NAT) on PE4
-- a Transit/Peering setup with RPKI available on PE1
-- a fully working telemetry stack (gNMIc/prometheus/grafana + syslog/promtail/loki)
-- Linux clients are attached to both the GRT and VPRN services allowing a full mesh of traffic.
+        - DC1: PE2
+        - DC2: PE4
+    - a Data Center Interconnect on the PEs: multi-instance EVPN-IFL ip-vrf "dci"
+      (EVPN-VXLAN towards the fabric + EVPN-IFL over MPLS between the PEs)
+- RADIUS and DNS servers attached in-band (PE4 and PE2 respectively)
+- a fully working telemetry stack (gNMIc/prometheus/grafana + promtail/loki)
+- Linux clients are attached to both the GRT and the DCI ip-vrf allowing a full mesh of traffic.
 
 ### Accessing Topology nodes
 
@@ -1227,7 +1224,6 @@ gh repo clone nokia/SReXperts
 ### SR OS
 
 - [SR OS Release 26.3](https://documentation.nokia.com/sr/26-3/index.html)
-- [pySROS](https://network.developer.nokia.com/static/sr/learn/pysros/latest/index.html)
 - [Network Developer Portal](https://network.developer.nokia.com/sr/learn/)
 
 ### Misc Tools/Software

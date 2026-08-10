@@ -334,7 +334,6 @@ $INCLUDE dictionary.yubico
 $INCLUDE dictionary.zeus
 $INCLUDE dictionary.zte
 $INCLUDE dictionary.zyxel
-$INCLUDE dictionary.alcatel.sr.extended
 
 #
 #       And finally the server internal attributes.

@@ -1,6 +1,18 @@
 # Copyright 2024 Nokia
 # Licensed under the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
+#
+# Reduced topology (all Nokia SR Linux 26.7.1):
+#   - DC1 (spine11/12, leaf11/12/13, client11-13) attached to PE2
+#   - DC2 (spine21/22, leaf21/22/23, client21-23) attached to PE4
+#   - PE2 and PE4 (type 7250 IXR-X1b) directly connected (e1-1 <-> e1-1,
+#     10.64.20.0/31) and carrying the former P/vRR roles: ISIS+SR-MPLS core,
+#     iBGP (ipv4/ipv6 over the link, EVPN RR mesh over loopbacks)
+#   - RADIUS attached in-band to PE4 (e1-4), DNS to PE2 (e1-4, VLAN 1)
+#     (former vRR attachment addressing preserved: 10.64.13.0/31 and 10.64.13.128/25)
+#   - Telemetry & logging stack kept unchanged
+# Removed: p1, p2, vRR, pe1, pe3, client01-04, ixp1, agg1, peering2, transit1,
+#          rpki, bngblaster and the pe*-p* bridge nodes. No SR OS nodes remain.
 
 name: srexperts
 
@@ -16,18 +28,9 @@ topology:
       username: admin
       password: ${EVENT_PASSWORD}
   kinds:
-    nokia_srsim:
-      image: nokia_srsim:26.3.R1
-      license: /opt/srexperts/sros.license
-      startup-config: configs/sros/__clabNodeName__.partial.cfg
-      entrypoint: "/hackathon-entrypoint.sh"
-      binds:
-        - configs/sros/hackathon-entrypoint.sh:/hackathon-entrypoint.sh
-      env:
-        INSTANCE_ID: ${INSTANCE_ID}
     nokia_srlinux:
-      image: ghcr.io/nokia/srlinux:26.3.1
-      startup-config: configs/srl/__clabNodeName__.cfg
+      image: ghcr.io/nokia/srlinux:26.7.1
+      # startup-config is set explicitly on every SR Linux node below
       exec:
         - usermod -aG ntwkadmin admin
 
@@ -36,38 +39,7 @@ topology:
       startup-delay: 120
 
   nodes:
-    # P-layer
-    p1:
-      kind: nokia_srsim
-      type: sr-1-24d
-      components:
-        - slot: A
-        - slot: 1
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.11
-      ports:
-        - 50011:22
-        - 50311:57400
-        - 50411:830
-    p2:
-      kind: nokia_srsim
-      type: sr-1-24d
-      components:
-        - slot: A
-        - slot: 1
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.12
-      ports:
-        - 50012:22
-        - 50312:57400
-        - 50412:830
-    vRR:
-      kind: nokia_srlinux
-      license: /opt/srexperts/srl.license
-      type: ixr-x1b
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.13
-      ports:
-        - 50013:22
-        - 50313:57400
-        - 50413:830
+    # core services
     radius:
       kind: linux
       group: core
@@ -110,143 +82,32 @@ topology:
       env:
         USER_PASSWORD: ${EVENT_PASSWORD}
         INSTANCE_ID: ${INSTANCE_ID}
-    # PE-layers
-    pe1:
-      kind: nokia_srsim
-      # FP5 model for ANYsec
-      type: sr-1-24d
-      components:
-        - slot: A
-        - slot: 1
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.21
-      ports:
-        - 50021:22
-        - 50321:57400
-        - 50421:830
+    # PE-layers (SR Linux 26.7.1, 7250 IXR-X1b)
     pe2:
-      kind: nokia_srsim
-      # FP5 model for ANYsec
-      type: sr-1-24d
-      components:
-        - slot: A
-        - slot: 1
+      kind: nokia_srlinux
+      license: /opt/srexperts/srl.license
+      type: ixr-x1b
       mgmt-ipv4: 10.128.${INSTANCE_ID}.22
+      startup-config: configs/srl/pe2.cfg
       ports:
         - 50022:22
         - 50322:57400
-        - 50422:830
-      binds:
-        - ../activities/nos/sros/activity-22/pre.py:/home/sros/flash3/pre.py
-    pe3:
-      kind: nokia_srsim
-      type: sr-1-24d
-      components:
-        - slot: A
-        - slot: 1
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.23
-      ports:
-        - 50023:22
-        - 50323:57400
-        - 50423:830
     pe4:
-      kind: nokia_srsim
-      type: sr-12e
-      env:
-        NOKIA_SROS_STATIC_ROUTE_1: 0.0.0.0/0@10.128.${INSTANCE_ID}.1
-        NOKIA_SROS_ADDRESS_IPV4_ACTIVE: "10.128.${INSTANCE_ID}.24/24"
-      components:
-        - slot: A
-        - slot: 1
-          sfm: m-sfm6-12e
-          type: iom5-e
-          mda:
-            - slot: 1
-              type: me12-100gb-qsfp28
-        - slot: 2
-          sfm: m-sfm6-12e
-          type: iom4-e
-          mda:
-            - slot: 1
-              type: isa2-bb
+      kind: nokia_srlinux
+      license: /opt/srexperts/srl.license
+      type: ixr-x1b
       mgmt-ipv4: 10.128.${INSTANCE_ID}.24
+      startup-config: configs/srl/pe4.cfg
       ports:
         - 50024:22
         - 50324:57400
-        - 50424:830
-    client01:
-      kind: linux
-      group: peclient
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.25
-      image: ghcr.io/srl-labs/network-multitool
-      binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
-        - configs/client/interfaces-client01:/etc/network/interfaces
-        - configs/client/client.sh:/client.sh
-        - configs/client/traffic.sh:/traffic.sh
-      exec:
-        - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
-      ports:
-        - 50025:22
-      env:
-        USER_PASSWORD: ${EVENT_PASSWORD}
-    client02:
-      kind: linux
-      group: peclient
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.26
-      image: ghcr.io/srl-labs/network-multitool
-      binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
-        - configs/client/interfaces-client02:/etc/network/interfaces
-        - configs/client/client.sh:/client.sh
-        - configs/client/traffic.sh:/traffic.sh
-      exec:
-        - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
-      ports:
-        - 50026:22
-      env:
-        USER_PASSWORD: ${EVENT_PASSWORD}
-    client03:
-      kind: linux
-      group: peclient
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.27
-      image: ghcr.io/srl-labs/network-multitool
-      binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
-        - configs/client/interfaces-client03:/etc/network/interfaces
-        - configs/client/client.sh:/client.sh
-        - configs/client/traffic.sh:/traffic.sh
-      exec:
-        - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
-      ports:
-        - 50027:22
-      env:
-        USER_PASSWORD: ${EVENT_PASSWORD}
-    client04:
-      kind: linux
-      group: peclient
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.28
-      image: ghcr.io/srl-labs/network-multitool
-      binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
-        - configs/client/interfaces-client04:/etc/network/interfaces
-        - configs/client/client.sh:/client.sh
-        - configs/client/traffic.sh:/traffic.sh
-      exec:
-        - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
-      ports:
-        - 50028:22
-      env:
-        USER_PASSWORD: ${EVENT_PASSWORD}
     # DC1
     spine11:
       kind: nokia_srlinux
       type: ixr-d5
       group: spine
       mgmt-ipv4: 10.128.${INSTANCE_ID}.31
+      startup-config: configs/srl/spine11.cfg
       ports:
         - 50031:22
         - 50331:57400
@@ -255,6 +116,7 @@ topology:
       type: ixr-d5
       group: spine
       mgmt-ipv4: 10.128.${INSTANCE_ID}.32
+      startup-config: configs/srl/spine12.cfg
       ports:
         - 50032:22
         - 50332:57400
@@ -263,6 +125,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.33
+      startup-config: configs/srl/leaf11.cfg
       ports:
         - 50033:22
         - 50333:57400
@@ -271,6 +134,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.34
+      startup-config: configs/srl/leaf12.cfg
       ports:
         - 50034:22
         - 50334:57400
@@ -279,6 +143,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.35
+      startup-config: configs/srl/leaf13.cfg
       ports:
         - 50035:22
         - 50335:57400
@@ -339,6 +204,7 @@ topology:
       type: ixr-d5
       group: spine
       mgmt-ipv4: 10.128.${INSTANCE_ID}.41
+      startup-config: configs/srl/spine21.cfg
       ports:
         - 50041:22
         - 50341:57400
@@ -347,6 +213,7 @@ topology:
       type: ixr-d5
       group: spine
       mgmt-ipv4: 10.128.${INSTANCE_ID}.42
+      startup-config: configs/srl/spine22.cfg
       ports:
         - 50042:22
         - 50342:57400
@@ -355,6 +222,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.43
+      startup-config: configs/srl/leaf21.cfg
       ports:
         - 50043:22
         - 50343:57400
@@ -363,6 +231,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.44
+      startup-config: configs/srl/leaf22.cfg
       ports:
         - 50044:22
         - 50344:57400
@@ -371,6 +240,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.45
+      startup-config: configs/srl/leaf23.cfg
       ports:
         - 50045:22
         - 50345:57400
@@ -423,75 +293,6 @@ topology:
         - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
       ports:
         - 50048:22
-      env:
-        USER_PASSWORD: ${EVENT_PASSWORD}
-    # MISC
-    ixp1:
-      kind: nokia_srlinux
-      type: ixr-d3l
-      group: leaf
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.51
-      startup-config: configs/srl/ixp1.cfg
-      ports:
-        - 50051:22
-        - 50351:57400
-    agg1:
-      kind: nokia_srlinux
-      type: ixr-d3l
-      group: leaf
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.52
-      startup-config: configs/srl/agg1.cfg
-      ports:
-        - 50052:22
-        - 50352:57400
-    peering2:
-      kind: nokia_srlinux
-      license: /opt/srexperts/srl.license
-      type: ixr-x3b
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.53
-      startup-config: configs/srl/peering2.cfg
-      ports:
-        - 50053:22
-        - 50353:57400
-    transit1:
-      kind: linux
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.54
-      image: ghcr.io/srl-labs/network-multitool
-      binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
-        - configs/transit/interfaces:/etc/network/interfaces
-        - configs/transit/client.sh:/client.sh
-        - configs/transit/gobgp.tmpl.yml:/gobgp/gobgp.tmpl.yml
-      exec:
-        - bash -c "envsubst < /gobgp/gobgp.tmpl.yml | tee /gobgp/gobgp.yml"
-        - bash /client.sh
-      ports:
-        - 50054:22
-      env:
-        USER_PASSWORD: ${EVENT_PASSWORD}
-        INSTANCE_ID: ${INSTANCE_ID}
-    rpki:
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.55
-      kind: linux
-      image: rpki/stayrtr # see https://github.com/bgp/stayrtr, default source is https://console.rpki-client.org/vrps.json
-    bngblaster:
-      kind: linux
-      group: subscriber
-      mgmt-ipv4: 10.128.${INSTANCE_ID}.61
-      image: ghcr.io/srl-labs/network-multitool
-      binds:
-        - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
-        - configs/subscribers/bngblaster.json:/bngblaster.json
-        - configs/subscribers/subscribers.sh:/client.sh
-      exec:
-        - bash -c "sysctl net.ipv6.conf.eth1.disable_ipv6=1"
-        - bash -c "sysctl net.ipv6.conf.eth2.disable_ipv6=1"
-        - bash -c "sysctl net.ipv6.conf.eth3.disable_ipv6=1"
-        - bash /client.sh
-        - bash -c "echo 'nameserver 10.128.${INSTANCE_ID}.15' | sudo tee /etc/resolv.conf"
-        - bash -c "bngblaster -S ctrl.sock -L /bngblaster.log -C /bngblaster.json &"
-      ports:
-        - 50061:22
       env:
         USER_PASSWORD: ${EVENT_PASSWORD}
     ### TELEMETRY STACK ###
@@ -566,104 +367,25 @@ topology:
         - configs/loki:/etc/loki
       cmd: --config.file=/etc/loki/loki-config.yml
 
-    pe1-p1:
-      kind: bridge
-    pe2-p1:
-      kind: bridge
-    pe1-p2:
-      kind: bridge
-    pe2-p2:
-      kind: bridge
-
   links:
-    # links from P1
-    - endpoints: ["p1:1/1/c1/1", "pe1-p1:p1-1/1/c1/1"]
+    # DCI: direct PE2 <-> PE4 link (ISIS/SR-MPLS + iBGP + VXLAN handoff)
+    - endpoints: ["pe2:e1-1", "pe4:e1-1"]
       mtu: 9500
-    - endpoints: ["p1:1/1/c2/1", "pe2-p1:p1-1/1/c2/1"]
+    # in-band attachment of RADIUS (to PE4) and DNS (to PE2)
+    # (former vRR subnets preserved: 10.64.13.0/31 and 10.64.13.128/25 vlan 1)
+    - endpoints: ["pe4:e1-4", "radius:eth1"]
       mtu: 9500
-    - endpoints: ["pe1:1/1/c1/1", "pe1-p1:pe1-1/1/c1/1"]
+    - endpoints: ["pe2:e1-4", "dns:eth1"]
       mtu: 9500
-    - endpoints: ["pe2:1/1/c1/1", "pe2-p1:pe2-1/1/c1/1"]
+    # links from pe2 to DC1
+    - endpoints: ["pe2:e1-2", "spine11:e1-32"]
       mtu: 9500
-    - endpoints: ["p1:1/1/c3/1", "pe3:1/1/c1/1"]
+    - endpoints: ["pe2:e1-3", "spine12:e1-32"]
       mtu: 9500
-    - endpoints: ["p1:1/1/c4/1", "pe4:1/1/c1/1"]
+    # links from pe4 to DC2
+    - endpoints: ["pe4:e1-2", "spine21:e1-32"]
       mtu: 9500
-    - endpoints: ["p1:1/1/c6/1", "pe2:1/1/c7/1"]
-      mtu: 9500
-    - endpoints: ["p1:1/1/c11/1", "p2:1/1/c11/1"]
-      mtu: 9500
-    # links from P2
-    - endpoints: ["p2:1/1/c1/1", "pe1-p2:p2-1/1/c1/1"]
-      mtu: 9500
-    - endpoints: ["p2:1/1/c2/1", "pe2-p2:p2-1/1/c2/1"]
-      mtu: 9500
-    - endpoints: ["pe1:1/1/c2/1", "pe1-p2:pe1-1/1/c2/1"]
-      mtu: 9500
-    - endpoints: ["pe2:1/1/c2/1", "pe2-p2:pe2-1/1/c2/1"]
-      mtu: 9500
-    - endpoints: ["p2:1/1/c3/1", "pe3:1/1/c2/1"]
-      mtu: 9500
-    - endpoints: ["p2:1/1/c4/1", "pe4:1/1/c2/1"]
-      mtu: 9500
-    - endpoints: ["p2:1/1/c12/1", "p1:1/1/c12/1"]
-      mtu: 9500
-    # links from p1/p2 to vRR
-    - endpoints: ["p1:1/1/c5/1", "vRR:e1-1"]
-      mtu: 9500
-    - endpoints: ["p2:1/1/c5/1", "vRR:e1-2"]
-      mtu: 9500
-    # links from vRR to dns/radius
-    - endpoints: ["vRR:e1-3", "radius:eth1"]
-      mtu: 9500
-    - endpoints: ["vRR:e1-4", "dns:eth1"]
-      mtu: 9500
-    # links from pe2/pe3 to DC1
-    - endpoints: ["pe2:1/1/c3/1", "spine11:e1-32"]
-      mtu: 9500
-    - endpoints: ["pe2:1/1/c4/1", "spine12:e1-32"]
-      mtu: 9500
-    - endpoints: ["pe3:1/1/c3/1", "spine11:e1-31"]
-      mtu: 9500
-    - endpoints: ["pe3:1/1/c4/1", "spine12:e1-31"]
-      mtu: 9500
-    # links from pe1 to IXP1
-    - endpoints: ["pe1:1/1/c7/1", "ixp1:e1-1"]
-      mtu: 9500
-    - endpoints: ["pe1:1/1/c5/1", "transit1:eth1"]
-      mtu: 9500
-    - endpoints: ["peering2:e1-2", "ixp1:e1-2"]
-      mtu: 9500
-    - endpoints: ["peering2:e1-1", "transit1:eth2"]
-      mtu: 9500
-    - endpoints: ["ixp1:e1-3", "transit1:eth3"]
-      mtu: 9500
-    # links from pe1/pe4 to DC2
-    - endpoints: ["pe1:1/1/c3/1", "spine21:e1-31"]
-      mtu: 9500
-    - endpoints: ["pe1:1/1/c4/1", "spine22:e1-31"]
-      mtu: 9500
-    - endpoints: ["pe4:1/1/c3/1", "spine21:e1-32"]
-      mtu: 9500
-    - endpoints: ["pe4:1/1/c4/1", "spine22:e1-32"]
-      mtu: 9500
-    # link between PE1 and PE2
-    - endpoints: ["pe1:1/1/c8/1", "pe2:1/1/c5/1"]
-      mtu: 9500
-    # links from pe4 to AGG1
-    - endpoints: ["pe4:1/1/c5/1", "agg1:e1-32"]
-      mtu: 9500
-    - endpoints: ["agg1:e1-1", "bngblaster:eth1"]
-    - endpoints: ["agg1:e1-2", "bngblaster:eth2"]
-    - endpoints: ["agg1:e1-3", "bngblaster:eth3"]
-    # links from pe to client0x
-    - endpoints: ["pe1:1/1/c6/1", "client01:eth1"]
-      mtu: 9500
-    - endpoints: ["pe2:1/1/c6/1", "client02:eth1"]
-      mtu: 9500
-    - endpoints: ["pe3:1/1/c6/1", "client03:eth1"]
-      mtu: 9500
-    - endpoints: ["pe4:1/1/c6/1", "client04:eth1"]
+    - endpoints: ["pe4:e1-3", "spine22:e1-32"]
       mtu: 9500
     # links from spine11/12 to leafs
     - endpoints: ["spine11:e1-1", "leaf11:e1-31"]
@@ -685,7 +407,7 @@ topology:
     - endpoints: ["spine22:e1-1", "leaf21:e1-32"]
     - endpoints: ["spine22:e1-2", "leaf22:e1-32"]
     - endpoints: ["spine22:e1-3", "leaf23:e1-32"]
-    # links from leaf11/12/13 to clients
+    # links from leaf21/22/23 to clients
     - endpoints: ["leaf21:e1-1", "client21:eth1"]
     - endpoints: ["leaf21:e1-2", "client22:eth1"]
     - endpoints: ["leaf22:e1-2", "client22:eth2"]

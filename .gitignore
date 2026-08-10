@@ -173,12 +173,6 @@ cython_debug/
 **/*.y*ml.bak
 
 # ignore yml partial configs
-**/srl/spine1*.cfg
-**/srl/leaf1*.cfg
-**/srl/leaf2*.cfg
-**/srl/agg1.cfg
-**/srl/ixp1.cfg
-**/srl/peering2.cfg
 **/transit/gobgp.yml
 **/radius/clients.conf
 **/radius/interfaces

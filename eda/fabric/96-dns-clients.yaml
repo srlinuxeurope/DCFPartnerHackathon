@@ -5,7 +5,7 @@
 apiVersion: siteinfo.eda.nokia.com/v1
 kind: DNSClient
 metadata:
-  name: srexperts-dns
+  name: hackathon-dns
   namespace: eda
 spec:
   routerKind: DefaultRouter

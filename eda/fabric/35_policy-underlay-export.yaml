@@ -9,7 +9,7 @@
 apiVersion: routingpolicies.eda.nokia.com/v1
 kind: Policy
 metadata:
-  name: ebgp-isl-export-policy-srexperts-fabric-custom
+  name: ebgp-isl-export-policy-hackathon-fabric-custom
   namespace: eda
   labels:
     role: hackathon-infra

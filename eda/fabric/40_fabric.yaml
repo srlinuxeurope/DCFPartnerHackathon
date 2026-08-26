@@ -5,7 +5,7 @@
 apiVersion: fabrics.eda.nokia.com/v1
 kind: Fabric
 metadata:
-  name: srexperts-fabric
+  name: hackathon-fabric
   namespace: eda
   labels:
     role: hackathon-infra
@@ -15,27 +15,29 @@ spec:
       - eda.nokia.com/role=interSwitch
     unnumbered: IPv6
   leafs:
-    asnPool: srexperts-asnpool
     leafNodeSelectors:
       - eda.nokia.com/role=leaf
+  spines:
+    spineNodeSelectors:
+      - eda.nokia.com/role=spine
+  borderLeafs:
+    borderLeafNodeSelectors:
+      - eda.nokia.com/role=backbone
   overlayProtocol:
     bgp:
       autonomousSystem: 65000
+      clusterID: 10.46.${INSTANCE_ID}.22
       rrClientNodeSelectors:
         - eda.nokia.com/role=leaf
       rrIpAddresses:
         - fd00:fde8::${INSTANCE_ID}:22
     protocol: IBGP
-  spines:
-    asnPool: srexperts-asnpool
-    spineNodeSelectors:
-      - eda.nokia.com/role=spine
-  systemPoolIPv4: srexperts-systemipv4
-  systemPoolIPv6: srexperts-systemipv6
+  systemPoolIPv4: hackathon-systemipv4
+  systemPoolIPv6: hackathon-systemipv6
   underlayProtocol:
     bgp:
-      asnPool: srexperts-asnpool
+      asnPool: hackathon-asnpool
       exportPolicies:
-        - ebgp-isl-export-policy-srexperts-fabric-custom
+        - ebgp-isl-export-policy-hackathon-fabric-custom
     protocols:
       - EBGP

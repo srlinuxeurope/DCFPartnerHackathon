@@ -5,7 +5,7 @@
 apiVersion: management.eda.nokia.com/v1
 kind: GRPCServer
 metadata:
-  name: srexperts-insecure
+  name: hackathon-insecure
   namespace: eda
 spec:
   enabled: true

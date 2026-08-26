@@ -16,11 +16,14 @@ export EVENT_PASSWORD=iWantToRunThisLabOnMyOwn
 # specifically to run the codeserver image, which is part of the topology
 export NOKIA_UID=$(id -u)
 export NOKIA_GID=$(getent group docker | cut -d: -f3)
+
+# SSH public key can be set to the available pub key in users home dir for local testing
+export SSH_PUBLIC_KEY=$(cat ~/.ssh/id_rsa.pub)
 ```
 
 once these variables are exposed, one can run this lab by executing:
-(assuming this repo has been checked out in $HOME/SReXperts)
+(assuming this repo has been checked out in $HOME/DCFPartnersHackathon)
 
 ``` bash
-CLAB_LABDIR_BASE=$HOME sudo -E clab deploy -t $HOME/SReXperts/clab/srx.clab.yml --reconfigure
+CLAB_LABDIR_BASE=$HOME sudo -E clab deploy -t $HOME/DCFPartnersHackathon/clab/srx.clab.yml --reconfigure
 ```

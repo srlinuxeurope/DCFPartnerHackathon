@@ -81,35 +81,7 @@ Note, that currently the client nodes require the bonding kernel to be loaded to
 sudo modprobe bonding mmiimon=100 mode=802.3ad lacp_rate=fast
 ```
 
-The clab topology make use of the following env vars, make sure they are set in your env:
-
-- INSTANCE_ID
-- EVENT_PASSWORD
-- NOKIA_UID
-- NOKIA_GID
-- SSH_PUBLIC_KEY (your public key that you want to use in your Node User)
-
-SSH public key can be set to the available pub key in users home dir for local testing:
-
-```bash
-export SSH_PUBLIC_KEY=$(cat ~/.ssh/id_rsa.pub)
-```
-
-Then check the env vars:
-
-```bash
-echo "INSTANCE_ID: $INSTANCE_ID"
-echo "EVENT_PASSWORD: $EVENT_PASSWORD"
-echo "NOKIA_UID: $NOKIA_UID"
-echo "NOKIA_GID: $NOKIA_GID"
-echo "SSH_PUBLIC_KEY: $SSH_PUBLIC_KEY"
-```
-
-Proceed with deploying the topology:
-
-```bash
-containerlab deploy -c -t ./clab
-```
+Follow these [steps](../clab/README.md) to deploy the CLAB topology.
 
 ## Deploy EDA
 

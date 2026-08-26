@@ -172,7 +172,7 @@ mkdir ~/.kube
 When users need to restore EDA to a well known state, they should run the following script:
 
 ```bash
-bash /opt/srexperts/restore-eda.sh
+bash ./eda/restore-eda.sh
 ```
 
 This script restores the transaction recorded in `/opt/srexperts/eda-init-tx` by the lab provisioning script. The transaction stored in this file is the last transaction of the deployment/onboarding and represents the starting state of the platform.

@@ -1,37 +1,41 @@
-apiVersion: fabrics.eda.nokia.com/v1alpha1
+# Copyright 2026 Nokia
+# Licensed under the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+
+apiVersion: fabrics.eda.nokia.com/v1
 kind: Fabric
 metadata:
-  name: hackathon-fabric
+  name: srexperts-fabric
   namespace: eda
   labels:
     role: hackathon-infra
 spec:
   interSwitchLinks:
-    linkSelector:
+    linkSelectors:
       - eda.nokia.com/role=interSwitch
-    unnumbered: IPV6
+    unnumbered: IPv6
   leafs:
-    asnPool: hackathon-asnpool
-    leafNodeSelector:
+    asnPool: srexperts-asnpool
+    leafNodeSelectors:
       - eda.nokia.com/role=leaf
   overlayProtocol:
     bgp:
       autonomousSystem: 65000
-      rrClientNodeSelector:
+      rrClientNodeSelectors:
         - eda.nokia.com/role=leaf
-      rrIPAddresses:
-        - fd00:fde8::${INSTANCE_ID}:22
+      rrIpAddresses:
+        - fd00:fde8::${INSTANCE_ID}:13
     protocol: IBGP
   spines:
-    asnPool: hackathon-asnpool
-    spineNodeSelector:
+    asnPool: srexperts-asnpool
+    spineNodeSelectors:
       - eda.nokia.com/role=spine
-  systemPoolIPV4: hackathon-systemipv4
-  systemPoolIPV6: hackathon-systemipv6
+  systemPoolIPv4: srexperts-systemipv4
+  systemPoolIPv6: srexperts-systemipv6
   underlayProtocol:
     bgp:
-      asnPool: hackathon-asnpool
-      exportPolicy:
-        - ebgp-isl-export-policy-hackathon-fabric-custom
-    protocol:
+      asnPool: srexperts-asnpool
+      exportPolicies:
+        - ebgp-isl-export-policy-srexperts-fabric-custom
+    protocols:
       - EBGP

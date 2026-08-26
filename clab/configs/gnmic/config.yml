@@ -3,29 +3,28 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 username: admin
-password: NokiaSrl1!
-port: 57401
+password: ${GNMIC_PASSWORD}
+port: 57400
 timeout: 10s
-skip-verify: true
-encoding: json_ietf
 
 loader:
   type: docker
   #address: unix:///var/run/docker.sock
   address: unix:///run/docker.sock
+  start-delay: 30m
   filters:
     # filter 1
     - containers:
-        # containers returned by `docker ps -f "label=clab-node-kind=srl"`
+        # containers returned by `docker ps -f "label=clab-node-kind=nokia_srlinux"`
         - label: clab-node-kind=nokia_srlinux
       network:
-        # networks returned by `docker network ls -f "label=containerlab"`
-        label: containerlab
-      port: "57401"
+        # networks returned by `docker network ls -f "name=srexperts"`
+        name: srexperts
+        #label: containerlab
+      port: "57400"
       config:
         username: admin
-        password: NokiaSrl1!
-        skip-verify: true
+        insecure: true
         encoding: proto
         subscriptions:
           - srl_platform
@@ -37,17 +36,16 @@ loader:
           - srl_event_handler_stats
     # filter 2
     - containers:
-        # containers returned by `docker ps -f "label=clab-node-kind=ceos"`
-        - label: clab-node-kind=nokia_sros
-        # containers returned by `docker ps -f "label=clab-node-kind=vr-sros"`
+        # containers returned by `docker ps -f "label=clab-node-kind=nokia_srsim"`
+        - label: clab-node-kind=nokia_srsim
       network:
-        # networks returned by `docker network ls -f "name=mgmt"`
-        label: containerlab
+        # networks returned by `docker network ls -f "name=srexperts"`
+        name: srexperts
+        #label: containerlab
       # the value of label=gnmi-port exported by each container`
-      port: "57401"
+      port: "57400"
       config:
         username: admin
-        password: NokiaSrl1!
         insecure: true
         encoding: json
         subscriptions:
@@ -58,6 +56,7 @@ loader:
           - sros_router_route_table
           - sros_system
           - sros_service_stats
+          - sros_twamp
 
 subscriptions:
   srl_platform:
@@ -91,7 +90,7 @@ subscriptions:
     mode: stream
     stream-mode: sample
     sample-interval: 5s
-  
+
   srl_net_instance:
     paths:
       - /network-instance[name=*]/oper-state
@@ -123,7 +122,7 @@ subscriptions:
       - /state/port/ethernet/statistics/
     stream-mode: sample
     sample-interval: 5s
-  
+
   sros_router_bgp:
     paths:
       - /state/router/bgp/statistics/
@@ -131,7 +130,7 @@ subscriptions:
       - /state/router/bgp/neighbor/statistics/
     stream-mode: sample
     sample-interval: 5s
-  
+
   sros_router_interface:
     paths:
       - /state/router/interface/ipv4/statistics/
@@ -139,7 +138,7 @@ subscriptions:
       - /state/router/interface/statistics/
     stream-mode: sample
     sample-interval: 5s
-  
+
   sros_router_isis:
     paths:
       - /state/router/isis/statistics/
@@ -159,6 +158,14 @@ subscriptions:
       - /state/system/memory-pools/
     stream-mode: sample
     sample-interval: 5s
+
+  sros_twamp:
+    paths:
+      - /state/oam-pm/session[session-name=*]/ip/twamp-light/statistics/delay/streaming/metric[metric-id=fd-average]/newest-closed[direction=*]
+      - /state/test-oam/link-measurement/router[router-instance=Base]/interface[interface-name=*]/statistics/sample-window
+    mode: stream
+    stream-mode: target-defined
+    sample-interval: 10s
 
   sros_service_stats:
     paths:

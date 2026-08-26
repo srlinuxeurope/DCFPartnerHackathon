@@ -1,0 +1,190 @@
+{
+  "freeTextAnnotations": [],
+  "freeShapeAnnotations": [],
+  "trafficRateAnnotations": [],
+  "groupStyleAnnotations": [],
+  "networkNodeAnnotations": [],
+  "nodeAnnotations": [
+    {
+      "id": "pe1",
+      "interfacePattern": "1/1/c{n}/1",
+      "position": {
+        "x": -60,
+        "y": 180
+      }
+    },
+    {
+      "id": "pe2",
+      "interfacePattern": "1/1/c{n}/1",
+      "position": {
+        "x": 220,
+        "y": 180
+      }
+    },
+    {
+      "id": "spine11",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 520,
+        "y": 260
+      }
+    },
+    {
+      "id": "spine12",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 520,
+        "y": 100
+      }
+    },
+    {
+      "id": "leaf11",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 700,
+        "y": 340
+      }
+    },
+    {
+      "id": "leaf12",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 700,
+        "y": 180
+      }
+    },
+    {
+      "id": "leaf13",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 700,
+        "y": 0
+      }
+    },
+    {
+      "id": "spine21",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": -240,
+        "y": 180
+      }
+    },
+    {
+      "id": "leaf21",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": -400,
+        "y": 180
+      }
+    },
+    {
+      "id": "dns",
+      "position": {
+        "x": 220,
+        "y": 320
+      }
+    },
+    {
+      "id": "client01",
+      "position": {
+        "x": -60,
+        "y": 20
+      }
+    },
+    {
+      "id": "client02",
+      "position": {
+        "x": 220,
+        "y": 20
+      }
+    },
+    {
+      "id": "client11",
+      "position": {
+        "x": 880,
+        "y": 360
+      }
+    },
+    {
+      "id": "client12",
+      "position": {
+        "x": 880,
+        "y": 160
+      }
+    },
+    {
+      "id": "client13",
+      "position": {
+        "x": 880,
+        "y": -40
+      }
+    },
+    {
+      "id": "client21",
+      "position": {
+        "x": -540,
+        "y": 180
+      }
+    },
+    {
+      "id": "gnmic",
+      "position": {
+        "x": -460,
+        "y": -160
+      }
+    },
+    {
+      "id": "prometheus",
+      "position": {
+        "x": -360,
+        "y": -160
+      }
+    },
+    {
+      "id": "grafana",
+      "position": {
+        "x": -260,
+        "y": -160
+      }
+    },
+    {
+      "id": "syslog",
+      "position": {
+        "x": -460,
+        "y": -260
+      }
+    },
+    {
+      "id": "promtail",
+      "position": {
+        "x": -360,
+        "y": -260
+      }
+    },
+    {
+      "id": "loki",
+      "position": {
+        "x": -260,
+        "y": -260
+      }
+    },
+    {
+      "id": "srl1",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 380,
+        "y": 360
+      }
+    },
+    {
+      "id": "client1",
+      "position": {
+        "x": 520,
+        "y": 340
+      }
+    }
+  ],
+  "edgeAnnotations": [],
+  "aliasEndpointAnnotations": [],
+  "viewerSettings": {}
+}

@@ -1,81 +1,55 @@
-# Copyright 2025 Nokia
+# Copyright 2026 Nokia
 # Licensed under the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 
-site_name: Hackathon 2025
+site_name: Nokia DCF Partners Hackathon 2026
 nav:
   - Home: index.md
-  - SR Linux:
-      - srlinux/index.md
-      - Beginner:
-          - srlinux/beginner/nos-srlinux-activity-11.md
-          - srlinux/beginner/nos-srl-gnsi-authz.md
-          - srlinux/beginner/43-Grafana-Dashboards.md   # final URLs TBU
-          #- srlinux/beginner/nos-srl-activity-04.md   ### This activity is for peering1 (SROS) and peering2(SRL), and these nodes are not part of the topology anymore
-          - srlinux/beginner/b-srl-oc.md   # update to change PE3 to PE2
-      - Intermediate:
-          - srlinux/intermediate/58-programming-snmp-mibs.md   
-      - Advanced:
-          - srlinux/intermediate/19-SRLinux-Custom-CLI.md
-          - srlinux/intermediate/nos-srl-activity-12.md
+  - Network Operating Systems (NOS):
+      - nos/index.md
+      - SR Linux:
+          - Beginner:
+              - nos/srlinux/beginner/52-SR_Linux_remote_logging_with_Syslog_and_Loki.md
+              - nos/srlinux/beginner/26-sr-linux-realtime-monitoring-via-gnmi.md
+              - nos/srlinux/beginner/20-sr-linux-fund-real-world-tshoot-scen.md
+              - nos/srlinux/beginner/28-introduction-to-srl.md
+              - nos/srlinux/beginner/53-SR_Linux_Streaming_Telemetry.md
+          - Intermediate:
+              - nos/srlinux/intermediate/54-SR_Linux_Triggering_backups.md
+          - Advanced:
+              - nos/srlinux/advanced/32-inventory-ndk-app.md
   - Event Driven Automation (EDA):
       - eda/index.md
       - Beginner:
-          - Declarative Intents: eda/beginner/declarative-intents.md
-          - Label-based Selection: eda/beginner/label-based-selection.md
-          - Allocations: eda/beginner/allocations.md
-          - EDA Query Language: eda/beginner/eda-query-language.md
-          - Configlets: eda/beginner/configlets.md
-          - Bridge Domains: eda/beginner/bridge-domains.md
-          - Routers: eda/beginner/routers.md
-          - Virtual Networks: eda/beginner/virtual-networks.md
-          - Notifications: eda/beginner/notifications.md
+          - eda/beginner/bridge-domains.md
+          - eda/beginner/routers.md
+          - eda/beginner/virtual-networks.md
+          - eda/beginner/eda-app-deploy.md
+          - eda/beginner/app-delivery.md
+          - eda/beginner/digital-twin.md
+          - eda/beginner/ask-eda.md
+          - eda/beginner/inventory-collection-ansible.md
+          - eda/beginner/eda-query-language.md
+          - eda/beginner/dashboards.md
       - Intermediate:
-          #- Install Your Own EDA: eda/intermediate/install-eda.md
-          - Custom Allocations: eda/intermediate/custom-allocations.md
-          - REST API: eda/intermediate/api.md
+          - eda/intermediate/python-sdk.md
       - Advanced:
-          - Service Automation using Python: eda/advanced/service-automation.md
-  - Hackathon2024:
-      - Hackathon2024/index.md
-      - Beginner:
-          - Hackathon 2024: Hackathon2024/index.md   ## Workaround dummy entry - For some reason the first entry is not displayed
-          - CLI aliasing: Hackathon2024/srlinux-b-cli-aliasing/README.md
-          - Event handler: Hackathon2024/srlinux-b-event-handler-backup/README.md
-          - gNMIc: Hackathon2024/srlinux-b-gnmic/README.md
-          - gNOIc: Hackathon2024/srlinux-b-gnoi/README.md
-          - Logging: Hackathon2024/srlinux-b-loki-logging/README.md
-          - Streaming telemetry: Hackathon2024/srlinux-b-streaming-telemetry/README.md
-      - Intermediate:
-          - Hackathon 2024: Hackathon2024/index.md   ## Workaround dummy entry - For some reason the first entry is not displayed
-          - Configuration using Ansible intents: Hackathon2024/srlinux-i-ansible-intent/README.md
-          - Create a CLI plugin: Hackathon2024/srlinux-i-cli-plugin-show-version/README.md
-      - Advanced:
-          - Hackathon 2024: Hackathon2024/index.md   ## Workaround dummy entry - For some reason the first entry is not displayed
-          - Customize the CLI: Hackathon2024/srlinux-v-custom-cli/README.md
-          - Using gNMI with Python: Hackathon2024/srlinux-v-pygnmi/README.md
+          - eda/advanced/intent-app-development.md
   - Supporting tools and plugins:
       - tools/tools-bash-basics.md
       - tools/tools-clab-vscode-plugin.md
-      - tools/tools_vi_indentation.md
-  - Containerlab Workshop (CH):
-    - Overview: workshop/index.md
-    - 05 - Installation: workshop/install.md
-    - 10 - Basics first: workshop/basics.md
-    - 15 - Startup config: workshop/startup.md
-    - 20 - VM-based nodes: workshop/vm.md
-    - 30 - SR Linux AskAI: workshop/askai.md
-    - 40 - Streaming telemetry: workshop/streaming-telemetry.md
-    - 50 - VS Code extension: workshop/vscode-extension.md
+      - tools/tools-packet-capture.md
+      - tools/tools-code-server.md
+
 site_author: Nokia
 site_description: >-
-  SReXperts hackathon event guidelines
+  SReXperts Hackathon event guidelines
 # Repository
 repo_name: srlinuxeurope/DCFPartnerHackathon
 repo_url: https://github.com/srlinuxeurope/DCFPartnerHackathon
 edit_uri: edit/main/docs/
 site_url: "https://github.com/srlinuxeurope/DCFPartnerHackathon"
-copyright: Copyright &copy; 2021-2025 Nokia
+copyright: Copyright &copy; 2021-2026 Nokia
 theme:
   name: material
   custom_dir: docs/overrides
@@ -129,6 +103,10 @@ theme:
 
 # Plugins
 plugins:
+  - privacy:
+      assets: false
+      links_attr_map:
+        target: _blank
   - meta
   - glightbox
   - macros:
@@ -142,6 +120,7 @@ plugins:
       module_name: macros/main
   - enumerate-headings:
       increment_across_pages: false
+      start_level: 2
   - blog:
       blog_dir: blog
       post_url_date_format: yyyy
@@ -155,6 +134,7 @@ plugins:
   - minify:
       minify_html: true
   - rss:
+      use_git: false
       match_path: blog/posts/.*
       abstract_chars_count: 5000
       date_from_meta:
@@ -165,7 +145,10 @@ plugins:
         "#__comments"
         #- redirects:
         #redirect_maps:
-
+  - privacy:
+      assets: false
+      links_attr_map:
+        target: _blank
 # Customization
 extra:
   social:
@@ -196,15 +179,14 @@ markdown_extensions:
   - markdown.extensions.meta
   - toc:
       permalink: "#"
-  - pymdownx.arithmatex
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji ""
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg ""
   - pymdownx.highlight:
       line_spans: __span
       anchor_linenums: true
@@ -226,7 +208,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format: !!python/name:pymdownx.superfences.fence_code_format ""
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.blocks.tab:
@@ -257,3 +239,5 @@ extra_javascript:
   - javascripts/scroll-tracker.js
   - javascripts/star-rating.js
   - javascripts/heading-buttons.js
+  - javascripts/random-nav.js
+

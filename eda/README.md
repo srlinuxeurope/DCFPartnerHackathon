@@ -2,34 +2,13 @@
 
 Note: these commands are for documentation purposes only, everything has been preempted on the cloud instances.
 
-## Copy files
-
-To copy the files from this repo to a remote system:
-
-```shell
-# RS_DEST=nokia@1.edadev.srexperts.net
-# RS_REMOTE_DEST=/home/nokia/eda
-RS_DEST=demo1.ohn81
-RS_REMOTE_DEST=/root/eda
-rsync -avz --delete eda/fabric ${RS_DEST}:${RS_REMOTE_DEST}
-```
-
-```shell
-# RS_DEST=nokia@1.edadev.srexperts.net
-# RS_REMOTE_DEST=/home/nokia/eda
-RS_DEST=demo1.ohn81
-RS_REMOTE_DEST=/root/eda
-rsync -avz --delete eda/topo-onboard ${RS_DEST}:${RS_REMOTE_DEST}
-```
-
-will move the `fabric` dir to `/root/eda` on the remote system.
-
 ## Clone playground
 
-The playground dir needs to be present on the target system
+The EDA playground directory needs to be present on the target system. Clone it from repo and change the current working directory to prepare for the next steps.
 
 ```shell
-git clone https://github.com/nokia-eda/playground.git
+git clone https://github.com/nokia-eda/playground.git eda-playground
+cd eda-playground
 ```
 
 ## Ensure sysctls are raised
@@ -48,16 +27,14 @@ while in the playground dir call:
 
 ```shell
 make download-tools
-make download-k9s
 ```
 
-## Copy kubectl and k9s
+## Make tools available in PATH
 
-Copy the kubectl and k9s tools from the playground/tools dir to `/usr/local/bin` so they are available to a user:
+To make the tools available in PATH, run the following, prepend the path with the directory of the tools.
 
 ```shell
-cp ./tools/kubectl* /usr/local/bin/kubectl
-cp ./tools/k9s* /usr/local/bin/k9s
+export PATH=$(realpath ./tools):$PATH
 ```
 
 ### kubectl completions
@@ -98,31 +75,46 @@ alias edactl='kubectl -n eda-system exec -it $(kubectl -n eda-system get pods \
 
 ## Deploy containerlab topo
 
-The clab topo needs to be deployed without startup configs mounted to the DC1 nodes; this requirement will be lifted once the BGP fix is merged into SRL.
+If not done yet, deploy the clab topology. Refer to [CLAB deployment instructions](../clab/README.md)
 
-For now, we need to comment out the startup configs by running the following:
+Make sure the following environment variables are set in your shell environment:
+
+- INSTANCE_ID
+- EVENT_PASSWORD
+- NOKIA_UID
+- NOKIA_GID
+- SSH_PUBLIC_KEY (your public key that you want to use in your managed nodes admin user)
+
+SSH public key can be set to the available pub key in users home dir for local testing:
 
 ```bash
-uv run clab/comment-startup.py
+export SSH_PUBLIC_KEY=$(cat ~/.ssh/id_rsa.pub)
 ```
 
-Note, that currently the client nodes require the bonding kernel to be loaded to support the bond interfaces:
+Then check the env vars:
 
-```
-sudo modprobe bonding mmiimon=100 mode=802.3ad lacp_rate=fast
+```bash
+echo "INSTANCE_ID: $INSTANCE_ID"
+echo "EVENT_PASSWORD: $EVENT_PASSWORD"
+echo "NOKIA_UID: $NOKIA_UID"
+echo "NOKIA_GID: $NOKIA_GID"
+echo "SSH_PUBLIC_KEY: $SSH_PUBLIC_KEY"
 ```
 
 ## Deploy EDA
 
+Optionally pre-set the EDA admin user password to $EVENT_PASSWORD (otherwise, default password will be "admin")
 ```shell
-# EDA_DN=1.edadev.srexperts.net
-EDA_DN=10.181.131.41
-SIMULATE=false EXT_DOMAIN_NAME=${EDA_DN} make try-eda
+echo "  SECRET_EDA_ADMIN_PASSWORD: $(echo -n $EVENT_PASSWORD | base64)"  >> configs/kpt-setters.yaml
+```
+Deploy
+```shell
+SIMULATE=false make try-eda
 ```
 
 ## Add EDA License
 
-Put the [EDA license](https://gitlabe2.ext.net.nokia.com/sr/eda/license/-/blob/main/eda-non-prod-license.yaml?ref_type=heads) in `/opt/srexperts`
+Put the EDA license in `/opt/srexperts`
 
 Apply the license after EDA is deployed:
 
@@ -130,37 +122,32 @@ Apply the license after EDA is deployed:
 kubectl apply -f /opt/srexperts/eda-non-prod-license.yaml
 ```
 
-## Store EDA last transaction hash
+## Accessing EDA UI
 
-To enable users to revert to an initial state the EDA was deployed, we need to store the last transaction and its hash after we deployed EDA.
+EDA UI is automatically exposed when `make try-eda` finishes. No additional steps required to access the UI. It is exposed over HTTPS, port 9443.
 
-Execute `bash eda/record-init-tx.sh` script that will store the `TX_ID TX_HASH` pair in the `/opt/srexperts/eda-init-tx` file. This file then can be used to revert EDA to this transaction.
+## Onboard SRX Topology DC1 nodes
 
-## Exposing EDA UI
+As the DC1 nodes (`leaf11`,`leaf12`,`leaf13`,`spine11`,`spine12`) run in clab next to the EDA deployment, we need to onboard them to the EDA cluster.
 
-EDA UI is automatically exposed when `make try-eda` finishes. But whenever there are issues with UI access we might need to restart the service:
-
+Navigate to `SReXperts` repo root directory.
+```bash
+cd ../SReXperts
 ```
-make start-ui-port-forward
-```
-
-## Onboard SRX Topology
-
-As the DC nodes run in clab next to the EDA deployment, we need to onboard them to the EDA cluster.
-
-Start with substituting env vars in the the topo onboard files. Change into the `eda` directory in the root of the hackathon repo and run:
+Start with substituting env vars in the the topo onboard files by running:
 
 ```shell
-docker run --rm -e INSTANCE_ID=$(echo $INSTANCE_ID) -e EVENT_PASSWORD=$(echo $EVENT_PASSWORD) \
+docker run --rm -e \
+INSTANCE_ID=$(echo -n $INSTANCE_ID) -e EVENT_PASSWORD="$(echo -n $EVENT_PASSWORD)" -e SSH_PUBLIC_KEY="$(echo -n $SSH_PUBLIC_KEY)" \
 -u $(id -u):$(id -g) \
--v $(pwd)/topo-onboard/clab:/work \
-ghcr.io/hellt/envsubst:0.1.0
+-v $(pwd)/eda/topo-onboard/clab:/work \
+ghcr.io/hellt/envsubst:0.2.0
 ```
 
 Then apply the templated onboarding resources:
 
 ```shell
-kubectl apply -f $(pwd)/topo-onboard/clab
+kubectl apply -f $(pwd)/eda/topo-onboard/clab
 ```
 
 ## Deploy Fabric
@@ -168,8 +155,8 @@ kubectl apply -f $(pwd)/topo-onboard/clab
 Before we deploy the fabric, we need to remove some default allocation pools to keep the UI clean and let attendees create pools as they need them.
 
 ```shell
-# assuming you are in the ./eda directory
-bash cleanup-pools.sh
+# assuming you are in the SReXperts repo root
+bash ./eda/cleanup-pools.sh
 ```
 
 Then we need to apply the fabric resources so that the fabric is provisioned on the srl nodes, because when EDA onboards the nodes it takes control over the config and pushes the config as it is provided in the CRs.
@@ -177,17 +164,20 @@ Then we need to apply the fabric resources so that the fabric is provisioned on 
 Again, run the substitute env vars script over the fabric resources:
 
 ```shell
-docker run --rm -e INSTANCE_ID=$(echo $INSTANCE_ID) -e EVENT_PASSWORD=$(echo $EVENT_PASSWORD) \
+# INSTANCE_ID=1 EVENT_PASSWORD=SReXperts2026!
+docker run --rm -e INSTANCE_ID=$(echo -n $INSTANCE_ID) -e EVENT_PASSWORD="$(echo -n $EVENT_PASSWORD)" \
 -u $(id -u):$(id -g) \
--v $(pwd)/fabric:/work \
-ghcr.io/hellt/envsubst:0.1.0
+-v $(pwd)/eda/fabric:/work \
+ghcr.io/hellt/envsubst:0.2.0
 ```
 
 and apply them:
 
 ```shell
-kubectl apply -f $(pwd)/fabric
+kubectl apply -f $(pwd)/eda/fabric
 ```
+
+The 5 nodes should now be synced on EDA. Try login to the EDA GUI and check it out!
 
 ## Extract the kubeconfig
 
@@ -200,6 +190,12 @@ mkdir ~/.kube
 /home/nokia/eda/playground/tools/kind-v0.24.0 get kubeconfig --name eda-demo > ~/.kube/eda.kubeconfig
 ```
 
+## Store EDA last transaction hash
+
+To enable users to revert to an initial state the EDA was deployed, we need to store the last transaction and its hash after we deployed EDA.
+
+Execute `bash eda/record-init-tx.sh` script that will store the `TX_ID TX_HASH` pair in the `/opt/srexperts/eda-init-tx` file. This file then can be used to revert EDA to this transaction.
+
 ## Restore script
 
 When users need to restore EDA to a well known state, they should run the following script:
@@ -209,3 +205,69 @@ bash /opt/srexperts/restore-eda.sh
 ```
 
 This script restores the transaction recorded in `/opt/srexperts/eda-init-tx` by the lab provisioning script. The transaction stored in this file is the last transaction of the deployment/onboarding and represents the starting state of the platform.
+
+## Copy files
+
+To copy the files from this repo to a remote system:
+
+```shell
+# RS_DEST=nokia@1.edadev.srexperts.net
+# RS_REMOTE_DEST=/home/nokia/eda
+RS_DEST=demo1.ohn81
+RS_REMOTE_DEST=/root/eda
+rsync -avz --delete eda/fabric ${RS_DEST}:${RS_REMOTE_DEST}
+```
+
+```shell
+# RS_DEST=nokia@1.edadev.srexperts.net
+# RS_REMOTE_DEST=/home/nokia/eda
+RS_DEST=demo1.ohn81
+RS_REMOTE_DEST=/root/eda
+rsync -avz --delete eda/topo-onboard ${RS_DEST}:${RS_REMOTE_DEST}
+```
+
+will move the `fabric` dir to `/root/eda` on the remote system.
+
+## EDA and Ansible
+
+To automate some provisioning tasks we use Ansible collections for EDA.
+
+Install the collections to a local collections tree, execute from the repo root:
+
+```bash
+uv --directory eda run ansible-galaxy collection install -p ./.ansible/collections -r galaxy-requirements.yml
+```
+
+With the collections installed, you can now use `ansible-playbook` to run plays against the EDA cluster using the `inventory.yml` file that defines the connection parameters of the EDA cluster.
+
+```bash
+uv --directory eda run ansible-playbook -i inventory.yml ./playbooks/users.yaml
+```
+
+This will create 2 users (`admin2` and `admin3`) by default.
+
+To create a different number of user:
+
+```bash
+uv --directory eda run ansible-playbook -i inventory.yml ./playbooks/users.yaml -e eda_extra_admin_user_count=20
+```
+
+## CX on EDA
+
+To support activities around Digital Twin/CX on EDA we spin a single VM that is shared by all attendees. It is configured with many admin users (admin admin2 admin3 ... admin80) based on the max number of instances.
+
+This system spins up EDA with `simulate=true` and uses containerized images for SR-SIM and SRL-SIM. Since the default node profile for SR OS comes without the containerImage in its spec, we need to set it by running kubectl patch on the node profile CR `sros-ghcr-26.3.r1`:
+
+```bash
+SRSIM_IMAGE=europe-west1-docker.pkg.dev/nhc-f4160d67/containerlab/nokia_srsim:26.3.R1
+kubectl -n eda patch nodeprofile sros-ghcr-26.3.r1 --type=merge -p '{"spec":{"containerImage":"'${SRSIM_IMAGE}'"}}'
+```
+
+Then we need to also set the SR-SIM license in the already existing `sros-ghcr-26.3.r1-dummy-license` configmap by reading its content from disk `/opt/srexperts/sros.license`:
+
+```bash
+jq -n --rawfile lic /opt/srexperts/sros.license '{data:{"license.key": $lic}}' > /tmp/cm-patch.json
+kubectl -n eda-system patch configmap sros-ghcr-26.3.r1-dummy-license --type=merge --patch-file=/tmp/cm-patch.json
+```
+
+Now we can use the SR-SIM and SRL-SIM images to spin up the CX topology.

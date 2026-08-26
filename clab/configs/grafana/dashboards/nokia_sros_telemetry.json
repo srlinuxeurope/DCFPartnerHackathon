@@ -2096,8 +2096,8 @@
       {
         "current": {
           "selected": true,
-          "text": "clab-dcfpartnerws-pe1",
-          "value": "clab-dcfpartnerws-pe1"
+          "text": "clab-srexperts-p1",
+          "value": "clab-srexperts-p1"
         },
         "datasource": {
           "type": "prometheus",
@@ -2115,7 +2115,7 @@
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
-        "regex": "clab-dcfpartnerws-[p|v].*",
+        "regex": "clab-srexperts-[p|v].*",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"

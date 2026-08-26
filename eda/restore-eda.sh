@@ -8,5 +8,5 @@ edactl() {
     kubectl -n eda-system exec -it $(kubectl -n eda-system get pods -l eda.nokia.com/app=eda-toolbox -o jsonpath={.items[0].metadata.name}) -- edactl "$@"
 }
 
-TX_HASH=$(cat /home/nokia/eda-init-tx | cut -d ' ' -f 2)
+TX_HASH=$(cat /opt/srexperts/eda-init-tx | cut -d ' ' -f 2)
 edactl git restore $TX_HASH

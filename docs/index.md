@@ -89,9 +89,9 @@ In this event, every group has their own complete service-provider network at th
 
 The above topology contains a number of functional blocks to help you in areas you might want to focus on, it contains:
 
-- An all-SR Linux network (release 26.7.1):
+- An all-SR Linux network (release 26.3.1):
     - 2x PE / DCGW nodes (pe2 and pe4, 7250 IXR-X1b) directly interconnected
-    - WAN core between the PEs: dual-stack ISIS with SR-MPLS and iBGP (IPv4/IPv6 + EVPN)
+    - WAN core between the PEs: dual-stack OSPF (v2 for IPv4, v3 for IPv6) with LDP-signalled MPLS and iBGP (IPv4/IPv6 + EVPN + VPN-IPv4/IPv6)
     - each PE acts as EVPN route-reflector for its data center
 - Data Centers:
     - DC1: a CLOS model - managed by EDA
@@ -102,8 +102,8 @@ The above topology contains a number of functional blocks to help you in areas y
     - DCGW Integration:
         - DC1: PE2
         - DC2: PE4
-    - a Data Center Interconnect on the PEs: multi-instance EVPN-IFL ip-vrf "dci"
-      (EVPN-VXLAN towards the fabric + EVPN-IFL over MPLS between the PEs)
+    - a Data Center Interconnect on the PEs: multi-instance ip-vrf "dci" with allow-export
+      (EVPN-VXLAN towards the fabric + BGP-IPVPN over MPLS/LDP between the PEs)
 - RADIUS and DNS servers attached in-band (PE4 and PE2 respectively)
 - a fully working telemetry stack (gNMIc/prometheus/grafana + promtail/loki)
 - Linux clients are attached to both the GRT and the DCI ip-vrf allowing a full mesh of traffic.
@@ -157,31 +157,31 @@ sudo containerlab inspect
 │                           │ grafana/grafana:12.3.3                │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-leaf11     │ nokia_srlinux                         │ running │ 10.128.90.33   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-leaf12     │ nokia_srlinux                         │ running │ 10.128.90.34   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-leaf13     │ nokia_srlinux                         │ running │ 10.128.90.35   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-leaf21     │ nokia_srlinux                         │ running │ 10.128.90.43   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-leaf22     │ nokia_srlinux                         │ running │ 10.128.90.44   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-leaf23     │ nokia_srlinux                         │ running │ 10.128.90.45   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-loki       │ linux                                 │ running │ 10.128.90.76   │
 │                           │ grafana/loki:3.5.10                   │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-pe2        │ nokia_srlinux                         │ running │ 10.128.90.22   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-pe4        │ nokia_srlinux                         │ running │ 10.128.90.24   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-prometheus │ linux                                 │ running │ 10.128.90.72   │
 │                           │ quay.io/prometheus/prometheus:v2.54.1 │         │ N/A            │
@@ -193,16 +193,16 @@ sudo containerlab inspect
 │                           │ ghcr.io/srl-labs/network-multitool    │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-spine11    │ nokia_srlinux                         │ running │ 10.128.90.31   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-spine12    │ nokia_srlinux                         │ running │ 10.128.90.32   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-spine21    │ nokia_srlinux                         │ running │ 10.128.90.41   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-spine22    │ nokia_srlinux                         │ running │ 10.128.90.42   │
-│                           │ ghcr.io/nokia/srlinux:26.7.1          │         │ N/A            │
+│                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ╰───────────────────────────┴───────────────────────────────────────┴─────────┴────────────────╯
 ```
 

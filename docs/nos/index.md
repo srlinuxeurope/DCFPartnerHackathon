@@ -45,7 +45,7 @@ These two small asks will help us continue to improve your experience for when y
 
 ## Gaining access to the network
 
-Each group has their own complete network, including an IP core running segment routing, multiple data-centers, a braodband network and client and subscriber devices.  This is your playground.  It is all pre-configured and operating as a real end-to-end network would.  
+Each group has their own complete network, including an MPLS-enabled IP core (OSPF + LDP) interconnecting multiple data-centers, with client devices attached end to end.  This is your playground.  It is all pre-configured and operating as a real end-to-end network would.  
 
 The NOS stream activities focus on the SR Linux devices in the network, but many of them also use the Linux client and subscriber devices as well.
 

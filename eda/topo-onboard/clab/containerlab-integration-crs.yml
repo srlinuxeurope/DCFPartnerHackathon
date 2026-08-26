@@ -17,7 +17,9 @@ spec:
     staticRoutes:
       - nextHop: 10.128.${INSTANCE_ID}.1
         prefix: 0.0.0.0/0
-
+  nodeSelectors:
+    - containerlab=managed
+---
 # --- NODE-USER ---
 ---
 apiVersion: core.eda.nokia.com/v1
@@ -73,7 +75,7 @@ spec:
 apiVersion: core.eda.nokia.com/v1
 kind: NodeProfile
 metadata:
-  name: srexperts-srlinux-26.7.1
+  name: hackathon-srlinux-26.3.1
   namespace: eda
   labels:
     role: hackathon-infra
@@ -81,17 +83,20 @@ spec:
   port: 57410
   annotate: true
   operatingSystem: srl
-  version: 26.7.1
+  version: 26.3.1
   versionPath: .system.information.version
-  versionMatch: v26\.7\.1.*
-  llmDb: https://eda-asvr.eda-system.svc/_base_/llm-dbs/llm-db-srlinux-ghcr-26.7.1/llm-embeddings-srl-26-3-1.tar.gz
-  yang: https://eda-asvr.eda-system.svc/_base_/schemaprofiles/srlinux-ghcr-26.7.1/srlinux-26.7.1.zip
+  versionMatch: v26\.3\.1.*
+  llmDb: https://eda-asvr.eda-system.svc/_base_/llm-dbs/llm-db-srlinux-ghcr-26.3.1/llm-embeddings-srl-26-3-1.tar.gz
+  yang: https://eda-asvr.eda-system.svc/_base_/schemaprofiles/srlinux-ghcr-26.3.1/srlinux-26.3.1.zip
   nodeUser: admin
   onboardingPassword: NokiaSrl1!
   onboardingUsername: admin
   images:
     - image: fake.bin
       imageMd5: fake.bin.md5
+  containerImage: ghcr.io/nokia/srlinux:26.3.1-410
+  imagePullSecret: core
+  license: cx-srl-26-3-1-ghcr-license
 ---
 # --- TOPONODES ---
 ---
@@ -101,17 +106,15 @@ metadata:
   name: g${INSTANCE_ID}-leaf11
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-leaf
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.7.1
+  nodeProfile: hackathon-srlinux-26.3.1
   operatingSystem: srl
   platform: 7220 IXR-D3L
-  version: 26.7.1
+  version: 26.3.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.33/24
 ---
@@ -121,17 +124,15 @@ metadata:
   name: g${INSTANCE_ID}-leaf12
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-leaf
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.7.1
+  nodeProfile: hackathon-srlinux-26.3.1
   operatingSystem: srl
   platform: 7220 IXR-D3L
-  version: 26.7.1
+  version: 26.3.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.34/24
 ---
@@ -141,17 +142,15 @@ metadata:
   name: g${INSTANCE_ID}-leaf13
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-leaf
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.7.1
+  nodeProfile: hackathon-srlinux-26.3.1
   operatingSystem: srl
   platform: 7220 IXR-D3L
-  version: 26.7.1
+  version: 26.3.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.35/24
 ---
@@ -161,17 +160,15 @@ metadata:
   name: g${INSTANCE_ID}-spine11
   labels:
     eda.nokia.com/role: spine
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-spine
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.7.1
+  nodeProfile: hackathon-srlinux-26.3.1
   operatingSystem: srl
   platform: 7220 IXR-D5
-  version: 26.7.1
+  version: 26.3.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.31/24
 ---
@@ -181,19 +178,35 @@ metadata:
   name: g${INSTANCE_ID}-spine12
   labels:
     eda.nokia.com/role: spine
-    eda-connector.nokia.com/topology: srexperts
-    eda-connector.nokia.com/role: srexperts-spine
     eda.nokia.com/security-profile: managed
     containerlab: managed
     role: hackathon-infra
   namespace: eda
 spec:
-  nodeProfile: srexperts-srlinux-26.7.1
+  nodeProfile: hackathon-srlinux-26.3.1
   operatingSystem: srl
   platform: 7220 IXR-D5
-  version: 26.7.1
+  version: 26.3.1
   productionAddress:
     ipv4: 10.128.${INSTANCE_ID}.32/24
+---
+apiVersion: core.eda.nokia.com/v1
+kind: TopoNode
+metadata:
+  name: g${INSTANCE_ID}-pe2
+  labels:
+    eda.nokia.com/role: backbone
+    eda.nokia.com/security-profile: managed
+    containerlab: managed
+    role: hackathon-infra
+  namespace: eda
+spec:
+  nodeProfile: hackathon-srlinux-26.3.1
+  operatingSystem: srl
+  platform: 7250 IXR-X1b
+  version: 26.3.1
+  productionAddress:
+    ipv4: 10.128.${INSTANCE_ID}.22/24
 ---
 # --- INTERFACES ---
 ---
@@ -208,9 +221,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -232,9 +242,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -256,9 +263,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -280,9 +284,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -304,9 +305,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -328,9 +326,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -352,9 +347,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -376,9 +368,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -400,9 +389,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -424,9 +410,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -448,9 +431,6 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
@@ -472,15 +452,81 @@ metadata:
 spec:
   enabled: true
   encapType: "Null"
-  ethernet:
-    stormControl:
-      enabled: false
   lldp: true
   members:
     - enabled: true
       interface: ethernet-1-32
       lacpPortPriority: 32768
       node: g${INSTANCE_ID}-leaf13
+  type: Interface
+  mtu: 9198
+  description: "inter-switch link to spine12"
+---
+apiVersion: interfaces.eda.nokia.com/v1
+kind: Interface
+metadata:
+  name: pe2-ethernet-1-1
+  namespace: eda
+  labels:
+    eda.nokia.com/role: interDC
+    role: hackathon-infra
+spec:
+  enabled: true
+  encapType: "Null"
+  lldp: true
+  members:
+    - enabled: true
+      interface: ethernet-1-1
+      lacpPortPriority: 32768
+      node: g${INSTANCE_ID}-pe2
+  type: Interface
+  mtu: 9198
+  description: "DCI link to pe4"
+---
+apiVersion: interfaces.eda.nokia.com/v1
+kind: Interface
+metadata:
+  name: pe2-ethernet-1-2
+  namespace: eda
+  labels:
+    eda.nokia.com/role: interSwitch
+    role: hackathon-infra
+spec:
+  enabled: true
+  encapType: "Null"
+  ethernet:
+    stormControl:
+      enabled: false
+  lldp: true
+  members:
+    - enabled: true
+      interface: ethernet-1-2
+      lacpPortPriority: 32768
+      node: g${INSTANCE_ID}-pe2
+  type: Interface
+  mtu: 9198
+  description: "inter-switch link to spine11"
+---
+apiVersion: interfaces.eda.nokia.com/v1
+kind: Interface
+metadata:
+  name: pe2-ethernet-1-3
+  namespace: eda
+  labels:
+    eda.nokia.com/role: interSwitch
+    role: hackathon-infra
+spec:
+  enabled: true
+  encapType: "Null"
+  ethernet:
+    stormControl:
+      enabled: false
+  lldp: true
+  members:
+    - enabled: true
+      interface: ethernet-1-3
+      lacpPortPriority: 32768
+      node: g${INSTANCE_ID}-pe2
   type: Interface
   mtu: 9198
   description: "inter-switch link to spine12"
@@ -606,8 +652,47 @@ spec:
         interfaceResource: leaf13-ethernet-1-32
         node: g${INSTANCE_ID}-leaf13
       type: interSwitch
-
-
+---
+apiVersion: core.eda.nokia.com/v1
+kind: TopoLink
+metadata:
+  labels:
+    eda.nokia.com/role: interSwitch
+    role: hackathon-infra
+  name: spine11-e1-32-pe2-e1-2
+  namespace: eda
+spec:
+  links:
+    - local:
+        interface: ethernet-1-32
+        interfaceResource: spine11-ethernet-1-32
+        node: g${INSTANCE_ID}-spine11
+      remote:
+        interface: ethernet-1-2
+        interfaceResource: pe2-ethernet-1-2
+        node: g${INSTANCE_ID}-pe2
+      type: interSwitch
+---
+apiVersion: core.eda.nokia.com/v1
+kind: TopoLink
+metadata:
+  labels:
+    eda.nokia.com/role: interSwitch
+    role: hackathon-infra
+  name: spine12-e1-32-pe2-e1-3
+  namespace: eda
+spec:
+  links:
+    - local:
+        interface: ethernet-1-32
+        interfaceResource: spine12-ethernet-1-32
+        node: g${INSTANCE_ID}-spine12
+      remote:
+        interface: ethernet-1-3
+        interfaceResource: pe2-ethernet-1-3
+        node: g${INSTANCE_ID}-pe2
+      type: interSwitch
+---
 # --- MANAGEMENT ROUTER ---
 # ---
 # apiVersion: bootstrap.eda.nokia.com/v1alpha1
@@ -658,11 +743,10 @@ spec:
             "gnsi"
           ]
         }
-
-
+---
 # --- EDA COMMON SYSLOG SERVER ---
 # considering we don't have a way (yet) to configure a
-# common syslog server, this makes sure the SReXperts
+# common syslog server, this makes sure the hackathon
 # syslog server is applied on all EDA managed devices
 ---
 apiVersion: config.eda.nokia.com/v1
@@ -698,8 +782,7 @@ spec:
             }
           ]
         }
-
-
+---
 # --- DEFAULT MTU ---
 ---
 apiVersion: siteinfo.eda.nokia.com/v1
@@ -711,3 +794,4 @@ spec:
   layer3MTU: 9000
   nodeSelectors:
     - containerlab=managed
+---

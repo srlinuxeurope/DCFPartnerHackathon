@@ -1,0 +1,19 @@
+# --- L3 INTERFACE (pe2 side of the WAN link e1-1 <-> pe4 e1-1) ---
+apiVersion: routing.eda.nokia.com/v1
+kind: DefaultInterface
+metadata:
+  namespace: eda
+  name: interface-pe2-ethernet-1-1
+  labels:
+    eda.nokia.com/role: interDC
+    role: hackathon-infra
+spec:
+  interface: pe2-ethernet-1-1
+  description: "DCI link to pe4"
+  ipMTU: 9198
+  ipv4Addresses:
+    - ipPrefix: 10.64.20.0/31
+      primary: true
+  ipv6Addresses:
+    - ipPrefix: fd00:fde8:0:1:${INSTANCE_ID}:22:24:0/127
+      primary: true

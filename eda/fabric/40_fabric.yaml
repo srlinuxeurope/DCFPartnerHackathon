@@ -29,8 +29,8 @@ spec:
       clusterID: 10.46.${INSTANCE_ID}.22
       rrClientNodeSelectors:
         - eda.nokia.com/role=leaf
-      rrIpAddresses:
-        - fd00:fde8::${INSTANCE_ID}:22
+      rrNodeSelectors:
+        - eda.nokia.com/role=backbone
     protocol: IBGP
   systemPoolIPv4: hackathon-systemipv4
   systemPoolIPv6: hackathon-systemipv6

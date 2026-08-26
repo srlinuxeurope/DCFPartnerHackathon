@@ -1,0 +1,21 @@
+# Copyright 2026 Nokia
+# Licensed under the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+
+apiVersion: services.eda.nokia.com/v2
+kind: VLAN
+metadata:
+  name: vlan1
+  namespace: eda
+  labels:
+    role: hackathon-infra
+spec:
+  bridgeDomain: macvrf11
+  # TODO: uncomment on 25.4
+  #description: VLAN 1 for connectivity to the WAN GRT
+  interfaceSelectors:
+    - edge-type=compute
+  uplink:
+    uplinkVLANID: pool
+  vlanID: "1"
+  macDuplicationDetectionAction: "BridgeDomainAction"

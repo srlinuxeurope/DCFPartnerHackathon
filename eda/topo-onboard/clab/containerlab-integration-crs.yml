@@ -535,7 +535,7 @@ spec:
     - enabled: true
       interface: ethernet-1-32
       lacpPortPriority: 32768
-      node: g10-spine11
+      node: g${INSTANCE_ID}-spine11
   type: Interface
   mtu: 9198
   description: "inter-switch link to pe2"
@@ -580,7 +580,7 @@ spec:
     - enabled: true
       interface: ethernet-1-32
       lacpPortPriority: 32768
-      node: g10-spine12
+      node: g${INSTANCE_ID}-spine12
   type: Interface
   mtu: 9198
   description: "inter-switch link to pe2"

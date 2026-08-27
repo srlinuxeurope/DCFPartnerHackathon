@@ -1,0 +1,23 @@
+apiVersion: services.eda.nokia.com/v2
+kind: RouterInterconnect
+metadata:
+  labels:
+    eda.nokia.com/role: hackathon-infra
+  name: dci-ri
+  namespace: eda
+spec:
+  interconnectBGPInstance:
+    controlPlane: IPVPN
+    encapsulation: MPLS
+    evi: 300
+    exportTarget: target:65000:300
+    importTarget: target:65000:300
+    mpls:
+      allowedTunnelTypes:
+        - LDP
+    routeDistinguisher:
+      assignedNumber: SystemIP
+  nodeSelectors:
+    - eda.nokia.com/role=backbone
+  routerRef:
+    name: ipvrf1201

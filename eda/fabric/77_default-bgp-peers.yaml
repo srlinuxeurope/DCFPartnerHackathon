@@ -1,0 +1,35 @@
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultBGPPeer
+metadata:
+  namespace: eda
+  name: ibgp-core-pe2-to-pe4
+  labels:
+    eda.nokia.com/role: hackathon-infra
+spec:
+  dynamicNeighbor: false
+  group: ibgp-core
+  interfaceKind: DefaultInterface
+  interface: interface-pe2-ethernet-1-1
+  peerIP: fd00:fde8:0:1:${INSTANCE_ID}:22:24:3
+  ipv4Unicast:
+    enabled: true
+  ipv6Unicast:
+    enabled: true
+---
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultBGPPeer
+metadata:
+  namespace: eda
+  name: ibgp-wan-pe2-to-pe4
+  labels:
+    role: hackathon-infra
+spec:
+  dynamicNeighbor: false
+  group: ibgp-wan
+  interfaceKind: SystemInterface
+  interface: g${INSTANCE_ID}-pe2-system0
+  peerIP: 10.46.${INSTANCE_ID}.24
+  vpnIPv4Unicast:
+    enabled: true
+  vpnIPv6Unicast:
+    enabled: true

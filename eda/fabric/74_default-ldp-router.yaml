@@ -1,0 +1,10 @@
+apiVersion: mpls.eda.nokia.com/v1alpha1
+kind: DefaultLDPRouter
+metadata:
+  labels:
+    eda.nokia.com/role: hackathon-infra
+  name: wan-ldp
+  namespace: eda
+spec:
+  enabled: true
+  longestPrefixMatch: false

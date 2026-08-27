@@ -1,0 +1,12 @@
+apiVersion: mpls.eda.nokia.com/v1alpha1
+kind: DefaultLDPInterface
+metadata:
+  labels:
+    eda.nokia.com/role: hackathon-infra
+  name: wan-ldp-pe2-e1-1
+  namespace: eda
+spec:
+  defaultLDPRouter: wan-ldp
+  interface: interface-pe2-ethernet-1-1
+  ipv4:
+    enabled: true

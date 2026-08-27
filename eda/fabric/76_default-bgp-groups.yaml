@@ -1,0 +1,38 @@
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultBGPGroup
+metadata:
+  labels:
+    eda.nokia.com/role: hackathon-infra
+  name: ibgp-core
+  namespace: eda
+spec:
+  ipv4Unicast:
+    advertiseIPv6NextHops: true
+    enabled: true
+    receiveIPv6NextHops: true
+  ipv6Unicast:
+    enabled: true
+  localAS:
+    autonomousSystem: 65000
+    prependGlobalAS: false
+  nextHopSelf: true
+  peerAS:
+    autonomousSystem: 65000
+---
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultBGPGroup
+metadata:
+  labels:
+    eda.nokia.com/role: hackathon-infra
+  name: ibgp-wan
+  namespace: eda
+spec:
+  localAS:
+    autonomousSystem: 65000
+    prependGlobalAS: false
+  peerAS:
+    autonomousSystem: 65000
+  vpnIPv4Unicast:
+    enabled: true
+  vpnIPv6Unicast:
+    enabled: true

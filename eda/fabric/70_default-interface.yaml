@@ -11,7 +11,6 @@ spec:
   defaultRouter: router-g${INSTANCE_ID}-pe2
   description: DCI link to pe4
   interface: pe2-ethernet-1-1
-  ipMTU: 9198
   ipv4Addresses:
     - ipPrefix: 10.64.${INSTANCE_ID}.2/31
       primary: true

@@ -492,7 +492,6 @@ spec:
       lacpPortPriority: 32768
       node: g${INSTANCE_ID}-pe2
   type: Interface
-  mtu: 9198
   description: "DCI link to pe4"
 ---
 apiVersion: interfaces.eda.nokia.com/v1
@@ -845,7 +844,7 @@ metadata:
   name: ip-mtu
   namespace: eda
 spec:
-  layer3MTU: 9000
+  layer3MTU: 9198
   nodeSelectors:
     - containerlab=managed
 ---

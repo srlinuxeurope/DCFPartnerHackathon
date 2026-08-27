@@ -216,8 +216,8 @@
       "id": "spine21",
       "interfacePattern": "e1-{n}",
       "position": {
-        "x": -198.91867313054365,
-        "y": 173.14899149644833
+        "x": -200,
+        "y": 340
       },
       "groupId": "group-3"
     },
@@ -225,8 +225,8 @@
       "id": "spine22",
       "interfacePattern": "e1-{n}",
       "position": {
-        "x": -198.91867313054365,
-        "y": 353.14899149644845
+        "x": -200,
+        "y": 160
       },
       "groupId": "group-3"
     },

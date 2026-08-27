@@ -1,0 +1,59 @@
+# OSPF interfaces of pe2: WAN link (P2P) + system0 (passive)
+
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultOSPFInterface
+metadata:
+  labels:
+    eda.nokia.com/role: hackathon-infra
+  name: wan-v4-pe2-e1-1
+  namespace: eda
+spec:
+  defaultOSPFArea: wan-v4-area-0
+  defaultOSPFInstance: wan-v4
+  interface: interface-pe2-ethernet-1-1
+  interfaceKind: DefaultInterface
+  type: PointToPoint
+---
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultOSPFInterface
+metadata:
+  namespace: eda
+  name: wan-v4-pe2-system0
+  labels:
+    eda.nokia.com/role: hackathon-infra
+spec:
+  interfaceKind: SystemInterface
+  interface: g${INSTANCE_ID}-pe2-system0
+  type: PointToPoint
+  passive: true
+  defaultOSPFArea: wan-v4-area-0
+  defaultOSPFInstance: wan-v4
+---
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultOSPFInterface
+metadata:
+  namespace: eda
+  name: wan-v6-pe2-e1-1
+  labels:
+    eda.nokia.com/role: hackathon-infra
+spec:
+  interfaceKind: DefaultInterface
+  interface: interface-pe2-ethernet-1-1
+  type: PointToPoint
+  defaultOSPFArea: wan-v6-area-0
+  defaultOSPFInstance: wan-v6
+---
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultOSPFInterface
+metadata:
+  namespace: eda
+  name: wan-v6-pe2-system0
+  labels:
+    eda.nokia.com/role: hackathon-infra
+spec:
+  interfaceKind: SystemInterface
+  interface: g${INSTANCE_ID}-pe2-system0
+  type: PointToPoint
+  passive: true
+  defaultOSPFArea: wan-v6-area-0
+  defaultOSPFInstance: wan-v6

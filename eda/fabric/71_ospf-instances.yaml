@@ -1,0 +1,24 @@
+# --- OSPF UNDERLAY (v2 for IPv4, v3 for IPv6) ---
+
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultOSPFInstance
+metadata:
+  labels:
+    eda.nokia.com/role: hackathon-infra
+  name: wan-v4
+  namespace: eda
+spec:
+  enabled: true
+  version: OSPFv2
+---
+apiVersion: protocols.eda.nokia.com/v2
+kind: DefaultOSPFInstance
+metadata:
+  labels:
+    eda.nokia.com/role: hackathon-infra
+  name: wan-v6
+  namespace: eda
+spec:
+  addressFamily: IPv6Unicast
+  enabled: true
+  version: OSPFv3

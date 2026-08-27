@@ -1,0 +1,328 @@
+{
+  "freeTextAnnotations": [],
+  "freeShapeAnnotations": [],
+  "trafficRateAnnotations": [],
+  "groupStyleAnnotations": [
+    {
+      "id": "group-1",
+      "name": "Telemetry Stack",
+      "level": "1",
+      "position": {
+        "x": -603.6939356408569,
+        "y": -292.3797657130521
+      },
+      "width": 286,
+      "height": 139,
+      "backgroundColor": "rgba(100, 100, 255, 0.1)",
+      "borderColor": "#bbbebf",
+      "borderWidth": 2,
+      "borderStyle": "dashed",
+      "borderRadius": 8,
+      "zIndex": -1
+    },
+    {
+      "id": "group-2",
+      "name": "Syslog Stack",
+      "level": "1",
+      "position": {
+        "x": -400.90408393572983,
+        "y": -271.12016911447273
+      },
+      "width": 284,
+      "height": 142,
+      "backgroundColor": "rgba(100, 100, 255, 0.1)",
+      "borderColor": "#bbbebf",
+      "borderWidth": 2,
+      "borderStyle": "dashed",
+      "borderRadius": 8,
+      "labelPosition": "top-right",
+      "zIndex": -1
+    },
+    {
+      "id": "group-3",
+      "name": "DC2",
+      "level": "1",
+      "position": {
+        "x": -692.7570461870274,
+        "y": 43.574693478733636
+      },
+      "width": 598,
+      "height": 497,
+      "backgroundColor": "rgba(100, 100, 255, 0.1)",
+      "borderColor": "#bbbebf",
+      "borderWidth": 2,
+      "borderStyle": "dashed",
+      "borderRadius": 8,
+      "zIndex": -1
+    },
+    {
+      "id": "group-3-1",
+      "name": "DC1",
+      "level": "1",
+      "position": {
+        "x": 515.8103021431788,
+        "y": 40.883738381019306
+      },
+      "width": 598,
+      "height": 497,
+      "backgroundColor": "rgba(100, 100, 255, 0.1)",
+      "borderColor": "#bbbebf",
+      "borderWidth": 2,
+      "borderStyle": "dashed",
+      "borderRadius": 8,
+      "zIndex": -1
+    },
+    {
+      "id": "group-3-1-1",
+      "name": "WAN",
+      "level": "1",
+      "position": {
+        "x": 0.6144626760994072,
+        "y": 220.38016117407085
+      },
+      "width": 415,
+      "height": 131,
+      "backgroundColor": "rgba(100, 100, 255, 0.1)",
+      "borderColor": "#bbbebf",
+      "borderWidth": 2,
+      "borderStyle": "dashed",
+      "borderRadius": 8,
+      "zIndex": -1
+    },
+    {
+      "id": "group-3-1-1-1",
+      "name": "Platforms",
+      "level": "1",
+      "position": {
+        "x": 1.9846643768098033,
+        "y": -52.28997726728228
+      },
+      "width": 415,
+      "height": 131,
+      "backgroundColor": "rgba(100, 100, 255, 0.1)",
+      "borderColor": "#bbbebf",
+      "borderWidth": 2,
+      "borderStyle": "dashed",
+      "borderRadius": 8,
+      "zIndex": -1
+    }
+  ],
+  "networkNodeAnnotations": [],
+  "nodeAnnotations": [
+    {
+      "id": "radius",
+      "position": {
+        "x": 80,
+        "y": 0
+      },
+      "groupId": "group-3-1-1-1"
+    },
+    {
+      "id": "dns",
+      "position": {
+        "x": 300,
+        "y": 0
+      },
+      "groupId": "group-3-1-1-1"
+    },
+    {
+      "id": "pe2",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 300,
+        "y": 260
+      },
+      "groupId": "group-3-1-1"
+    },
+    {
+      "id": "pe4",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 80,
+        "y": 260
+      },
+      "groupId": "group-3-1-1"
+    },
+    {
+      "id": "spine11",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 604.110605102131,
+        "y": 384.9277812921866
+      },
+      "groupId": "group-3-1"
+    },
+    {
+      "id": "spine12",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 600,
+        "y": 160
+      },
+      "groupId": "group-3-1"
+    },
+    {
+      "id": "leaf11",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 820,
+        "y": 420
+      },
+      "groupId": "group-3-1"
+    },
+    {
+      "id": "leaf12",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 820,
+        "y": 260
+      },
+      "groupId": "group-3-1"
+    },
+    {
+      "id": "leaf13",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": 820,
+        "y": 100
+      },
+      "groupId": "group-3-1"
+    },
+    {
+      "id": "client11",
+      "position": {
+        "x": 1000,
+        "y": 420
+      },
+      "groupId": "group-3-1"
+    },
+    {
+      "id": "client12",
+      "position": {
+        "x": 1000,
+        "y": 260
+      },
+      "groupId": "group-3-1"
+    },
+    {
+      "id": "client13",
+      "position": {
+        "x": 1000,
+        "y": 100
+      },
+      "groupId": "group-3-1"
+    },
+    {
+      "id": "spine21",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": -200,
+        "y": 340
+      },
+      "groupId": "group-3"
+    },
+    {
+      "id": "spine22",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": -200,
+        "y": 160
+      },
+      "groupId": "group-3"
+    },
+    {
+      "id": "leaf21",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": -400,
+        "y": 420
+      },
+      "groupId": "group-3"
+    },
+    {
+      "id": "leaf22",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": -400,
+        "y": 260
+      },
+      "groupId": "group-3"
+    },
+    {
+      "id": "leaf23",
+      "interfacePattern": "e1-{n}",
+      "position": {
+        "x": -400,
+        "y": 100
+      },
+      "groupId": "group-3"
+    },
+    {
+      "id": "client21",
+      "position": {
+        "x": -620,
+        "y": 420
+      },
+      "groupId": "group-3"
+    },
+    {
+      "id": "client22",
+      "position": {
+        "x": -618.9186731305437,
+        "y": 266.29798299289683
+      },
+      "groupId": "group-3"
+    },
+    {
+      "id": "client23",
+      "position": {
+        "x": -620,
+        "y": 100
+      },
+      "groupId": "group-3"
+    },
+    {
+      "id": "gnmic",
+      "position": {
+        "x": -580,
+        "y": -240
+      },
+      "groupId": "group-1"
+    },
+    {
+      "id": "prometheus",
+      "position": {
+        "x": -480,
+        "y": -240
+      },
+      "groupId": "group-1"
+    },
+    {
+      "id": "grafana",
+      "position": {
+        "x": -380,
+        "y": -240
+      },
+      "groupId": "group-1"
+    },
+    {
+      "id": "promtail",
+      "position": {
+        "x": -180,
+        "y": -237.81262210923413
+      },
+      "groupId": "group-2"
+    },
+    {
+      "id": "loki",
+      "position": {
+        "x": -280,
+        "y": -237.81262210923413
+      },
+      "groupId": "group-2"
+    }
+  ],
+  "edgeAnnotations": [],
+  "aliasEndpointAnnotations": [],
+  "viewerSettings": {}
+}

@@ -39,15 +39,15 @@ spec:
   segments:
     - allocations:
         - name: hackathon-fabric-borderleaf-g${INSTANCE_ID}-pe2
-          value: fd00:fde8::${INSTANCE_ID}.22
+          value: fd00:fde8::${INSTANCE_ID}:22
         - name: hackathon-fabric-spine-g${INSTANCE_ID}-spine11
-          value: fd00:fde8::${INSTANCE_ID}.31
+          value: fd00:fde8::${INSTANCE_ID}:31
         - name: hackathon-fabric-spine-g${INSTANCE_ID}-spine12
-          value: fd00:fde8::${INSTANCE_ID}.32
+          value: fd00:fde8::${INSTANCE_ID}:32
         - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf11
-          value: fd00:fde8::${INSTANCE_ID}.33
+          value: fd00:fde8::${INSTANCE_ID}:33
         - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf12
-          value: fd00:fde8::${INSTANCE_ID}.34
+          value: fd00:fde8::${INSTANCE_ID}:34
         - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf13
-          value: fd00:fde8::${INSTANCE_ID}.35
+          value: fd00:fde8::${INSTANCE_ID}:35
       subnet: fd00:fde8::${INSTANCE_ID}:0/120

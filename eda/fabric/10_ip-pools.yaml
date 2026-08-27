@@ -12,9 +12,19 @@ metadata:
 spec:
   publishAllocations: true
   segments:
-    - reservations:
-        - end: 10.46.${INSTANCE_ID}.30
-          start: 10.46.${INSTANCE_ID}.1
+    - allocations:
+        - name: hackathon-fabric-borderleaf-g${INSTANCE_ID}-pe2
+          value: 10.46.${INSTANCE_ID}.22
+        - name: hackathon-fabric-spine-g${INSTANCE_ID}-spine11
+          value: 10.46.${INSTANCE_ID}.31
+        - name: hackathon-fabric-spine-g${INSTANCE_ID}-spine12
+          value: 10.46.${INSTANCE_ID}.32
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf11
+          value: 10.46.${INSTANCE_ID}.33
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf12
+          value: 10.46.${INSTANCE_ID}.34
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf13
+          value: 10.46.${INSTANCE_ID}.35
       subnet: 10.46.${INSTANCE_ID}.0/24
 ---
 apiVersion: core.eda.nokia.com/v1
@@ -27,7 +37,17 @@ metadata:
 spec:
   publishAllocations: true
   segments:
-    - reservations:
-        - end: fd00:fde8::${INSTANCE_ID}:30
-          start: fd00:fde8::${INSTANCE_ID}:1
+    - allocations:
+        - name: hackathon-fabric-borderleaf-g${INSTANCE_ID}-pe2
+          value: fd00:fde8::${INSTANCE_ID}.22
+        - name: hackathon-fabric-spine-g${INSTANCE_ID}-spine11
+          value: fd00:fde8::${INSTANCE_ID}.31
+        - name: hackathon-fabric-spine-g${INSTANCE_ID}-spine12
+          value: fd00:fde8::${INSTANCE_ID}.32
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf11
+          value: fd00:fde8::${INSTANCE_ID}.33
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf12
+          value: fd00:fde8::${INSTANCE_ID}.34
+        - name: hackathon-fabric-leaf-g${INSTANCE_ID}-leaf13
+          value: fd00:fde8::${INSTANCE_ID}.35
       subnet: fd00:fde8::${INSTANCE_ID}:0/120

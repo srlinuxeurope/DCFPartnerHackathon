@@ -140,11 +140,16 @@ bash ./eda/cleanup-pools.sh
 
 Then we need to apply the fabric resources so that the fabric is provisioned on the srl nodes, because when EDA onboards the nodes it takes control over the config and pushes the config as it is provided in the CRs.
 
+Make sure to export your `LLM_API_KEY` if you want to use NQL or AskEDA features by running the following command:
+
+```bash
+export LLM_API_KEY='<your_value>' 
+```
+
 Again, run the substitute env vars script over the fabric resources:
 
 ```shell
-# INSTANCE_ID=1 EVENT_PASSWORD=SReXperts2026!
-docker run --rm -e INSTANCE_ID=$(echo -n $INSTANCE_ID) -e EVENT_PASSWORD="$(echo -n $EVENT_PASSWORD)" \
+docker run --rm -e INSTANCE_ID=$(echo -n $INSTANCE_ID) -e EVENT_PASSWORD="$(echo -n $EVENT_PASSWORD)" -e LLM_API_KEY="$(echo -n $LLM_API_KEY)"\
 -u $(id -u):$(id -g) \
 -v $(pwd)/eda/fabric:/work \
 ghcr.io/hellt/envsubst:0.2.0

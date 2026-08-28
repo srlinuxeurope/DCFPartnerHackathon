@@ -29,11 +29,11 @@ build-insiders:
 push-docs: # push docs to gh-pages branch manually. Use when pipeline misbehaves
 	docker run -v ${SSH_AUTH_SOCK}:/ssh-agent --env SSH_AUTH_SOCK=/ssh-agent --env GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" -v $$(pwd):/docs --entrypoint mkdocs ghcr.io/srl-labs/mkdocs-material-insiders:$(MKDOCS_INS_VER) gh-deploy --force --strict
 
-topo-deploy:
+deploy-clab-topo:
 	sudo modprobe bonding mmiimon=100 mode=802.3ad lacp_rate=fast
 	CLAB_LABDIR_BASE=${HOME} containerlab deploy -t ./clab/srx.clab.yml --reconfigure
 
-topo-eda-onboard:
+onboard-clab-topo-eda:
 	# Prepare for onboarding
 	sudo mkdir -p /opt/srexperts
 	sudo chown -R workshop:workshop /opt/srexperts

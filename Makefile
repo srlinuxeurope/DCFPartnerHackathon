@@ -44,4 +44,5 @@ topo-eda-onboard:
 	kubectl apply -f $$(pwd)/eda/topo-onboard/clab
 	# Apply fabric resorces to EDA
 	bash $$(pwd)/eda/cleanup-pools.sh
+	docker run --rm -e INSTANCE_ID=$$(echo -n ${INSTANCE_ID}) -e EVENT_PASSWORD="$$(echo -n ${EVENT_PASSWORD})" -e LLM_API_KEY="$$(echo -n ${LLM_API_KEY})" -u $$(id -u):$$(id -g) -v $$(pwd)/eda/fabric:/work ghcr.io/hellt/envsubst:0.2.0
 	kubectl apply -f $$(pwd)/eda/fabric

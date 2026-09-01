@@ -3,11 +3,11 @@ hide:
   - navigation
 ---
 
-# Welcome to the Hackathon event at SReXperts 2026
+# Welcome to the Nokia NoW DCF Hackathon - Portugal 2026
 
-Welcome to the 2026 Hackathon event at SReXperts.
+Welcome to the Nokia NoW DCF Hackathon - Portugal 2026.
 
-We are very glad to welcome you to our annual event, currently the 6th edition of the Hackathon.
+We are very glad to welcome you to our annual event, currently the 4th edition of the Hackathon.
 
 Nokia prides itself on the excellent technical products, solutions that we deliver to the market, and this event is no exception.  A large team of engineers,
 developers and product managers have been working hard to deliver what, we'll hope you agree, is a challenging and informative set of activities to challenge

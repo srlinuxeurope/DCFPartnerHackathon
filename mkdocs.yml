@@ -2,7 +2,7 @@
 # Licensed under the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 
-site_name: Hackathon 2026
+site_name: Nokia NoW DCF Hackathon - Portugal 2026
 nav:
   - Home: index.md
   - Network Operating Systems (NOS):
@@ -94,7 +94,7 @@ theme:
   font:
     text: NokiaPureText
     code: Fira Code
-  logo: images/srexperts.svg
+  logo: images/nokia_now.jfif
   icon:
     logo: nokia/srexperts
     repo: fontawesome/brands/github
@@ -155,7 +155,7 @@ extra:
     - icon: fontawesome/brands/discord
       link: https://discord.gg/tZvgjQ6PZf
     - icon: fontawesome/brands/github
-      link: https://github.com/nokia/SReXperts
+      link: https://github.com/srlinuxeurope/DCFPartnerHackathon
   analytics:
     provider: google
     property: G-7C3C7M5XJP
@@ -239,5 +239,6 @@ extra_javascript:
   - javascripts/scroll-tracker.js
   - javascripts/star-rating.js
   - javascripts/heading-buttons.js
-  - javascripts/random-nav.js
+### Randomize activities
+#  - javascripts/random-nav.js
 

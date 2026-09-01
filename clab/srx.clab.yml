@@ -30,7 +30,7 @@ topology:
       password: ${EVENT_PASSWORD}
   kinds:
     nokia_srlinux:
-      image: ghcr.io/nokia/srlinux:26.3.1
+      image: ghcr.io/nokia/srlinux:26.7.1
       # startup-config is set explicitly on every SR Linux node below
       exec:
         - usermod -aG ntwkadmin admin
@@ -65,7 +65,7 @@ topology:
       license: /opt/srexperts/srl.license
       type: ixr-x1b
       mgmt-ipv4: 10.128.${INSTANCE_ID}.22
-      startup-config: configs/srl/pe2.cfg
+      #startup-config: configs/srl/pe2.cfg
       ports:
         - 50022:22
         - 50322:57400
@@ -84,7 +84,7 @@ topology:
       type: ixr-d5
       group: spine
       mgmt-ipv4: 10.128.${INSTANCE_ID}.31
-      startup-config: configs/srl/spine11.cfg
+      #startup-config: configs/srl/spine11.cfg
       ports:
         - 50031:22
         - 50331:57400
@@ -93,7 +93,7 @@ topology:
       type: ixr-d5
       group: spine
       mgmt-ipv4: 10.128.${INSTANCE_ID}.32
-      startup-config: configs/srl/spine12.cfg
+      #startup-config: configs/srl/spine12.cfg
       ports:
         - 50032:22
         - 50332:57400
@@ -102,7 +102,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.33
-      startup-config: configs/srl/leaf11.cfg
+      #startup-config: configs/srl/leaf11.cfg
       ports:
         - 50033:22
         - 50333:57400
@@ -111,7 +111,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.34
-      startup-config: configs/srl/leaf12.cfg
+      #startup-config: configs/srl/leaf12.cfg
       ports:
         - 50034:22
         - 50334:57400
@@ -120,7 +120,7 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.35
-      startup-config: configs/srl/leaf13.cfg
+      #startup-config: configs/srl/leaf13.cfg
       ports:
         - 50035:22
         - 50335:57400

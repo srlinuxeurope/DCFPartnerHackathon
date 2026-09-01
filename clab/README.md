@@ -1,4 +1,4 @@
-# How to run this lab on your own environment?
+# How to run this CLAB topology on your own environment?
 
 ## Environment variables
 
@@ -21,9 +21,17 @@ export NOKIA_GID=$(getent group docker | cut -d: -f3)
 export SSH_PUBLIC_KEY=$(cat ~/.ssh/id_rsa.pub)
 ```
 
-once these variables are exposed, one can run this lab by executing:
-(assuming this repo has been checked out in $HOME/DCFPartnersHackathon)
+Once these variables are exposed, one can run this lab by executing:
+(assuming this repo has been checked out in $HOME/DCFPartnerHackathon)
 
 ``` bash
-CLAB_LABDIR_BASE=$HOME sudo -E clab deploy -t $HOME/DCFPartnersHackathon/clab/srx.clab.yml --reconfigure
+CLAB_LABDIR_BASE=$HOME sudo -E clab deploy -t $HOME/DCFPartnerHackathon/clab/srx.clab.yml --reconfigure
 ```
+
+## EDA deployment
+
+This lab topology includes two DCs as illustrated in the picture below, DC2 on the left that is pre-configured and DC1 on the right that is managed by EDA. The EDA Managed DC1, including the PE2 (that is acting as DC-GW), are not pre-configured, and rely on EDA to deploy the configurations. As such, when you deploy the CLAB topology, only the DC2 nodes (including PE4 DC-GW) will load their start-up configs.
+To install EDA and onboard DC1 nodes refer to the [EDA Readme](/eda/README.md)
+
+
+![Topology](/docs/images/srx.clab.png)

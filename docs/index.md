@@ -3,6 +3,10 @@ hide:
   - navigation
 ---
 
+<div style="text-align: center;">
+  <img src="./../../../../../images/nokia_now.jfif" style="width: 150%;">
+</div>
+
 # Welcome to the Nokia NoW DCF Hackathon - Portugal 2026
 
 Welcome to the Nokia NoW DCF Hackathon - Portugal 2026.
@@ -89,7 +93,7 @@ In this event, every group has their own complete service-provider network at th
 
 The above topology contains a number of functional blocks to help you in areas you might want to focus on, it contains:
 
-- An all-SR Linux network (release 26.3.1):
+- An all-SR Linux network (release 26.7.1):
     - 2x PE / DCGW nodes (pe2 and pe4, 7250 IXR-X1b) directly interconnected
     - WAN core between the PEs: dual-stack OSPF (v2 for IPv4, v3 for IPv6) with LDP-signalled MPLS and iBGP (IPv4/IPv6 + EVPN + VPN-IPv4/IPv6)
     - each PE acts as EVPN route-reflector for its data center
@@ -104,7 +108,7 @@ The above topology contains a number of functional blocks to help you in areas y
         - DC2: PE4
     - a Data Center Interconnect on the PEs: multi-instance ip-vrf "dci" with allow-export
       (EVPN-VXLAN towards the fabric + BGP-IPVPN over MPLS/LDP between the PEs)
-- RADIUS and DNS servers attached in-band (PE4 and PE2 respectively)
+- DNS server attached in-band to PE2
 - a fully working telemetry stack (gNMIc/prometheus/grafana + promtail/loki)
 - Linux clients are attached to both the GRT and the DCI ip-vrf allowing a full mesh of traffic.
 
@@ -119,7 +123,7 @@ If you'd like to see the full list of devices, their hostnames and IP addresses 
 /// tab | cmd
 
 ``` bash
-sudo containerlab inspect
+cd ~/DCFPartnerHackathon/clab && sudo containerlab inspect
 ```
 
 ///
@@ -189,9 +193,6 @@ sudo containerlab inspect
 │ clab-srexperts-promtail   │ linux                                 │ running │ 10.128.90.75   │
 │                           │ grafana/promtail:3.5.10               │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
-│ clab-srexperts-radius     │ linux                                 │ running │ 10.128.90.14   │
-│                           │ ghcr.io/srl-labs/network-multitool    │         │ N/A            │
-├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
 │ clab-srexperts-spine11    │ nokia_srlinux                         │ running │ 10.128.90.31   │
 │                           │ ghcr.io/nokia/srlinux:26.3.1          │         │ N/A            │
 ├───────────────────────────┼───────────────────────────────────────┼─────────┼────────────────┤
@@ -249,7 +250,7 @@ clab-srexperts-client13    {'22': '50038'}
 clab-srexperts-client21    {'22': '50046'}
 clab-srexperts-client22    {'22': '50047'}
 clab-srexperts-client23    {'22': '50048'}
-clab-srexperts-radius      {'22': '50014'}
+clab-srexperts-loki        {'22': '50014'}
 clab-srexperts-dns         {'22': '50015'}
 clab-srexperts-prometheus  {'9090': '9090'}
 clab-srexperts-grafana     {'3000': '3000'}
@@ -461,25 +462,27 @@ sudo -E clab deploy -t $HOME/SReXperts/clab/srx.clab.yml --reconfigure
 
 ### Cloning this repository
 
+Do you want to run this lab on your own environment? Refer to the [CLAB readme](/clab/README.md) and to the [EDA readme](/eda/README.md) instructions.
 If you would like to work locally on your personal device you should clone this repository. This can be done using one of the following commands.
 
 HTTPS:
 
 ```bash
-git clone https://github.com/nokia/SReXperts.git
+git clone https://github.com/srlinuxeurope/DCFPartnerHackathon.git
 ```
 
 SSH:
 
 ```bash
-git clone git@github.com:nokia/SReXperts.git
+git clone git@github.com:srlinuxeurope/DCFPartnerHackathon.git
 ```
 
 GitHub CLI:
 
 ```bash
-gh repo clone nokia/SReXperts
+gh repo clone srlinuxeurope/DCFPartnerHackathon
 ```
+
 
 ## Useful links
 
@@ -493,11 +496,6 @@ gh repo clone nokia/SReXperts
 - [Learn SR Linux](https://learn.srlinux.dev/)
 - [YANG Browser](https://yang.srlinux.dev/)
 - [gNxI Browser](https://gnxi.srlinux.dev/)
-
-### SR OS
-
-- [SR OS Release 26.3](https://documentation.nokia.com/sr/26-3/index.html)
-- [Network Developer Portal](https://network.developer.nokia.com/sr/learn/)
 
 ### Misc Tools/Software
 
@@ -530,6 +528,7 @@ gh repo clone nokia/SReXperts
 - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
 - [Eclipse](https://www.eclipse.org/downloads/)
 - [PyCharm](https://www.jetbrains.com/pycharm/download)
+- [Muxus](https://flosch62.github.io/muxus/)
 
 <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js" async></script>
 

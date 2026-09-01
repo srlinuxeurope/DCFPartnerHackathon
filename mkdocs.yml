@@ -45,8 +45,8 @@ site_author: Nokia
 site_description: >-
   SReXperts Hackathon event guidelines
 # Repository
-repo_name: nokia/SReXperts
-repo_url: https://github.com/nokia/SReXperts
+repo_name: srlinuxeurope/DCFPartnerHackathon
+repo_url: https://github.com/srlinuxeurope/DCFPartnerHackathon
 edit_uri: edit/main/docs/
 site_url: "https://hackathon.srexperts.net/"
 copyright: Copyright &copy; 2021-2026 Nokia
@@ -71,7 +71,7 @@ theme:
     - content.code.annotate
     - content.code.copy
     - content.code.select
-    - content.action.edit
+#    - content.action.edit
     - toc.follow
     - content.tooltips
     - content.footnote.tooltips
@@ -94,9 +94,9 @@ theme:
   font:
     text: NokiaPureText
     code: Fira Code
-  logo: images/nokia_now.jfif
+  logo: images/nokia_now_logo_white.png
   icon:
-    logo: nokia/srexperts
+    logo: srlinuxeurope/DCFPartnerHackathon/
     repo: fontawesome/brands/github
     edit: material/file-edit-outline
   favicon: images/nokia_favicon.svg

@@ -3,7 +3,7 @@ tags:
   - MD-CLI
   - YANG-CLI
   - CLI
-  - Introduction
+  - SR Linux
 ---
 
 
@@ -24,7 +24,13 @@ Nokia SR Linux is a modern, fully model-driven Network Operating System (NOS). U
 
 *This activity is designed as a starter guide for those operators who have never used SR Linux before.  If you are familiar with SR Linux we suggest you tackle one of the other activities at the level you feel is appropriate.*
 
-In this activity, you will explore the SR Linux CLI over four progressive tasks, navigating the interface, applying real configurations, customizing your environment with aliases, and managing configuration safety through checkpoints and rollback. By the end, you will have a solid foundation for operating Nokia SR Linux nodes using the model-driven approach.
+In this activity, you will explore the SR Linux CLI over four progressive tasks:  
+1. navigating the interface,  
+2. applying real configurations,  
+3. customizing your environment with aliases,  
+4. and managing configuration safety through checkpoints and rollback.  
+
+By the end, you will have a solid foundation for operating Nokia SR Linux nodes using the model-driven approach.
 
 ## Objective
 
@@ -38,7 +44,7 @@ By completing this hackathon activity, you will gain practical, hands-on experie
 
 The SR Linux CLI is a modern, powerful, and highly customizable text-based interface. It was designed to evolve the CLI paradigm, bringing features common in modern shells (such as context-aware autocompletion, structured output, and inline suggestions) to network operations.
 
-If you're already an experienced SR OS operator you will find SR Linux familiar and highly extensible.  If you're not an SR OS user, you will also find SR Linux very familiar as it shares many of the characteristics of Linux. 
+If you're already an experienced SR OS operator you will find SR Linux familiar and highly extensible.  If you're not an SR OS user, you may also find SR Linux very familiar as it shares many of the characteristics of Linux. 
 
 **Key benefits of the SR Linux CLI include:**
 
@@ -63,15 +69,26 @@ It is tempting to skip ahead but tasks may require you to have completed previou
 
 ### Orientation, Navigating the SR Linux CLI
 
+Log in to one of the nodes at DC2, for example to :material-router: Leaf21, and keep the session open.  
+
+/// details | SSH to :material-router: Leaf21
+    type: info
+    open: true
+```bash
+ssh admin@clab-srexperts-leaf21
+```
+///
+
 #### Key Concepts
 
 ##### The Two-Line Prompt
 
 By default, the SR Linux CLI features a two-line prompt:
 
-- Line 1: Shows the current CLI mode (`running`, `candidate`, `show`, `state`) and the current context in `[  ]`.
+- Line 1: Shows the current CLI mode (`running`, `candidate`, `show`, `state`) between `{ }` and the current CLI context between `[  ]`.
 - Line 2: Shows the CPM you are connected to, the username and the hostname (e.g., `A:admin@g1-leaf21#`).
 
+Follows some examples:
 ``` srl
 --{ running }--[  ]--
 A:admin@g1-leaf21#
@@ -96,7 +113,8 @@ The `*` prefix on the mode indicator means there are uncommitted changes in the 
 | `show` | Execute `show` CLI plugins to display information about configured features and operational states |
 | `state`     | View configuration *and* state values (counters, oper-state, statistics, etc.) |
 
-1. Log in and observe the prompt. Identify the CLI mode, current context, username, and hostname.
+1. Log in to one of the nodes at DC2 and observe the prompt. Identify the CLI mode, current context, username, and hostname. Execute the `show version` command and view the output.
+
 
     ??? example "Observe the prompt"
         ```srl
@@ -144,13 +162,13 @@ The `*` prefix on the mode indicator means there are uncommitted changes in the 
 
     /// admonition | Tool
         type: note
-    To easily navigate the full YANG model, you can use the [SR Linux YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1)
-    
+    To easily navigate the full YANG model, you can use the [Nokia SR Linux YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1).  
+    From a specific CLI context you may use the `pwc xpath` to obtain the gnmi path.
     ///
 
 5. Use `exit`, `exit all`, `exit to`, `back` and `/` to navigate between levels.
 
-6. Use `pwc` to display the present working context.
+6. Use `pwc` to display the present working context. Explore the `jspath` and `xpath` options.
 
 7. Use the `info` command to inspect the datastore content.
 
@@ -199,7 +217,7 @@ The `*` prefix on the mode indicator means there are uncommitted changes in the 
 | Show present working context    | `pwc`                                |
 | Enter candidate mode            | `enter candidate`                    |
 | Enter show mode                 | `enter show`                    |
-| Enter running mode              | `enter runnning`                    |
+| Enter running mode              | `enter running`                    |
 | Enter state mode                | `enter state`                        |
 | List available commands         | `?` or `??` (global commands too)    |
 
@@ -371,11 +389,12 @@ In this task, BGP is already configured and running on all SR Linux nodes. Your 
 
     ??? example "modify configuration"
         === "Commands"
+            Replace `${INSTANCE_ID}` with you group ID.
             ```
-            neighbor fd00:fde8::1:24 description "iBGP-DC overlay peer to PE4"
+            neighbor fd00:fde8::${INSTANCE_ID}:24 description "iBGP-DC overlay peer to PE4"
             ```
             ```
-            neighbor fd00:fde8::1:24 local-preference 170
+            neighbor fd00:fde8::${INSTANCE_ID}:24 local-preference 170
             ```
             ```
             diff
@@ -445,15 +464,17 @@ In this task, BGP is already configured and running on all SR Linux nodes. Your 
 
     The `stay` keyword discards all changes but keeps you in candidate mode so you can continue editing. The `now` keyword discards changes and exits candidate mode.
 
-    If you want to undo a specific change without discarding everyting, use the `discard` command with a specific YANG path.
+    If you want to undo a specific change without discarding everything, use the `discard` command with a specific YANG path.
 
-    You can also use `load startup` to fully reset the candidate to the startup configuration:
+    You can also use `load startup` to fully reset the candidate to the startup configuration. 
 
     !!! example "load startup"
         ``` srl
         --{ * candidate shared default }--[  ]--
         A:admin@g1-leaf21# load startup
         ```
+    
+    You may use the `diff` before you commit or use the `load startup auto-commit` option to apply changes immediately. 
 
 
 ### Output Modifiers, Wildcards & CLI Aliasing
@@ -506,7 +527,7 @@ The SR Linux CLI supports environment customization at the session level, includ
         interface ethernet-1/{5..10} admin-state enable
 
         # Set a description on a set of interfaces
-        interface ethernet-1/{1,3..5,8} description "configured with range"
+        interface ethernet-1/{3..5,8} description "configured with range"
         ```
 
     ??? example "changing configuration using ranges"
@@ -596,6 +617,12 @@ Aliases allow operators to define custom command names that map to longer SR Lin
             ``` srl
             /system cli environment alias traffic-rate command "/info from state interface * traffic-rate | filter fields in-bps out-bps | as table"
             ```
+            Save the config and execute the new command. 
+            ```
+            diff
+            commit stay
+            traffic-rate
+            ```
         === "Expected output"
             ``` srl
             --{ + running }--[  ]--
@@ -650,6 +677,13 @@ Aliases allow operators to define custom command names that map to longer SR Lin
         === "bgp-neighbor alias"
             ``` srl
             /system cli environment alias "bgp-neighbor" command "/show network-instance default protocols bgp neighbor {}"
+            ```
+            Save the config and execute the new command. 
+            Replace `${INSTANCE_ID}` with you group ID.
+            ```
+            diff
+            commit stay
+            bgp-neighbor fd00:fde8::${INSTANCE_ID}:24
             ```
         === "Expected output"
             ``` srl

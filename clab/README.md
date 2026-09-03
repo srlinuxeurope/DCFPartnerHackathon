@@ -25,6 +25,11 @@ export NOKIA_GID=$(getent group docker | cut -d: -f3)
 export SSH_PUBLIC_KEY=$(cat ~/.ssh/id_rsa.pub)
 ```
 
+> [!Warning]
+> Both PE2 and PE4 are SRLinux models subject to license and a valid license is required. Without a valid license the CLAB deployment will fail.
+> Reach out your Nokia's representative to request a trial license to run this lab.
+> License must be placed in the `/opt/srexperts/srl.license` file, or you may choose another name/location as long you update the path under the `srx.clab.yml` file.
+
 Once these variables are exposed, one can run this lab by executing:
 (assuming this repo has been checked out in $HOME/DCFPartnerHackathon)
 
@@ -42,7 +47,7 @@ sudo -E clab deploy -t $CLAB_LABDIR_BASE/DCFPartnerHackathon/clab/srx.clab.yml -
 ## EDA deployment
 
 This lab topology includes two DCs as illustrated in the picture below, DC2 on the left that is pre-configured and DC1 on the right that is managed by EDA. The EDA Managed DC1, including the PE2 (that is acting as DC-GW), are not pre-configured, and rely on EDA to deploy the configurations. As such, when you deploy the CLAB topology, only the DC2 nodes (including PE4 DC-GW) will load their start-up configs.
-To install EDA and onboard DC1 nodes refer to the [EDA Readme](/eda/README.md)
+To install EDA and onboard DC1 nodes refer to the [EDA Readme](../eda/README.md)
 
 
-![Topology](/docs/images/srx.clab.png)
+![Topology](../docs/images/srx.clab.png)

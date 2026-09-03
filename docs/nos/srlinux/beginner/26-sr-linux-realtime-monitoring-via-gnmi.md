@@ -17,7 +17,7 @@ tags:
 | **Difficulty**              | Beginner                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Tools used**              | [gNMIc](https://gnmic.openconfig.net/)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Topology Nodes**          | :material-router: Leaf21, :material-router: Spine21                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| **References**              | [SR Linux documentation portal](https://documentation.nokia.com/srlinux/26-3/index.html)<br/>[Learn SR Linux](https://learn.srlinux.dev/)<br/> [YANG Browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0&pathfmt=gnmi)<br/> |
+| **References**              | [SR Linux documentation portal](https://documentation.nokia.com/srlinux/26-7/index.html)<br/>[Learn SR Linux](https://learn.srlinux.dev/)<br/> [YANG Browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0&pathfmt=gnmi)<br/> |
 
 You are a network engineer operating a modern SR Linux-based data center fabric. You have been assigned to remotely support the field team during a maintenance task to replace a degraded cable between a leaf and a spine. During this activity, you will use gNMI to observe changes in BGP neighbors while the physical work is being executed, continuously monitoring the connectivity between the leaf and spine as the cable replacement takes place.
 
@@ -61,7 +61,7 @@ Flags (filtered):
 
 
 /// note
-We will be working with SR Linux release 26.3.1. In this version, the default JSON encoding is not available, so a valid encoding must be explicitly specified in every command we run.
+We will be working with SR Linux release 26.7.2. In this version, the default is JSON encoding, if you require another one then a valid encoding must be explicitly specified in every command you run.
 ///
 
 
@@ -70,7 +70,7 @@ We will be working with SR Linux release 26.3.1. In this version, the default JS
 
 /// note | gNMIc tool
 
-It is recomended that this activity is performed on the hackathon instance since the tool is preinstalled.
+It is recommended that this activity is performed on the hackathon instance since the tool is preinstalled.
 
 Information on how to install gNMIc can be found on the [installation page](https://gnmic.openconfig.net/install/). 
 
@@ -92,11 +92,11 @@ The main objectives of this hands-on activity are to learn how to use gNMIc whil
 
 **You should read these tasks from top-to-bottom before beginning the activity**.  
 
-**It is tempting to skip ahead but tasks may require you to have completed previous tasks before tackling them.**
+It is tempting to skip ahead but tasks may require you to have completed previous tasks before tackling them.
 
 !!! warning
 
-    During this activity, please use the data center that is not connected to EDA, specifically **Leafs 21 to 23** and **Spines 21 to 22**.  This ensures a safe and isolated environment for the exercises.
+    During this activity, please use the DC2 that is not connected to EDA, specifically **Leafs 21 to 23** and **Spines 21 to 22**.  This ensures a safe and isolated environment for the exercises.
 
 -{{image(url='/images/26-sr-linux-realtime-monitoring-via-gnmi/srx.clab_srl_non_managed.svg')}}-
 
@@ -244,7 +244,7 @@ You will monitor the BGP neighbor session status to monitor when BGP connectivit
 /// details | gNMI path YANG browser
     type: tip
 
-To know the gNMI path for the **protocol bgp neighbor session status** it is better to explore the YANG Browser of the equipment we are working on. You can find the detailed information on the [YANG Browser](https://yangbrowser.nokia.com/srlinux/26.3.1).
+To know the gNMI path for the **protocol bgp neighbor session status** it is better to explore the YANG Browser of the equipment we are working on. You can find the detailed information on the [Nokia YANG Browser](https://yangbrowser.nokia.com/srlinux/26.7.1).
 
 Since we are looking for gNMI paths and the idea is to get state information, you should ensure the options marked on the image bellow are selected.
 
@@ -258,6 +258,7 @@ Use the search bar to find the path to the BGP neighbor's session state.  Record
 An alternative option to retrieve the gNMI path (xpath) is to use the SR Linux CLI `pwc xpath` command. For example:
 
 /// tab | SR Linux CLI `pwc xpath`
+Note: Replace the neighbor address with the one from your topology. You may use auto completion.
 ``` bash hl_lines="2 5 8 9"
 --{ running }--[  ]--
 A:root@g51-leaf21# enter state

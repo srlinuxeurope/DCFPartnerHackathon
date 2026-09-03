@@ -73,6 +73,32 @@ alias edactl='kubectl -n eda-system exec -it $(kubectl -n eda-system get pods \
 -- edactl'
 ```
 
+## Deploy EDA
+
+```shell
+SIMULATE=false make try-eda
+```
+
+## Add EDA License
+
+Put the EDA license in `/opt/dcfpartner`.
+
+Apply the license after EDA is deployed:
+
+```
+kubectl apply -f /opt/dcfpartner/eda-non-prod-license.yaml
+```
+
+## Store EDA last transaction hash
+
+To enable users to revert to an initial state the EDA was deployed, we need to store the last transaction and its hash after we deployed EDA.
+
+Execute `bash ./eda/record-init-tx.sh` script that will store the `TX_ID TX_HASH` pair in the `/opt/dcfpartner/eda-init-tx` file. This file then can be used to revert EDA to this transaction.
+
+## Accessing EDA UI
+
+EDA UI is automatically exposed when `make try-eda` finishes. No additional steps required to access the UI. It is exposed over HTTPS, port 9443.
+
 ## Deploy containerlab topo
 
 Note, that currently the client nodes require the bonding kernel to be loaded to support the bond interfaces:
@@ -82,32 +108,6 @@ sudo modprobe bonding mmiimon=100 mode=802.3ad lacp_rate=fast
 ```
 
 Follow these [steps](../clab/README.md) to deploy the CLAB topology.
-
-## Deploy EDA
-
-```shell
-SIMULATE=false make try-eda
-```
-
-## Add EDA License
-
-Put the EDA license in `/opt/srexperts`
-
-Apply the license after EDA is deployed:
-
-```
-kubectl apply -f /opt/srexperts/eda-non-prod-license.yaml
-```
-
-## Store EDA last transaction hash
-
-To enable users to revert to an initial state the EDA was deployed, we need to store the last transaction and its hash after we deployed EDA.
-
-Execute `bash eda/record-init-tx.sh` script that will store the `TX_ID TX_HASH` pair in the `/opt/srexperts/eda-init-tx` file. This file then can be used to revert EDA to this transaction.
-
-## Accessing EDA UI
-
-EDA UI is automatically exposed when `make try-eda` finishes. No additional steps required to access the UI. It is exposed over HTTPS, port 9443.
 
 ## Onboard SRX Topology
 
@@ -127,6 +127,12 @@ Then apply the templated onboarding resources:
 
 ```shell
 kubectl apply -f $(pwd)/eda/topo-onboard/clab
+```
+
+Monitor the onboarding process by executing the following command and wait until all nodes appear as `Synced`:
+
+```shell
+kubectl get toponodes -n eda -w
 ```
 
 ## Deploy Fabric
@@ -180,14 +186,14 @@ When users need to restore EDA to a well known state, they should run the follow
 bash ./eda/restore-eda.sh
 ```
 
-This script restores the transaction recorded in `/opt/srexperts/eda-init-tx` by the lab provisioning script. The transaction stored in this file is the last transaction of the deployment/onboarding and represents the starting state of the platform.
+This script restores the transaction recorded in `/opt/dcfpartner/eda-init-tx` by the lab provisioning script. The transaction stored in this file is the last transaction of the deployment/onboarding and represents the starting state of the platform.
 
 ## Copy files
 
 To copy the files from this repo to a remote system:
 
 ```shell
-# RS_DEST=nokia@1.edadev.srexperts.net
+# RS_DEST=nokia@1.edadev.dcfpartner.net
 # RS_REMOTE_DEST=/home/nokia/eda
 RS_DEST=demo1.ohn81
 RS_REMOTE_DEST=/root/eda
@@ -195,7 +201,7 @@ rsync -avz --delete eda/fabric ${RS_DEST}:${RS_REMOTE_DEST}
 ```
 
 ```shell
-# RS_DEST=nokia@1.edadev.srexperts.net
+# RS_DEST=nokia@1.edadev.dcfpartner.net
 # RS_REMOTE_DEST=/home/nokia/eda
 RS_DEST=demo1.ohn81
 RS_REMOTE_DEST=/root/eda

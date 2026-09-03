@@ -11,8 +11,7 @@ metadata:
     role: hackathon-infra
 spec:
   bridgeDomain: macvrf11
-  # TODO: uncomment on 25.4
-  #description: VLAN 1 for connectivity to the WAN GRT
+  description: VLAN 1 for connectivity to the WAN GRT
   interfaceSelectors:
     - edge-type=compute
   uplink:

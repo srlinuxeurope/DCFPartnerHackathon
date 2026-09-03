@@ -18,7 +18,7 @@ spec:
         role: hackathon-infra
       annotations:
         topobuilder.eda.labs/name-prefix: g1-leaf
-      nodeProfile: srlinux-ghcr-26.3.1
+      nodeProfile: srlinux-ghcr-26.7.1
       platform: 7220 IXR-D3L
     - name: spine
       labels:
@@ -28,7 +28,7 @@ spec:
         role: hackathon-infra
       annotations:
         topobuilder.eda.labs/name-prefix: g1-spine
-      nodeProfile: srlinux-ghcr-26.3.1
+      nodeProfile: srlinux-ghcr-26.7.1
       platform: 7220 IXR-D5
   nodes:
     - name: g1-leaf11

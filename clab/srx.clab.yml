@@ -60,7 +60,7 @@ topology:
     # PE-layers (SR Linux 26.7.1, 7250 IXR-X1b)
     pe2:
       kind: nokia_srlinux
-      license: /opt/dcfpartner/srl.license
+      license: /opt/srexperts/srl.license
       type: ixr-x1b
       mgmt-ipv4: 10.128.${INSTANCE_ID}.22
       ports:
@@ -68,7 +68,7 @@ topology:
         - 50322:57400
     pe4:
       kind: nokia_srlinux
-      license: /opt/dcfpartner/srl.license
+      license: /opt/srexperts/srl.license
       type: ixr-x1b
       mgmt-ipv4: 10.128.${INSTANCE_ID}.24
       startup-config: configs/srl/pe4.cfg

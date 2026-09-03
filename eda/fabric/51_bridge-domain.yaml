@@ -10,8 +10,7 @@ metadata:
   labels:
     role: hackathon-infra
 spec:
-  # TODO revisit this bd config before 25.12
-  #description: MAC-VRF for connectivity via the GRT of the WAN
+  description: MAC-VRF for connectivity via the GRT of the WAN
   evi: 1
   eviPool: evi-pool
   exportTarget: target:65000:11

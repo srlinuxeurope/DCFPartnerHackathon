@@ -12,40 +12,37 @@
 #     (former vRR attachment addressing preserved: 10.64.13.0/31 and 10.64.13.128/25)
 #   - Telemetry & logging: gnmic/prometheus/grafana + promtail/loki (SRL-only;
 #     the syslog-ng relay was removed with the SR OS nodes)
-# Removed: p1, p2, vRR, pe1, pe3, client01-04, ixp1, agg1, peering2, transit1,
+# Removed: p1, p2, vRR, pe1, pe3, client01-04, ixp1, radius, agg1, peering2, transit1,
 #          rpki, bngblaster and the pe*-p* bridge nodes. No SR OS nodes remain.
 
-name: srexperts
+name: dcfpartner
 
 mgmt:
-  network: srexperts # management network name
+  network: dcfpartner # management network name
   ipv4-subnet: 10.128.${INSTANCE_ID}.0/24 # ipv4 range
 
 topology:
   defaults:
     kind: linux
-    image: ghcr.io/srl-labs/network-multitool
+    image: ghcr.io/srl-labs/network-multitool:latest
     credentials:
       username: admin
       password: ${EVENT_PASSWORD}
   kinds:
     nokia_srlinux:
-      image: ghcr.io/nokia/srlinux:26.7.1
+      image: ghcr.io/nokia/srlinux:26.7.2
       # startup-config is set explicitly on every SR Linux node below
       exec:
         - usermod -aG ntwkadmin admin
-
     linux:
-      image: ghcr.io/srl-labs/network-multitool
       startup-delay: 120
 
   nodes:
-    # core services
+    # Core services
     dns:
       kind: linux
       group: core
       mgmt-ipv4: 10.128.${INSTANCE_ID}.15
-      image: ghcr.io/srl-labs/network-multitool
       binds:
         - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/dns/interfaces:/etc/network/interfaces
@@ -59,32 +56,32 @@ topology:
       env:
         USER_PASSWORD: ${EVENT_PASSWORD}
         INSTANCE_ID: ${INSTANCE_ID}
+
     # PE-layers (SR Linux 26.7.1, 7250 IXR-X1b)
     pe2:
       kind: nokia_srlinux
-      license: /opt/srexperts/srl.license
+      license: /opt/dcfpartner/srl.license
       type: ixr-x1b
       mgmt-ipv4: 10.128.${INSTANCE_ID}.22
-      #startup-config: configs/srl/pe2.cfg
       ports:
         - 50022:22
         - 50322:57400
     pe4:
       kind: nokia_srlinux
-      license: /opt/srexperts/srl.license
+      license: /opt/dcfpartner/srl.license
       type: ixr-x1b
       mgmt-ipv4: 10.128.${INSTANCE_ID}.24
       startup-config: configs/srl/pe4.cfg
       ports:
         - 50024:22
         - 50324:57400
+
     # DC1
     spine11:
       kind: nokia_srlinux
       type: ixr-d5
       group: spine
       mgmt-ipv4: 10.128.${INSTANCE_ID}.31
-      #startup-config: configs/srl/spine11.cfg
       ports:
         - 50031:22
         - 50331:57400
@@ -93,7 +90,6 @@ topology:
       type: ixr-d5
       group: spine
       mgmt-ipv4: 10.128.${INSTANCE_ID}.32
-      #startup-config: configs/srl/spine12.cfg
       ports:
         - 50032:22
         - 50332:57400
@@ -102,7 +98,6 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.33
-      #startup-config: configs/srl/leaf11.cfg
       ports:
         - 50033:22
         - 50333:57400
@@ -111,7 +106,6 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.34
-      #startup-config: configs/srl/leaf12.cfg
       ports:
         - 50034:22
         - 50334:57400
@@ -120,7 +114,6 @@ topology:
       type: ixr-d3l
       group: leaf
       mgmt-ipv4: 10.128.${INSTANCE_ID}.35
-      #startup-config: configs/srl/leaf13.cfg
       ports:
         - 50035:22
         - 50335:57400
@@ -128,7 +121,6 @@ topology:
       kind: linux
       group: dcclient
       mgmt-ipv4: 10.128.${INSTANCE_ID}.36
-      image: ghcr.io/srl-labs/network-multitool
       binds:
         - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client11:/etc/network/interfaces
@@ -145,7 +137,6 @@ topology:
       kind: linux
       group: dcclient
       mgmt-ipv4: 10.128.${INSTANCE_ID}.37
-      image: ghcr.io/srl-labs/network-multitool
       binds:
         - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client12:/etc/network/interfaces
@@ -162,7 +153,6 @@ topology:
       kind: linux
       group: dcclient
       mgmt-ipv4: 10.128.${INSTANCE_ID}.38
-      image: ghcr.io/srl-labs/network-multitool
       binds:
         - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client13:/etc/network/interfaces
@@ -175,6 +165,7 @@ topology:
         - 50038:22
       env:
         USER_PASSWORD: ${EVENT_PASSWORD}
+
     # DC2
     spine21:
       kind: nokia_srlinux
@@ -225,7 +216,6 @@ topology:
       kind: linux
       group: dcclient
       mgmt-ipv4: 10.128.${INSTANCE_ID}.46
-      image: ghcr.io/srl-labs/network-multitool
       binds:
         - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client21:/etc/network/interfaces
@@ -242,7 +232,6 @@ topology:
       kind: linux
       group: dcclient
       mgmt-ipv4: 10.128.${INSTANCE_ID}.47
-      image: ghcr.io/srl-labs/network-multitool
       binds:
         - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client22:/etc/network/interfaces
@@ -259,7 +248,6 @@ topology:
       kind: linux
       group: dcclient
       mgmt-ipv4: 10.128.${INSTANCE_ID}.48
-      image: ghcr.io/srl-labs/network-multitool
       binds:
         - $HOME/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
         - configs/client/interfaces-client23:/etc/network/interfaces
@@ -272,6 +260,7 @@ topology:
         - 50048:22
       env:
         USER_PASSWORD: ${EVENT_PASSWORD}
+
     ### TELEMETRY STACK ###
     gnmic:
       kind: linux
@@ -294,7 +283,6 @@ topology:
         - 9090:9090
       cmd: --config.file=/etc/prometheus/prometheus.yml
       group: "10"
-
     grafana:
       kind: linux
       mgmt-ipv4: 10.128.${INSTANCE_ID}.73
@@ -334,23 +322,27 @@ topology:
       cmd: --config.file=/etc/loki/loki-config.yml
 
   links:
-    # DCI: direct PE2 <-> PE4 link (ISIS/SR-MPLS + iBGP + VXLAN handoff)
+    # DCI: direct PE2 <-> PE4 link (OSPF/MPLS + iBGP + VXLAN handoff)
     - endpoints: ["pe2:e1-1", "pe4:e1-1"]
       mtu: 9500
+
     # in-band attachment of DNS (to PE2)
     # (former vRR subnets preserved: 10.64.13.0/31 and 10.64.13.128/25 vlan 1)
     - endpoints: ["pe2:e1-4", "dns:eth1"]
       mtu: 9500
+
     # links from pe2 to DC1
     - endpoints: ["pe2:e1-2", "spine11:e1-32"]
       mtu: 9500
     - endpoints: ["pe2:e1-3", "spine12:e1-32"]
       mtu: 9500
+
     # links from pe4 to DC2
     - endpoints: ["pe4:e1-2", "spine21:e1-32"]
       mtu: 9500
     - endpoints: ["pe4:e1-3", "spine22:e1-32"]
       mtu: 9500
+
     # links from spine11/12 to leafs
     - endpoints: ["spine11:e1-1", "leaf11:e1-31"]
     - endpoints: ["spine11:e1-2", "leaf12:e1-31"]
@@ -358,12 +350,14 @@ topology:
     - endpoints: ["spine12:e1-1", "leaf11:e1-32"]
     - endpoints: ["spine12:e1-2", "leaf12:e1-32"]
     - endpoints: ["spine12:e1-3", "leaf13:e1-32"]
+
     # links from leaf11/12/13 to clients
     - endpoints: ["leaf11:e1-1", "client11:eth1"]
     - endpoints: ["leaf11:e1-2", "client12:eth1"]
     - endpoints: ["leaf12:e1-2", "client12:eth2"]
     - endpoints: ["leaf13:e1-2", "client12:eth3"]
     - endpoints: ["leaf13:e1-3", "client13:eth1"]
+
     # links from spine21/22 to leafs
     - endpoints: ["spine21:e1-1", "leaf21:e1-31"]
     - endpoints: ["spine21:e1-2", "leaf22:e1-31"]
@@ -371,6 +365,7 @@ topology:
     - endpoints: ["spine22:e1-1", "leaf21:e1-32"]
     - endpoints: ["spine22:e1-2", "leaf22:e1-32"]
     - endpoints: ["spine22:e1-3", "leaf23:e1-32"]
+
     # links from leaf21/22/23 to clients
     - endpoints: ["leaf21:e1-1", "client21:eth1"]
     - endpoints: ["leaf21:e1-2", "client22:eth1"]

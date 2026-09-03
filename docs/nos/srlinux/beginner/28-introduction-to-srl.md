@@ -18,7 +18,7 @@ tags:
 | **Difficulty**              | Beginner   |
 | **Tools used**              | SR Linux CLI   |
 | **Topology Nodes**          | :material-router: leaf21, :material-router: leaf22, :material-router: leaf23, :material-router: spine21, :material-router: spine22    |
-| **References**              | [CLI User Guide](https://documentation.nokia.com/srlinux/26-3/books/config-basics/configuration-management.html)<br/>[Getting Started with SR Linux CLI](https://learn.srlinux.dev/get-started/cli/)<br/> |
+| **References**              | [CLI User Guide](https://documentation.nokia.com/srlinux/26-7/books/config-basics/configuration-management.html)<br/>[Getting Started with SR Linux CLI](https://learn.srlinux.dev/get-started/cli/)<br/> |
 
 Nokia SR Linux is a modern, fully model-driven Network Operating System (NOS). Unlike traditional NOS platforms, SR Linux is built from the ground up on a 100% YANG-modelled infrastructure, meaning that every configuration element, state value, and operational action is defined by a YANG model. This ensures consistency across the CLI, NETCONF, and gRPC management interfaces.
 
@@ -48,13 +48,13 @@ If you're already an experienced SR OS operator you will find SR Linux familiar 
 
 **Key benefits of the SR Linux CLI include:**
 
-- **Transactional configuration:** Changes are made in a candidate datastore and only become active after a `commit` command is issued. A `diff` command allows you to review staged changes before applying them. [More information can be found here](https://documentation.nokia.com/srlinux/26-3/books/config-basics/configuration-management.html#configuration-modes).
+- **Transactional configuration:** Changes are made in a candidate datastore and only become active after a `commit` command is issued. A `diff` command allows you to review staged changes before applying them. [More information can be found here](https://documentation.nokia.com/srlinux/26-7/books/config-basics/configuration-management.html#configuration-modes).
 
 - **Multiple CLI modes:** `running`, `candidate`, `show` and `state` modes allow operators to view configuration, make changes, and inspect state information, including counters and derived values, from a single consistent interface.
 
-- **Structured data output:** Configuration and state can be displayed in JSON or YAML formats using the `| as json` and `| as yaml` output modifiers, making it easy to integrate with automation tools. [More information can be found here](https://documentation.nokia.com/srlinux/26-3/books/system-mgmt/cli-interface.html#cli-output-formatt-filter).
+- **Structured data output:** Configuration and state can be displayed in JSON or YAML formats using the `| as json` and `| as yaml` output modifiers, making it easy to integrate with automation tools. [More information can be found here](https://documentation.nokia.com/srlinux/26-7/books/system-mgmt/cli-interface.html#cli-output-formatt-filter).
 
-- **Wildcards and ranges:** Operators can apply configuration or retrieve state across multiple list elements simultaneously using `*` wildcards and `{x..y}` range syntax, enabling bulk configuration changes with a single command. [More information can be found here](https://documentation.nokia.com/srlinux/26-3/books/system-mgmt/cli-interface.html#ranges-and-wildcards).
+- **Wildcards and ranges:** Operators can apply configuration or retrieve state across multiple list elements simultaneously using `*` wildcards and `{x..y}` range syntax, enabling bulk configuration changes with a single command. [More information can be found here](https://documentation.nokia.com/srlinux/26-7/books/system-mgmt/cli-interface.html#ranges-and-wildcards).
 
 - **Automation-ready:** The SR Linux CLI shares the same YANG models used by the external API interfaces such as NETCONF, JSON-RPC and gRPC, enabling seamless integration with model-driven automation workflows.
 
@@ -127,7 +127,7 @@ The `*` prefix on the mode indicator means there are uncommitted changes in the 
         Serial Number        : Sim Serial No.
         System HW MAC Address: 1A:0C:13:FF:00:00
         OS                   : SR Linux
-        Software Version     : v26.3.1
+        Software Version     : v26.7.1
         Build Number         : 410-g98ed16c774c
         Architecture         : x86_64
         Last Booted          : 2026-04-21T10:03:54.921Z
@@ -162,7 +162,7 @@ The `*` prefix on the mode indicator means there are uncommitted changes in the 
 
     /// admonition | Tool
         type: note
-    To easily navigate the full YANG model, you can use the [Nokia SR Linux YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1).  
+    To easily navigate the full YANG model, you can use the [Nokia SR Linux YANG browser](https://yangbrowser.nokia.com/srlinux/26.7.1).  
     From a specific CLI context you may use the `pwc xpath` to obtain the gnmi path.
     ///
 

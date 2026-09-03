@@ -339,7 +339,7 @@ mkdir ~/.kube
 
 When users need to restore EDA to a well known state, they should run the following script:
 
-> [!Danger]
+> [!CAUTION]
 > Do not run it now! Only when you need to restore EDA!
 > ```bash
 > bash ./eda/restore-eda.sh

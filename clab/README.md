@@ -1,5 +1,9 @@
 # How to run this CLAB topology on your own environment?
 
+**This CLAB topology requires a license for emulating 7250 IXR-X1b nodes.**
+
+Contact your Nokia representative to obtain a valid license and place it in `/opt/dcfpartner/srl.license`.
+
 ## Environment variables
 
 This is a templated lab and relies on a number of environment variables to be exposed in your shell.
@@ -25,7 +29,14 @@ Once these variables are exposed, one can run this lab by executing:
 (assuming this repo has been checked out in $HOME/DCFPartnerHackathon)
 
 ``` bash
-CLAB_LABDIR_BASE=$HOME sudo -E clab deploy -t $HOME/DCFPartnerHackathon/clab/srx.clab.yml --reconfigure
+sudo -E clab deploy -t $HOME/DCFPartnerHackathon/clab/srx.clab.yml --reconfigure
+```
+
+If you have cloned your repo on another path, use the following commands to deploy your CLAB topology:
+
+``` bash
+export CLAB_LABDIR_BASE=<your-path>
+sudo -E clab deploy -t $CLAB_LABDIR_BASE/DCFPartnerHackathon/clab/srx.clab.yml --reconfigure
 ```
 
 ## EDA deployment

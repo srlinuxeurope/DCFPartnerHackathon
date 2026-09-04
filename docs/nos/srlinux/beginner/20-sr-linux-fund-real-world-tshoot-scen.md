@@ -15,8 +15,8 @@ tags:
 | **Short Description**       | Troubleshoot operational issues using SR Linux workflows to resolve a routing issue, and validate end-to-end network behavior while applying best operational practices.                                                                                                                                                                                                                                                                                                                                                     |
 | **Difficulty**              | Beginner                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | **Tools used**              | [Configuration management](https://documentation.nokia.com/srlinux/25-10/books/config-basics/configuration-management.html#configuration-checkpoints)<br/>[SR Linux interactive traffic monitoring tool](https://documentation.nokia.com/srlinux/25-10/books/troubleshooting-toolkit/interactive-traffic-monitor-tool-troubleshooting-toolkit.html)<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Topology Nodes**          | :material-router: leaf21, :material-router: leaf22, :material-router: leaf23, :material-router: spine21, :material-router: spine22, :material-router: pe1, :material-router: pe4                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **References**              | [Nokia SR Linux](https://documentation.nokia.com/srlinux/26-3/index.html)<br/> [Learn SR Linux](https://learn.srlinux.dev/)<br/> |
+| **Topology Nodes**          | :material-router: leaf21, :material-router: leaf22, :material-router: leaf23, :material-router: spine21, :material-router: spine22, :material-router: pe4                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **References**              | [Nokia SR Linux](https://documentation.nokia.com/srlinux/26-7/index.html)<br/> [Learn SR Linux](https://learn.srlinux.dev/)<br/> |
 
 
 You are a Network Engineer starting your shift in a modern data center running SR Linux. During the handover, you are informed that traffic from the data center to the DNS server at IP address 1.1.1.1 has stopped working.
@@ -44,14 +44,14 @@ This activity assumes the following knowledge:
 - Customizing your environment with CLI aliases
 - Managing configuration safety through checkpoints and rollback
 
-If you feel confident, let’s get started. If not, we recommend completing the **Introduction to the SR Linux YANG CLI** hackathon activity first. By the end, you will have a solid foundation for operating Nokia SR Linux nodes, which is essential for successfully completing this activity.
+If you feel confident, let’s get started. If not, we recommend completing the [Introduction to the SR Linux YANG CLI](./28-introduction-to-srl.md) hackathon activity first. By the end, you will have a solid foundation for operating Nokia SR Linux nodes, which is essential for successfully completing this activity.
 
 
 ## Tasks
 
 **You should read these tasks from top-to-bottom before beginning the activity**.
 
-**It is tempting to skip ahead but tasks may require you to have completed previous tasks before tackling them.**
+It is tempting to skip ahead but tasks may require you to have completed previous tasks before tackling them.
 
 ### Configuration checkpoint
 /// admonition | Warning
@@ -59,12 +59,49 @@ If you feel confident, let’s get started. If not, we recommend completing the 
 **This step is extremely important and will be crucial to the success of the activity**.
 ///
 
-Run the configuration checkpoint command on the **leaf** and **spine** devices before executing any other command.
+Run the configuration checkpoint command on the DC2 nodes, :material-router: leaf, :material-router: spine and :material-router: pe4 devices before executing any other command.
 
 This will create a checkpoint that you'll use in the final step of this activity to perform a configuration rollback.
 
-After creating the checkpoint, run the info from state command to view the list of available checkpoints. You should see your newly created checkpoint listed with ID 0, indicating that it is the most recent one.
+Log in to each of the nodes at DC2, with the commands below, and keep the sessions open.  
 
+/// details | SSH DC2 nodes
+    type: info
+    open: true
+
+/// tab | SSH to :material-router: Leaf21
+```bash
+ssh admin@clab-srexperts-leaf21
+```
+///
+/// tab | SSH to :material-router: Leaf22
+```bash
+ssh admin@clab-srexperts-leaf22
+```
+///
+/// tab | SSH to :material-router: Leaf23
+```bash
+ssh admin@clab-srexperts-leaf23
+```
+///
+/// tab | SSH to :material-router: Spine21
+```bash
+ssh admin@clab-srexperts-spine21
+```
+///
+/// tab | SSH to :material-router: Spine22
+```bash
+ssh admin@clab-srexperts-spine22
+```
+///
+/// tab | SSH to :material-router: PE4
+```bash
+ssh admin@clab-srexperts-pe4
+```
+///
+///
+
+After creating the checkpoint, run the info from state command to view the list of available checkpoints. You should see your newly created checkpoint listed with ID 0, indicating that it is the most recent one.
 
 /// details | Solution: Checkpoint saving
     type: solution 
@@ -123,7 +160,8 @@ You may want to obtain the following outputs:
 4. The routes exchanged and exported across the data-center
 ///
 
-Reviewing this information will give you clear visibility into the current network state and help you identify why, and where, connectivity to the DNS server (1.1.1.1) may be failing.
+Reviewing this information will give you clear visibility into the current network state and help you identify why, and where, connectivity to the DNS server (1.1.1.1) may be failing.  
+Use :material-router: leaf21 and :material-router: spine21 to collect this information.
 
 /// details | Solution: Checking the current state (use only if you get stuck)
     type: solution 
@@ -152,7 +190,6 @@ A:admin@g2-spine21# show network-instance default interfaces | as table
 | default                           | ethernet-1/1.0                    | routed                            | up                                |                                   |                                   | 9198                              |
 | default                           | ethernet-1/2.0                    | routed                            | up                                |                                   |                                   | 9198                              |
 | default                           | ethernet-1/3.0                    | routed                            | up                                |                                   |                                   | 9198                              |
-| default                           | ethernet-1/31.0                   | routed                            | up                                |                                   |                                   | 9198                              |
 | default                           | ethernet-1/32.0                   | routed                            | up                                |                                   |                                   | 9198                              |
 | default                           | system0.0                         |                                   | up                                |                                   |                                   |                                   |
 +-----------------------------------+-----------------------------------+-----------------------------------+-----------------------------------+-----------------------------------+-----------------------------------+-----------------------------------+
@@ -200,8 +237,6 @@ Flags: S static, D dynamic, L discovered by LLDP, B BFD enabled, - disabled, * s
 |                           | 1/3.0                                 |                           |         |              |                      |                      | ipv6-unicast      | [2/2/13]                              |
 | default                   | fe80::18e1:13ff:feff:1f%ethernet-     | leaf                      | D       | 4200002002   | established          | 28d:23h:22m:52s      | ipv4-unicast      | [2/2/15]                              |
 |                           | 1/2.0                                 |                           |         |              |                      |                      | ipv6-unicast      | [2/2/13]                              |
-| default                   | fe80::1e35:18ff:fe00:0%ethernet-      | pe                        | D       | 65000        | established          | 28d:23h:22m:52s      | ipv4-unicast      | [12/11/5]                             |
-|                           | 1/31.0                                |                           |         |              |                      |                      | ipv6-unicast      | [8/7/7]                               |
 | default                   | fe80::1ec3:1bff:fe00:0%ethernet-      | pe                        | D       | 65000        | established          | 28d:23h:22m:46s      | ipv4-unicast      | [12/11/16]                            |
 |                           | 1/32.0                                |                           |         |              |                      |                      | ipv6-unicast      | [8/7/14]                              |
 +---------------------------+---------------------------------------+---------------------------+---------+--------------+----------------------+----------------------+-------------------+---------------------------------------+
@@ -263,7 +298,7 @@ Prefix               Route Type   Metric   Pref    Flags    Next-Hop(s)
 /// tab | BGP Route Advertisement
 
 ``` bash
-
+### Note: Replace the neighbor name in the command
 A:admin@g2-leaf21# show network-instance default protocols bgp neighbor fe80::1882:24ff:feff:1%ethernet-1/31.0 advertised-routes ipv4
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Peer        : fe80::1882:24ff:feff:1%ethernet-1/31.0, remote AS: 4200002000, local AS: 4200002001
@@ -284,6 +319,7 @@ Origin codes: i=IGP, e=EGP, ?=incomplete
 2 advertised BGP routes
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+### Note: Replace the neighbor name in the command
 A:admin@g2-spine21# show network-instance default protocols bgp neighbor fe80::183a:12ff:feff:1f%ethernet-1/1.0 advertised-routes ipv4
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Peer        : fe80::183a:12ff:feff:1f%ethernet-1/1.0, remote AS: 4200002001, local AS: 4200002000
@@ -326,10 +362,12 @@ Origin codes: i=IGP, e=EGP, ?=incomplete
 From the outputs, you should be able to validate the network topology of your data-center. Specifically that:
 
 - Each spine is connected to the three leaf devices on ports `ethernet-1/1`, `ethernet-1/2`, and `ethernet-1/3`.
-- Each spine is also connected to the PE routers on ports `ethernet-1/31` and `ethernet-1/32`.
+- Each spine is also connected to the PE router on port `ethernet-1/32`.
 - Each leaf is configured with a unique BGP autonomous system number (ASN), while all spines share a single ASN and all PE routers share a single ASN. This configuration follows best practices in a CLOS data-center network.
 
 This connectivity and ASN configuration should be confirmed by your BGP neighbors output.  Is it?
+
+-{{image(url='./../../../../../images/srx.clab.png', title='Fig. 1 - Network topology')}}-
 
 ### Alias to improve CLI usability (optional)
 
@@ -437,55 +475,40 @@ The next step is to think about how to restore connectivity. There are multiple 
 
 
 /// admonition
-    type: tip
-Consider that the DNS server is not reachable via ICMP. To properly validate that your network is forwarding traffic in the correct direction, it is recommended to configure a loopback interface on :material-router: pe1 or :material-router: pe4 using the IP address 1.1.1.1. This allows you to test and confirm that your solution is working as expected, ensuring that your leaf and spine switches are forwarding DNS requests to the PE layer of your DC.
-///
+    type: note
+Consider that the DNS server is reachable via ICMP.  
+For this exercise, to properly validate that your network is forwarding traffic in the correct direction, we've configured a loopback interface on :material-router: pe4 using the IP address 1.1.1.1. This allows you to test and confirm that your solution is working as expected, ensuring that your leaf and spine switches are forwarding DNS requests to the PE layer of your DC.
 
-/// details | Recomendation: Loopback configuration
+/// details | Loopback configuration in :material-router: pe4
     type: solution 
-/// tab | Loopback configuration (repeat in both :material-router: pe1 and :material-router: pe4)
+/// tab | Loopback configuration in :material-router: pe4
 
 ``` bash
-A:admin@g2-pe1# edit-config global
-INFO: CLI #2054: Entering global configuration mode
-INFO: CLI #2075: Other global configuration sessions are active
-
-2026-03-25T15:13:51.89+00:00
-(gl)[/]
-A:admin@g2-pe1# /configure router "Base" interface "loopback_test" admin-state enable loopback ipv4 primary address 1.1.1.1 prefix-length 32
-
-2026-03-25T15:14:34.45+00:00
-*(gl)[/]
-A:admin@g2-pe1# compare
-    configure {
-        router "Base" {
-+           interface "loopback_test" {
-+               admin-state enable
-+               loopback
-+               ipv4 {
-+                   primary {
-+                       address 1.1.1.1
-+                       prefix-length 32
-+                   }
-+               }
-+           }
+/
+enter candidate
+interface lo1 {
+    description loopback_test
+    admin-state enable
+    subinterface 0 {
+        ipv4 {
+            admin-state enable
+            address 1.1.1.1/32 {
+            }
         }
     }
-
-2026-03-25T15:14:36.89+00:00
-*(gl)[/]
-A:admin@g2-pe1# commit
-
-2026-03-25T15:14:39.38+00:00
-(gl)[/]
-A:admin@g2-pe1#
+}
+network-instance default interface lo1.0 
+diff
+commit stay
 
 ```
 ///
-
+///
 ///
 
-Even after configuring it, you will see, just as reported at the beginning of your shift, that there is still no connectivity.
+
+
+If you try to reach the IP 1.1.1.1 from any of the DC2 hosts, you will see, just as reported at the beginning of your shift, that there is still no connectivity.
 
 /// details | Output: Try to ping 1.1.1.1
     type: example 
@@ -510,7 +533,7 @@ Think about what needs to be in place for end-to-end reachability and compare it
 /// details | Some steps to guide you
     type: solution 
 
-1. Configure a default route (0.0.0.0/0) on spine-21, using the system IPs of :material-router: pe1 and :material-router: pe4 as next hops
+1. Configure a default route (0.0.0.0/0) on :material-router: spine-21 and :material-router: spine-22, using the system IP of :material-router: pe4 as next hop
 2. Ensure the route is installed and properly advertised to the leaf switches via BGP
 3. Verify that the ping to the destination is now successful
 
@@ -519,74 +542,50 @@ Think about what needs to be in place for end-to-end reachability and compare it
 /// details | If needed, the commands for this solution are shown below.
     type: solution 
 
-Retrieve :material-router: pe1 and :material-router: pe4 system IP addresses.
+Retrieve :material-router: pe4 system IP addresses.
 
 ``` bash
+A:admin@g2-pe4# show network-instance default interfaces system0.0
+===============================================================================================================================================================================
+Net instance    : default
+Interface       : system0.0
+Oper state      : up
+  Prefix                                    Origin       Status
+  ===============================================================================================
+  10.46.2.24/32                            static       preferred
+  fd00:fde8::2:24/128                      static       preferred
+===============================================================================================================================================================================
 
-A:admin@g2-pe1# show router interface "system"
 
-===============================================================================
-Interface Table (Router: Base)
-===============================================================================
-Interface-Name                   Adm       Opr(v4/v6)  Mode    Port/SapId
-   IP-Address                                                  PfxState
--------------------------------------------------------------------------------
-system                           Up        Up/Up       Network system
-   10.46.2.21/32                                               n/a
-   fd00:fde8::2:21/128                                         PREFERRED
--------------------------------------------------------------------------------
-Interfaces : 1
-===============================================================================
-
-A:admin@g2-pe4# show router interface "system"
-
-===============================================================================
-Interface Table (Router: Base)
-===============================================================================
-Interface-Name                   Adm       Opr(v4/v6)  Mode    Port/SapId
-   IP-Address                                                  PfxState
--------------------------------------------------------------------------------
-system                           Up        Up/Up       Network system
-   10.46.2.24/32                                               n/a
-   fd00:fde8::2:24/128                                         PREFERRED
--------------------------------------------------------------------------------
-Interfaces : 1
-===============================================================================
+--{ + candidate shared default }--[  ]--
 
 ```
-Ensure you can reach :material-router: pe1 and :material-router: pe4 system IP addresses.
+Ensure you can reach :material-router: pe4 system IP addresses from DC2 spine nodes.
 
 ``` bash
-A:admin@g2-spine21# show default route-table
-============================================================================================================================================================================================================================================================================
+A:admin@g2-spine21# show network-instance default ipv4 route
+===============================================================================================================================================================================
 IPv4-unicast route table for default network-instance
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Flags: > (best), * (unviable), ! (failed)
      : L (leaked route from another network-instance)
      : B (backup NHG active and displayed)
      : S (statistics supported)
      : D (dynamic LB), R (resilient LB)
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Prefix               Route Type   Metric   Pref    Flags    Next-Hop(s)
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-10.46.0.0/16         bgp          0        170     >        fe80::1ea0:19ff:fe00:0(ethernet-1/31.0)
-                                                            fe80::1e19:1cff:fe00:0(ethernet-1/32.0)
-(truncated)
-
-A:admin@g2-spine21# ping network-instance default 10.46.2.21 -c 5
-Using network instance default
-PING 10.46.2.21 (10.46.2.21) 56(84) bytes of data.
-64 bytes from 10.46.2.21: icmp_seq=1 ttl=64 time=16.4 ms
-64 bytes from 10.46.2.21: icmp_seq=2 ttl=64 time=4.21 ms
-64 bytes from 10.46.2.21: icmp_seq=3 ttl=64 time=4.90 ms
-64 bytes from 10.46.2.21: icmp_seq=4 ttl=64 time=8.20 ms
-64 bytes from 10.46.2.21: icmp_seq=5 ttl=64 time=4.98 ms
-
---- 10.46.2.21 ping statistics ---
-5 packets transmitted, 5 received, 0% packet loss, time 4005ms
-rtt min/avg/max/mdev = 4.210/7.734/16.385/4.541 ms
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10.46.30.24/32       bgp          0        170     >        fe80::180d:11ff:feff:1(ethernet-1/32.0)
+10.46.30.43/32       bgp          0        170     >        fe80::1858:cff:feff:1f(ethernet-1/1.0)
+10.46.30.44/32       bgp          0        170     >        fe80::18cc:dff:feff:1f(ethernet-1/2.0)
+10.46.30.45/32       bgp          0        170     >        fe80::185c:eff:feff:1f(ethernet-1/3.0)
+10.64.30.2/31        bgp          0        170     >        fe80::180d:11ff:feff:1(ethernet-1/32.0)
+10.64.40.0/24        bgp          0        170     >        fe80::1858:cff:feff:1f(ethernet-1/1.0)                                                                         
+                                                            fe80::18cc:dff:feff:1f(ethernet-1/2.0)                                                                         
+                                                            fe80::185c:eff:feff:1f(ethernet-1/3.0)
 
 
+### Ping pe4
 A:admin@g2-spine21# ping network-instance default 10.46.2.24 -c 5
 Using network instance default
 PING 10.46.2.24 (10.46.2.24) 56(84) bytes of data.
@@ -602,13 +601,11 @@ rtt min/avg/max/mdev = 3.905/4.937/6.482/1.059 ms
 
 ```
 
-Configure the default route under networ-instance default with next-hop in the :material-router: pe1 and :material-router: pe4 system IP's.
+Configure the default route under network-instance default with next-hop in the :material-router: pe4 system IP's under both spine nodes (replace the IP with your group ID).
 
 ``` bash
 set / network-instance default next-hop-groups group towards_pe_system admin-state enable
-set / network-instance default next-hop-groups group towards_pe_system nexthop 1 ip-address 10.46.2.21
-set / network-instance default next-hop-groups group towards_pe_system nexthop 1 resolve true
-set / network-instance default next-hop-groups group towards_pe_system nexthop 2 ip-address 10.46.2.24
+set / network-instance default next-hop-groups group towards_pe_system nexthop 2 ip-address 10.46.<group-id>.24
 set / network-instance default next-hop-groups group towards_pe_system nexthop 2 resolve true
 set / network-instance default static-routes route 0.0.0.0/0 next-hop-group towards_pe_system
 
@@ -680,7 +677,7 @@ IPv4 unicast route table of network instance default
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 
-Finally test your ping against your DNS server, in this case what will reply is the loopback you've applied in the :material-router: pe1 or :material-router: pe4.
+Finally test your ping against your DNS server, in this case what will reply is the loopback you've applied in the :material-router: pe4.
 
 ``` bash
 A:admin@g2-leaf21# ping network-instance default 1.1.1.1 -c 10
@@ -728,54 +725,9 @@ Capturing on 'monit'
 
 ### Configuration rollback
 
-To complete the activity, you should rollback to the initial configuration.
+To complete the activity, you should rollback to the initial configuration to ensure you do not impact other activities.
 
-If you have configured the ```loopback_test``` it’s a good idea to remove it once you’re done using it.
-
-/// details | Warning: Loopback removal
-    type: warning 
-
-/// tab | Remove loopback
-
-``` bash
-A:admin@g2-pe1# edit-config global
-
-2026-03-25T15:28:50.56+00:00
-(gl)[/]
-A:admin@g2-pe1# configure router "Base"
-
-2026-03-25T15:28:57.27+00:00
-(gl)[/configure router "Base"]
-A:admin@g2-pe1# delete interface "loopback_test"
-
-2026-03-25T15:29:01.81+00:00
-*(gl)[/configure router "Base"]
-A:admin@g2-pe1# compare
--   interface "loopback_test" {
--       admin-state enable
--       loopback
--       ipv4 {
--           primary {
--               address 1.1.1.1
--               prefix-length 32
--           }
--       }
--   }
-
-2026-03-25T15:29:04.47+00:00
-*(gl)[/configure router "Base"]
-A:admin@g2-pe1# commit
-
-2026-03-25T15:29:07.22+00:00
-(gl)[/configure router "Base"]
-A:admin@g2-pe1#
-
-```
-///
-///
-
-
-For the leaf/spine devices, you have two options:
+You have two options:
 
 1. Manually remove the changes which would be more complex and prone to error.
 
@@ -810,11 +762,10 @@ Congratulations!  If you have got this far, you have completed your troubleshoot
 
 By completing this activity, you have successfully:
 
-- Identified and resolved the connectivity issue affecting traffic from the data-center to the DNS server (`1.1.1.1`)
+- Identified and resolved the connectivity issue affecting traffic from the data-center to the DNS server.
 - Validated the network state and confirmed end-to-end reachability
 - Analyzed and corrected routing behavior impacting external traffic forwarding
 - Applied safe configuration practices using checkpoints and rollback mechanisms
-- If you configured loopbacks on the PE routers as an additional step, you also validated that connectivity is successfully restored, with ICMP ping traffic now reaching the expected destination (`1.1.1.1`).
 - You have also improved operational efficiency through the use of CLI aliases and workflow best practices, while reinforcing practical troubleshooting skills in a real-world CLOS data-center scenario.
 
 This exercise provides a solid foundation for operating modern SR Linux environments with confidence.

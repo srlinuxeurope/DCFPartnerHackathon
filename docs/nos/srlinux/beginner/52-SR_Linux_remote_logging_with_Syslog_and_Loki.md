@@ -16,9 +16,9 @@ tags:
 | **Activity ID**           | 52                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | **Short Description**       | In this activity you'll configure logging on the SRLinux nodes and explore the logging stack with Promtail, Loki, and Grafana. </p>                                                                                                                                                                                                                                                                                                                                                      |
 | **Difficulty**              | Beginner                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| **Tools used**              | [SR Linux documentation](https://documentation.nokia.com/srlinux/)<br/> [Grafana](https://grafana.com/docs/grafana/latest/)<br/>[Loki](https://grafana.com/docs/loki/latest/)<br/> [Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/)<br/>[Nokia YANG Browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0) <br/>[gNMIc](https://gnmic.openconfig.net/)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Tools used**              | [SR Linux documentation](https://documentation.nokia.com/srlinux/)<br/> [Grafana](https://grafana.com/docs/grafana/latest/)<br/>[Loki](https://grafana.com/docs/loki/latest/)<br/> [Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/)<br/>[Nokia YANG Browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0) <br/>[gNMIc](https://gnmic.openconfig.net/)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Topology Nodes**          | :material-router: Leaf21, :material-router: Spine21, Grafana, Promtail, Loki                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| **References**              | [SR Linux Logging](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#ariaid-title1)<br/>[SR Linux Log Events Guide](https://documentation.nokia.com/srlinux/26-3/books/log-events/log-intro.html)<br/> |
+| **References**              | [SR Linux Logging](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#ariaid-title1)<br/>[SR Linux Log Events Guide](https://documentation.nokia.com/srlinux/26-7/books/log-events/log-intro.html)<br/> |
 
 
 In today's rapidly evolving network environments, maintaining robust and efficient operations is more critical than ever. Remote logging plays a pivotal role in achieving this by providing a comprehensive and centralized method for monitoring, analyzing, and troubleshooting network activities across diverse and distributed systems.
@@ -37,18 +37,18 @@ In this activity you will test and validate logging configurations on the SR Lin
 
 ## Technology explanation
 
-[SR Linux logging](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#ariaid-title1) is implemented via the standard Linux `rsyslog` package. Configuration consists of three main steps:
+[SR Linux logging](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#ariaid-title1) is implemented via the standard Linux `rsyslog` package. Configuration consists of three main steps:
 
-1. Specifying an [input source](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#input-sources-log-messages)
-2. Optionally [filtering messages](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#filters-log-messages)
-3. Specifying an [output destination](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#output-destinations-log-messages).  
+1. Specifying an [input source](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#input-sources-log-messages)
+2. Optionally [filtering messages](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#filters-log-messages)
+3. Specifying an [output destination](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#output-destinations-log-messages).  
 
 
-You can use Linux syslog facilities (e.g. `local6`, `local7`, etc.) or SR Linux subsystems (e.g. `aaa`, `acl`, `vxlan`, etc.) as [log sources](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#input-sources-log-messages). By default, SR Linux subsystem messages are logged to the `local6` facility.  
+You can use Linux syslog facilities (e.g. `local6`, `local7`, etc.) or SR Linux subsystems (e.g. `aaa`, `acl`, `vxlan`, etc.) as [log sources](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#input-sources-log-messages). By default, SR Linux subsystem messages are logged to the `local6` facility.  
 
-You can define a [filter](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#filters-log-messages) based on a syslog tag and apply it to a destination.  
+You can define a [filter](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#filters-log-messages) based on a syslog tag and apply it to a destination.  
 
-SR Linux supports the following [logging destinations](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#ariaid-title6):  
+SR Linux supports the following [logging destinations](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#ariaid-title6):  
 
 - Log file (default path: `/var/log/srlinux/file`)  
 - Memory buffer (stored at `/var/log/srlinux/buffer`, non-persistent)  
@@ -172,7 +172,7 @@ Description of the existing configuration:
 * network-instance mgmt - network-instance that the SR Linux uses to contact the remote servers.  
 * buffer messages / buffer system - Log files maintained in memory, non-persistent across system reboots
 * file messages - Log files maintained on disk, persistent across system reboots
-* remote-server 10.128.<GROUP-ID>.75 - remote destination to Promtail
+* remote-server 10.128.`<GROUP-ID>`.75 - remote destination to Promtail
 ///
 
 
@@ -198,7 +198,7 @@ A:leaf21# info detail
     }
 ```
 
-You should notice that the config snippet doesn't show individual [subsystems](https://documentation.nokia.com/srlinux/26-3/books/config-basics/logg.html#input-sources-log-messages__ai9ep6mg6z) configured, but only has a `local6` facility configured with a rule matching informational level priority and above. By default, SR Linux subsystem messages are logged to Linux syslog facility `local6`, which gives us a configuration efficiency if we want to capture all messages.
+You should notice that the config snippet doesn't show individual [subsystems](https://documentation.nokia.com/srlinux/26-7/books/config-basics/logg.html#input-sources-log-messages__ai9ep6mg6z) configured, but only has a `local6` facility configured with a rule matching informational level priority and above. By default, SR Linux subsystem messages are logged to Linux syslog facility `local6`, which gives us a configuration efficiency if we want to capture all messages.
 ///
 ///
 
@@ -602,7 +602,7 @@ Use `gNMIc` to change the logging configuration on :material-router: Leaf21 so t
 
 
 /// tab | YANG browser
-You may use the [YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0&pathfmt=gnmi) to retrieve the gNMI path. Search by "facility priority match-above" and it will return the following: 
+You may use the [Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0&pathfmt=gnmi) to retrieve the gNMI path. Search by "facility priority match-above" and it will return the following: 
 ``` bash
 
 /system/logging/remote-server[host=*]/facility[facility-name=*]/priority/match-above

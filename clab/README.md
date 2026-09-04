@@ -2,7 +2,7 @@
 
 **This CLAB topology requires a license for emulating 7250 IXR-X1b nodes.**
 
-Contact your Nokia representative to obtain a valid license and place it in `/opt/dcfpartner/srl.license`.
+Contact your Nokia representative to obtain a valid license and place it in `/opt/srexperts/srl.license`.
 
 ## Environment variables
 

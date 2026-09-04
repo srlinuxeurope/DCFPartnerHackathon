@@ -15,9 +15,9 @@ tags:
 | **Activity ID**           | 53                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | **Short Description**       | SR Linux integration in a streaming telemetry stack with gNMIc, Prometheus and Grafana </p>                                                                                                                                                                                                                                                                                                                                                      |
 | **Difficulty**              | Beginner                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| **Tools used**              | [gNMIc](https://gnmic.openconfig.net/)<br/>[Prometheus](https://prometheus.io/) <br/> [Grafana](https://grafana.com/docs/grafana/latest/)<br/>[Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0)                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Tools used**              | [gNMIc](https://gnmic.openconfig.net/)<br/>[Prometheus](https://prometheus.io/) <br/> [Grafana](https://grafana.com/docs/grafana/latest/)<br/>[Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0)                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | **Topology Nodes**          |  :material-router: Leaf21, :material-router: Spine21                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| **References**              | [SR Linux documentation](https://documentation.nokia.com/srlinux/26-3/index.html)<br/>  [SR Linux gRPC server](https://documentation.nokia.com/srlinux/26-3/books/config-basics/management-servers.html#ariaid-title3)<br/> |
+| **References**              | [SR Linux documentation](https://documentation.nokia.com/srlinux/26-7/index.html)<br/>  [SR Linux gRPC server](https://documentation.nokia.com/srlinux/26-7/books/config-basics/management-servers.html#ariaid-title3)<br/> |
 
 You are a Network Engineer working on a project to deploy a new data-center with SR Linux nodes. You have already installed, configured and integrated the IP fabric into the existing network, and the next step before it's ready for production is to integrate the nodes into the management systems.  
 
@@ -42,7 +42,7 @@ Streaming telemetry is the comprehensive practice of transmitting measurements f
 A streaming telemetry monitoring stack typically consists of:
 
 - A telemetry collector (for example, in this activity we will use [gNMIc](https://gnmic.openconfig.net/)) to retrieve the metrics from the network elements
-- A time-series database (TSDB) (for example, in this activity we will use [Prometheus](https://prometheus.io/)) to collect, store and aggregate the collected metrics.
+- A time-series database (TSDB) (for example, in this activity we will use [Prometheus](https://prometheus.io/)) to collect, store and aggregate the collected metrics
 - A visualization tool (for example, in this activity we will use [Grafana](https://grafana.com/docs/grafana/latest/)) to visualize the collected data and run queries on top of it
 
 gNMI is a modern gRPC-based network management interface that is currently the most popular protocol to collect streaming telemetry data from networking devices. It is important to understand, that Streaming Telemetry with gNMI operates on the configuration and state data streamed from the network devices, but it does not provide flow extraction/sampling like NetFlow/IPFIX.
@@ -66,7 +66,7 @@ There are 4 remote procedure calls (RPC) services defined by the gNMI specificat
 
 ### `gnmic` as a command line interface to gNMI
 
-[`gnmic`](https://gnmic.openconfig.net/) is a command line tool developed by Nokia and donated to the [OpenConfig](https://www.openconfig.net/) project. It lets you interact with the gNMI server running on the SR Linux nodes. It can be used to run the various RPCs we discussed above against SR Linux. It has been pre-installed on your hackathon instance although you may install it locally if you'd prefer (follow the [installation instructions](https://gnmic.openconfig.net/install/) if you would like to do this (it is not necessary to complete this activity)). 
+[`gnmic`](https://gnmic.openconfig.net/) is a command line tool developed by Nokia and donated to the [OpenConfig](https://www.openconfig.net/) project. It lets you interact with the gNMI server running on the SR Linux nodes. It can be used to run the various RPCs we discussed above against SR Linux. It has been pre-installed on your hackathon instance although you may install it locally if you'd prefer (follow these [installation instructions](https://gnmic.openconfig.net/install/) if you would like to do this (it is not necessary to complete this activity)). 
 
 Log into your lab server and run `gnmic` command with the `--help` parameter. Take a look at the available commands this tool offers. You should recognize the 4 gNMI RPCs: Capabilities, Get, Set, and Subscribe.
 
@@ -129,7 +129,7 @@ A:admin@g51-leaf21# tree xpath system name
 ///
 
 From the output you can see that to retrieve the `host-name` you will need to use the following gNMI path (referenced here as an Xpath) `/system/name/host-name`.  CLI users who are well familiar with the SR Linux YANG model may use this approach, but in many cases you may not know where or what you are looking for.  
-In this situation the [Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0) may be a good option to try.  
+In this situation the [Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0) may be a good option to try.  
 The YANG browser lets you do a search through the SR Linux YANG model. By simply typing for certain keywords (for example "host-name"), the YANG browser will return any matches found.
 
 
@@ -171,7 +171,7 @@ Find the gNMI path for the traffic-rate and run `gnmic` with the `get` operation
 /// details | Tip: How to get the gNMI path (Xpath)?
     type: tip
 
-Use the [YANG Browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0) or use the CLI command below to find the xpath from within `state` mode.  
+Use the [Nokia YANG Browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0) or use the CLI command below to find the xpath from within `state` mode.  
 You can use `enter state` to move into `state` mode.  
 /// tab | tree xpath
 ```bash
@@ -418,22 +418,26 @@ gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -
 
 Choosing a stream mode of `sample` is useful when you have fast changing data, but there are other cases where your operational data doesn't change frequently. Think about BGP neighborship states or interface operational states. It wouldn't be useful to receive their status every 5 seconds if it almost never changes. It would be much more efficient if we only receive an update when their state changes. For these cases you can use the on-change stream mode.
 
-Search the [YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0) for the gNMI path corresponding to the `oper-state` of the `ethernet-1/32` interface.  
+Search the [Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0) for the gNMI path corresponding to the `oper-state` of the `ethernet-1/32` interface.  
 
 Adjust the stream mode to `on-change` and try to fetch the `oper-state` of the interface, then disable and re-enable the interface in the configuration (don't forget to commit your changes). You should notice that we only will receive an update when the operational state of interface `ethernet-1/32` changes.
 
 /// details | Solution: `gnmic subscribe` using the `on-change` stream mode 
     type: solution
 
+Open two session, one to subscribe the `on-change` stream mode  and the other to trigger changes.
+
+/// tab | Subscribe on-change requests
 The command to subscribe is:
+/// tab | Subscribe
 ```bash
 gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf subscribe \
 --stream-mode on-change \
 --path '/interface[name=ethernet-1/32]/oper-state'
 ```
-Output:
+///
+/// tab | Output
 ```bash
-received signal 'interrupt'. terminating...
 $ gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf subscribe \
 --stream-mode on-change \
 --path '/interface[name=ethernet-1/32]/oper-state'
@@ -490,6 +494,43 @@ $ gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify
 }
 
 ```
+///
+
+///
+
+
+/// tab | Disable :material-router: Leaf21 port `ethernet-1/32`
+
+Use the following commands to disable the port (don't forget to enable again!):
+``` bash
+### get status
+gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf get \
+    --path '/interface[name=ethernet-1/32]/admin-state' | grep -e enable -e disable	
+### set status disable
+gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf set \
+--update-path '/interface[name=ethernet-1/32]/admin-state' --update-value disable
+### get status
+gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf get \
+    --path '/interface[name=ethernet-1/32]/admin-state' | grep -e enable -e disable	
+```
+///
+
+/// tab | Enable :material-router: Leaf21 port `ethernet-1/32`
+Use the following commands to enable the port:
+``` bash
+### get status
+gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf get \
+    --path '/interface[name=ethernet-1/32]/admin-state' | grep -e enable -e disable	
+### set status enable
+gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf set \
+--update-path '/interface[name=ethernet-1/32]/admin-state' --update-value enable
+### get status
+gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf get \
+    --path '/interface[name=ethernet-1/32]/admin-state' | grep -e enable -e disable	
+
+```
+///
+
 ///
 
 
@@ -644,7 +685,7 @@ To create dashboards you will need to log in. Click on the `Sign in` button in t
 
 Under the `SR Linux Telemetry` dashboard you have several visualization panels. If you hover the top right of each panel you will see the `⋮` (kebab menu icon) that opens the menu and shows the edit option.  You may click this to inspect the panel configuration. 
 
-The `BGP Peer stats` panel displays three gauges: 
+For example, the `BGP Peer stats` panel displays three gauges: 
 
 - Up peers
 - Total Peers
@@ -693,19 +734,20 @@ Your panel should now look like this with gauges showing only the `total peers`
 
 1. In the Metric browser subtract the number of up peers (`network_instance_protocols_bgp_statistics_up_peers`) from the total number of peers (`network_instance_protocols_bgp_statistics_total_peers`)
 2. In the `Panel options` section on the right, type `Down BGP session in DC fabric` in the `Title` box
-3. In the Visualization options on the right, select the color scheme "From Thresholds (by value)"
-4. In the Thresholds set base color to green, yellow=1 and red=2 
-5. Click `apply` in the upper right corner and `Save dashboard`. 
+3. In the Visualization options on the right, scroll down and select the color scheme "From Thresholds (by value)"
+4. Scroll down again and in the `Thresholds` set base color to green, yellow=1 and red=2 (you need to add a new threshold for yellow)
+5. Click `apply` in the upper right corner and `Save dashboard` and give it the name "BGP_Peers_Down". 
 
-You should now see the total amount of BGP sessions that are down in the fabric.
+You should now see the total amount of BGP sessions that are down in the fabric.  
 
 
 -{{image(url='./../../../../../images/53-SRL_Telemetry/grafana-task.JPG', title='Fig. 7 - BGP sessions Panel')}}-
 
-///
+
+You may disable BGP peers to observe the changes in real time in your dashboard.
 
 ///
-
+///
 
 
 

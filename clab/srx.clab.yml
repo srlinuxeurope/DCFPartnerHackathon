@@ -15,10 +15,10 @@
 # Removed: p1, p2, vRR, pe1, pe3, client01-04, ixp1, radius, agg1, peering2, transit1,
 #          rpki, bngblaster and the pe*-p* bridge nodes. No SR OS nodes remain.
 
-name: dcfpartner
+name: srexperts
 
 mgmt:
-  network: dcfpartner # management network name
+  network: srexperts # management network name
   ipv4-subnet: 10.128.${INSTANCE_ID}.0/24 # ipv4 range
 
 topology:

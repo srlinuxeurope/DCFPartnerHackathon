@@ -299,31 +299,31 @@ You should see these logs in the packet capture.
 Run these `gNMIc` commands from your hackathon instance to disable and re-enable a port to trigger logs.  
 Note: A `get` RPC is also included to display the status before and after the `set`.
 
-/// tab | Disable :material-router: Leaf21 port `ethernet-1/31`
+/// tab | Disable :material-router: Leaf21 port `ethernet-1/32`
 ``` bash
 ### get status
 gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf get \
-    --path '/interface[name=ethernet-1/31]/admin-state' | grep -e enable -e disable	
+    --path '/interface[name=ethernet-1/32]/admin-state' | grep -e enable -e disable	
 ### set status disable
 gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf set \
---update-path '/interface[name=ethernet-1/31]/admin-state' --update-value disable
+--update-path '/interface[name=ethernet-1/32]/admin-state' --update-value disable
 ### get status
 gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf get \
-    --path '/interface[name=ethernet-1/31]/admin-state' | grep -e enable -e disable	
+    --path '/interface[name=ethernet-1/32]/admin-state' | grep -e enable -e disable	
 ```
 ///
 
-/// tab | Enable :material-router: Leaf21 port `ethernet-1/31`
+/// tab | Enable :material-router: Leaf21 port `ethernet-1/32`
 ``` bash
 ### get status
 gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf get \
-    --path '/interface[name=ethernet-1/31]/admin-state' | grep -e enable -e disable	
+    --path '/interface[name=ethernet-1/32]/admin-state' | grep -e enable -e disable	
 ### set status enable
 gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf set \
---update-path '/interface[name=ethernet-1/31]/admin-state' --update-value enable
+--update-path '/interface[name=ethernet-1/32]/admin-state' --update-value enable
 ### get status
 gnmic -a clab-srexperts-leaf21:57401 -u admin -p $EVENT_PASSWORD --skip-verify -e json_ietf get \
-    --path '/interface[name=ethernet-1/31]/admin-state' | grep -e enable -e disable	
+    --path '/interface[name=ethernet-1/32]/admin-state' | grep -e enable -e disable	
 
 ```
 ///
@@ -777,13 +777,13 @@ Interface down logs:
     10.128.4.43.59275 > 10.128.4.75.1514: UDP, length 168
 E.....@.@...
 .3+
-.3K........<180>1 2026-04-10T23:52:13.477689+00:00 g51-leaf21 sr_chassis_mgr - - -  chassis|3279|3279|00168|W: Interface ethernet-1/31 is now down for reason: port-admin-disabled
+.3K........<180>1 2026-04-10T23:52:13.477689+00:00 g51-leaf21 sr_chassis_mgr - - -  chassis|3279|3279|00168|W: Interface ethernet-1/32 is now down for reason: port-admin-disabled
 
 23:52:13.477917 IP (tos 0x0, ttl 64, id 60313, offset 0, flags [DF], proto UDP (17), length 195)
     10.128.4.43.59275 > 10.128.4.75.1514: UDP, length 167
 E.....@.@...
 .3+
-.3K......-&<180>1 2026-04-10T23:52:13.477709+00:00 g51-leaf21 sr_chassis_mgr - - -  chassis|3279|3279|00169|W: The subinterface ethernet-1/31.0 is now down for reason: port-down
+.3K......-&<180>1 2026-04-10T23:52:13.477709+00:00 g51-leaf21 sr_chassis_mgr - - -  chassis|3279|3279|00169|W: The subinterface ethernet-1/32.0 is now down for reason: port-down
 
 23:52:13.478404 IP (tos 0x0, ttl 64, id 60314, offset 0, flags [DF], proto UDP (17), length 274)
     10.128.4.43.59275 > 10.128.4.75.1514: UDP, length 246

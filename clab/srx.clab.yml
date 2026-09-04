@@ -294,6 +294,7 @@ topology:
       ports:
         - 3000:3000
       env:
+        GF_INSTALL_PLUGINS: "andrewbmchugh-flow-panel"  ### This plugin is required for the Telemetry panels
         # env vars to enable anonymous access
         GF_ORG_ROLE: "Admin"
         GF_ORG_NAME: "Main Org."

@@ -17,7 +17,7 @@ tags:
 | **Difficulty**              | Intermediate                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Tools used**              | [Python](https://www.python.org/)                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | **Topology Nodes**          | :material-router: leaf21                                                                                                                                                                                                                                                                                                                                                         |
-| **References**              | [Event Handler](https://documentation.nokia.com/srlinux/26-3/title/event-handler-guide.html)<br/>[SR Linux configuration management](https://documentation.nokia.com/srlinux/26-3/books/config-basics/configuration-management.html)<br/>[Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0)<br/>|
+| **References**              | [Event Handler](https://documentation.nokia.com/srlinux/26-7/title/event-handler-guide.html)<br/>[SR Linux configuration management](https://documentation.nokia.com/srlinux/26-7/books/config-basics/configuration-management.html)<br/>[Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0)<br/>|
 
 
 You are a Network Engineer responsible for a multi-vendor network and you are working on a project to deploy SR Linux nodes in your network. You have already installed, configured and integrated the nodes in the existing network, and the next step before it's ready for production is to integrate the nodes into the management systems. You have been tasked with automatically backing up router configurations to a central platform each time a configuration change is made.
@@ -47,14 +47,14 @@ The framework operates in the following sequence:
 
 The following diagram summarizes the operation of the Event Handler framework:
 
-![Event Handler framework](https://documentation.nokia.com/srlinux/26-3/books/event-handler/graphics/sw4376.png)
+![Event Handler framework](https://documentation.nokia.com/srlinux/26-7/books/event-handler/graphics/sw4376.png)
 
 
 Further reading can be found using the links below should you need assistance, or if you're just interested to learn more:
 
-- [Event Handler documentation](https://documentation.nokia.com/srlinux/26-3/title/event-handler-guide.html)
-- [Configuration management documentation](https://documentation.nokia.com/srlinux/26-3/books/config-basics/configuration-management.html)
-- [Nokia YANG Browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0&pathfmt=gnmi): Use this to look for gNMI paths
+- [Event Handler documentation](https://documentation.nokia.com/srlinux/26-7/title/event-handler-guide.html)
+- [Configuration management documentation](https://documentation.nokia.com/srlinux/26-7/books/config-basics/configuration-management.html)
+- [Nokia YANG Browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0&pathfmt=gnmi): Use this to look for gNMI paths
 - [Introduction to operational groups using Event handler](https://learn.srlinux.dev/tutorials/programmability/event-handler/oper-group/oper-group-intro/): This tutorial gives an overview of a different use-case leveraging the Event Handler by shutting down all downlink interfaces when the BGP sessions to both route reflectors fails
 
 ## Tasks
@@ -136,7 +136,7 @@ With the script file created, you can now create the Event Handler instance that
 Using the Event Handler documentation, try to create the router's configuration for the Event Handler context. It should contain the following:
 
 - The location to the Python script you created [above](#create-the-event-handler-python-file).
-- A YANG path representing the last time the configuration was changed (tip: use the [Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.3.1?from=0))
+- A YANG path representing the last time the configuration was changed (tip: use the [Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0))
 - A static value indicating the backup destination (`nokia@<groupID>.srexperts.net:~/backups`). This destination is meant to be used in the script to instruct where to copy the file to.
 
 If you feel stuck, you can find a configuration snippet that you can paste in the CLI candidate mode in the expandable help section below. Use `enter candidate` to enter the configuration mode:

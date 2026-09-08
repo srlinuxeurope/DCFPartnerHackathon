@@ -36,7 +36,7 @@ deploy-clab-topo:
 onboard-clab-topo-eda:
 	# Prepare for onboarding
 	sudo mkdir -p /opt/srexperts
-	sudo chown -R workshop:workshop /opt/srexperts
+	sudo chown -R ${USERNAME}:${USERNAME} /opt/srexperts
 	bash $$(pwd)/eda/record-init-tx.sh
 	# Template EDA onboarding resources
 	docker run --rm -e INSTANCE_ID=$$(echo -n ${INSTANCE_ID}) -e EVENT_PASSWORD="$$(echo -n ${EVENT_PASSWORD})" -e SSH_PUBLIC_KEY="$$(echo -n ${SSH_PUBLIC_KEY})" -u $$(id -u):$$(id -g) -v $$(pwd)/eda/topo-onboard/clab:/work ghcr.io/hellt/envsubst:0.2.0

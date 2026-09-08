@@ -36,8 +36,8 @@ Edgeshark consists of two containerized services named [Ghostwire](https://githu
 
 /// details | SR-SIM packet captures only display ingress packets.
     type: warning
-    open: true
-
+    open: false
+SR-SIM will not be used in this hackathon, but we keep this note in case you need to use it in the future.
 Currently SR-SIM packet captures only display ingress packets. To see both directions you may capture on both sides of a link.
 
 ///
@@ -50,7 +50,7 @@ You may use Edgeshark directly from your VS Code IDE with the containerlab plugi
 
 The containerlab topology you are interested in runs in your group's hackathon instance. You can connect to it using your local VS Code application's Remote SSH extension. If installed, this would enable most of the functionality of the containerlab extension outright, however the packet capture functionality will not work unless the hostname configuration has been updated. This is due to the way the URL that triggers the capture is built. In the code-server deployed on your instance this setting has been taken care of, if you want to have the same behavior locally the setting has to be similarly modified.
 
-The correct value would be `INSTANCE_ID.srexperts.net` for the two fields, as shown here in the case where the assigned instance ID would be `2`:
+The correct value would be `INSTANCE_ID.partner.dcf.network` for the two fields, as shown here in the case where the assigned instance ID would be `2`:
 
 -{{image(url='./../../../../../images/tools_packet_capture/containerlab_hostname.png', title='Fig. 1 - Example settings for the containerlab extension when using local VS Code. ') }}-
 
@@ -82,7 +82,7 @@ The second option for traffic capture is the Edgeshark Web UI. This option requi
 Edgeshark has been installed in your group's hackathon instance, it exposes an HTTP Web UI on port `5001`. You can access Edgeshark using your preferred web browser at the link below (replace `${INSTANCE_ID}` with your assigned ID):
 
 ``` bash
-http://${INSTANCE_ID}.srexperts.net:5001
+http://${INSTANCE_ID}.partner.dcf.network:5001
 ```
 
 
@@ -91,7 +91,7 @@ http://${INSTANCE_ID}.srexperts.net:5001
     open: false
 In case you don't have direct reachability to your group's hackathon instance on TCP port 5001 but you can SSH to it, you can setup and use SSH port forwarding as an alternative. For example:
 ``` bash
-ssh -L 5001:localhost:5001 ${INSTANCE_ID}.srexperts.net
+ssh -L 5001:localhost:5001 ${INSTANCE_ID}.partner.dcf.network
 ```
 
 This will forward your local system's TCP port 5001 to the same port on your group's hackathon instance. When you then navigate to `127.0.0.1:5001` in your browser you will see the Edgeshark Web UI.
@@ -359,13 +359,13 @@ An additional option you may be interested in pursuing involves setting up an SS
 
 /// tab | Template
 ```bash
-ssh nokia@<INSTANCE_ID>.srexperts.net "sudo ip netns exec <CONTAINER> tshark -l -i <IF1> [-i <IF2>] [-i <IFN>] -w -" | "<WIRESHARK PATH>" -k -i -
+ssh nokia@<INSTANCE_ID>.partner.dcf.network "sudo ip netns exec <CONTAINER> tshark -l -i <IF1> [-i <IF2>] [-i <IFN>] -w -" | "<WIRESHARK PATH>" -k -i -
 ```
 ///
 
 /// tab | Example (tested with Windows CMD)
 ```bash
-ssh nokia@2.srexperts.net "sudo ip netns exec clab-srexperts-pe1-1 tshark -l -i e1-1-c1-1 -i e1-1-c2-1  -w -" | "c:\Program Files\Wireshark\Wireshark.exe" -k -i -
+ssh nokia@2.partner.dcf.network "sudo ip netns exec clab-srexperts-pe1-1 tshark -l -i e1-1-c1-1 -i e1-1-c2-1  -w -" | "c:\Program Files\Wireshark\Wireshark.exe" -k -i -
 ```
 ///
 
@@ -375,8 +375,10 @@ Complete the template with values for `INSTANCE_ID`, `CONTAINER`, one or more `I
 
 ## ANYsec packet dissectors
 
-ANYsec is a built-in network encryption technology available on a selection of Nokia routers. In some of the activities, you may be interested in seeing when or where ANYsec traffic is flowing through your network. By default Wireshark does not decode ANYsec, the packets are shown as MPLS packets. You need packet dissector plugins to decode the headers and recognize them.
+ANYsec is a built-in network encryption technology available on a selection of Nokia routers. Its not used in this hackathon, but you may be interested in testing this technology. You may explore the available labs at the [SRL Labs Catalogue](https://github.com/srl-labs/sros-anysec-macsec-lab) and inspect the ANYsec traffic flowing through your network setup.  
+
+By default Wireshark does not decode ANYsec, the packets are shown as MPLS packets. You need packet dissector plugins to decode the headers and recognize them.
 
 It is possible to distinguish ANYsec encrypted packets by looking at the Encryption Label in the MPLS header and confirming that it is within the configured ANYsec MPLS label range but this is tedious and a better solution exists.
 
-This solution comes in the form of the [ANYsec Packet Dissectors for Wireshark](https://github.com/xavixava/anysec-dissectors). To start using this dissector, follow the steps outlined in the repo and load the LUA plugins into your Wireshark installation.
+This solution comes in the form of the [ANYsec Packet Dissectors for Wireshark](https://github.com/srl-labs/anysec-dissectors). To start using this dissector, follow the steps outlined in the repo and load the LUA plugins into your Wireshark installation.

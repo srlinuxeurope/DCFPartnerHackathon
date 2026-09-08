@@ -143,12 +143,12 @@ Depending on your Operating System (OS) (Windows, Linux or MacOS) the new line o
 
 /// tab | Command
 ```
-echo -e "Hackathon\\For\\SreXperts"
+echo -e "Hackathon\\For\\DCFPartners"
 ```
 ///
 /// tab | Output
 ```
-Hackathon\For\SreXperts
+Hackathon\For\DCFPartners
 ```
 ///
 
@@ -156,14 +156,14 @@ Hackathon\For\SreXperts
 
 /// tab | Command
 ```
-echo -e "Hackathon\nFor\nSreXperts"
+echo -e "Hackathon\nFor\nDCFPartners"
 ```
 ///
 /// tab | Output
 ```
 Hackathon
 For
-SreXperts
+DCFPartners
 ```
 ///
 
@@ -171,12 +171,12 @@ SreXperts
 
 /// tab | Command
 ```
-echo -e "Hackathon\rFor SreXperts"
+echo -e "Hackathon\rFor DCFPartners"
 ```
 ///
 /// tab | Output
 ```
-For SreXperts
+For DCFPartners
 ```
 ///
 
@@ -184,12 +184,12 @@ For SreXperts
 
 /// tab | Command
 ```
-echo -e "Hackathon\tFor\tSreXperts"
+echo -e "Hackathon\tFor\tDCFPartners"
 ```
 ///
 /// tab | Output
 ```
-Hackathon       For     SreXperts
+Hackathon       For     DCFPartners
 ```
 ///
 
@@ -203,7 +203,7 @@ The `>` symbol is used to redirect the output of a command to a file instead of 
 
 /// tab | Command
 ```
-echo "Hackathon For SreXperts" > test.txt
+echo "Hackathon For DCFPartners" > test.txt
 ```
 ///
 
@@ -216,7 +216,7 @@ cat test.txt
 ///
 /// tab | Output
 ```
-Hackathon For SreXperts
+Hackathon For DCFPartners
 ```
 ///
 
@@ -230,7 +230,7 @@ The `>>` symbol is used to append the output of a command to a file instead of t
 
 /// tab | Command
 ```
-echo "SreXperts is the best" >> test.txt
+echo "DCFPartners is the best" >> test.txt
 ```
 ///
 
@@ -243,8 +243,8 @@ cat test.txt
 ///
 /// tab | Output
 ```
-Hackathon For SreXperts
-SreXperts is the best
+Hackathon For DCFPartners
+DCFPartners is the best
 ```
 ///
 
@@ -613,7 +613,7 @@ First we need to open a file, we can create a new file directly using vi.
 
 /// tab | Syntax
 ```
-$ vi SreXperts
+$ vi DCFPartners
 ```
 ///
 
@@ -623,7 +623,7 @@ Now we can write some text
 
 /// tab | Syntax
 ```
-SreXperts is the best
+DCFPartners is the best
 ```
 ///
 
@@ -636,23 +636,23 @@ First we need to open a file using vi.
 
 /// tab | Syntax
 ```
-$ vi SreXperts
+$ vi DCFPartners
 ```
 ///
 
-Search for SreXperts in the Escape mode using the command bellow:
+Search for DCFPartners in the Escape mode using the command bellow:
 
 /// tab | Search
 ```
-:s/SreXperts
+:s/DCFPartners
 ```
 ///
 
- Let's replace the string SreXperts in the current line
+ Let's replace the string DCFPartners in the current line
 
 /// tab | Search and Replace
 ```
-:s/SreXperts/Hackathon/
+:s/DCFPartners/Hackathon/
 ```
 ///
 
@@ -660,7 +660,7 @@ in case we had multiple times the string we want to replace, we can replace all 
 
 /// tab | Search and Replace all
 ```
-:%s/Hackathon/SreXperts/
+:%s/Hackathon/DCFPartners/
 ```
 ///
 

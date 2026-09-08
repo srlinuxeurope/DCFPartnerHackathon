@@ -96,7 +96,7 @@ If you are using Visual Studio code on your own machine, you must connect to the
 !!!info
     If you are unable to install Visual Studio Code on your laptop. You can use the code-server instance for a browser-based Visual Studio Code instance.
 
-    Simply navigate to `<Group ID>.srexperts.net` in your browser to access the code-server. You can skip the next installation step if using this method.
+    Simply navigate to `<Group ID>.partner.dcf.network` in your browser to access the code-server. You can skip the next installation step if using this method.
 
 ### Installation of the extension
 

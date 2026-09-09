@@ -9,7 +9,7 @@ tags:
 
 This page is not an activity to follow, but rather a reference guide giving you some initial hints for using the VS Code Server deployed as part of your group's hackathon instance. This application is mainly included for situations where you are not able to SSH to the instance for any reason but you can reach it via HTTPS, however you are free to use it however you see fit.
 
-You will find that in the code-server application you can write code and interact with the topology provided to you using only your web browser. You can access it at `https://<my group id>.srexperts.net`, where you have to insert your assigned group ID and enter the password documented on the physical paper provided to you to unlock the application.
+You will find that in the code-server application you can write code and interact with the topology provided to you using only your web browser. You can access it at `https://<my group id>.partner.dcf.network:8443`, where you have to insert your assigned group ID and enter the password documented on the physical paper provided to you to unlock the application.
 
 In the following sections, a few important aspects of VS Code in the browser are highlighted, with the aim of helping you get started with it.
 

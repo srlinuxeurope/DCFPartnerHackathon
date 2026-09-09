@@ -28,7 +28,7 @@ This page is your starting point into the event, it should get you familiar with
 
 **Please read this page all the way through before attempting any of the activities.**
 
-During the afternoon you will work in groups (or alone if you prefer) on any projects that you are inspired to tackle or on one of the pre-provided activities of varying difficulty.
+During these two days you will work in groups (or alone if you prefer) on any projects that you are inspired to tackle or on one of the pre-provided activities of varying difficulty.
 
 As long as you have a laptop with the ability to SSH and a web browser, we have example activities and a generic lab topology to help you progress if you don’t have something specific already in mind.
 
@@ -37,7 +37,7 @@ Need help, not a problem, pop your hand in the air and an eager expert will be t
 ## Lab Environment
 
 For this event each (group of) participant(s) will receive their own dedicated cloud instance (VM) running a copy of the generic lab topology.  You will see this called "your VM",
-"your group's hackathon VM", "your group's event VM", "your instance", "your server" and other similar phrases in the activities.  They all mean the same thing, your own dedicated cloud instance.
+"your group's hackathon VM", "your group's event VM", "your instance", "your server" and other similar phrases in the activities.  They all mean the same thing, your own dedicated cloud instance VM.
 
 If everything went according to plan, you should have received a physical piece of paper which contains:
 
@@ -56,10 +56,10 @@ Please refer to the paper provided by the event session leader. If nothing has b
 
 | Group ID | hostname instance |
 | --- | --- |
-| 1 | 1.srexperts.net |
-| 2 | 2.srexperts.net |
+| 1 | 1.partner.dcf.network |
+| 2 | 2.partner.dcf.network |
 | ... | ... |
-| **X** | **X**.srexperts.net |
+| **X** | **X**.partner.dcf.network |
 
 ### SSH
 
@@ -83,7 +83,7 @@ WiFi is important here.  Without it your event experience is going to be rather 
 
 ### Topology
 
-When accessing your event VM instance you'll find that the [SReXperts GitHub repository](https://github.com/nokia/srexperts) that contains all of the documentation, examples, solutions and loads of other great stuff, has already been cloned for you.
+When accessing your event VM instance you'll find that the [DCFPartnerHackathon GitHub repository](https://github.com/srlinuxeurope/DCFPartnerHackathon) that contains all of the documentation, examples, solutions and loads of other great stuff, has already been cloned for you.
 
 In this event, every group has their own complete service-provider network at their disposal.  Your network comprises an IP backbone with Provider (P) and Provider Edge (PE) routers, a broadband dial-in network, a peering edge network, an internet exchange point, multiple data-centers and a number of client and subscriber devices.  This network is already deployed, provisioned and is ready to go!
 
@@ -93,23 +93,23 @@ In this event, every group has their own complete service-provider network at th
 
 The above topology contains a number of functional blocks to help you in areas you might want to focus on, it contains:
 
-- An all-SR Linux network (release 26.7.1):
-    - 2x PE / DCGW nodes (pe2 and pe4, 7250 IXR-X1b) directly interconnected
+- An all-SR Linux network (release 26.7.2):
+    - 2x PE / DCGW nodes (:material-router: pe2 and :material-router: pe4, 7250 IXR-X1b) directly interconnected
     - WAN core between the PEs: dual-stack OSPF (v2 for IPv4, v3 for IPv6) with LDP-signalled MPLS and iBGP (IPv4/IPv6 + EVPN + VPN-IPv4/IPv6)
     - each PE acts as EVPN route-reflector for its data center
 - Data Centers:
     - DC1: a CLOS model - managed by EDA
-        - 2x spines (spine11|spine12) and 3 leaf switches (leaf11|leaf12|leaf13)
+        - 2x spines (:material-router: spine11|:material-router: spine12) and 3 leaf switches (:material-router: leaf11|:material-router: leaf12|:material-router: leaf13)
     - DC2: a CLOS model - standalone
-        - 2x spines (spine21|spine22) and 3 leaf switches (leaf21|leaf22|leaf23)
+        - 2x spines (:material-router: spine21|:material-router: spine22) and 3 leaf switches (:material-router: leaf21|:material-router: leaf22|:material-router: leaf23)
     - IPv6 BGP unnumbered configured in the underlay
     - DCGW Integration:
-        - DC1: PE2
-        - DC2: PE4
+        - DC1: :material-router: pe2
+        - DC2: :material-router: pe4
     - a Data Center Interconnect on the PEs: multi-instance ip-vrf "dci" with allow-export
       (EVPN-VXLAN towards the fabric + BGP-IPVPN over MPLS/LDP between the PEs)
-- DNS server attached in-band to PE2
-- a fully working telemetry stack (gNMIc/prometheus/grafana + promtail/loki)
+- DNS server attached in-band to pe2
+- A fully working telemetry and logging stacks (gNMIc/prometheus/grafana + promtail/loki)
 - Linux clients are attached to both the GRT and the DCI ip-vrf allowing a full mesh of traffic.
 
 ### Accessing Topology nodes
@@ -276,15 +276,15 @@ Subsequently you can access the lab node on the external port for your given ins
 
 | Group ID | hostname instance |
 | --- | --- |
-| **X** | **X**.srexperts.net |
+| **X** | **X**.partner.dcf.network |
 
 In the example above, accessing `pe2` would be possible by:
 
 ```
-ssh admin@X.srexperts.net -p 50022
+ssh admin@X.partner.dcf.network -p 50022
 ```
 
-In the example above, accessing grafana would be possible browsing towards **http://X.srexperts.net:3000** (where X is the group ID you've been allocated)
+In the example above, accessing grafana would be possible browsing towards **http://X.partner.dcf.network:3000** (where X is the group ID you've been allocated)
 
 /// details | ssh-config
     type: tip
@@ -312,14 +312,13 @@ The dns hostname is composed out of the client name and a domain suffix.
 
 | SSH | Client | Global Routing Table suffix | VPRN "DCI" suffix |
 | --- | --- | --- | --- |
-| clab-srexperts-client01 | client01 | .grt | .vprn.dci |
-| clab-srexperts-client02 | client02 | .grt | .vprn.dci |
-| clab-srexperts-client03 | client03 | .grt | .vprn.dci |
-| clab-srexperts-client04 | client04 | .grt | .vprn.dci |
 | clab-srexperts-client11 | client11 | .grt | .vprn.dci |
 | clab-srexperts-client12 | client12 | .grt | .vprn.dci |
 | clab-srexperts-client13 | client13 | .grt | .vprn.dci |
-| clab-srexperts-client14 | client21 | .grt | .vprn.dci |
+| clab-srexperts-client21 | client21 | .grt | .vprn.dci |
+| clab-srexperts-client22 | client22 | .grt | .vprn.dci |
+| clab-srexperts-client23 | client23 | .grt | .vprn.dci |
+
 
 For example, if you'd like to start a unidirectional traffic flow from `client11` to `client21` in the global routing table:
 
@@ -361,7 +360,7 @@ stopping traffic to client21.grt
 
 ### My employer/security department locked down my laptop
 
-No worries, we have got you covered! Each instance is running a [**web-based VS Code code-server**](./tools/tools-code-server.md) that, when accessing it at `https://<my group id>.srexperts.net`, should prompt you for a password (which is documented on the physical paper provided), and you should be able to access the topology through the terminal there. Detailed instructions on how to use the code-server are available in the [VS Code server documentation](./tools/tools-code-server.md).
+No worries, we have got you covered! Each instance is running a [**web-based VS Code code-server**](./tools/tools-code-server.md) that, when accessing it at `https://<my group id>.partner.dcf.network`, should prompt you for a password (which is documented on the physical paper provided), and you should be able to access the topology through the terminal there. Detailed instructions on how to use the code-server are available in the [VS Code server documentation](./tools/tools-code-server.md).
 
 Should code-server prove ineffective for your situation reach out to the staff on-site and we will try to figure out a suitable alternative for you.
 
@@ -371,7 +370,7 @@ First we destroy the lab:
 /// tab | cmd
 
 ``` bash
-sudo -E clab destroy -t $HOME/SReXperts/clab/srx.clab.yml --cleanup
+sudo -E clab destroy -t $HOME/DCFPartnerHackathon/clab/srx.clab.yml --cleanup
 ```
 
 ///
@@ -424,7 +423,7 @@ Secondly, we can deploy the lab again:
 /// tab | cmd
 
 ``` bash
-sudo -E clab deploy -t $HOME/SReXperts/clab/srx.clab.yml --reconfigure
+sudo -E clab deploy -t $HOME/DCFPartnerHackathon/clab/srx.clab.yml --reconfigure
 ```
 
 ///

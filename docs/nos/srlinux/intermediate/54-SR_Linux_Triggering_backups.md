@@ -65,7 +65,7 @@ It is tempting to skip ahead but tasks may require you to have completed previou
 
 ### Create the backup folder
 
-The purpose of this exercise is to store the device configuration backups outside of the device filesystem, you first need to create a remote backup location that is reachable from the SR Linux device. For example, you can use your group’s hackathon instance that runs the lab as a backup server (`<groupID>.srexperts.net`).
+The purpose of this exercise is to store the device configuration backups outside of the device filesystem, you first need to create a remote backup location that is reachable from the SR Linux device. For example, you can use your group’s hackathon instance that runs the lab as a backup server (`<groupID>.partner.dcf.network`).
 
 While logged in to your instance with the standard `nokia` user, create the `~/backups` directory using the `mkdir` command.
 
@@ -83,11 +83,6 @@ In this activity you will use :material-router: Leaf21. You may SSH to the `sr_c
 /// tab | SSH to :material-router: Leaf21 and the `sr_cli`
 ```bash
 ssh admin@clab-srexperts-leaf21
-```
-///
-/// tab | Connect to the `clab-srexperts-leaf21` container's bash shell
-```bash
-docker exec -it clab-srexperts-leaf21 bash
 ```
 ///
 
@@ -137,7 +132,7 @@ Using the Event Handler documentation, try to create the router's configuration 
 
 - The location to the Python script you created [above](#create-the-event-handler-python-file).
 - A YANG path representing the last time the configuration was changed (tip: use the [Nokia YANG browser](https://yangbrowser.nokia.com/srlinux/26.7.1?from=0))
-- A static value indicating the backup destination (`nokia@<groupID>.srexperts.net:~/backups`). This destination is meant to be used in the script to instruct where to copy the file to.
+- A static value indicating the backup destination (`nokia@<groupID>.partner.dcf.network:~/backups`). This destination is meant to be used in the script to instruct where to copy the file to.
 
 If you feel stuck, you can find a configuration snippet that you can paste in the CLI candidate mode in the expandable help section below. Use `enter candidate` to enter the configuration mode:
 
@@ -146,31 +141,8 @@ If you feel stuck, you can find a configuration snippet that you can paste in th
     type: tip
 
 You need to replace the tag `<groupID>` with your Group ID number.
-Note: Instead of the name `<groupID>.srexperts.net` you may also use the IP `10.128.<groupID>.1`
+Note: Instead of the name `<groupID>.partner.dcf.network` you may also use the IP `10.128.<groupID>.1`
 
-/// tab | Commands with DNS
-
-``` bash
-{
-    system {
-        event-handler {
-            instance backup-config-on-changes {
-                admin-state enable
-                upython-script remote-backup.py
-                paths [
-                    "system configuration last-change"
-                ]
-                options {
-                    object target {
-                        value nokia@<groupID>.srexperts.net:~/backups
-                    }
-                }
-            }
-        }
-    }
-}
-```
-///
 /// tab | Commands with IP
 ``` bash
 {
@@ -194,6 +166,28 @@ Note: Instead of the name `<groupID>.srexperts.net` you may also use the IP `10.
 ```
 ///
 
+/// tab | Commands with DNS
+``` bash
+{
+    system {
+        event-handler {
+            instance backup-config-on-changes {
+                admin-state enable
+                upython-script remote-backup.py
+                paths [
+                    "system configuration last-change"
+                ]
+                options {
+                    object target {
+                        value nokia@<groupID>.partner.dcf.network:~/backups
+                    }
+                }
+            }
+        }
+    }
+}
+```
+///
 ///
 
 ### Enabling key-based SSH authentication
@@ -221,45 +215,67 @@ Your public key has been saved in /home/admin/.ssh/id_rsa.pub
 ```
 ///
 
-Now that the keys are generated, copy the public key to the hackathon instance that hosts your lab with using `ssh-copy-id` command and the address of your hackathon instance.
+Test the connectivity from :material-router: Leaf21 to your host vm:
 
-/// tab | Command  with DNS
-You need to replace the tag `<groupID>` with your Group ID number.
+/// tab | Test ICMP connectivity
+
+You need to replace the tag `<groupID>` with your Group ID number.  
+You may use the name `<groupID>.partner.dcf.network` instead of the IP.
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa nokia@<groupID>.srexperts.net
+ping 10.128.<groupID>.1
 ```
 ///
+/// tab | Test SSH connectivity
+
+You need to replace the tag `<groupID>` with your Group ID number.  
+You may use the name `<groupID>.partner.dcf.network` instead of the IP.
+```bash
+ssh -p 2222 nokia@10.128.<groupID>.1
+```
+///
+
+
+Now that the keys are generated, copy the public key to the hackathon instance that hosts your lab with using `ssh-copy-id` command and the address of your hackathon instance.
+
 /// tab | Command with IP
-Instead of the name `<groupID>.srexperts.net` you may also use the IP `10.128.<groupID>.1`
+You need to replace the tag `<groupID>` with your Group ID number.  
+Instead of the name `<groupID>.partner.dcf.network` you may also use the IP `10.128.<groupID>.1`
 ```bash
 ssh-copy-id -i ~/.ssh/id_rsa nokia@10.128.<groupID>.1
 ```
 ///
-/// tab | Example
-The example below is for groupID `2`, hence the address is `nokia@2.srexperts.net`.
+/// tab | Command  with DNS
+You need to replace the tag `<groupID>` with your Group ID number.
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa nokia@hack2.srexperts.net
+ssh-copy-id -i ~/.ssh/id_rsa nokia@<groupID>.partner.dcf.network
+```
+///
+/// tab | Example
+The example below is for groupID `2`, hence the address is `nokia@2.partner.dcf.network`.
+```bash
+ssh-copy-id -i ~/.ssh/id_rsa nokia@hack2.partner.dcf.network
 ```
 ///
 
 Now you can test if the password-less SSH access is working, by logging in to the hackathon instance address:
 
-/// tab | Command with DNS
-You need to replace the tag `<groupID>` with your Group ID number.
-```bash
-ssh -i ~/.ssh/id_rsa nokia@<groupID>.srexperts.net
-```
-///
 /// tab | Command with IP
-Instead of the name `<groupID>.srexperts.net` you may also use the IP `10.128.<groupID>.1`
+You need to replace the tag `<groupID>` with your Group ID number.  
+Instead of the name `<groupID>.partner.dcf.network` you may also use the IP `10.128.<groupID>.1`
 ```bash
 ssh -i ~/.ssh/id_rsa nokia@10.128.<groupID>.1
 ```
 ///
-/// tab | Example
-The example below is for groupID: 2, hence the address is `nokia@2.srexperts.net`.
+/// tab | Command with DNS
+You need to replace the tag `<groupID>` with your Group ID number.
 ```bash
-admin@leaf21:/home/admin# ssh -i ~/.ssh/id_rsa nokia@hack2.srexperts.net
+ssh -i ~/.ssh/id_rsa nokia@<groupID>.partner.dcf.network
+```
+///
+/// tab | Example
+The example below is for groupID: 2, hence the address is `nokia@2.partner.dcf.network`.
+```bash
+admin@leaf21:/home/admin# ssh -i ~/.ssh/id_rsa nokia@hack2.partner.dcf.network
 ```
 ///
 
@@ -278,11 +294,11 @@ Using the documentation resources above, find a way to develop the requested bac
 For writing the script, we recommend using `vim` or `nano`. These editors are already installed in your group’s hackathon instance. You can also use Visual Studio Code (VSCode) if you prefer a graphical editor.
 
 
-Since the SR Linux device is running as a container on your group’s hackathon instance, you can access the contents of its file system directly.  The location is `~/SReXperts/clab/clab-srexperts/leaf21/config/eventmgr/`.
+Since the SR Linux device is running as a container on your group’s hackathon instance, you can access the contents of its file system directly.  The location is `~/DCFPartnerHackathon/clab/clab-srexperts/leaf21/config/eventmgr/`.
 /// tab | List and view `remote-backup.py` file from hackathon instance
 ```bash
-ls -al ~/SReXperts/clab/clab-srexperts/leaf21/config/eventmgr/
-cat ~/SReXperts/clab/clab-srexperts/leaf21/config/eventmgr/remote-backup.py
+ls -al ~/DCFPartnerHackathon/clab/clab-srexperts/leaf21/config/eventmgr/
+cat ~/DCFPartnerHackathon/clab/clab-srexperts/leaf21/config/eventmgr/remote-backup.py
 ```
 ///
 /// tab | List and view `remote-backup.py` file from the `bash` shell on :material-router: Leaf21
@@ -323,8 +339,8 @@ Getting to know a new framework, even a slim one like Event Handler, can take ti
     type: tip
 
 The file is located in :material-router: Leaf21 under `/etc/opt/srlinux/eventmgr/remote-backup.py`.
-From your hackathon instance view/edit directly at `~/SReXperts/clab/clab-srexperts/leaf21/config/eventmgr/remote-backup.py`.
-Don't forget to reload the python file after you made changes.
+From your hackathon instance view/edit directly at `~/DCFPartnerHackathon/clab/clab-srexperts/leaf21/config/eventmgr/remote-backup.py`.
+Use `nano` to copy/paste the code (for vi you need the ":set paste" to preserve indentation). Don't forget to reload the python file after you made changes.
 
 /// details | `vi` preserve indentation with ":set paste"
     type: tip

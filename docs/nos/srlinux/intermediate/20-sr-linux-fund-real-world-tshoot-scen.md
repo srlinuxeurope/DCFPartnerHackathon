@@ -44,7 +44,7 @@ This activity assumes the following knowledge:
 - Customizing your environment with CLI aliases
 - Managing configuration safety through checkpoints and rollback
 
-If you feel confident, let’s get started. If not, we recommend completing the [Introduction to the SR Linux YANG CLI](./28-introduction-to-srl.md) hackathon activity first. By the end, you will have a solid foundation for operating Nokia SR Linux nodes, which is essential for successfully completing this activity.
+If you feel confident, let’s get started. If not, we recommend completing the [Introduction to the SR Linux YANG CLI](../beginner/28-introduction-to-srl.md) hackathon activity first. By the end, you will have a solid foundation for operating Nokia SR Linux nodes, which is essential for successfully completing this activity.
 
 
 ## Tasks

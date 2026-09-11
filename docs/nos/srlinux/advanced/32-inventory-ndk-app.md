@@ -72,6 +72,9 @@ Other properties, such as the `default` property, can be used to set the default
 
 For example, a YANG model of a car would look something like this:
 
+/// details | YANG model example
+    type: output
+    open: true
 ```
 module example-car {
   yang-version 1.1;
@@ -123,6 +126,7 @@ module example-car {
   }
 }
 ```
+///
 
 For example, the YANG path `/car/name` represents the nickname of the car - it can be configured to your heart's content to any string of characters. The mile counter located at `/car/odometer` is something you can only read - much like in real life.  
 If you want to figuratively peek in the trunk, `/car/trunk/open` should be set to `true`. You can see how full the trunk is in the `/car/trunk/usage` `leaf` node - as this is a percentage representation, the value can only be between `0` and `100`.
@@ -183,7 +187,18 @@ As part of this activity, you will first deploy the NDK app, then modify it to f
 
 For security purposes, the NDK server (through which all NDK applications communicate) is disabled by default. The [NDK architecture documentation](https://learn.srlinux.dev/ndk/guide/architecture) provides an overview of how the NDK service (or server) is used by NDK applications to interact with the rest of the SR Linux NOS.
 
-Your first task will be to first enable the NDK server on both switches you will be working on, :material-router: leaf21 and :material-router: spine21.
+Your first task will be to first enable the NDK server on both switches you will be working on, :material-router: leaf21 and :material-router: spine21. Start by open a session to each:
+
+/// tab | SSH to :material-router: leaf21
+```bash
+ssh admin@clab-srexperts-leaf21
+```
+///
+/// tab | SSH to :material-router: spine21
+```bash
+ssh admin@clab-srexperts-spine21
+```
+///
  
 To verify the NDK server is running, use the `info from state /system ndk-server` command.
 
@@ -248,12 +263,12 @@ The section is split into three segments:
 3. Adding the CLI plugin you developed into the plugins folder
 
 
-You will find the task skeleton repository already cloned to your Hackathon instance in the `~/SReXperts/activities/nos/srlinux/activity-32` directory.
+You will find the task skeleton repository already cloned to your Hackathon instance in the `~/DCFPartnerHackathon/activities/nos/srlinux/activity-32` directory.
 
 Let's make a copy of this directory to use as your work environment! We recommend that you use the VS Code web editor for this task, and use its built-in terminal to execute commands.
 
 ```bash
-cp -r ~/SReXperts/activities/nos/srlinux/activity-32 ~/inventory-ndk-app
+cp -r ~/DCFPartnerHackathon/activities/nos/srlinux/activity-32 ~/inventory-ndk-app
 cd ~/inventory-ndk-app
 # or open the newly copied directory in VS Code
 ```

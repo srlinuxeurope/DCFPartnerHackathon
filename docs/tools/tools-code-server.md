@@ -40,7 +40,6 @@ As an example, if one of the activities requires you to create a directory you c
 Various plugins are used throughout the different activities included in this year's hackathon material, the following plugins are installed on the Code Server:
 
 * EDA
-* NETCONF Explorer
 * Containerlab
 
 With the exception of the last element in the list, these plugins and what you are expected to use them for is documented as part of the related activity. The containerlab VS Code extension is documented [here](https://containerlab.dev/manual/gui/vsc-extension/#containerlab-vs-code-extension) as it has many uses. Amongst others, it gives you a large amount of control over your hackathon topology, including [traffic captures](../tools/tools-packet-capture.md#edgeshark-from-vs-code) and a convenient way to log in to the nodes in the network as shown in Fig. 3.

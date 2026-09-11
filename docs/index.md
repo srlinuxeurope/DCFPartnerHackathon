@@ -265,12 +265,9 @@ The following table shows common container internal ports which can assist you t
 | Service    | Internal Port number |
 | ---------- | -------------------- |
 | SSH        | 22                   |
-| VSCode     | 80                   |
 | gNMI       | 57400                |
-| HTTP/HTTPS | 80/443               |
 | Grafana    | 3000                 |
-| Netbox     | 8000                 |
-| EDA        | 9443                 |
+| Prometheus | 9090                 |
 
 Subsequently you can access the lab node on the external port for your given instance using the DNS name of the assigned VM.
 

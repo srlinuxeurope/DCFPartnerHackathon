@@ -232,6 +232,14 @@ You may use the name `<groupID>.partner.dcf.network` instead of the IP.
 ```bash
 ssh -p 2222 nokia@10.128.<groupID>.1
 ```
+
+Note that the default SRLinux ACL will block the SSH response. If the SSH is failing, ensure you change ACL to accept SSH with the commands bellow.
+
+```
+/acl acl-filter cpm type ipv4 entry 1000 action accept
+/acl acl-filter cpm type ipv4 entry 1000 action log false
+```
+
 ///
 
 
@@ -241,19 +249,25 @@ Now that the keys are generated, copy the public key to the hackathon instance t
 You need to replace the tag `<groupID>` with your Group ID number.  
 Instead of the name `<groupID>.partner.dcf.network` you may also use the IP `10.128.<groupID>.1`
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa nokia@10.128.<groupID>.1
+ssh-copy-id -p 2222 -i ~/.ssh/id_rsa nokia@10.128.<groupID>.1
 ```
+
+On your VM instance ensure that all `/home/nokia/.ssh` files are owned by the user `nokia`. If not change it with:
+```
+sudo chown -R nokia:nokia /home/nokia/.ssh
+```
+
 ///
 /// tab | Command  with DNS
 You need to replace the tag `<groupID>` with your Group ID number.
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa nokia@<groupID>.partner.dcf.network
+ssh-copy-id -p 2222 -i ~/.ssh/id_rsa nokia@<groupID>.partner.dcf.network
 ```
 ///
 /// tab | Example
 The example below is for groupID `2`, hence the address is `nokia@2.partner.dcf.network`.
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa nokia@hack2.partner.dcf.network
+ssh-copy-id -p 2222 -i ~/.ssh/id_rsa nokia@hack2.partner.dcf.network
 ```
 ///
 
@@ -263,19 +277,19 @@ Now you can test if the password-less SSH access is working, by logging in to th
 You need to replace the tag `<groupID>` with your Group ID number.  
 Instead of the name `<groupID>.partner.dcf.network` you may also use the IP `10.128.<groupID>.1`
 ```bash
-ssh -i ~/.ssh/id_rsa nokia@10.128.<groupID>.1
+ssh -p 2222 -i ~/.ssh/id_rsa nokia@10.128.<groupID>.1
 ```
 ///
 /// tab | Command with DNS
 You need to replace the tag `<groupID>` with your Group ID number.
 ```bash
-ssh -i ~/.ssh/id_rsa nokia@<groupID>.partner.dcf.network
+ssh -p 2222 -i ~/.ssh/id_rsa nokia@<groupID>.partner.dcf.network
 ```
 ///
 /// tab | Example
 The example below is for groupID: 2, hence the address is `nokia@2.partner.dcf.network`.
 ```bash
-admin@leaf21:/home/admin# ssh -i ~/.ssh/id_rsa nokia@hack2.partner.dcf.network
+admin@leaf21:/home/admin# ssh -p 2222 -i ~/.ssh/id_rsa nokia@hack2.partner.dcf.network
 ```
 ///
 
@@ -297,8 +311,8 @@ For writing the script, we recommend using `vim` or `nano`. These editors are al
 Since the SR Linux device is running as a container on your group’s hackathon instance, you can access the contents of its file system directly.  The location is `~/DCFPartnerHackathon/clab/clab-srexperts/leaf21/config/eventmgr/`.
 /// tab | List and view `remote-backup.py` file from hackathon instance
 ```bash
-ls -al ~/DCFPartnerHackathon/clab/clab-srexperts/leaf21/config/eventmgr/
-cat ~/DCFPartnerHackathon/clab/clab-srexperts/leaf21/config/eventmgr/remote-backup.py
+ls -al ~/clab-srexperts/leaf21/config/eventmgr/
+cat ~/clab-srexperts/leaf21/config/eventmgr/remote-backup.py
 ```
 ///
 /// tab | List and view `remote-backup.py` file from the `bash` shell on :material-router: Leaf21
@@ -315,7 +329,7 @@ You can instruct the event handler to run a `bash` script. The returned action l
 
 /// tab | Example
 ```bash
-"cmdline": f"sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o PreferredAuthentications=publickey {startup_config} {target}/config-{timestamp}.json"
+"cmdline": f"sudo ip netns exec srbase-mgmt /usr/bin/scp -p 2222 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o PreferredAuthentications=publickey {startup_config} {target}/config-{timestamp}.json"
 ```
 
 Adding `StrictHostKeyChecking=no` disables SSH host key verification. It forces SSH to skip the interactive trust prompt and continue automatically.
@@ -382,7 +396,7 @@ def event_handler_main(in_json_str):
         "actions": [
             {
                 "run-script": {
-                    "cmdline": f"sudo ip netns exec srbase-mgmt /usr/bin/scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o PreferredAuthentications=publickey /etc/opt/srlinux/config.json {target}/config-{timestamp}.json"
+                    "cmdline": f"sudo ip netns exec srbase-mgmt /usr/bin/scp -P 2222 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o PreferredAuthentications=publickey /etc/opt/srlinux/config.json {target}/config-{timestamp}.json"
                 }
             }
         ]

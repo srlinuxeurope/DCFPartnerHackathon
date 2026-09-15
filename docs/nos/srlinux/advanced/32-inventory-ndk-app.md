@@ -273,6 +273,29 @@ cd ~/inventory-ndk-app
 # or open the newly copied directory in VS Code
 ```
 
+
+/// details | NDK password
+    type: note
+    open: false
+
+The password must be correctly set for the NDK application to be able to authenticate against the gRPC server running on the switch!  
+We're using the password defined at the ${EVENT_PASSWORD} env variable here:  
+- main.go: var defaultPassword = ""  
+- run.sh: LDFLAGS="-X main.defaultPassword=${EVENT_PASSWORD}"  
+
+If you want to run this in your own setup, ensure you have the variable configured. 
+If you need to use any other password, you may replace the previous configuration with a static defined password as shown bellow:
+
+```diff title="main.go"
+const (
+  defaultUsername = "admin"
+  defaultPassword = "yourPassword"
+)
+```
+///
+
+
+
 Inside this directory, you can already try building the NDK app. Since you need to first get some Go module dependencies, and run the build command with additional build flags, we have supplied a helper script called `run.sh`.
 
 ```bash
@@ -282,16 +305,8 @@ Inside this directory, you can already try building the NDK app. Since you need 
 
 Issuing this command will first perform _linting_ on the code, pull all dependencies of the application (including the NDK library), and then build the Go application. The resulting NDK agent binary will be output to the `./build/` directory.
 
-Before you can get on with initial deployment, an important change needs to be made to the agent: the password must be correctly set for the NDK application to be able to authenticate against the gRPC server running on the switch!  
-At the moment, this is set to the factory-default - you should change it before proceeding any further!
 
-```diff title="main.go"
-const (
-  defaultUsername = "admin"
-- defaultPassword = "${DEFAULT_PASSWORD}"
-+ defaultPassword = "${EVENT_PASSWORD}"
-)
-```
+
 
 ### Initial deployment
 
@@ -302,7 +317,11 @@ How can you tell what file to copy where? The [application configuration file](h
 *Can you identify where the different parts of the application should be copied?*
 
 /// details | NDK install destination
-The installation is to be done in the `/home/admin/inventory` directory. You should ensure this directory exists by running the `bash mkdir /home/admin/inventory` command on the switch.
+The installation is to be done in the `/home/admin/inventory` directory. You should ensure this directory exists by running the command below on the switch.
+
+```
+bash mkdir /home/admin/inventory
+``` 
 
 The binary should be placed at the `/home/admin/inventory/inventory` path, while the directory containing the YANG models should be located at `/home/admin/inventory/yang`.
 ///
@@ -321,6 +340,8 @@ The main binary file and the YANG directory needs to be copied over to the paths
 ```bash
 # make sure the /home/admin/inventory directory exists
 scp ./build/inventory admin@clab-srexperts-leaf21:/home/admin/inventory/inventory
+```
+```bash
 # -r is the recursive flag needed for copying entire directories
 scp -r ./yang admin@clab-srexperts-leaf21:/home/admin/inventory/yang
 ```
@@ -350,6 +371,9 @@ Following this step, you also need to reload the App Manager in order to load th
 
 ```text
 tools system app-management application app_mgr reload
+```
+```text
+show system application inventory
 ```
 
 ///
@@ -525,7 +549,8 @@ Task completed in 3m15.254s
 
 ///
 
-/// tab | Verification
+
+/// tab | Configuration
 
 ```bash
 ssh spine21
@@ -533,22 +558,38 @@ ssh spine21
 
 <div class="embed-result">
 
+```bash
+enter candidate
+set / inventory location "Lisbon"
+commit now
+info from state / inventory location
+show location
+```
+
+</div>
+
+///
+
+/// tab | Verification
+
+
+<div class="embed-result">
+
 ```{.text .no-copy .no-select}
---{ running }--[  ]--
-A:admin@spine21# enter candidate
+--{ + running }--[  ]--
+A:admin@g30-spine21# info from state / inventory location
+    location Lisbon
 
---{ candidate shared default }--[  ]--
-A:admin@spine21# set inventory location "Some Location"
-
---{ * candidate shared default }--[  ]--
-A:admin@spine21# commit now
-All changes have been committed. Leaving candidate mode.
 
 --{ + running }--[  ]--
-A:admin@spine21# show location
----------------------------------------
-Location: Some Location
----------------------------------------
+A:admin@g30-spine21# show location
+--------------------------------------------------------------------------------------------------------------------------
+Location: Lisbon
+--------------------------------------------------------------------------------------------------------------------------
+
+
+--{ + running }--[  ]--
+A:admin@g30-spine21#
 ```
 
 </div>
@@ -571,7 +612,7 @@ These new leafs should all be all configurable strings, except for the elevation
 
 /// details | Modifying the YANG model with granular location information
 
-Let's add the three new leafs to the `inventory` container: 
+Let's add the four new leafs to the `inventory` container: 
 
 ```diff
 ...
@@ -907,7 +948,7 @@ A:admin@leaf21# info /inventory
     elevation 32
 ```
 
-Congratulations! You have modified and deployed your own version of an NDK app! You are now a certified SR Linux coder 😎
+Congratulations! You have modified and deployed your own version of an NDK app! You are now a certified SR Linux coder! 😎
 
 Don't forget to update the version number to a victorious `1.0.0`!
 

@@ -25,8 +25,10 @@ const (
 	defaultGrpcServerName      = "insecure-mgmt"
 
 	defaultUsername = "admin"
-	defaultPassword = "NokiaSrl1!"
+
 )
+
+var defaultPassword = ""
 
 var version = "0.8.0"
 

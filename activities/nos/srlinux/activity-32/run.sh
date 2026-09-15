@@ -100,6 +100,8 @@ function build-app {
 	mkdir -p ${BIN_DIR}
 	go mod tidy
 
+	LDFLAGS="-X main.defaultPassword=${EVENT_PASSWORD}"
+
 	if [[ -n "${NDK_DEBUG}" ]]; then
 		go build -race -o ${BINARY} -ldflags="${LDFLAGS}" -gcflags="${GCFLAGS}" .
 	else

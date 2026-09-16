@@ -23,7 +23,7 @@ Besides the ability to develop custom applications for EDA platform, we also pro
 
 And it would be a miss to keep EDA anchored to Nokia-only devices, that is why we ensured that EDA core is {==multivendor==} and users can leverage EDA superpowers even with other 3rd party devices[^1].
 
-At this SReXperts event, you get a unique chance to spend a day with Nokia EDA by venturing into the exercises meticulously crafted by the EDA team and be the judge of its capabilities.
+At this Enterprise DCF Partners Hackathon event, you get a unique chance to spend a day with Nokia EDA by venturing into the exercises meticulously crafted by the EDA team and be the judge of its capabilities.
 
 ## How to get through the exercises?
 
@@ -42,19 +42,24 @@ The lab environment you work on features a DC network topology with EDA already 
 As you go through the exercise, you might connect to the EDA UI, one of the switches or clients connected to them.
 
 /// tab | UI
-Most of the exercises can be completed by using EDA Web UI. The UI is accessible over `https://{your-group-id}.srexperts.net:9443`.
+Most of the exercises can be completed by using EDA Web UI. The UI is accessible in the following URL (ensure you use your group ID ): 
+```
+https://{your-group-id}.partner.dcf.network:9443
+```
 
-The login credentials are available in the leaflet provided to you.
+The login credentials are available in the leaflet provided to you.  
+The username is `admin` and the password is the `$EVENT_PASSWORD`.
 ///
 
 /// tab | Lab server
 The lab server runs the EDA platform and the whole lab topology. You will need to login to the topology server when you want to SSH further into one of the switches or clients.
 
 ```
-ssh nokia@{your-group-id}.srexperts.net
+ssh -p 2222 nokia@{your-group-id}.partner.dcf.network
 ```
 
-You will find the server credentials in the leaflet provided to you.
+You will find the server credentials in the leaflet provided to you.  
+The username is `nokia` and the password is the `$EVENT_PASSWORD`.
 ///
 
 /// tab | SR Linux switches
@@ -72,7 +77,8 @@ The switch hostnames are:
 * `clab-srexperts-spine11`
 * `clab-srexperts-spine12`
 
-You will find the switch credentials in the leaflet provided to you.
+You will find the switch credentials in the leaflet provided to you.  
+The username is `admin` and the password is the `$EVENT_PASSWORD`.
 ///
 
 /// tab | Clients
@@ -91,7 +97,8 @@ The client hostnames are:
 * `clab-srexperts-client12`
 * `clab-srexperts-client13`
 
-The client's credentials are `admin:multit00l`
+The login credentials are available in the leaflet provided to you.  
+The username is `user` and the password is the `multit00l`.
 
 ///
 
@@ -102,7 +109,7 @@ The client's credentials are `admin:multit00l`
 When going through the exercises, you will be using a healthy mix of various EDA interfaces, including EDA UI, CLI, and API interfaces.  
 Like any modern platform, EDA's UI is an API client of the backend API server and uses the same endpoints as any automation system would use, which means that technically every exercise can be solved using any automation interface that consumes EDA API.
 
-Quite a few exercises can be completed using the UI and chances are high that this will be your first time seeing and using it. Check out the [EDA UI](https://docs.eda.dev/26.4/tour-of-eda/ui/) section of the official documentation to get familiar with the UI and its capabilities.
+Quite a few exercises can be completed using the UI and chances are high that this will be your first time seeing and using it. Check out the [EDA UI](https://docs.eda.dev/26.8/tour-of-eda/ui/) section of the official documentation to get familiar with the UI and its capabilities.
 
 ## Reset EDA
 
@@ -120,13 +127,13 @@ This script will immediately revert all changes that happened in EDA since you f
 
 After this brief introduction you are ready to start exploring the next generation of network automation by either choosing one of the exercises from the left sidebar or venturing into self-paced exploration.
 
-If you are just getting started with EDA and want to learn the basics of EDA concepts, instead of diving into the automation-focused exercises - check out the official [Tour of EDA for beginners](https://docs.eda.dev/26.4/tour-of-eda/).
+If you are just getting started with EDA and want to learn the basics of EDA concepts, instead of diving into the automation-focused exercises - check out the official [Tour of EDA for beginners](https://docs.eda.dev/26.8/tour-of-eda/).
 
 <!-- --8<-- [start:ranoutoftime] -->
 /// tip | You can complete any EDA exercise even when the event has ended!
-Don't worry if you ran out of time while completing the activities during the SReXperts Hackathon, this site will remain online and you can deploy Nokia EDA for free on any compute you have available anytime you need.
+Don't worry if you ran out of time while completing the activities during the Enterprise DCF partners Hackathon, this site will remain online and you can deploy Nokia EDA for free on any compute you have available anytime you need.
 
-See [Try EDA](https://docs.eda.dev/26.4/getting-started/try-eda/) for more information.
+See [Try EDA](https://docs.eda.dev/26.8/getting-started/try-eda/) for more information.
 ///
 <!-- --8<-- [end:ranoutoftime] -->
 

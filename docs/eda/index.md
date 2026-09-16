@@ -98,7 +98,7 @@ The client hostnames are:
 * `clab-srexperts-client13`
 
 The login credentials are available in the leaflet provided to you.  
-The username is `user` and the password is the `multit00l`.
+The username is `admin` and the password is the `$EVENT_PASSWORD`.
 
 ///
 

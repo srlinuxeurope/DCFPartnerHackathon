@@ -14,13 +14,13 @@ spec:
       labels:
         eda.nokia.com/role: leaf
         eda.nokia.com/security-profile: managed
-      nodeProfile: srlinux-ghcr-26.3.1
+      nodeProfile: srlinux-ghcr-26.7.2
       platform: 7220 IXR-D3L
     - name: spine
       labels:
         eda.nokia.com/role: spine
         eda.nokia.com/security-profile: managed
-      nodeProfile: srlinux-ghcr-26.3.1
+      nodeProfile: srlinux-ghcr-26.7.2
       platform: 7220 IXR-D5
   nodes:
     - name: leaf1

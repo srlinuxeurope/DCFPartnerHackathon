@@ -50,7 +50,7 @@ The Router resource declaratively defines the virtual router (VRF) on the suppor
     type: subtle-question
 ///
 
-The tasks ahead of you require you to enable the layer-3 connectivity between `client11` and `client13`. You start from a clean slate where clients have IP addresses configured, and are physically connected to the datacenter fabric, but there is no relevant config present on the leaf switches to enable this connectivity as shown on the diagram below:
+The tasks ahead of you require you to enable the layer-3 connectivity between :material-server: client11 and :material-server: client13. You start from a clean slate where clients have IP addresses configured, and are physically connected to the datacenter fabric, but there is no relevant config present on the leaf switches to enable this connectivity as shown on the diagram below:
 
 -{{ diagram(path='../assets/eda.drawio', title='Starting state', page=6, zoom=1.7) }}-
 
@@ -70,7 +70,7 @@ Before we start, we need to verify the IP configuration on both clients. We're i
 
 Using the IP configuration provided in the [Objective](#objective) section, verify the active configuration on the clients by connecting to the client's shell.
 
-To connect to the shell of the client nodes, you should connect to the server running your lab and then ssh to each node, for example, for `client11`:
+To connect to the shell of the client nodes, you should connect to the server running your lab and then ssh to each node, for example, for :material-server: client11:
 
 ```bash title="execute from the lab server"
 ssh admin@clab-srexperts-client11
@@ -121,7 +121,7 @@ When in the client shell, use your linux skills to inspect the IP configuration 
 ///
 ///
 
-To test the connectivity, ping client13 interface from client11:
+To test the connectivity, ping :material-server: client13 interface from :material-server: client11:
 
 /// tab | IPv4
 
@@ -216,7 +216,7 @@ spec:
   eviPool: evi-pool
 ```
 
-The key pieces here are the pools used for the VNI, EVI and tunnel index allocation. Want to know more about pools and how EDA presents itself as a source of truth and IPAM - read about [Allocation Pools](https://docs.eda.dev/26.4/user-guide/allocation-pools/) in the EDA documentation.
+The key pieces here are the pools used for the VNI, EVI and tunnel index allocation. Want to know more about pools and how EDA presents itself as a source of truth and IPAM - read about [Allocation Pools](https://docs.eda.dev/26.8/user-guide/allocation-pools/) in the EDA documentation.
 
 ///
 
@@ -237,13 +237,13 @@ When defining the Routed Interfaces, make sure to set the VLAN ID to match the o
 
 Additionally, you want to give the routed interface both an IPv4 and an IPv6 address that your clients will use as the gateway for the subnet.
 
-Before you commit, do a [dry-run](https://docs.eda.dev/26.4/tour-of-eda/transactions/) first, just like in the previous exercise! This will allow you to inspect the configuration pushed to the nodes. After you commit this change to the fabric, you should be able to see the routed interface status reflected in the GUI. You can also navigate to your router, and find out which leaf nodes are now participating in the service.
+Before you commit, do a [dry-run](https://docs.eda.dev/26.8/tour-of-eda/transactions/) first, just like in the previous exercise! This will allow you to inspect the configuration pushed to the nodes. After you commit this change to the fabric, you should be able to see the routed interface status reflected in the GUI. You can also navigate to your router, and find out which leaf nodes are now participating in the service.
 
 ![Status of the router](https://gitlab.com/rdodin/pics/-/wikis/uploads/8d87c3d901b90ddddcedc2aff23ccb02/CleanShot_2025-08-14_at_18.39.08.webp)
 
 /// details | Solution
     type: success
-//// tab | interface for client11
+//// tab | interface for :material-server: client11
 
 ```yaml
 apiVersion: services.eda.nokia.com/v2
@@ -264,7 +264,7 @@ spec:
 ```
 
 ////
-//// tab | interface for client13
+//// tab | interface for :material-server: client13
 
 ```yaml
 apiVersion: services.eda.nokia.com/v2
@@ -287,7 +287,7 @@ spec:
 ////
 ///
 
-Once this is done, you should be able to ping the gateway IP that you assigned in the Routed Interface resource from the client's shell. The examples are provided for `client11`.
+Once this is done, you should be able to ping the gateway IP that you assigned in the Routed Interface resource from the client's shell. The examples are provided for :material-server: client11.
 
 /// tab | IPv4
 
@@ -377,7 +377,8 @@ rtt min/avg/max/mdev = 5.087/5.087/5.087/0.000 ms
 
 ## Summary
 
-In this exercise, you successfully established layer-3 connectivity between two clients (`client11` and `client13`) residing in different subnets leveraging EDA's Router and Routed Interface resources. In summary:
+In this exercise, you successfully established layer-3 connectivity between two clients (:material-server: client11 and :material-server: client13) residing in different subnets leveraging EDA's Router and Routed Interface resources.  
+In summary:
 
 - You created a Router resource that defined a virtual routing instance (VRF) in the datacenter fabric
 - You configured Routed Interfaces that connected the physical interfaces to the Router resource

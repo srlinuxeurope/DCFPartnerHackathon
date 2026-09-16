@@ -4,7 +4,7 @@ hide:
 ---
 
 <div style="text-align: center;">
-  <img src="./../../../../../images/nokia_now.jfif" style="width: 150%;">
+  <img src="./../../../../../images/nokia_now.png" style="width: 150%;">
 </div>
 
 # Welcome to the Nokia NoW DCF Hackathon - Portugal 2026

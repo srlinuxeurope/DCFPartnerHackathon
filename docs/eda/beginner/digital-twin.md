@@ -4,7 +4,7 @@
 | --------------------------- |  |
 | **Activity name**           | Topology simulation with EDA Digital Twin |
 | **Difficulty**              | Beginner |
-| **References**              | [EDA Digital Twin docs](https://docs.eda.dev/26.4/digital-twin/) |
+| **References**              | [EDA Digital Twin docs](https://docs.eda.dev/26.8/digital-twin/) |
 
 One of the powerful features of Nokia EDA is its Digital Twin - a horizontally scalable, virtual environment with a complete replica of the production network.
 
@@ -24,10 +24,18 @@ In this activity you will:
 
 <!-- --8<-- [start:connectivity-details] -->
 /// note | Connectivity details
-For this activity only you are going to use an EDA instance that is designated to host the digital twin. Access this instance by going to https://1.eda.srexperts.net and log in with the following credentials:
+For this activity only you are going to use another EDA instance that is designated to host the digital twin. Access this instance with the following credentials:
 
-- username: admin<b><ID></b> where <ID> is your group number
+- EDA URL: https://eda.partner.dcf.network:10443/
+- username: `admin<ID>` where `<ID>` is your group number
 - password: the event password provided to you (common for all instances of the hackathon)
+
+The SSH credentials are:
+
+- ssh -p 2222 nokia@eda.partner.dcf.network
+- username: nokia
+- password: the event password provided to you (common for all instances of the hackathon)
+
 ///
 <!-- --8<-- [end:connectivity-details] -->
 
@@ -72,7 +80,7 @@ We also have counterpart resources for the virtual digital twin (or sim) domain.
 When using the Digital Twin in EDA, if a `TopoNode/TopoLink` resource is defined then the corresponding `SimNode/SimLink` resources are automatically created.
 ///
 
-The EDA instances you are using have the default [Try EDA](https://docs.eda.dev/26.4/getting-started/try-eda/) topology already running in the `eda` namespace. You can inspect the cluster resources to find the following topology resources representing this two leaf, one spine topology:
+The EDA instances you are using have the default [Try EDA](https://docs.eda.dev/26.8/getting-started/try-eda/) topology already running in the `eda` namespace. You can inspect the cluster resources to find the following topology resources representing this two leaf, one spine topology:
 
 <figure markdown="1">
 ![](../../images/eda/digital-twin/2l1s-topo.svg)
@@ -82,14 +90,14 @@ The EDA instances you are using have the default [Try EDA](https://docs.eda.dev/
 edactl -n eda get TopoNodes #(1)!
 ```
 
-1. This command uses [**`edactl`**](https://docs.eda.dev/26.4/user-guide/command-line-tools/#edactl) CLI tool to query the EDA cluster for all `TopoNode` resources.
+1. This command uses [**`edactl`**](https://docs.eda.dev/26.8/user-guide/command-line-tools/#edactl) CLI tool to query the EDA cluster for all `TopoNode` resources.
 
 <div class="embed-result">
 ```
 NAME     PLATFORM       VERSION   OS    ONBOARDED   MODE     NPP         NODE
-leaf1    7220 IXR-D3L   26.3.1    srl   true        normal   Connected   Synced
-leaf2    7220 IXR-D3L   26.3.1    srl   true        normal   Connected   Synced
-spine1   7220 IXR-D5    26.3.1    srl   true        normal   Connected   Synced
+leaf1    7220 IXR-D3L   26.7.2    srl   true        normal   Connected   Synced
+leaf2    7220 IXR-D3L   26.7.2    srl   true        normal   Connected   Synced
+spine1   7220 IXR-D5    26.7.2    srl   true        normal   Connected   Synced
 ```
 </div>
 
@@ -143,20 +151,20 @@ metadata:
   name: leaf1
   namespace: eda
 spec:
-  nodeProfile: srlinux-ghcr-26.3.1
+  nodeProfile: srlinux-ghcr-26.7.2
   npp:
     mode: normal
   onBoarded: true
   operatingSystem: srl # (2)!
   platform: 7220 IXR-D3L # (3)!
   productionAddress: {}
-  version: 26.3.1 # (4)!
+  version: 26.7.2 # (4)!
 ```
 </div>
 1. The node has the role `leaf`
 2. It's running SR Linux
 3. The hardware platform is 7220 IXR-D3L
-4. The software version is 26.3.1
+4. The software version is 26.7.2
 
 :material-link: [TopoNode CRD Reference](https://crd.eda.dev/toponodes.core.eda.nokia.com/v1)
 
@@ -217,21 +225,21 @@ metadata:
   name: leaf1
   namespace: eda
 spec:
-  containerImage: ghcr.io/nokia/srlinux:26.3.1-410 # (1)!
+  containerImage: ghcr.io/nokia/srlinux:26.7.2-519 # (1)!
   dhcp:
     preferredAddressFamily: IPv4
   gatewayAddress:
     ipv4: 192.168.1.1/16
   imagePullSecret: core # (2)!
-  license: cx-srl-26-3-1-ghcr-license # (3)!
+  license: cx-srl-26-7-2-ghcr-license # (3)!
   operatingSystem: srl
   platform: 7220 IXR-D3L
   port: 57400
   productionAddress:
     ipv4: 192.168.0.2/16
   serialNumberPath: ""
-  version: 26.3.1
-  versionMatch: v26\.3\.1.*
+  version: 26.7.2
+  versionMatch: v26\.7\.2.*
   versionPath: .system.information.version
 ```
 
@@ -400,7 +408,7 @@ The EDA instance you are using for this activity is shared across all groups, wh
 
 EDA supports the notion of namespaces, which allow operators to scope their resources to a specific namespace, which in our case would be a "workspace" for your group. Make sure you check what group ID you have been assigned and execute the namespace creation command to create your unique namespace by replacing <ID> with your group number:
 
-```bash title="Execute on the 1.srexperts.net instance"
+```bash title="Execute on the eda.partner.dcf.network instance"
 edactl namespace bootstrap create --from-namespace eda group<ID> #(1)!
 ```
 
@@ -414,7 +422,7 @@ This command should create a namespace in EDA that you should be using for the r
 
 First, we'll stand up our own Try EDA topology that consists of three nodes (2x leafs, 1x spine) using the `NetworkTopology` workflow.
 
-1. Navigate to the [workflows](https://1.eda.srexperts.net/ui/main/workflows) in EDA UI.
+1. Navigate to the [workflows](https://eda.partner.dcf.network/ui/main/workflows) in EDA UI.
 2. Create a new workflow execution of `NetworkTopology`.
 3. Paste in the [workflow YAML](#the-networktopology-workflow)
 4. Ensure that you fill in the namespace field in the YAML you pasted, as it is intentionally left blank.
@@ -512,10 +520,10 @@ edactl -n eda get TopoNodes
 <div class="embed-result">
 ```
 NAME     PLATFORM       VERSION   OS    ONBOARDED   MODE     NPP         NODE
-leaf1    7220 IXR-D3L   26.3.1   srl   true        normal   Connected   Synced
-leaf2    7220 IXR-D3L   26.3.1   srl   true        normal   Connected   Synced
-node-1   7220 IXR-D3L   26.3.1   srl   true        normal   Connected   Synced
-spine1   7220 IXR-D5    26.3.1   srl   true        normal   Connected   Synced
+leaf1    7220 IXR-D3L   26.7.2   srl   true        normal   Connected   Synced
+leaf2    7220 IXR-D3L   26.7.2   srl   true        normal   Connected   Synced
+node-1   7220 IXR-D3L   26.7.2   srl   true        normal   Connected   Synced
+spine1   7220 IXR-D5    26.7.2   srl   true        normal   Connected   Synced
 ```
 </div>
 ///
@@ -584,9 +592,9 @@ edactl -n eda get TopoNodes
 <div class="embed-result">
 ```
 NAME     PLATFORM       VERSION   OS    ONBOARDED   MODE     NPP         NODE
-leaf1    7220 IXR-D3L   26.3.1    srl   true        normal   Connected   Synced
-leaf2    7220 IXR-D3L   26.3.1    srl   true        normal   Connected   Synced
-spine1   7220 IXR-D5    26.3.1    srl   true        normal   Connected   Synced
+leaf1    7220 IXR-D3L   26.7.2    srl   true        normal   Connected   Synced
+leaf2    7220 IXR-D3L   26.7.2    srl   true        normal   Connected   Synced
+spine1   7220 IXR-D5    26.7.2    srl   true        normal   Connected   Synced
 ```
 </div>
 ///
@@ -810,13 +818,13 @@ spec:
       labels:
         eda.nokia.com/role: leaf
         eda.nokia.com/security-profile: managed
-      nodeProfile: srlinux-ghcr-26.3.1
+      nodeProfile: srlinux-ghcr-26.7.2
       platform: 7220 IXR-D3L
     - name: spine
       labels:
         eda.nokia.com/role: spine
         eda.nokia.com/security-profile: managed
-      nodeProfile: srlinux-ghcr-26.3.1
+      nodeProfile: srlinux-ghcr-26.7.2
       platform: 7220 IXR-D5
   nodes:
     - name: leaf1

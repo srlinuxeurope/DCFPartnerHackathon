@@ -22,7 +22,7 @@ This is the first exercise in a 3-part series around using EDA to achieve connec
 
 ## Objective
 
-In this exercise, you need to enable the layer 2 connectivity between the two linux hosts in the lab topology - `client11` and `client13`. Both linux hosts have an IP address in the same IP subnet already configured and the interfaces are tagged with VLAN 1300. Your objective is to ensure that the traffic between the two clients is switched over the datacenter fabric using a dedicated and isolated MAC-VRF service.
+In this exercise, you need to enable the layer 2 connectivity between the two linux hosts in the lab topology - :material-server: client11 and :material-server: client13. Both linux hosts have an IP address in the same IP subnet already configured and the interfaces are tagged with VLAN 1300. Your objective is to ensure that the traffic between the two clients is switched over the datacenter fabric using a dedicated and isolated MAC-VRF service.
 
 -{{ diagram(path='../assets/eda.drawio', title='Target connectivity model: Layer 2', page=10, zoom=2) }}-
 
@@ -54,9 +54,10 @@ Before we start, we need to verify the IP configuration on both clients. We're i
 2. the **IP address** of each client so we can later test whether the connectivity is in place.  
     Multiple IP addresses are configured for different hackathon exercises, so you're looking for an IP in the subnet `10.30.0.0/24` that is assigned to the interface with the VLAN 1300 tag.
 
-To connect to the shell of the client nodes, you should connect to the server running your lab and then ssh to each node, for example, for `client11`:
+To connect to the shell of the client nodes, you should connect to the server running your lab and then ssh to each node, for example, for :material-server: client11:
 
-```bash title="execute from the lab server"
+/// tab | client-11
+```bash title="Execute from the lab server"
 ssh admin@clab-srexperts-client11
 ```
 
@@ -66,6 +67,20 @@ ssh admin@clab-srexperts-client11
 └──>
 ```
 </div>
+///
+
+/// tab | client-13
+```bash title="Execute from the lab server"
+ssh admin@clab-srexperts-client13
+```
+
+<div class="embed-result">
+```{.text .no-select .no-copy}
+[*]─[client13]─[~]
+└──>
+```
+</div>
+///
 
 When in the client shell, try to answer these questions:
 
@@ -201,7 +216,7 @@ spec:
   eviPool: evi-pool
 ```
 
-The key pieces here are the pools used for the VNI, EVI and tunnel index allocation. Want to know more about pools and how EDA presents itself as a source of truth and IPAM - read about [Allocation Pools](https://docs.eda.dev/26.4/user-guide/allocation-pools/) in the EDA documentation.
+The key pieces here are the pools used for the VNI, EVI and tunnel index allocation. Want to know more about pools and how EDA presents itself as a source of truth and IPAM - read about [Allocation Pools](https://docs.eda.dev/26.8/user-guide/allocation-pools/) in the EDA documentation.
 
 ///
 
@@ -245,7 +260,7 @@ spec:
 
 ///
 
-> Learn more about [Transactions and Dry Run](https://docs.eda.dev/26.4/tour-of-eda/transactions/) functionality.
+> Learn more about [Transactions and Dry Run](https://docs.eda.dev/26.8/tour-of-eda/transactions/) functionality.
 
 Use the Dry Run functionality in EDA to check what would change if we were to commit our Bridge Interface.
 
@@ -256,9 +271,9 @@ As shown in the video snippet above, you can check the diffs that the particular
 /// note | The Dry Run functionality does not touch the network elements in any way. All the potential change sets are computed by EDA. Safe and fast.
 ///
 
-The change set in the diff view should indicate that a subinterface with vlan-id is created on the `leaf11` switch as well as the network instance of type `mac-vrf` that this subinterface is connected to.
+The change set in the diff view should indicate that a subinterface with vlan-id is created on the :material-router:  leaf11 switch as well as the network instance of type `mac-vrf` that this subinterface is connected to.
 
-/// warning | Create the Bridge Interface targeting `leaf13` node as well, to attach the second client to the bridge domain before proceeding further.
+/// warning | Create the Bridge Interface targeting :material-router: leaf13 node as well, to attach the second client to the bridge domain before proceeding further.
 ///
 
 #### Resource status
@@ -283,7 +298,7 @@ Connect to the server and then SSH into the client
 ssh admin@clab-srexperts-client11
 ```
 
-Once in the shell, ping client13:
+Once in the shell, ping :material-server: client13:
 
 ```bash
 [*]─[client11]─[/]
@@ -318,7 +333,7 @@ Connect to the server and then SSH into the client
 ssh admin@clab-srexperts-client13
 ```
 
-Once in the shell, ping client11:
+Once in the shell, ping :material-server: client11:
 
 ```bash
 [*]─[client13]─[/]
@@ -359,13 +374,13 @@ Start off by deleting the bridge interfaces you have created so far (you can kee
 Next up, find the two Interfaces `leaf11-client11` and `leaf13-client13` in the **Interfaces** menu under the **Topology** group and have a look at the labels metadata field:
 ![labels](https://gitlab.com/rdodin/pics/-/wikis/uploads/0a000697eeafbe58179ff56d82458c7b/CleanShot_2025-05-02_at_13.00.57_2x.png)
 
-Each resource in EDA can have a number of labels, which can be used to select the resources. A label consists of a label key and a label value and is often written in the form of `key=value` string. For example, let's imagine that our two clients - `client11` and `client13` - are VMware hypervisors. Then we might want to tag them with the `tenant-type=vmware-hv` label to provide this metadata information that we can act on later.
+Each resource in EDA can have a number of labels, which can be used to select the resources. A label consists of a label key and a label value and is often written in the form of `key=value` string. For example, let's imagine that our two clients - :material-server: client11 and  :material-server: client13 - are VMware hypervisors. Then we might want to tag them with the `tenant-type=vmware-hv` label to provide this metadata information that we can act on later.
 
 > By assigning labels to the interface resources you open the door to label-based selection of resources in EDA. It is a powerful feature that allows you to select arbitrary sets of resources based on the labels assigned to them.
 >
 > Not only is it useful for scaled deployments, where the relationship between potentially thousands of resources can be abstracted by a simple label selector, but it also allows EDA to perform actions on dynamically created resources.
 
-Add the `tenant-type=vmware-hv` label to both interfaces connecting the leaf switches `leaf11` and `leaf13` to the `client11` and `client13` respectively.
+Add the `tenant-type=vmware-hv` label to both interfaces connecting the leaf switches :material-router: leaf11 and :material-router leaf13 to the :material-server: client11 and :material-server: client13 respectively.
 
 You can edit the Interface resources one by one, or select both of them and make use of the Bulk Edit action.
 
@@ -431,7 +446,7 @@ Connect to the server and then SSH into the client
 ssh admin@clab-srexperts-client11
 ```
 
-Once in the shell, ping client13:
+Once in the shell, ping :material-server: client13:
 
 ```bash
 [*]─[client11]─[/]
@@ -466,7 +481,7 @@ Connect to the server and then SSH into the client
 ssh admin@clab-srexperts-client13
 ```
 
-Once in the shell, ping client11:
+Once in the shell, ping :material-server: client11:
 
 ```bash
 [*]─[client13]─[/]
@@ -498,7 +513,7 @@ rtt min/avg/max/mdev = 0.841/0.841/0.841/0.000 ms
 
 Great job completing the Bridge Domains exercise! You've successfully:
 
-- Created layer-2 connectivity between `client11` and `client13` using EDA's Bridge Domain, Bridge Interface, and VLAN resources
+- Created layer-2 connectivity between :material-server: client11 and :material-server: client13 using EDA's Bridge Domain, Bridge Interface, and VLAN resources
 - Learned how to configure Bridge Interfaces to connect physical interfaces to virtual networks
 - Mastered the use of EDA's transaction and dry run capabilities to preview configuration changes
 - Discovered the power of label-based operations to efficiently manage multiple interfaces
@@ -508,4 +523,4 @@ Your work has established a functional layer-2 network service that allows both 
 
 Ready for the next challenge? Continue to [Part 2: Routers](./routers.md) to build on what you've learned!
 
-[^1]: If you want to learn more about transactions, check out the [transactions](https://docs.eda.dev/26.4/tour-of-eda/transactions/) documentation.
+[^1]: If you want to learn more about transactions, check out the [transactions](https://docs.eda.dev/26.8/tour-of-eda/transactions/) documentation.

@@ -156,9 +156,6 @@ extra:
       link: https://discord.gg/tZvgjQ6PZf
     - icon: fontawesome/brands/github
       link: https://github.com/srlinuxeurope/DCFPartnerHackathon
-  analytics:
-    provider: google
-    property: G-7C3C7M5XJP
   tags:
     # tags and their identifiers
     media: media # media tag is used to show posts in media.md

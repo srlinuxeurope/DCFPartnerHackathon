@@ -72,6 +72,9 @@ Other properties, such as the `default` property, can be used to set the default
 
 For example, a YANG model of a car would look something like this:
 
+/// details | YANG model example
+    type: output
+    open: true
 ```
 module example-car {
   yang-version 1.1;
@@ -123,6 +126,7 @@ module example-car {
   }
 }
 ```
+///
 
 For example, the YANG path `/car/name` represents the nickname of the car - it can be configured to your heart's content to any string of characters. The mile counter located at `/car/odometer` is something you can only read - much like in real life.  
 If you want to figuratively peek in the trunk, `/car/trunk/open` should be set to `true`. You can see how full the trunk is in the `/car/trunk/usage` `leaf` node - as this is a percentage representation, the value can only be between `0` and `100`.
@@ -183,7 +187,18 @@ As part of this activity, you will first deploy the NDK app, then modify it to f
 
 For security purposes, the NDK server (through which all NDK applications communicate) is disabled by default. The [NDK architecture documentation](https://learn.srlinux.dev/ndk/guide/architecture) provides an overview of how the NDK service (or server) is used by NDK applications to interact with the rest of the SR Linux NOS.
 
-Your first task will be to first enable the NDK server on both switches you will be working on, :material-router: leaf21 and :material-router: spine21.
+Your first task will be to first enable the NDK server on both switches you will be working on, :material-router: leaf21 and :material-router: spine21. Start by open a session to each:
+
+/// tab | SSH to :material-router: leaf21
+```bash
+ssh admin@clab-srexperts-leaf21
+```
+///
+/// tab | SSH to :material-router: spine21
+```bash
+ssh admin@clab-srexperts-spine21
+```
+///
  
 To verify the NDK server is running, use the `info from state /system ndk-server` command.
 
@@ -248,15 +263,38 @@ The section is split into three segments:
 3. Adding the CLI plugin you developed into the plugins folder
 
 
-You will find the task skeleton repository already cloned to your Hackathon instance in the `~/SReXperts/activities/nos/srlinux/activity-32` directory.
+You will find the task skeleton repository already cloned to your Hackathon instance in the `~/DCFPartnerHackathon/activities/nos/srlinux/activity-32` directory.
 
 Let's make a copy of this directory to use as your work environment! We recommend that you use the VS Code web editor for this task, and use its built-in terminal to execute commands.
 
 ```bash
-cp -r ~/SReXperts/activities/nos/srlinux/activity-32 ~/inventory-ndk-app
+cp -r ~/DCFPartnerHackathon/activities/nos/srlinux/activity-32 ~/inventory-ndk-app
 cd ~/inventory-ndk-app
 # or open the newly copied directory in VS Code
 ```
+
+
+/// details | NDK password
+    type: note
+    open: false
+
+The password must be correctly set for the NDK application to be able to authenticate against the gRPC server running on the switch!  
+We're using the password defined at the ${EVENT_PASSWORD} env variable here:  
+- main.go: var defaultPassword = ""  
+- run.sh: LDFLAGS="-X main.defaultPassword=${EVENT_PASSWORD}"  
+
+If you want to run this in your own setup, ensure you have the variable configured. 
+If you need to use any other password, you may replace the previous configuration with a static defined password as shown bellow:
+
+```diff title="main.go"
+const (
+  defaultUsername = "admin"
+  defaultPassword = "yourPassword"
+)
+```
+///
+
+
 
 Inside this directory, you can already try building the NDK app. Since you need to first get some Go module dependencies, and run the build command with additional build flags, we have supplied a helper script called `run.sh`.
 
@@ -267,16 +305,8 @@ Inside this directory, you can already try building the NDK app. Since you need 
 
 Issuing this command will first perform _linting_ on the code, pull all dependencies of the application (including the NDK library), and then build the Go application. The resulting NDK agent binary will be output to the `./build/` directory.
 
-Before you can get on with initial deployment, an important change needs to be made to the agent: the password must be correctly set for the NDK application to be able to authenticate against the gRPC server running on the switch!  
-At the moment, this is set to the factory-default - you should change it before proceeding any further!
 
-```diff title="main.go"
-const (
-  defaultUsername = "admin"
-- defaultPassword = "${DEFAULT_PASSWORD}"
-+ defaultPassword = "${EVENT_PASSWORD}"
-)
-```
+
 
 ### Initial deployment
 
@@ -287,7 +317,11 @@ How can you tell what file to copy where? The [application configuration file](h
 *Can you identify where the different parts of the application should be copied?*
 
 /// details | NDK install destination
-The installation is to be done in the `/home/admin/inventory` directory. You should ensure this directory exists by running the `bash mkdir /home/admin/inventory` command on the switch.
+The installation is to be done in the `/home/admin/inventory` directory. You should ensure this directory exists by running the command below on the switch.
+
+```
+bash mkdir /home/admin/inventory
+``` 
 
 The binary should be placed at the `/home/admin/inventory/inventory` path, while the directory containing the YANG models should be located at `/home/admin/inventory/yang`.
 ///
@@ -306,6 +340,8 @@ The main binary file and the YANG directory needs to be copied over to the paths
 ```bash
 # make sure the /home/admin/inventory directory exists
 scp ./build/inventory admin@clab-srexperts-leaf21:/home/admin/inventory/inventory
+```
+```bash
 # -r is the recursive flag needed for copying entire directories
 scp -r ./yang admin@clab-srexperts-leaf21:/home/admin/inventory/yang
 ```
@@ -335,6 +371,9 @@ Following this step, you also need to reload the App Manager in order to load th
 
 ```text
 tools system app-management application app_mgr reload
+```
+```text
+show system application inventory
 ```
 
 ///
@@ -510,7 +549,8 @@ Task completed in 3m15.254s
 
 ///
 
-/// tab | Verification
+
+/// tab | Configuration
 
 ```bash
 ssh spine21
@@ -518,22 +558,38 @@ ssh spine21
 
 <div class="embed-result">
 
+```bash
+enter candidate
+set / inventory location "Lisbon"
+commit now
+info from state / inventory location
+show location
+```
+
+</div>
+
+///
+
+/// tab | Verification
+
+
+<div class="embed-result">
+
 ```{.text .no-copy .no-select}
---{ running }--[  ]--
-A:admin@spine21# enter candidate
+--{ + running }--[  ]--
+A:admin@g30-spine21# info from state / inventory location
+    location Lisbon
 
---{ candidate shared default }--[  ]--
-A:admin@spine21# set inventory location "Some Location"
-
---{ * candidate shared default }--[  ]--
-A:admin@spine21# commit now
-All changes have been committed. Leaving candidate mode.
 
 --{ + running }--[  ]--
-A:admin@spine21# show location
----------------------------------------
-Location: Some Location
----------------------------------------
+A:admin@g30-spine21# show location
+--------------------------------------------------------------------------------------------------------------------------
+Location: Lisbon
+--------------------------------------------------------------------------------------------------------------------------
+
+
+--{ + running }--[  ]--
+A:admin@g30-spine21#
 ```
 
 </div>
@@ -556,7 +612,7 @@ These new leafs should all be all configurable strings, except for the elevation
 
 /// details | Modifying the YANG model with granular location information
 
-Let's add the three new leafs to the `inventory` container: 
+Let's add the four new leafs to the `inventory` container: 
 
 ```diff
 ...
@@ -892,7 +948,7 @@ A:admin@leaf21# info /inventory
     elevation 32
 ```
 
-Congratulations! You have modified and deployed your own version of an NDK app! You are now a certified SR Linux coder 😎
+Congratulations! You have modified and deployed your own version of an NDK app! You are now a certified SR Linux coder! 😎
 
 Don't forget to update the version number to a victorious `1.0.0`!
 

@@ -50,6 +50,10 @@ The public cloud compute instances will be destroyed once the event is concluded
 Please make sure to backup any code, config, etc. <u>offline</u> (e.g. onto your laptop) if you'd like to keep it after the hackathon.
 ///
 
+This is how it look like your leaflet, you should have an ID assigned to you that corresponds to the GCP instance you'll use:
+
+-{{ image(url='./../../../../../images/gcp_leaflet.jpg', title='GCP instance leaflet', padding=10, shadow=true) }}-
+
 ### Group ID
 
 Please refer to the paper provided by the event session leader. If nothing has been provided, not a problem, pop your hand in the air and someone will allocate you one before you can say "Aequeosalinocalcalinoceraceoaluminosocupreovitriolic".
@@ -60,6 +64,8 @@ Please refer to the paper provided by the event session leader. If nothing has b
 | 2 | 2.partner.dcf.network |
 | ... | ... |
 | **X** | **X**.partner.dcf.network |
+
+
 
 ### SSH
 

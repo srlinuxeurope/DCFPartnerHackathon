@@ -134,7 +134,7 @@ Time to create your first Virtual Network and make your clients talk to each oth
 Use the knowledge of the previous two exercises ([Bridge Domains](bridge-domains.md) and [Routers](routers.md)) to achieve the connectivity as shown on the diagram above. A single virtual network resource would be able to define the following:
 
 - a **Router** to create the IP-VRF of the EVPNVXLAN type
-- two **Routed Interfaces** to connect the Router to the `client11` and `client13` over the respective VLANs 1311 and 1313
+- two **Routed Interfaces** to connect the Router to the :material-server: client11 and :material-server: client13 over the respective VLANs 1311 and 1313
 - two **Bridge Domains** to create subnets for VLAN 1300 and 1312 respectively
 - two **VLAN** resources to create Bridge Interfaces for the respective VLANs 1300 and 1312
 - two **IRB Interfaces** to connect the Bridge Domains to the Router
@@ -142,9 +142,9 @@ Use the knowledge of the previous two exercises ([Bridge Domains](bridge-domains
 Indeed, a single Virtual Network resource can define all of these objects, and it will emit the necessary sub-resources, and each sub-resource in turn can emit its own sub-resources, and so on, until the configuration is complete.
 
 /// note
-Hosts `client11` and `client13` are both single-homed clients, meaning that they physically connect to only one leaf switch.
+Hosts :material-server: client11 and :material-server: client13 are both single-homed clients, meaning that they physically connect to only one leaf switch.
 
-Host `client12` is different: it is multihomed to 3 leaf switches in an all-active configuration, and its EDA interface is called `lag1`. Can you find this special interface in EDA? Which physical ports are connected to `client12`?
+Host :material-server: client12 is different: it is multihomed to 3 leaf switches in an all-active configuration, and its EDA interface is called `lag1`. Can you find this special interface in EDA? Which physical ports are connected to :material-server: client12?
 ///
 
 /// warning | Auto-completion for non-committed objects
@@ -301,21 +301,21 @@ traceroute to 10.30.0.12 (10.30.0.12), 30 hops max, 46 byte packets
 
 ///
 <!-- --8<-- [start:ping-tests] -->
-/// tab | Client11
+/// tab | :material-server: client11
 
 - `ping -I eth1.1300 10.30.0.12`
 - `ping -I eth1.1311 10.30.2.12`
 - `ping -I eth1.1311 10.30.3.13`
 ///
 
-/// tab | Client12
+/// tab | :material-server: client12
 
 - `ping -I bond0.1300 10.30.0.13`
 - `ping -I bond0.1312 10.30.1.11`
 - `ping -I bond0.1312 10.30.3.13`
 ///
 
-/// tab | Client13
+/// tab | :material-server: client13
 
 - `ping -I eth1.1300 10.30.0.11`
 - `ping -I eth1.1313 10.30.1.11`

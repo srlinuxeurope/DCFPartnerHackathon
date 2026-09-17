@@ -12,6 +12,8 @@ spec:
     receiveIPv6NextHops: true
   ipv6Unicast:
     enabled: true
+  l2VPNEVPN:
+    enabled: false
   localAS:
     autonomousSystem: 65000
     prependGlobalAS: false
@@ -32,6 +34,12 @@ spec:
     prependGlobalAS: false
   peerAS:
     autonomousSystem: 65000
+  ipv4Unicast:
+    enabled: false
+  ipv6Unicast:
+    enabled: false
+  l2VPNEVPN:
+    enabled: false
   vpnIPv4Unicast:
     enabled: true
   vpnIPv6Unicast:

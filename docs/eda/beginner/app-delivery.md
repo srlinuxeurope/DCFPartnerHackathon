@@ -7,10 +7,10 @@
 | **Topology Nodes**          | `leaf11`, `leaf12`, `leaf13`, `spine11`, `spine12` |
 | **References**              | [Building EDA applications][building-apps], [Bottom Toolbar app][bottom-toolbar-app], [EDA Store][eda-store], [Custom App Catalog][custom-catalog] |
 
-[building-apps]: https://docs.eda.dev/26.4/development/apps/
+[building-apps]: https://docs.eda.dev/26.8/development/apps/
 [bottom-toolbar-app]: https://github.com/eda-labs/bottom-toolbar-app
-[custom-catalog]: https://docs.eda.dev/26.4/development/custom-catalog/
-[eda-store]: https://docs.eda.dev/26.4/apps/#nokia-eda-store
+[custom-catalog]: https://docs.eda.dev/26.8/development/custom-catalog/
+[eda-store]: https://docs.eda.dev/26.8/apps/#nokia-eda-store
 
 One of the trickiest parts of network automation in general is making a script that works on your machine also work on other machines in exactly the same way. The application needs to be packaged, distributed and run in the exact same execution environment to ensure consistency.  
 Companies were born to solve this problem, and Nokia EDA as an automation platform has a solution for this as well.
@@ -56,21 +56,38 @@ The application team has created the git repository - [bottom-toolbar-app][botto
 
 You want to publish this application to your own container registry and your own application catalog to ensure that it is available to your team or organization.
 
-The first task is to clone the application repository to your assigned VM. When cloned, check out the `srx2026` tag to get the application code validated for this activity.
+The first task is to clone the application repository to your assigned VM. 
+
+/// tab | Clone the app repo
+```
+git clone https://github.com/eda-labs/bottom-toolbar-app.git
+```
+///
+
+When cloned, check out the `srx2026` tag to get the application code validated for this activity.
 
 /// details | Verify the tag
 To verify that the tag has been checked out correctly, run:
 
+/// tab | verify
 ```
 git describe --tags --exact-match HEAD
+```
+///
+/// tab | Output
+```
+$ git describe --tags --exact-match HEAD
 srx2026
 ```
+///
 
 If you don't see the `srx2026` tag, checkout the tag again:
 
+/// tab | Checkout the tag
 ```
 git checkout srx2026
 ```
+///
 
 ///
 
@@ -78,13 +95,26 @@ git checkout srx2026
 
 Great solutions require great tools. The EDA team has developed the [`edabuilder`][edabuilder-doc] tool that assists in every step of the application lifecycle: from developing to shipping and debugging.
 
-[edabuilder-doc]: https://docs.eda.dev/26.4/development/apps/setup-env/
+[edabuilder-doc]: https://docs.eda.dev/26.8/development/apps/setup-env/
 
 `edabuilder` is already installed on your VM. To verify that it is installed, run:
 
+/// tab | Cmd
 ```
-edabuilder --version
+edabuilder version
 ```
+///
+/// tab | Output
+```
+$ edabuilder version
+00:07:46 INFO CLI version: v26.8.1
+00:07:46 INFO Build Id: v26.8.1-2608202030-ge91888ac
+00:07:46 INFO AppImage builder spec version: v1.0.0
+00:07:46 INFO EDA Core API version: v6.0.0
+00:07:46 INFO k8s.io/apimachinery version: v0.36.1
+00:07:46 INFO controller-runtime version: v0.24.1
+```
+///
 
 ### Set up a container registry
 
@@ -179,7 +209,8 @@ You reached an important milestone in the application delivery process. You have
 The `edabuilder release` command will do everything for you:
 
 ```bash
-edabuilder release --app bottom-toolbar-app https://github.com/someuser/some-repo.git #(1)!
+cd ~/bottom-toolbar-app
+edabuilder release --app bottom-toolbar https://github.com/someuser/some-repo.git #(1)!
 ```
 
 1. It is important to keep the git schema (https) in the URL.

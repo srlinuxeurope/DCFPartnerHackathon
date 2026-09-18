@@ -289,7 +289,7 @@ A:admin@g1-pe2#
 
 Using port `50322` from the Internet to `<GROUP-ID>.partner.dcf.network` allows you to execute `gNMIc` queries to :material-router: pe2.
 
-``` bash  hl_lines="1"
+``` bash  hl_lines="1 2 3"
 gnmic -a 1.partner.dcf.network:50322 -u admin -p $EVENT_PASSWORD \
     --insecure -e json_ietf get \
     --path /system/name/host-name

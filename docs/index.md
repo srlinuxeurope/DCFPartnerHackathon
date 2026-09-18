@@ -229,15 +229,18 @@ Each public cloud instance has a port-range (`50000` - `51000`) exposed towards 
 
 With the `show-ports` command executed on a VM you get a list of mappings between external and internal ports allocated for each node of a lab:
 /// tab | cmd
-
+Execute the following command from you VM.
 ``` bash
 show-ports
 ```
 
 ///
 /// tab | output
+The output bellow display the internal port (available in your Hackathon VM) followed by the external port (available from the internet).  
+For :material-router: pe2, the SSH internal port is `22` and the external is `50022`.  
+The `gNMIc` internal port is `57400` and  the external is `50322`.  
 
-``` bash
+``` bash hl_lines="1"
 clab-srexperts-pe2         {'22': '50022', '57400': '50322'}
 clab-srexperts-pe4         {'22': '50024', '57400': '50324'}
 clab-srexperts-spine11     {'22': '50031', '57400': '50331'}
@@ -262,6 +265,50 @@ clab-srexperts-prometheus  {'9090': '9090'}
 clab-srexperts-grafana     {'3000': '3000'}
 ```
 
+///
+
+/// tab | SSH to :material-router: pe2 output example
+
+Using port `50022` from the Internet to `<GROUP-ID>.partner.dcf.network` allows you to SSH to :material-router: pe2.
+
+``` bash hl_lines="1"
+ssh -p 50022 admin@1.partner.dcf.network
+admin@1.partner.dcf.network's password: 
+Last login: Fri Sep 18 09:46:49 2026 from 131.228.32.167
+
+Loading environment configuration file(s): ['/etc/opt/srlinux/srlinux.rc', '/home/admin/.srlinuxrc']
+Welcome to the Nokia SR Linux CLI.
+
+
+--{ + running }--[  ]--
+A:admin@g1-pe2#
+```
+///
+
+/// tab | `gNMIc` to :material-router: pe2 output example
+
+Using port `50322` from the Internet to `<GROUP-ID>.partner.dcf.network` allows you to execute `gNMIc` queries to :material-router: pe2.
+
+``` bash  hl_lines="1"
+gnmic -a 1.partner.dcf.network:50322 -u admin -p $EVENT_PASSWORD \
+    --insecure -e json_ietf get \
+    --path /system/name/host-name
+[
+  {
+    "source": "1.partner.dcf.network:50322",
+    "timestamp": 1789745023445949994,
+    "time": "2026-09-18T11:23:43.445949994-04:00",
+    "updates": [
+      {
+        "Path": "srl_nokia-system:system/srl_nokia-system-name:name/host-name",
+        "values": {
+          "srl_nokia-system:system/srl_nokia-system-name:name/host-name": "g1-pe2"
+        }
+      }
+    ]
+  }
+]
+```
 ///
 
 Each service exposed on a lab node gets a unique external port number as per the table above. For example, Grafana's web interface is available on port `3000` of the VM which is mapped to the Grafana node's internal port of `3000`.

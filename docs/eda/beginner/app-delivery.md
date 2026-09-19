@@ -202,16 +202,124 @@ In this manifest file the app team has defined the application image URL that th
 
 Save the edited manifest file and proceed to the next task.
 
+
+### Generate signing keys to sign the app and install the key at EDA
+
+The new EDA version requires the registry to sign the apps.  
+You'll need to:  
+
+1. Generate a key-pair with edabuilder
+2. Copy the public key
+3. Install the public key at EDA
+4. Use the `--sign` flag when you release the app
+
+
+To generate the key-pair:
+
+/// tab | Generate a key-pair
+``` 
+edabuilder sign generate-key-pair
+```
+///
+/// tab | Output
+```
+nokia@g21:~/bottom-toolbar-app$ edabuilder sign generate-key-pair
+15:08:56 INFO Private key written to /home/nokia/.config/edabuilder/keys/default.key
+15:08:56 INFO Public key written to /home/nokia/.config/edabuilder/keys/default.pub
+15:08:56 INFO Successfully generated key pair
+nokia@g21:~/bottom-toolbar-app$ 
+```
+///
+
+
+To view and copy the public key
+
+/// tab | Copy the pub key to EDA
+```
+cat /home/nokia/.config/edabuilder/keys/default.pub
+```
+///
+/// tab | Output
+```
+nokia@g21:~/bottom-toolbar-app$ cat /home/nokia/.config/edabuilder/keys/default.pub
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEhaFmdP73gZHuFFNal6hyKtJgFJq4
+o5uVb7oP/KPTkRS7JBdJ/Ot2TPQ/acb7aeu/I/16YUULNydG/AqRX1z6Wg==
+-----END PUBLIC KEY-----
+nokia@g21:~/bottom-toolbar-app$
+```
+///
+
+Install the public key at EDA under `System Administration` => `Signing Keys`.  
+Ensure the key is loaded successfully. 
+
+/// tab | Example
+```
+apiVersion: appstore.eda.nokia.com/v1
+kind: SigningKey
+metadata:
+  name: app-sign-key
+  namespace: eda-system
+spec:
+  publicKeys:
+    - key: |-
+        -----BEGIN PUBLIC KEY-----
+        MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEhaFmdP73gZHuFFNal6hyKtJgFJq4
+        o5uVb7oP/KPTkRS7JBdJ/Ot2TPQ/acb7aeu/I/16YUULNydG/AqRX1z6Wg==
+        -----END PUBLIC KEY-----
+      title: bottom-toolbar-app
+```
+///
+
+-{{image(url="images/eda_sign_key.png", shadow=true)}}-
+
+Once you perform this steps, you're ready to sign the app with the `--sign` flag, but more about this in the next section.
+
+
 ### Release your application
 
 You reached an important milestone in the application delivery process. You have prepared the application catalog, logged in to the container registry and changed the application image URL in the manifest to point to the container registry of your choice. Everything is in place to release the application.
 
 The `edabuilder release` command will do everything for you:
 
+/// tab | Release the app
+You must use the `--sign` flag. If you need to repeat the process you must use a different version or use the `--force` flag:
 ```bash
 cd ~/bottom-toolbar-app
-edabuilder release --app bottom-toolbar https://github.com/someuser/some-repo.git #(1)!
+edabuilder release --app bottom-toolbar https://github.com/someuser/some-repo.git --sign #(1)!
 ```
+/// 
+/// tab | Output
+```
+$ edabuilder release --app bottom-toolbar https://github.com/tiago-amado/EDA-Bottom-Toolbar-app_v3.git --force --sign
+15:09:23 INFO Reading Manifest file /home/nokia/bottom-toolbar-app/bottom_toolbar/manifest.yaml
+15:09:24 INFO -- Extracting image reference from manifest: ghcr.io/tiago-amado/bottom-toolbar:v0.1.0
+15:09:24 INFO -- Logging into registry ghcr.io
+15:09:24 INFO -- Extracting components
+15:09:24 INFO -- Building the OCI App Image
+15:09:24 INFO building: crd component(s)
+15:09:24 INFO building:   0: bottom_toolbar/crds/bottom-toolbar.eda.labs_bottomtoolbars.yaml
+15:09:24 INFO building: file component(s)
+15:09:24 INFO building:   1: utils
+15:09:24 INFO building:   2: common
+15:09:24 INFO building:   3: core
+15:09:24 INFO building:   4: bottom_toolbar/api/v1alpha1/pysrc
+15:09:24 INFO building:   5: bottom_toolbar/intents
+15:09:24 INFO building: script component(s)
+15:09:24 INFO building:   6: bottom_toolbar/intents/bottomtoolbar/config_intent.py
+15:09:24 INFO -- Building the App Image itself.
+15:09:24 INFO Done building.
+15:09:24 INFO -- Pushing OCI App Image to ghcr.io/tiago-amado/bottom-toolbar:v0.1.0
+15:09:27 INFO -- Successfully pushed OCI Image
+15:09:31 INFO Publishing to branch 'main'
+15:09:31 INFO No app version given, using the manifest image tag as app version: 
+15:09:31 INFO Staging `bottom-toolbar.eda.labs` at version `v0.1.0`
+15:09:31 WARN warning: tag 'apps/bottom-toolbar.eda.labs/v0.1.0' exists and --force was provided. Republishing under the same version
+15:09:32 INFO Successfully published Apps
+15:09:32 INFO Successfully Released Apps
+nokia@g21:~/bottom-toolbar-app$ 
+```
+///
 
 1. It is important to keep the git schema (https) in the URL.
 
@@ -272,6 +380,9 @@ Once the application is installed, you can try it out. Switch back to the "Main"
 -{{video(url="https://gitlab.com/uploads/-/system/personal_snippet/5970221/691d421689bf420969b870a655df112e/CleanShot_2026-03-27_at_23.46.59.mp4")}}-
 
 Click the **Create** button to create a new Bottom Toolbar resource and fill in your fancy toolbar message. You can enjoy the full range of UTF-8 characters, including emojis 🎉! So go ahead and complete this activity by engraving your message on the switch's CLI. Connect to the switch's shell to see it in effect—it is a spectacular sight.
+
+
+Extra challenge: change the app version, release the new app version and upgrade in EDA.
 
 ## Summary and review
 

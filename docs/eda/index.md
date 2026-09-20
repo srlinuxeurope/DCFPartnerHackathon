@@ -118,7 +118,7 @@ As you go through the exercises, you will create and modify quite a few resource
 In such cases you can manually delete conflicting resources, but if you want to reset EDA to a state as it was at the beginning of the event, you can easily do this by running the following command from the lab server:
 
 ```bash
-bash /opt/srexperts/restore-eda.sh
+bash /home/nokia/DCFPartnerHackathon/eda/restore-eda.sh
 ```
 
 This script will immediately revert all changes that happened in EDA since you first logged in so you can start fresh.

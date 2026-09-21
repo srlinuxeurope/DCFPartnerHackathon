@@ -17,3 +17,25 @@ spec:
   ipv6Addresses:
     - ipPrefix: fd00:fde8:0:1:${INSTANCE_ID}:22:24:2/127
       primary: true
+---
+
+# --- L3 INTERFACE (pe2 link e1-4 <-> DNS link eth1) ---
+apiVersion: routing.eda.nokia.com/v1
+kind: DefaultInterface
+metadata:
+  labels:
+    eda.nokia.com/role: toDNS
+    role: hackathon-infra
+  name: interface-pe2-ethernet-1-4
+  namespace: eda
+spec:
+  defaultRouter: router-g${INSTANCE_ID}-pe2
+  description: Link to DNS server
+  interface: pe2-ethernet-1-4
+  ipv4Addresses:
+    - ipPrefix: 10.64.13.129/25
+      primary: true
+  ipv6Addresses:
+    - ipPrefix: fd00:fde8:0:13::1/64
+      primary: true
+  vlanID: 1

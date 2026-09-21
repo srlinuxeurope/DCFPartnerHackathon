@@ -594,6 +594,26 @@ spec:
   mtu: 9198
   description: "inter-switch link to pe2"
 ---
+apiVersion: interfaces.eda.nokia.com/v1
+kind: Interface
+metadata:
+  name: pe2-ethernet-1-4
+  namespace: eda
+  labels:
+    eda.nokia.com/role: toDNS
+    role: hackathon-infra
+spec:
+  enabled: true
+  encapType: Dot1q
+  lldp: true
+  members:
+    - enabled: true
+      interface: ethernet-1-4
+      lacpPortPriority: 32768
+      node: g${INSTANCE_ID}-pe2
+  type: Interface
+  description: "Link to DNS server"
+---
 
 # --- TOPOLINKS ---
 apiVersion: core.eda.nokia.com/v1

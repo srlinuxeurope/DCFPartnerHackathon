@@ -8,8 +8,8 @@
 | **References**        | [EDA Documentation][eda-docs], [Ask EDA Documentation][ask-eda-docs], [EQL Query Language][eql-docs]                                               |
 
 [eda-docs]: https://docs.eda.dev
-[ask-eda-docs]: https://docs.eda.dev/26.4/user-guide/ask-eda/
-[eql-docs]: https://docs.eda.dev/26.4/user-guide/eda-query-language/
+[ask-eda-docs]: https://docs.eda.dev/26.8/user-guide/ask-eda/
+[eql-docs]: https://docs.eda.dev/26.8/user-guide/eda-query-language/
 
 Ask EDA is the conversational (chat) interface built into the Nokia Event-Driven Automation (EDA) platform. It allows you to interact with Nokia EDA using natural-language chat, enabling root cause analysis, network-wide queries, AIOps assistance, dashboard creation, and context-specific help.
 
@@ -35,7 +35,7 @@ Key properties:
 - **Context-aware**: Ask EDA knows which screen you are viewing in the UI. Navigate to a node, an alarm, or a service, and Ask EDA automatically scopes its answers to what you're looking at.
 - **EQL-fluent**: when you ask a question about network state, Ask EDA translates your natural language into [EDA Query Language (EQL)](./eda-query-language.md) queries internally. You get live-streaming results without ever writing a query yourself.
 - **Action-capable**: Ask EDA doesn't just answer questions. It has access to tools that let it execute operations on the network: ping, techsupport collection, path discovery, and more. You tell it **what** you want, and it figures out **how**.
-- **Multi-LLM**: Ask EDA routes queries to specialized models (e.g., reasoning models for alarm diagnosis, charting models for visualizations). The active model can be changed mid-session. The enabled LLMs are managed through [LLM Providers](https://docs.eda.dev/26.4/user-guide/ask-eda/#llm-providers).
+- **Multi-LLM**: Ask EDA routes queries to specialized models (e.g., reasoning models for alarm diagnosis, charting models for visualizations). The active model can be changed mid-session. The enabled LLMs are managed through [LLM Providers](https://docs.eda.dev/26.8/user-guide/ask-eda/#llm-providers).
 - **Multi-language**: Ask EDA understands queries in multiple languages.
 
 ### Using Ask EDA
@@ -265,7 +265,7 @@ An instructor-provided script will introduce a network fault. It is your job to 
 Run the fault injection script from the lab server:
 
 ```bash title="run from the lab server"
-bash ~/SReXperts/activities/eda/ask-eda/ask-eda-fault1.sh
+bash ~/DCFPartnerHackathon/activities/eda/ask-eda/ask-eda-fault1.sh
 ```
 
 <div class="embed-result">
@@ -346,7 +346,7 @@ In the previous alarm task, the root cause was a deviation: the network's config
 SSH into the lab server and run the fault injection script:
 
 ```bash title="run from the lab server"
-bash ~/SReXperts/activities/eda/ask-eda/ask-eda-fault2.sh
+bash ~/DCFPartnerHackathon/activities/eda/ask-eda/ask-eda-fault2.sh
 ```
 
 <div class="embed-result">
@@ -355,7 +355,7 @@ Introducing fault into the data center fabric...
 Done!  
 Head over to the EDA UI and use Ask EDA to troubleshoot it.  
 When you are done troubleshooting, run the following to restore the network:
-  bash ~/SReXperts/activities/eda/ask-eda/ask-eda-restore.sh
+  bash ~/DCFPartnerHackathon/activities/eda/ask-eda/ask-eda-restore.sh
 ```
 </div>
 
@@ -396,7 +396,7 @@ Looks like interface lag1 is down, what could be the root cause of this alarm?
 
 Ask EDA should point at the member interfaces of `lag1` to be down, even though no configuration deviation is seen. It points towards a potential issue on the remote peer connected to the lag1 interface. Which is indeed the case, the script disabled the bond0 interface and its members on client12.
 
-After restoring the network (`bash ~/SReXperts/activities/eda/ask-eda/ask-eda-restore.sh`), verify:
+After restoring the network (`bash ~/DCFPartnerHackathon/activities/eda/ask-eda/ask-eda-restore.sh`), verify:
 
 ```
 Are all interfaces up again?
@@ -411,10 +411,10 @@ Are there any active interface or virtual network related alarms left?
 /// admonition | Restore the network
     type: warning
 
-Make sure you restore the network to its original state using the script ~/SReXperts/activities/eda/ask-eda/ask-eda-restore.sh.
+Make sure you restore the network to its original state using the script ~/DCFPartnerHackathon/activities/eda/ask-eda/ask-eda-restore.sh.
 
 ```bash title="run from the lab server"
-bash ~/SReXperts/activities/eda/ask-eda/ask-eda-restore.sh
+bash ~/DCFPartnerHackathon/activities/eda/ask-eda/ask-eda-restore.sh
 ```
 
 <div class="embed-result">

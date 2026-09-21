@@ -40,7 +40,7 @@ Ansible is a powerful, open-source IT automation engine designed to simplify com
 To interact with various systems, Ansible uses modules packaged into "Collections" hosted on Ansible Galaxy. Nokia EDA provides [Ansible collections](https://docs.ansible.com/projects/ansible/latest/collections_guide/index.html) published on [Ansible Galaxy](https://galaxy.ansible.com/ui/namespaces/nokia/) that allow you to manage and query resources declaratively. To keep the automation modules organized logically, the EDA Ansible integration is divided into two main categories:
 
 1. **Core Collections:** These collections interface with the foundational EDA platform elements. You can use these modules to interact with base system APIs, handle system settings, alarms and manage EDA transactions.
-2. **Application Collections:** These collections interact with the applications installed on top of EDA, which can be developed by anyone and/or be installed/removed anytime. [EDA Applications](https://docs.eda.dev/26.4/apps/) deliver additional functionality on top of the core EDA platform, for example:
+2. **Application Collections:** These collections interact with the applications installed on top of EDA, which can be developed by anyone and/or be installed/removed anytime. [EDA Applications](https://docs.eda.dev/26.8/apps/) deliver additional functionality on top of the core EDA platform, for example:
 
     * Services app enables users to declaratively manage virtual network services.
     * Protocols app adds support for managing routing protocols
@@ -145,7 +145,7 @@ Create a new file called `inventory.yaml` to define the connection details to yo
 all:
   vars:
     eda_api_url: https://<Your EDA instance URL>
-    tls_skip_verify: false
+    tls_skip_verify: true
     eda_username: admin
     eda_password: <Event Password>
     ansible_python_interpreter: "{{ ansible_playbook_python }}" #(1)!
@@ -463,6 +463,16 @@ Target node whose interface(s) are linked to the specific service.
 This activity is not a lesson on how to parse JSON and/or generate a CSV file, therefore we will present one of the ways to do this in Python and you are free to use whatever language you prefer and develop your own solution.
 
 /// details | Solution
+
+Run the ansible playbook (if you see a cert error, change the `inventory.yaml` `tls_skip_verify` to true`):
+```bash
+uv run ansible-playbook -i inventory.yaml playbook.yaml
+```
+
+List the generated files:
+```bash
+wc -c data/*.json
+```
 
 You can execute a script with `uv`, like this:
 

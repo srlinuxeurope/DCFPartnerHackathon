@@ -95,9 +95,9 @@ edactl -n eda get TopoNodes #(1)!
 <div class="embed-result">
 ```
 NAME     PLATFORM       VERSION   OS    ONBOARDED   MODE     NPP         NODE
-leaf1    7220 IXR-D3L   26.7.2    srl   true        normal   Connected   Synced
-leaf2    7220 IXR-D3L   26.7.2    srl   true        normal   Connected   Synced
-spine1   7220 IXR-D5    26.7.2    srl   true        normal   Connected   Synced
+leaf1    7220 IXR-D3L   26.7.1    srl   true        normal   Connected   Synced
+leaf2    7220 IXR-D3L   26.7.1    srl   true        normal   Connected   Synced
+spine1   7220 IXR-D5    26.7.1    srl   true        normal   Connected   Synced
 ```
 </div>
 
@@ -151,20 +151,20 @@ metadata:
   name: leaf1
   namespace: eda
 spec:
-  nodeProfile: srlinux-ghcr-26.7.2
+  nodeProfile: srlinux-ghcr-26.7.1
   npp:
     mode: normal
   onBoarded: true
   operatingSystem: srl # (2)!
   platform: 7220 IXR-D3L # (3)!
   productionAddress: {}
-  version: 26.7.2 # (4)!
+  version: 26.7.1 # (4)!
 ```
 </div>
 1. The node has the role `leaf`
 2. It's running SR Linux
 3. The hardware platform is 7220 IXR-D3L
-4. The software version is 26.7.2
+4. The software version is 26.7.1
 
 :material-link: [TopoNode CRD Reference](https://crd.eda.dev/toponodes.core.eda.nokia.com/v1)
 
@@ -225,21 +225,21 @@ metadata:
   name: leaf1
   namespace: eda
 spec:
-  containerImage: ghcr.io/nokia/srlinux:26.7.2-519 # (1)!
+  containerImage: ghcr.io/nokia/srlinux:26.7.1-519 # (1)!
   dhcp:
     preferredAddressFamily: IPv4
   gatewayAddress:
     ipv4: 192.168.1.1/16
   imagePullSecret: core # (2)!
-  license: cx-srl-26-7-2-ghcr-license # (3)!
+  license: cx-srl-26-7-1-ghcr-license # (3)!
   operatingSystem: srl
   platform: 7220 IXR-D3L
   port: 57400
   productionAddress:
     ipv4: 192.168.0.2/16
   serialNumberPath: ""
-  version: 26.7.2
-  versionMatch: v26\.7\.2.*
+  version: 26.7.1
+  versionMatch: v26\.7\.1.*
   versionPath: .system.information.version
 ```
 
@@ -520,10 +520,10 @@ edactl -n eda get TopoNodes
 <div class="embed-result">
 ```
 NAME     PLATFORM       VERSION   OS    ONBOARDED   MODE     NPP         NODE
-leaf1    7220 IXR-D3L   26.7.2   srl   true        normal   Connected   Synced
-leaf2    7220 IXR-D3L   26.7.2   srl   true        normal   Connected   Synced
-node-1   7220 IXR-D3L   26.7.2   srl   true        normal   Connected   Synced
-spine1   7220 IXR-D5    26.7.2   srl   true        normal   Connected   Synced
+leaf1    7220 IXR-D3L   26.7.1   srl   true        normal   Connected   Synced
+leaf2    7220 IXR-D3L   26.7.1   srl   true        normal   Connected   Synced
+node-1   7220 IXR-D3L   26.7.1   srl   true        normal   Connected   Synced
+spine1   7220 IXR-D5    26.7.1   srl   true        normal   Connected   Synced
 ```
 </div>
 ///
@@ -592,9 +592,9 @@ edactl -n eda get TopoNodes
 <div class="embed-result">
 ```
 NAME     PLATFORM       VERSION   OS    ONBOARDED   MODE     NPP         NODE
-leaf1    7220 IXR-D3L   26.7.2    srl   true        normal   Connected   Synced
-leaf2    7220 IXR-D3L   26.7.2    srl   true        normal   Connected   Synced
-spine1   7220 IXR-D5    26.7.2    srl   true        normal   Connected   Synced
+leaf1    7220 IXR-D3L   26.7.1    srl   true        normal   Connected   Synced
+leaf2    7220 IXR-D3L   26.7.1    srl   true        normal   Connected   Synced
+spine1   7220 IXR-D5    26.7.1    srl   true        normal   Connected   Synced
 ```
 </div>
 ///
@@ -818,13 +818,13 @@ spec:
       labels:
         eda.nokia.com/role: leaf
         eda.nokia.com/security-profile: managed
-      nodeProfile: srlinux-ghcr-26.7.2
+      nodeProfile: srlinux-ghcr-26.7.1
       platform: 7220 IXR-D3L
     - name: spine
       labels:
         eda.nokia.com/role: spine
         eda.nokia.com/security-profile: managed
-      nodeProfile: srlinux-ghcr-26.7.2
+      nodeProfile: srlinux-ghcr-26.7.1
       platform: 7220 IXR-D5
   nodes:
     - name: leaf1

@@ -7,7 +7,7 @@
 | **Topology Nodes**    | :material-server: client11, :material-server: client13, :material-router: leaf11, :material-router: leaf12, :material-router: leaf13 |
 | **Reference**    | [Dashboard designer documentation][dashboard-designer-docs] |
 
-[dashboard-designer-docs]: https://docs.eda.dev/26.4/user-guide/dashboards/
+[dashboard-designer-docs]: https://docs.eda.dev/26.8/user-guide/dashboards/
 
 Nokia EDA platform not only excels in event-driven, declarative configuration management based on abstracted resources, but also provides a rich feature set for operational visibility and monitoring. One of such features is the ability to create dashboards with live visualizations of state and health metrics of the abstracted resources used by the platform.
 

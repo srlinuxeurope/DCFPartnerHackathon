@@ -42,7 +42,7 @@ The dynamic nature of the EDA API means that the SDK needs to be generated from 
 Let's start by generating the SDK. SSH into the [SRExperts hackathon machine](../../index.md#ssh) and execute the following command:
 
 ```bash
-bash ~/SReXperts/activities/eda/python-sdk/generate_eda_sdk.sh
+bash ~/DCFPartnerHackathon/activities/eda/python-sdk/generate_eda_sdk.sh
 ```
 
 /// warning
@@ -53,7 +53,7 @@ Generating the SDK takes a while; allow up to 2 minutes for the command to finis
     type: example
 
 ```bash
-nokia@2:~/SReXperts$ bash ~/SReXperts/activities/eda/python-sdk/generate_eda_sdk.sh
+nokia@2:~/DCFPartnerHackathon$ bash ~/DCFPartnerHackathon/activities/eda/python-sdk/generate_eda_sdk.sh
 == Discovering toolbox pod ==
 Toolbox pod name: 'eda-toolbox-7698bcb4fb-nzwbk'
 == Generating SDK (this takes a minute) ==
@@ -117,10 +117,10 @@ If you're using Visual Studio Code or a derivative like Cursor, we recommend ins
 
 EDA uses the standard OAuth 2.0 protocol for authentication, and in particular the client credentials grant type is being used for the non-browser applications, like scripts. These authentication flow requires a `client_secret` to be provided by the application alongside the user credentials. The [official documentation](https://docs.eda.dev/26.4/development/api/#__tabbed_1_2) explains how to retrieve the client secret from the EDA platform and even provide a shell script that fetches it for you.
 
-You will find this script in the `~/SReXperts/activities/eda/python-sdk/get_client_secret.sh` file. Execute it by running the following command:
+You will find this script in the `~/DCFPartnerHackathon/activities/eda/python-sdk/get_client_secret.sh` file. Execute it by running the following command:
 
 ```bash
-bash ~/SReXperts/activities/eda/python-sdk/get_client_secret.sh
+bash ~/DCFPartnerHackathon/activities/eda/python-sdk/get_client_secret.sh
 ```
 
 and make a note of the provided `client_secret` as we will need it in the next task.

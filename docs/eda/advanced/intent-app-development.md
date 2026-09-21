@@ -8,8 +8,8 @@
 | **Topology Nodes**          | `leaf11`, `leaf12` and `leaf13` |
 | **References**              | [Developing apps on EDA][apps-dev]<br/>[SR Linux Event-Handler](https://documentation.nokia.com/srlinux/26-3/books/event-handler/event-handler-overview.html) |
 
-[apps-dev]: https://docs.eda.dev/26.4/development/apps/
-[edabuilder-doc]: https://docs.eda.dev/26.4/development/apps/edabuilder/
+[apps-dev]: https://docs.eda.dev/26.8/development/apps/
+[edabuilder-doc]: https://docs.eda.dev/26.8/development/apps/edabuilder/
 
 Right out of the box Nokia EDA comes with a rich set of automation capabilities:
 
@@ -37,7 +37,7 @@ Despite the fact that this ever-growing list of automation features is provided 
 Apart from having some familiarity with EDA and SR Linux, you should have a basic knowledge of **Python** in order to develop the EDA application presented in this activity.
 
 /// warning
-This activity is not for the faint of heart and might be challenging to accomplish in the given time frame. However, the exercise will be available throughout the whole year, so you can try it at home after reading the [EDA Docs on the matter](https://docs.eda.dev/26.4/development/apps/) and practicing it with your own [Try EDA](https://docs.eda.dev/26.4/getting-started/try-eda/) instance.
+This activity is not for the faint of heart and might be challenging to accomplish in the given time frame. However, the exercise will be available throughout the whole year, so you can try it at home after reading the [EDA Docs on the matter](https://docs.eda.dev/26.8/development/apps/) and practicing it with your own [Try EDA](https://docs.eda.dev/26.8/getting-started/try-eda/) instance.
 ///
 
 ### Choose your dev environment
@@ -45,7 +45,7 @@ This activity is not for the faint of heart and might be challenging to accompli
 Before you start developing the app you have to choose where you want the development to happen:
 
 1. On the remote VM using VS Code Remote-SSH - the **easiest** way to get started.
-2. On the remote VM using the Code Server (VS Code in the browser) by pointing your browser to the `https://<ID>.srexperts.net` URL, where `<ID>` is the ID of the group you are assigned to.
+2. On the remote VM using the Code Server (VS Code in the browser) by pointing your browser to the `https://<ID>.partner.dcf.network:8443/` URL, where `<ID>` is the ID of the group you are assigned to.
 3. On your local laptop - you will need to install some tools.
 4. On the remote VM using terminal editors (vim, etc) - only if you know what you are doing ;)
 
@@ -687,7 +687,7 @@ See, how the single component our app currently has defines the CRD (Custom Reso
 At any moment during your development cycle, you can save your changes and execute `edabuilder deploy --app <your_app_name>` to instantly reload the new fields into the UI.
 
 /// note | Tip: keep `edabuilder deploy` and `edactl ... debug` running side by side
-A productive workflow is to keep two terminals open: one to run `edabuilder deploy` after each code change, and another tailing the live [debug session](https://docs.eda.dev/26.4/development/apps/scripts/debugging/) (you'll see how to start one in the Debugging note further down). That way you see your script's output in real time as you create/modify resources from the UI.
+A productive workflow is to keep two terminals open: one to run `edabuilder deploy` after each code change, and another tailing the live [debug session](https://docs.eda.dev/26.8/development/apps/scripts/debugging/) (you'll see how to start one in the Debugging note further down). That way you see your script's output in real time as you create/modify resources from the UI.
 ///
 
 ### Configuration intents
@@ -751,7 +751,7 @@ Let's modify `config_intent.py` to wire the entrypoint to our handler. Our goal 
 3. Fetch the nodes provided in the `nodes` field of the resource object.
 4. Instantiate the handler for the platform recorded in the fetched node's specification.
 
-A more in-depth tutorial on how to write Intent scripts is available in the [Intent development](https://docs.eda.dev/26.4/development/apps/scripts/banner-script/#initialization-and-validation) section of the EDA Docs. Below you will find the solution to this challenging part of the exercise.
+A more in-depth tutorial on how to write Intent scripts is available in the [Intent development](https://docs.eda.dev/26.8/development/apps/scripts/banner-script/#initialization-and-validation) section of the EDA Docs. Below you will find the solution to this challenging part of the exercise.
 
 /// details | Solution
 
@@ -1117,7 +1117,7 @@ State intents do not run on their own. The standard EDA pattern is that the **Co
 So the Config handler we wrote in `srl.py` needs one extra step: after emitting all the per-node `NodeConfig` resources, emit a single `EventHandlerState` resource to trigger the state intent.  
 Pass the list of target nodes inside State resource's `spec` so the State intent knows which devices to query.
 
-This state resource song and dance might be challenging to crack at once, [the documentation on this topic](https://docs.eda.dev/26.4/development/apps/scripts/building-abstractions/#handling-state) may help you understand the concept a bit more. And you can also take a look at the solution below.
+This state resource song and dance might be challenging to crack at once, [the documentation on this topic](https://docs.eda.dev/26.8/development/apps/scripts/building-abstractions/#handling-state) may help you understand the concept a bit more. And you can also take a look at the solution below.
 
 /// details | Solution
 

@@ -200,6 +200,15 @@ If you take a look at the application repository you cloned, you will find a dir
 
 In this manifest file the app team has defined the application image URL that they used during the testing phase. You need to update the image URL in the manifest to point to the container registry you chose in the previous task.
 
+!!! warning
+    Ensure you have `supportedCoreVersions v6.0.0-0`, otherwise add it to your file as this is required for EDA 26.8:
+    ```
+      supportedCoreVersions:
+        - v4.0.0-0
+        - v5.0.0-0
+        - v6.0.0-0
+    ```
+
 Save the edited manifest file and proceed to the next task.
 
 

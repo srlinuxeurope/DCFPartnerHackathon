@@ -109,3 +109,7 @@ spec:
       prefix: 10.64.30.0/24
     - exact: true
       prefix: fd00:fde8:0:30::/64
+    - exact: true
+      prefix: 10.64.13.128/25
+    - exact: true
+      prefix: fd00:fde8:0:13::/64 

@@ -4,12 +4,12 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 
-export EDA_API_URL="${EDA_API_URL:-https://${INSTANCE_ID}.eda.srexperts.net:443}"
+export EDA_API_URL="${EDA_API_URL:-https://${INSTANCE_ID}.partner.dcf.network:10443}"
 export KC_KEYCLOAK_URL="${EDA_API_URL}/core/httpproxy/v1/keycloak/"
 export KC_REALM="master"
 export KC_CLIENT_ID="admin-cli"
 export KC_USERNAME="${KC_USERNAME:-admin}"
-export KC_PASSWORD="${KC_PASSWORD:-SReXperts2026!}"
+export KC_PASSWORD="${KC_PASSWORD:-$EVENT_PASSWORD}"
 export EDA_REALM="eda"
 export API_CLIENT_ID="eda"
 

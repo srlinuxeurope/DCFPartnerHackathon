@@ -23,7 +23,7 @@ By completing a series of tasks, you’ll gain a solid understanding of how EQL 
 
 ### Queries page
 
-The easiest way to run queries is right from the UI. In the **System** section select `Queries`. You can also use the REST API or [`edactl`](https://docs.eda.dev/26.4/user-guide/command-line-tools/#edactl) command if you prefer the comfort of the command line.
+The easiest way to run queries is right from the UI. In the **System** section select `Queries`. You can also use the REST API or [`edactl`](https://docs.eda.dev/26.8/user-guide/command-line-tools/#edactl) command if you prefer the comfort of the command line.
 
 -{{image(url="./images/eql-menu.webp", shadow=true, padding=20, title="Accessing the Queries UI")}}-
 
@@ -343,7 +343,19 @@ The EQL for this is:
 
 We can use the `edactl` command to perform all the different queries that we have tested. You just have to SSH to your own dedicated VM running the lab topology and type:
 
-`edactl query 'your query here'`
+/// tab | Command
+```bash
+edactl query 'your query here'
+```
+///
+
+/// tab | Output example:
+```bash
+$ edactl query '.namespace.node.srl.network-instance.bridge-table.mac-table.mac fields [ count(destination) ] where ( .namespace.node.srl.network-instance.name = "macvrf11" )'
+ COUNT(Destination)   
+ 21                   
+```
+///
 
 ## Summary
 

@@ -27,7 +27,7 @@ The dashboard designer operates on the top-level building blocks such as:
 - EDA queries provide the live-streaming data for the dashlets to display
 - flex rows and columns - Sectional layouts for placing dashlets
 
-To help you understand how these building blocks work together, take a look at one of the dashboards that comes pre-packaged with EDA. Navigate to the **Fabrics** resource group under the **Fabrics** category[^1]: you should see the `srexperts-fabric` resource that is supporting the hackathon infrastructure. Press the view selector at the top-left and select 'Summary'.
+To help you understand how these building blocks work together, take a look at one of the dashboards that comes pre-packaged with EDA. Navigate to the **Fabrics** resource group under the **Fabrics** category[^1]: you should see the `hackathon-fabric` resource that is supporting the hackathon infrastructure. Press the view selector at the top-left and select 'Summary'.
 
 -{{image(url="../../images/eda/eda-fabrics.png", title="Resource view selector", shadow=true, padding=20)}}-
 
@@ -80,7 +80,7 @@ The dashlet properties allow you to configure the dimensions of the dashlet, the
 
 -{{image(url="images/query-definition.png", title="Query definition", shadow=true, padding=20)}}-
 
-The query you see selects the fabric resources, the output of the query is just below the query input field, showing one entry related to the `srexperts-fabric` resource each setup has. The results of the query are the data source for the dashlet itself. Scroll down the view to see how the count dashlet is selecting on the various fields of the query results:
+The query you see selects the fabric resources, the output of the query is just below the query input field, showing one entry related to the `hackathon-fabric` resource each setup has. The results of the query are the data source for the dashlet itself. Scroll down the view to see how the count dashlet is selecting on the various fields of the query results:
 
 -{{image(url="images/counts-dashlet.png", title="Selecting the data for counts dashlet", shadow=true, padding=20)}}-
 

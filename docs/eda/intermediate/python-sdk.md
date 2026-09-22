@@ -231,20 +231,6 @@ def configure_sdk():
 
     return configuration, authenticator
 
-
-def list_toponodes(apps_api_client: AppsApi):
-    api_response = apps_api_client.list_core_eda_nokia_com_v1_toponodes()
-    toponodes = api_response.items
-
-    if not toponodes:
-        print("No toponodes found")
-        return
-
-    print(f"Found {len(toponodes)} toponodes:")
-    for node in toponodes:
-        print(f"  - {node.metadata.name}")
-
-
 def main():
     print("Hello from eda-sdk-exercise!")
     configuration, authenticator = configure_sdk()

@@ -261,7 +261,7 @@ You can leverage the code completions (remember to install the Python extension 
 > The SDK is very large, and it may take a while to generate code completions.  
 > You can perform a file search in the `eda-python-sdk/edasdk/api/apps_api.py` file, or use the following syntax.
 
-Operations used in this exercise:
+Operations used in this activity:
 
 * `list`
 * `create`

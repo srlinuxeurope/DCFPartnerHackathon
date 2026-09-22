@@ -166,6 +166,7 @@ def configure_sdk():
     configuration = Configuration(
         host = "https://[X].partner.dcf.network:10443" # replace with your EDA instance URL
     )
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration = configuration)
     authenticator.login(userid = "admin", password = "EVENT_PASSWORD")
@@ -223,6 +224,7 @@ SECRET = "4URcQIsrODvGY7UiJ6OMvguSvTnIc4Oo"
 
 def configure_sdk():
     configuration = Configuration(host="https://[X].partner.dcf.network:10443")
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration=configuration)
     authenticator.login(userid="admin", password="EVENT_PASSWORD")
@@ -490,7 +492,8 @@ NAMESPACE = "eda"
 
 def configure_sdk():
     configuration = Configuration(host="https://[X].partner.dcf.network:10443")
-
+    configuration.verify_ssl = False
+    
     authenticator = Authenticator(SECRET, configuration=configuration)
     authenticator.login(userid="admin", password="EVENT_PASSWORD")
 
@@ -738,6 +741,7 @@ def configure_sdk():
     configuration = Configuration(
         host = "https://[X].partner.dcf.network:10443"
     )
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration = configuration)
     authenticator.login(userid = "admin", password = "***")
@@ -1620,6 +1624,7 @@ def configure_sdk():
     configuration = Configuration(
         host = "https://[X].partner.dcf.network:10443"
     )
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration = configuration)
     authenticator.login(userid = "admin", password = "***")

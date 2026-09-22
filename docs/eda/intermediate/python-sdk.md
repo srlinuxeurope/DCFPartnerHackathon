@@ -39,7 +39,7 @@ The tasks in this activity will take you through everything required to generate
 
 The dynamic nature of the EDA API means that the SDK needs to be generated from a live platform to ensure that the bindings are generated for the applications installed on your particular platform.
 
-Let's start by generating the SDK. SSH into the [SRExperts hackathon machine](../../index.md#ssh) and execute the following command:
+Let's start by generating the SDK. SSH into the [DCFPartnerHackathon machine](../../index.md#ssh) and execute the following command:
 
 ```bash
 bash ~/DCFPartnerHackathon/activities/eda/python-sdk/generate_eda_sdk.sh
@@ -164,11 +164,11 @@ SECRET = "4URcQIsrODvGY7UiJ6OMvguSvTnIc4Oo"
 
 def configure_sdk():
     configuration = Configuration(
-        host = "https://[X].eda.srexperts.net" # replace with your EDA instance URL
+        host = "https://[X].partner.dcf.network:10443" # replace with your EDA instance URL
     )
 
     authenticator = Authenticator(SECRET, configuration = configuration)
-    authenticator.login(userid = "admin", password = "SReXperts2026!")
+    authenticator.login(userid = "admin", password = "EVENT_PASSWORD")
 
     return configuration, authenticator
 
@@ -222,10 +222,10 @@ SECRET = "4URcQIsrODvGY7UiJ6OMvguSvTnIc4Oo"
 
 
 def configure_sdk():
-    configuration = Configuration(host="https://[X].eda.srexperts.net")
+    configuration = Configuration(host="https://[X].partner.dcf.network:10443")
 
     authenticator = Authenticator(SECRET, configuration=configuration)
-    authenticator.login(userid="admin", password="SReXperts2026!")
+    authenticator.login(userid="admin", password="EVENT_PASSWORD")
 
     return configuration, authenticator
 
@@ -489,10 +489,10 @@ NAMESPACE = "eda"
 
 
 def configure_sdk():
-    configuration = Configuration(host="https://[X].eda.srexperts.net")
+    configuration = Configuration(host="https://[X].partner.dcf.network:10443")
 
     authenticator = Authenticator(SECRET, configuration=configuration)
-    authenticator.login(userid="admin", password="SReXperts2026!")
+    authenticator.login(userid="admin", password="EVENT_PASSWORD")
 
     return configuration, authenticator
 
@@ -736,7 +736,7 @@ def parse_inventory_data():
 
 def configure_sdk():
     configuration = Configuration(
-        host = "https://[X].eda.srexperts.net"
+        host = "https://[X].partner.dcf.network:10443"
     )
 
     authenticator = Authenticator(SECRET, configuration = configuration)
@@ -1618,7 +1618,7 @@ def parse_inventory_data():
 
 def configure_sdk():
     configuration = Configuration(
-        host = "https://[X].eda.srexperts.net"
+        host = "https://[X].partner.dcf.network:10443"
     )
 
     authenticator = Authenticator(SECRET, configuration = configuration)

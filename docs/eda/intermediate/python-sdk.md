@@ -39,7 +39,7 @@ The tasks in this activity will take you through everything required to generate
 
 The dynamic nature of the EDA API means that the SDK needs to be generated from a live platform to ensure that the bindings are generated for the applications installed on your particular platform.
 
-Let's start by generating the SDK. SSH into the [SRExperts hackathon machine](../../index.md#ssh) and execute the following command:
+Let's start by generating the SDK. SSH into the [DCFPartnerHackathon machine](../../index.md#ssh) and execute the following command:
 
 ```bash
 bash ~/DCFPartnerHackathon/activities/eda/python-sdk/generate_eda_sdk.sh
@@ -164,11 +164,12 @@ SECRET = "4URcQIsrODvGY7UiJ6OMvguSvTnIc4Oo"
 
 def configure_sdk():
     configuration = Configuration(
-        host = "https://[X].eda.srexperts.net" # replace with your EDA instance URL
+        host = "https://[X].partner.dcf.network:10443" # replace with your EDA instance URL
     )
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration = configuration)
-    authenticator.login(userid = "admin", password = "SReXperts2026!")
+    authenticator.login(userid = "admin", password = "EVENT_PASSWORD")
 
     return configuration, authenticator
 
@@ -193,7 +194,7 @@ You'll know that everything is working when you get no errors when running `uv r
 ```bash
 ❯ uv run main.py
 Hello from eda-sdk-exercise!
-Fetched access token: eyJhbGc...asdasd
+Retrieved access token: eyJhbGc...asdasd
 ```
 
 ///
@@ -222,26 +223,13 @@ SECRET = "4URcQIsrODvGY7UiJ6OMvguSvTnIc4Oo"
 
 
 def configure_sdk():
-    configuration = Configuration(host="https://[X].eda.srexperts.net")
+    configuration = Configuration(host="https://[X].partner.dcf.network:10443")
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration=configuration)
-    authenticator.login(userid="admin", password="SReXperts2026!")
+    authenticator.login(userid="admin", password="EVENT_PASSWORD")
 
     return configuration, authenticator
-
-
-def list_toponodes(apps_api_client: AppsApi):
-    api_response = apps_api_client.list_core_eda_nokia_com_v1_toponodes()
-    toponodes = api_response.items
-
-    if not toponodes:
-        print("No toponodes found")
-        return
-
-    print(f"Found {len(toponodes)} toponodes:")
-    for node in toponodes:
-        print(f"  - {node.metadata.name}")
-
 
 def main():
     print("Hello from eda-sdk-exercise!")
@@ -273,7 +261,7 @@ You can leverage the code completions (remember to install the Python extension 
 > The SDK is very large, and it may take a while to generate code completions.  
 > You can perform a file search in the `eda-python-sdk/edasdk/api/apps_api.py` file, or use the following syntax.
 
-Operations used in this exercise:
+Operations used in this activity:
 
 * `list`
 * `create`
@@ -489,10 +477,11 @@ NAMESPACE = "eda"
 
 
 def configure_sdk():
-    configuration = Configuration(host="https://[X].eda.srexperts.net")
+    configuration = Configuration(host="https://[X].partner.dcf.network:10443")
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration=configuration)
-    authenticator.login(userid="admin", password="SReXperts2026!")
+    authenticator.login(userid="admin", password="EVENT_PASSWORD")
 
     return configuration, authenticator
 
@@ -736,8 +725,9 @@ def parse_inventory_data():
 
 def configure_sdk():
     configuration = Configuration(
-        host = "https://[X].eda.srexperts.net"
+        host = "https://[X].partner.dcf.network:10443"
     )
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration = configuration)
     authenticator.login(userid = "admin", password = "***")
@@ -1618,8 +1608,9 @@ def parse_inventory_data():
 
 def configure_sdk():
     configuration = Configuration(
-        host = "https://[X].eda.srexperts.net"
+        host = "https://[X].partner.dcf.network:10443"
     )
+    configuration.verify_ssl = False
 
     authenticator = Authenticator(SECRET, configuration = configuration)
     authenticator.login(userid = "admin", password = "***")

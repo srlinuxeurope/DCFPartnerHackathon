@@ -24,8 +24,8 @@ nav:
           - eda/beginner/bridge-domains.md
           - eda/beginner/routers.md
           - eda/beginner/virtual-networks.md
-          - eda/beginner/eda-app-deploy.md
           - eda/beginner/app-delivery.md
+          - eda/beginner/eda-app-deploy.md
           - eda/beginner/digital-twin.md
           - eda/beginner/ask-eda.md
           - eda/beginner/inventory-collection-ansible.md

@@ -194,7 +194,7 @@ You'll know that everything is working when you get no errors when running `uv r
 ```bash
 ❯ uv run main.py
 Hello from eda-sdk-exercise!
-Fetched access token: eyJhbGc...asdasd
+Retrieved access token: eyJhbGc...asdasd
 ```
 
 ///
@@ -493,7 +493,7 @@ NAMESPACE = "eda"
 def configure_sdk():
     configuration = Configuration(host="https://[X].partner.dcf.network:10443")
     configuration.verify_ssl = False
-    
+
     authenticator = Authenticator(SECRET, configuration=configuration)
     authenticator.login(userid="admin", password="EVENT_PASSWORD")
 

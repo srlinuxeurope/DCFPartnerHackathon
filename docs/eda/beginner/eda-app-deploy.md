@@ -134,7 +134,19 @@ In the app detail view, you can see all the Resources and Workflows an app will 
 This app will only install a single new workflow called "InstallSrlFrontpanel" - but the UI name is much more descriptive, "Install SR Linux Frontpanel Plugin".
 ///
 
-Once you have verified this is the app you are looking for, it is time to install it! Before you go ahead though, *why is there a dropdown next to the Install button?*
+Once you have verified this is the app you are looking for, it is time to install it! Try running the installation by clicking the Install button.
+
+You will likely receive an error during this process, telling you that the app has no image digest available.
+
+/// details | The case of the Missing App Image Digest
+As the Front Panel application is a third-party, community-provided EDA App, it did not get updated in time for this Hackathon activity. EDA 26.8 enforces app container image digest and signature verification by default on all apps, not just the core ones.
+///
+
+To solve this issue, we will need to adjust built-in registry settings, which is used to fetch app container images from the GitHub container image registry, where both core and this community App is hosted.
+
+In **System Administration -> App Management -> Registries**, find the built-in EDA Apps registry, and modify it so the digest and signature verification is skipped! Once you have done so and committed your changes, go back to the Front Panel app!
+
+Before you go ahead with the installation, *why is there a dropdown next to the Install button?*
 
 /// details | EDA app installation
 In EDA, every change you make to your cluster is a transaction - meaning there is a way to also perform only a dry run, to test the changes before applying them. This is true for installations as well!

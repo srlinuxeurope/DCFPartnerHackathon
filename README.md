@@ -9,4 +9,4 @@ Looking for the Nokia NoW DCF Hackathon? find it [here](https://partner.dcf.netw
 Do you want to run this lab on your own environment? Refer to:  
 - [CLAB readme](/clab/README.md) - For instructions to deploy ContainerLab.  
 - [EDA readme](/eda/README.md) - For instructions to deploy EDA.  
-- [Docs readme](/docs/README.md) - For instructions to deploy the Hackathon website.  
+- [Docs readme](/DOCS_README.md) - For instructions to deploy the Hackathon website.  

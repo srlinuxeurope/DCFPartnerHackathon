@@ -127,12 +127,15 @@ and make a note of the provided `client_secret` as we will need it in the next t
 
 ### First contact
 
-When you initialized your new Python project, a `main.py` file was created. We will use this file to write our automation program.
-
-Start by importing the SDK by adding the following code to the top of `main.py`.
-
+After initializing your new Python project, create a `main.py` file (if it does not exist) and import the SDK. We will use this file to write our automation program.
 ```python
 import edasdk
+
+def main():
+    print("Hello from eda-sdk-exercise!")
+
+if __name__ == "__main__":
+    main()
 ```
 
 You may get a warning in your editor that `edasdk` could not be resolved: even though your program will run just fine when you execute `uv run main.py`, you can add the following two lines to the bottom of the `pyproject.toml` file to make the error disappear (and to get type hinting working).
@@ -283,7 +286,7 @@ The task is completed successfully if you manage to retrieve 5 nodes.
     open: true
 
 ```python
-❯ uv run main.py
+❯ uv run 
 Hello from eda-sdk-exercise!
 Found 5 toponodes:
 - g99-spine11

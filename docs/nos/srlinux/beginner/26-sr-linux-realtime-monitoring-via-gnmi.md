@@ -174,11 +174,12 @@ Once you have validated these prerequisites, you will be able to establish a suc
 
 You may use :material-router: leaf21 or :material-router: spine21 (or both) for the gNMI connection. 
 
-To test the connection, perform a gNMI get to retrieve the device hostname from the path 
+To test the connection, perform a gNMI Get to retrieve the device hostname from the appropriate YANG model path.  
+The command should be run from your hackathon instance, where `gnmic` is already installed for you.
 
 This will allow you to verify connectivity and confirm that you can successfully retrieve operational data from each device.
 
-/// tab | :material-router: leaf21 `gnmic`
+/// tab | :material-router: leaf21 `gnmic` query
 
 ``` bash
 gnmic -a clab-srexperts-leaf21:57400 -u admin -p $EVENT_PASSWORD --encoding ASCII --insecure get --path "/system/name/host-name"
@@ -205,7 +206,7 @@ gnmic -a clab-srexperts-leaf21:57400 -u admin -p $EVENT_PASSWORD --encoding ASCI
 ]
 ```
 ///
-/// tab | :material-router: spine21 `gnmic`
+/// tab | :material-router: spine21 `gnmic` query
 
 ``` bash
 gnmic -a clab-srexperts-spine21:57400 -u admin -p $EVENT_PASSWORD --encoding ASCII --insecure get --path "/system/name/host-name"
